@@ -97,16 +97,21 @@
 
 
 
-<meta name="description" content="Let me see what spring is like on Jupiter and Mars">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mars">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Apache Kudu 一图以蔽之：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache Kudu">
+<meta property="og:url" content="http://yoursite.com/2019/04/29/Kudu-Note/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="Let me see what spring is like on Jupiter and Mars">
+<meta property="og:description" content="Apache Kudu 一图以蔽之：">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jmwis7z6j20cj0brgln.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/17/Az1eTx.png">
+<meta property="og:image" content="https://kudu.apache.org/docs/images/kudu-architecture-2.png">
+<meta property="og:updated_time" content="2019-04-29T09:34:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mars">
-<meta name="twitter:description" content="Let me see what spring is like on Jupiter and Mars">
+<meta name="twitter:title" content="Apache Kudu">
+<meta name="twitter:description" content="Apache Kudu 一图以蔽之：">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jmwis7z6j20cj0brgln.jpg">
 
 
 
@@ -136,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/29/Kudu-Note/">
 
 
 
 
 
-  <title>Mars</title>
+  <title>Apache Kudu | Mars</title>
   
 
 
@@ -170,8 +175,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -282,178 +286,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/Cluster Error Record1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fly Hugh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mars">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/29/Cluster Error Record1/" itemprop="url">CDH集群代理状态问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-29T17:27:12+08:00">
-                2019-04-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/29/Cluster Error Record1/" class="leancloud_visitors" data-flag-title="CDH集群代理状态问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  208
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题</p>
-<p>昨天下班前，集群报警</p>
-<p>CDH中查看主机状态<br>datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。</p>
-<p>运行状态检测出现问题：<br><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jn7huhlvj20kg0n3wgi.jpg" alt="alt bug"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/29/Cluster Error Record1/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -483,9 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/29/Kudu-Note/" itemprop="url">Apache Kudu</a></h1>
+          <h1 class="post-title" itemprop="name headline">Apache Kudu</h1>
         
 
         <div class="post-meta">
@@ -577,182 +410,157 @@
       
 
       
-        
-          <p>Apache Kudu</p>
+        <p>Apache Kudu</p>
 <p>一图以蔽之：</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jmwis7z6j20cj0brgln.jpg" alt="alt kudu"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/29/Kudu-Note/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/大数据在小米的实践/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fly Hugh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mars">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/22/大数据在小米的实践/" itemprop="url">大数据在小米的实践</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-22T21:45:12+08:00">
-                2019-04-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/22/大数据在小米的实践/" class="leancloud_visitors" data-flag-title="大数据在小米的实践">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  59
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>本文资料主要来自小米的工程师欧阳辰和张震分别在2016年在DAMS和2017年在DTCC上的演讲，内容主要是大数据技术在小米的实践梗概和自己的一些想法。</p>
+<a id="more"></a> 
+<h3 id="1-Apache-Kudu介绍"><a href="#1-Apache-Kudu介绍" class="headerlink" title="1.Apache Kudu介绍"></a>1.Apache Kudu介绍</h3><blockquote>
+<p>部分内容翻译自Kudu 1.7.1文档</p>
 </blockquote>
+<p>Kudu是为Apachche Hadoop平台开发的柱状存储管理器，Kudu有Hadoop生态系统应用的普遍技术属性：运行在商业硬件上，可以横向拓展，支持高可用操作。</p>
+<p>Kudu的优点包括：</p>
+<ul>
+<li>快速处理OLAP（联机分析处理）工作负载</li>
+<li>与MR、Spark和其他Hadoop生态组件整合</li>
+<li>与Apache Impala紧密结合，使它成为在Apache Parquet使用HDFS的一个好的，可变的替代方案</li>
+<li>强大但灵活的一致性迷行，允许你根据每个请求选择一致性要求，包括严格可序列化一致性选项</li>
+<li>同时运行顺序和随机工作负载的强大性能</li>
+<li>对于管理员，使用Cloudera Manager容易管理</li>
+<li>高可用、Tablet服务和Master使用共识算法，保证只要超过一半的副本可用，table就可以读写</li>
+<li>结构化数据模型</li>
+</ul>
+<p>通过结合这些特性，Kudu出现的目的是为了解决当前hadoop技术难以达成的应用场景，例如：</p>
+<ul>
+<li>新到达的数据要被立刻提供给用户报表</li>
+<li>时间序列应用必须同时支持的：大量历史数据的查询的要求、对某个细颗粒查询迅速返回的时间要求</li>
+<li>在基于所有历史数据来做出实时决策的预测模型上的应用</li>
+</ul>
+<h3 id="2-Kudu与Impala在CDH中的集成"><a href="#2-Kudu与Impala在CDH中的集成" class="headerlink" title="2.Kudu与Impala在CDH中的集成"></a>2.Kudu与Impala在CDH中的集成</h3><p><img src="https://s2.ax1x.com/2019/04/17/Az1eTx.png" alt="Az1eTx.png"></p>
+<p>如图只要在impala的配置中配置该项目，配置项目为kudu_master_hosts，配置内容为kudu的master节点，端口号默认为7051</p>
+<p>配置完成之后简单测试：</p>
+<p>在HUE中调用impala的输入框中输入：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> my_first_table </span><br><span class="line">( </span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">BIGINT</span>, <span class="keyword">name</span> <span class="keyword">STRING</span>, PRIMARY <span class="keyword">KEY</span>(<span class="keyword">id</span>) </span><br><span class="line">) </span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">HASH</span> <span class="keyword">PARTITIONS</span> <span class="number">16</span> </span><br><span class="line"><span class="keyword">STORED</span> <span class="keyword">AS</span> KUDU</span><br></pre></td></tr></table></figure>
+<p>即可建立表格。</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> my_first_table <span class="keyword">values</span> (<span class="number">99</span>,<span class="string">"sarah"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO  my_first_table VALUES (1, &quot;john&quot;), (2, &quot;jane&quot;), (3,  &quot;jim&quot;);</span><br></pre></td></tr></table></figure>
+<p>插入语句</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span>  my_first_table;</span><br></pre></td></tr></table></figure>
+<p>查表</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span>  my_first_table <span class="keyword">where</span> <span class="keyword">id</span> =<span class="number">99</span>;</span><br></pre></td></tr></table></figure>
+<p>删除语句</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> my_first_table  <span class="keyword">set</span> <span class="keyword">name</span>=<span class="string">'lilei'</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">99</span>;</span><br></pre></td></tr></table></figure>
+<p>改语句</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">upsert  into my_first_table <span class="keyword">values</span>(<span class="number">1</span>,  <span class="string">"john"</span>), (<span class="number">4</span>, <span class="string">"tom"</span>), (<span class="number">99</span>, <span class="string">"lilei1"</span>);</span><br></pre></td></tr></table></figure>
+<p>Kudu中的upsert是update和insert的结合体，有更新就更新，没有该条数据就插入。</p>
+<p>这边联想到mongo中的upsert，MongoDB 的update 方法的三个参数是upsert，这个参数是个布尔类型，默认是false。当它为true的时候，update方法会首先查找与第一个参数匹配的记录，在用第二个参数更新之。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.post.update(&#123;count:100&#125;,&#123;"$inc":&#123;count:10&#125;&#125;,true);</span><br></pre></td></tr></table></figure>
+<p>在找不到count=100这条记录的时候，自动插入一条count=100，然后再加10，最后得到一条 count=110的记录。</p>
+<h4 id="Kudu-Impala整合特征"><a href="#Kudu-Impala整合特征" class="headerlink" title="Kudu-Impala整合特征"></a>Kudu-Impala整合特征</h4><p>CREATE/ALTER/DROP TABLE</p>
+<p>Impala支持使用Kudu作为持久层创建、修改和删除表，这些表和Impala其他表使用同样的内部和外部方法，允许复杂的数据整合和查询。</p>
+<p>INSERT</p>
+<p>可以使用通用语法插入数据到Kudu-Imapala表格</p>
+<p>UPDATE/DELETE</p>
+<p>支持SQL命令逐行或者批量修改Kudu表中存在的数据。SQL的语法尽可能与现有的相同。</p>
+<p><strong>Flexible Partitioning</strong></p>
+<p>和Hive表类似，Kudu也支持hash或者range预先动态分区，以便在集群中均匀读写。你可以通过很多方式分区，比如说任意列的主键，任意数量的哈希。</p>
+<p><strong>并行扫描</strong></p>
+<p>为了在现在硬件上达到最高可用性能，Impala使用Kudu并行扫描多个客户端。</p>
+<p><strong>高效查询</strong></p>
+<p>可能的时候，Impala会吧谓词评估推送给kudu,以便尽可能接近数据，在很多工作下，查询性能和Parquet相当。</p>
+<p>更多细节需要查询Impala文档。</p>
+<hr>
+<h3 id="3-概念和术语"><a href="#3-概念和术语" class="headerlink" title="3. 概念和术语"></a>3. 概念和术语</h3><p><strong>Columnar Data Store</strong></p>
+<p><em>列存储</em></p>
+<p>Kudu是列存储，列存储是强类型的，通过适当的设计，相对于数仓是优越的，因为几个原因。</p>
+<p><strong>Read Efficiency</strong></p>
+<p><em>读取效率</em></p>
+<p>对于分析查询，可以单独读取一列，或者一列的一部分，而忽略其他列。这意味着你可以在磁盘上读取最小的数据来满足查询。</p>
+<p><strong>Data Compression</strong></p>
+<p><em>数据压缩</em></p>
+<p>因为是强类型，所以数据的压缩比要比基于行的解决方案效率高几个数量级。</p>
+<p><strong>Table</strong></p>
+<p>Table是数据存储在Kudu的位置，Table有schema和一个完全有序的主键，一个表被分割成叫做tablets的segment。</p>
+<p><strong>Tablet</strong></p>
+<p>首先，tablet是table的segment，类似于partition 机制。Tablet里面本身还涉及副本机制等。</p>
+<p><strong>Tablet Server</strong></p>
+<p>对于Tablet的副本机制来说，每个tablet都会有一个leader，别的是follower，leaders会接收读和写请求，followers只接受读请求。涉及到副本机制就涉及到共识算法，这里面用的共识算法是Raft Consensus Algorithm。</p>
+<p><strong>Master</strong></p>
+<p>Master跟踪tablets，tablet Server，Catalog Table 以及和Cluster关联的元数据，只能有一个master，如果挂了，那么会用Raft Consensus Algorithm重新选举一个出来。</p>
+<p><em>Raft Consensus Algorithm</em></p>
+<p>和Paxos一样是一个重要的共识算法</p>
+<p><em>Catalog Table</em></p>
+<p>Catalog Table是matadata的核心部位，记录table和tablets的信息，不能直接读写，只能通过Client API进行改动，存储两种类型的数据。</p>
+<p>Tables：table的schemas, locations, and states</p>
+<p>Tablets：tablets的list，tablet Server的映射关系，states，start and end keys</p>
+<p><em>Logical Replication</em></p>
+<p>逻辑复制：Kudu复制文件仅仅是逻辑上的复制，并没有涉及物理上的复制，这样做有几个好处：</p>
+<ul>
+<li><p>尽管插入和更新操作通过网络传输数据，删除操作不需要移动任何数据。删除操作被送到每一个执行本地删除操作的tablet server。</p>
+</li>
+<li><p>压缩这样的物理操作，不需要通过网络传输，这和使用HDFS的存储系统是不同的，HDFS中的blocks需要通过网络传输block来满足复制的需求。</p>
+</li>
+<li><p>Tablets不需要在同一时间压缩，或者其他在物理层上的同步，这降低了tablet因为大量压缩和写入遇到延迟的可能性。</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-Java访问CDH集群中的Kudu"><a href="#4-Java访问CDH集群中的Kudu" class="headerlink" title="4.Java访问CDH集群中的Kudu"></a>4.Java访问CDH集群中的Kudu</h3><p>如果使用的不是局域网，跨网段需要进行配置。</p>
+<p>需要在KuduMaster服务的高级配置“gflagfile 的 Master 高级配置代码段（安全阀）”增加配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个是受信人的子网名单，设置为0000代表允许所有IP没有经过验证/未加密的连接</span><br><span class="line"></span><br><span class="line">如果没有配置这个名单，会报错：</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">W1128 16:56:55.749083 93981 negotiation.cc:318] Unauthorized connection attempt: Server connection negotiation failed: server connection from 100.73.0.57:42533: unauthenticated connections from publicly routable IPs are prohibited. See --trusted_subnets flag for more information</span><br></pre></td></tr></table></figure>
+<p>## </p>
+<h3 id="5-架构概述"><a href="#5-架构概述" class="headerlink" title="5.架构概述"></a>5.架构概述</h3><p>下图显示了一个Kudu集群，三个Master和多个table servers，每一个Server服务多个tablets。</p>
+<p>这个图表明了Raft共识算法是如何作用在master-tablet server的master和server上的。</p>
+<p>此外，一个 tablet server 既可以成为tablets的leader，也可以成为一个别的follower</p>
+<p><img src="https://kudu.apache.org/docs/images/kudu-architecture-2.png" alt="底层结构"></p>
+<p>只要有一半以上的副本可用，该tablet便可用于读写，技师在leader tablet出现故障的情况下，读取功能也可以通过read-only（只读）follower tablets来进行服务，或者是leader宕机的情况下，根据raft算法重新选举leader。</p>
+<p>开发语言：C++</p>
+<ul>
+<li>建表的时候要求所有的tserver节点都活着 </li>
+<li>根据raft机制，允许（replication的副本数-）/ 2宕掉，集群还会正常运行，否则会报错找不到ip:7050（7050是rpc的通信端口号），需要注意一个问题，第一次运行的时候要保证集群处于正常状态下，也就是所有的服务都启动，如果运行过程中，允许（replication的副本数-）/ 2宕掉 </li>
+<li>读操作，只要有一台活着的情况下，就可以运行</li>
+<li>KUDU分区数必须预先预定</li>
+<li>在内存中对每个Tablet分区维护一个MemRowSet来管理最新更新的数据，当尺寸超过32M后Flush到磁盘上形成DiskRowSet，多个DiskRowSet在适当的时候进行归并处理 </li>
+<li>和HBase采用的LSM（LogStructured Merge，很难对数据进行特殊编码，所以处理效率不高）方案不同的是，Kudu对同一行的数据更新记录的合并工作，不是在查询的时候发生的（HBase会将多条更新记录先后Flush到不同的Storefile中，所以读取时需要扫描多个文件，比较rowkey，比较版本等，然后进行更新操作），而是在更新的时候进行，在Kudu中一行数据只会存在于一个DiskRowSet中，避免读操作时的比较合并工作。那Kudu是怎么做到的呢？ 对于列式存储的数据文件，要原地变更一行数据是很困难的，所以在Kudu中，对于Flush到磁盘上的DiskRowSet（DRS）数据，实际上是分两种形式存在的，一种是Base的数据，按列式存储格式存在，一旦生成，就不再修改，另一种是Delta文件，存储Base数据中有变更的数据，一个Base文件可以对应多个Delta文件，这种方式意味着，插入数据时相比HBase，需要额外走一次检索流程来判定对应主键的数据是否已经存在。因此，Kudu是牺牲了写性能来换取读取性能的提升。 </li>
+<li>更新、删除操作需要记录到特殊的数据结构里，保存在内存中的DeltaMemStore或磁盘上的DeltaFIle里面。DeltaMemStore是B-Tree实现的，因此速度快，而且可修改。磁盘上的DeltaFIle是二进制的列式的块，和base数据一样都是不可修改的。因此当数据频繁删改的时候，磁盘上会有大量的DeltaFiles文件，Kudu借鉴了Hbase的方式，会定期对这些文件进行合并。 </li>
+<li>既然存在Delta数据，也就意味着数据查询时需要同时检索Base文件和Delta文件，这看起来和HBase的方案似乎又走到一起去了，不同的地方在于，Kudu的Delta文件与Base文件不同，不是按Key排序的，而是按被更新的行在Base文件中的位移来检索的，号称这样做，在定位Delta内容的时候，不需要进行字符串比较工作，因此能大大加快定位速度，但是无论如何，Delta文件的存在对检索速度的影响巨大。因此Delta文件的数量会需要控制，需要及时的和Base数据进行合并。由于Base文件是列式存储的，所以Delta文件合并时，可以有选择性的进行，比如只把变化频繁的列进行合并，变化很少的列保留在Delta文件中暂不合并，这样做也能减少不必要的IO开销。 </li>
+<li>除了Delta文件合并，DRS自身也会需要合并，为了保障检索延迟的可预测性（这一点是HBase的痛点之一，比如分区发生Major Compaction时，读写性能会受到很大影响），Kudu的compaction策略和HBase相比，有很大不同，kudu的DRS数据文件的compaction，本质上不是为了减少文件数量，实际上Kudu DRS默认是以32MB为单位进行拆分的，DRS的compaction并不减少文件数量，而是对内容进行排序重组，减少不同DRS之间key的overlap（重复），进而在检索的时候减少需要参与检索的DRS的数量。 </li>
+</ul>
+<h3 id="6-设计原理"><a href="#6-设计原理" class="headerlink" title="6.设计原理"></a>6.设计原理</h3><h4 id="设计初衷"><a href="#设计初衷" class="headerlink" title="设计初衷"></a>设计初衷</h4><hr>
+<p>有一个问题我一直在考虑就是Kudu出现的意义，官方文档中强调的优点很多都是列存储的优点。</p>
+<p>那和Parquet相比，又有什么优点呢，和同事讨论，也只得到了细颗粒修改删除的区别。</p>
+<p>看到设计初衷之后明白了</p>
+<ul>
+<li>静态数据通常以Parquet/Carbon/Avro形式直接存放在HDFS中，对于分析场景，这种存储通常是更加适合的。但无论以哪种方式存在于HDFS中，都难以支持单条记录级别的更新，随机读取也并不高效。</li>
+<li>可变数据的存储通常选择HBase或者Cassandra，因为它们能够支持记录级别的高效随机读写。但这种存储却并不适合离线分析场景，因为它们在大批量数据获取时的性能较差（针对HBase而言，有两方面的主要原因：一是HFile本身的结构定义，它是按行组织数据的，这种格式针对大多数的分析场景，都会带来较大的IO消耗，因为可能会读取很多不必要的数据，相对而言Parquet格式针对分析场景就做了很多优化。 二是由于HBase本身的LSM-Tree架构决定的，HBase的读取路径中，不仅要考虑内存中的数据，同时要考虑HDFS中的一个或多个HFile，较之于直接从HDFS中读取文件而言，这种读取路径是过长的）。</li>
+</ul>
+<p>于是乎，上面的两种存储，都存在明显的优缺点：</p>
+<ul>
+<li>直接存放于HDFS中，适合离线分析，缺不利于记录级别的随机读写。</li>
+<li>直接将数据放于HBase/Cassandra中，适合记录级别的随机读写，对离线分析却不友好。</li>
+</ul>
+<p>但在很多实际业务场景中，两种场景时常是并存的，基于Spark/Hive On HBase进行，性能较差</p>
+<ul>
+<li>数据存放于HBase中，对于分析任务，基于Spark/Hive On HBase进行，性能较差。</li>
+<li>对于分析性能要求较高的，可以将数据在HDFS/Hive中多冗余存放一份，或者，将HBase中的数据定期的导出成Parquet/Carbon格式的数据。 明显这种方案对业务应用提出了较高的要求，而且容易导致在线数据与离线数据之间的一致性问题。</li>
+</ul>
+<p>Kudu的设计，就是试图在OLAP和OLTP之间，寻求一个最佳的结合点，从而在一个系统的一份数据中，技能支持OLAP，又能支持OLTP，另外一个初衷是，在Cloudera发布的《Kudu: New Apache Hadoop Storage for Fast Analytics on Fast Data》一文中有提及，Kudu作为一个新的分布式存储系统期望有效提升CPU的使用率，而低CPU使用率恰是HBase/Cassandra等系统的最大问题。</p>
+<p><em>OLTP系统强调数据库内存效率，强调内存各种指标的命令率，强调绑定变量，强调并发操作</em></p>
+<p><em>OLAP系统则强调数据分析，强调SQL执行市场，强调磁盘I/O，强调分区等</em></p>
+<p><em>从功能角度来看，OLTP负责基本业务的正常运转，而业务数据积累时所产生的价值信息则被OLAP不断呈现，企业高层通过参考这些信息会不断调整经营方针，也会促进基础业务的不断优化，这是OLTP与OLAP最根本的区别</em></p>
+<h4 id="事务与一致性"><a href="#事务与一致性" class="headerlink" title="事务与一致性"></a>事务与一致性</h4><p>Kudu仅仅提供单行事务，也不支持多行事务。这一点与HBase是相似的。但在数据一致性模型上，与HBase有较大的区别。 Kudu提供了如下两种一致性模型：</p>
+<ul>
+<li>Snapshot Consistency</li>
+</ul>
+<p>这是Kudu中的默认一致性模型。在这种模型中，只保证一个客户端能够看到自己所提交的写操作，而并不保障全局的（跨多个客户端的）事务可见性。</p>
+<ul>
+<li>External Consistency</li>
+</ul>
+<p>最早提出External Consistency机制的，应该是在Google的Spanner论文中。传统关系型数据库中的两阶段提交机制，需要两回合通信，这过程中带来的代价是较高的，但同时这过程中的复杂的锁机制也可能会带来一些可用性问题。一个更好的实现分布式事务/一致性的思路，是基于一个全局发布的Timestamp机制。Spanner提出了Commit-wait的机制，来保障全局事务的有序性：如果一个事务T1的提交先于另外一个事务T2的开始，则T1的Timestamp要小于T2的TimeStamp。我们知道，在分布式系统中，是很难于做这样的承诺的。在HBase中，我们可以想象，如果所有RegionServer中的SequenceID发布自同一个数据源，那么，HBase的很多事务性问题就迎刃而解了，然后最大的问题在于这个全局的SequenceID数据源将会是整个系统的性能瓶颈点。回到External Consistency机制，Spanner是依赖于高精度与可预见误差的本地时钟(TrueTime API)实现的(即需要一个高可靠和高精度的时钟源，同时，这个时钟的误差是可预见的。感兴趣的同学可以阅读Spanner论文，这里不赘述)。Kudu中提供了另外一种思路来实现External Consistency,基于Timestamp扩散机制，即，多个客户端可相互通信来告知彼此所提交的Timestamp值，从而保障一个全局的顺序。这种机制也是相对较为复杂的。<br>与Spanner类似，Kudu不允许用户自定义用户数据的Timestamp，但在HBase中却是不同，用户可以发起一次基于某特定Timestamp的查询。</p>
 
-          
-        
       
     </div>
     
@@ -769,179 +577,32 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/Kerberos For CDH/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fly Hugh">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mars">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/22/Kerberos For CDH/" itemprop="url">Kerberos For CDH</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-22T21:45:12+08:00">
-                2019-04-22
-              </time>
+              <a href="/2019/04/22/大数据在小米的实践/" rel="next" title="大数据在小米的实践">
+                <i class="fa fa-chevron-left"></i> 大数据在小米的实践
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
+              <a href="/2019/04/29/Cluster Error Record1/" rel="prev" title="CDH集群代理状态问题">
+                CDH集群代理状态问题 <i class="fa fa-chevron-right"></i>
+              </a>
             
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/22/Kerberos For CDH/" class="leancloud_visitors" data-flag-title="Kerberos For CDH">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  11.4k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  48
-                </span>
-              
-            </div>
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。</p>
-<p>第一次更新：2019-4-29</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/22/Kerberos For CDH/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -951,10 +612,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -962,6 +624,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -982,8 +653,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1062,6 +742,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Apache-Kudu介绍"><span class="nav-number">1.</span> <span class="nav-text">1.Apache Kudu介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Kudu与Impala在CDH中的集成"><span class="nav-number">2.</span> <span class="nav-text">2.Kudu与Impala在CDH中的集成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-Impala整合特征"><span class="nav-number">2.1.</span> <span class="nav-text">Kudu-Impala整合特征</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-概念和术语"><span class="nav-number">3.</span> <span class="nav-text">3. 概念和术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Java访问CDH集群中的Kudu"><span class="nav-number">4.</span> <span class="nav-text">4.Java访问CDH集群中的Kudu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-架构概述"><span class="nav-number">5.</span> <span class="nav-text">5.架构概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-设计原理"><span class="nav-number">6.</span> <span class="nav-text">6.设计原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设计初衷"><span class="nav-number">6.1.</span> <span class="nav-text">设计初衷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务与一致性"><span class="nav-number">6.2.</span> <span class="nav-text">事务与一致性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1234,6 +930,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1262,6 +962,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
