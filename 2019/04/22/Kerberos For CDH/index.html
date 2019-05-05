@@ -113,7 +113,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0a1fxj20hz05d0ss.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0ayqyj20mx0oamxv.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0e6e7j20oc0q1wfz.jpg">
-<meta property="og:updated_time" content="2019-04-29T08:49:24.000Z">
+<meta property="og:updated_time" content="2019-05-05T01:44:23.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kerberos For CDH">
 <meta name="twitter:description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29">
@@ -840,7 +840,7 @@
 <p>后面涉及每个组件，都有不同的配置方法，有的简单，有的复杂一点</p>
 <p>还有Java连接代码需要补完</p>
 <hr>
-<h3 id="Kerberos卸载BUG"><a href="#Kerberos卸载BUG" class="headerlink" title="Kerberos卸载BUG"></a>Kerberos卸载BUG</h3><p>Linux上的KDC存在严重的卸载BUG，使用<code>yun remove</code>卸载会出现严重的问题</p>
+<h3 id="Kerberos卸载BUG"><a href="#Kerberos卸载BUG" class="headerlink" title="Kerberos卸载BUG"></a>Kerberos卸载BUG</h3><p>Linux上的KDC存在严重的卸载BUG，使用<code>yum remove</code>卸载会出现严重的问题</p>
 <p>因为之前<code>principal</code>的认证因为人为操作出现了一些问题，所以用yum remove卸载重新安装了一下，yum remove之后出现了大问题，凡是新连接外部的命令都无法使用，包括并不限于：yum、ssh、wgt等命令，FTP工具也无法使用，这就导致了无法连接外部下载kdc安装包</p>
 <p>还好我卸载之前连接的SSH窗口没有关闭（新的连接无法建立， 但是已经建立的连接不会断开），用的XSHELL 6，我尝试用XFTP连接，失败，但是XSHELL 6 默认输入框里就有传输文件的功能，上传四个Kerberos文件之后重新安装之后才解决了问题。</p>
 
