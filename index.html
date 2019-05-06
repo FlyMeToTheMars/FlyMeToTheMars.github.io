@@ -63,10 +63,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/sheshou.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/sheshou.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
 
 
   <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
@@ -802,6 +802,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/100 Days Of ML Code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/22/100 Days Of ML Code/" itemprop="url">100 Days Of ML Code</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-22T21:45:12+08:00">
+                2019-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/22/100 Days Of ML Code/" class="leancloud_visitors" data-flag-title="100 Days Of ML Code">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  430
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>针对英语文档阅读使用能力和ML知识点开的一个新坑<br>不定期更新<br>尽量使用英语</p>
+</blockquote>
+<h2 id="Data-Preprocessing-Day-1"><a href="#Data-Preprocessing-Day-1" class="headerlink" title="Data Preprocessing | Day 1"></a>Data Preprocessing | Day 1</h2><h3 id="Step-1-Import-the-required-Libraries"><a href="#Step-1-Import-the-required-Libraries" class="headerlink" title="Step 1: Import the required Libraries"></a>Step 1: Import the required Libraries</h3><p>These Two are essential libraries which we will import every time.</p>
+<p>NumPy: Library which contains Mathematical functions.</p>
+<p>Pandas: Library used to import and manage the data sets.</p>
+<h3 id="Step-2-Importing-the-Data-Set"><a href="#Step-2-Importing-the-Data-Set" class="headerlink" title="Step 2: Importing the Data Set"></a>Step 2: Importing the Data Set</h3><p>Data sets are generally available in .csv format. A CSV file stores tabular data in plain text(纯文本). Each lines of the file is a data record. We use the read_csv method of the pandas library to read a local CSV file as a dataframe. Then we make separate(分离) Matrix and Vector of independent and dependent variables from the dataframe.(然后我们从dataframe中制作自变量和因变量的矩阵和向量)</p>
+<h3 id="Step-3-Handling-the-Missing-Data"><a href="#Step-3-Handling-the-Missing-Data" class="headerlink" title="Step 3: Handling the Missing Data"></a>Step 3: Handling the Missing Data</h3><p>The data we get is rarely homogeneous(同质的).Data can be missing due to various and needs to be handled so that it does not reduce the performance of our machine learning model. We can replace the missing data by the Mean or median of the entire column. We use <code>imputer</code> class of <code>sklearn.preprocessing</code> for this task.</p>
+<h3 id="Step-4-Encoding-Categorical-Data"><a href="#Step-4-Encoding-Categorical-Data" class="headerlink" title="Step 4: Encoding Categorical Data"></a>Step 4: Encoding Categorical Data</h3><p>Categorical data are variables that contain label values(标签值) rather than numeric values(数值).The number of possible values is often limited to a fixed set. Example values such as “Yes” and “No” cannot be used in mathematical equations(数学方程) of the model so we need  to encode these variables into numbers. To achieve this we import <code>LabelEncoder</code> class from <code>Sklearn.preprocessing</code> library.</p>
+<h3 id="Step-5-Splitting-the-dataset-into-test-set-and-training-set"><a href="#Step-5-Splitting-the-dataset-into-test-set-and-training-set" class="headerlink" title="Step 5: Splitting the dataset into test set and training set"></a>Step 5: Splitting the dataset into test set and training set</h3><p>We make two partitions of dataset one for training the model called training set and other for testing the performance of the trained model called test set. The split generally 80/20. We import <code>train_test_split()</code> method of <code>sklearn.crossvalidation</code> library.</p>
+<h3 id="Step-6-Feature-Scaling-特征归一化"><a href="#Step-6-Feature-Scaling-特征归一化" class="headerlink" title="Step 6: Feature Scaling(特征归一化)"></a>Step 6: Feature Scaling(特征归一化)</h3><p>Most of the machine learning algorithms use the Euclidean distance(欧式距离) between two data points in their computations, features highly varying(变化) in magnitudes(大小), units and range(范围) pose(提出) problems. high magnitudes(幅度) features will weigh more in the distance calculations than features with low magnitudes. Done by Feature standardization or Z-score normalization(正常化). <code>StandardScalar</code> of <code>sklearn.preprocessing</code> is imported.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/大数据在小米的实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1174,7 +1346,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1264,7 +1436,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">21.3k</span>
+    <span title="Site words total count">21.7k</span>
   
 </div>
 
