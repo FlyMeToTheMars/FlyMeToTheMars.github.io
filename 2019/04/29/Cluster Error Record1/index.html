@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题 昨天下班前，集群报警 CDH中查看主机状态datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。 运行状态检测出现问题：">
+<meta name="description" content="公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题 昨天下班前，集群报警 CDH中查看主机状态datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CDH集群代理状态问题">
 <meta property="og:url" content="http://yoursite.com/2019/04/29/Cluster Error Record1/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题 昨天下班前，集群报警 CDH中查看主机状态datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。 运行状态检测出现问题：">
+<meta property="og:description" content="公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题 昨天下班前，集群报警 CDH中查看主机状态datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jn7huhlvj20kg0n3wgi.jpg">
-<meta property="og:updated_time" content="2019-04-29T12:06:56.834Z">
+<meta property="og:updated_time" content="2019-05-06T15:41:44.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CDH集群代理状态问题">
-<meta name="twitter:description" content="公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题 昨天下班前，集群报警 CDH中查看主机状态datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。 运行状态检测出现问题：">
+<meta name="twitter:description" content="公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题 昨天下班前，集群报警 CDH中查看主机状态datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jn7huhlvj20kg0n3wgi.jpg">
 
 
@@ -411,8 +411,8 @@
         <p>公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题</p>
 <p>昨天下班前，集群报警</p>
 <p>CDH中查看主机状态<br>datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。</p>
-<p>运行状态检测出现问题：<br><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jn7huhlvj20kg0n3wgi.jpg" alt="alt bug"></p>
 <a id="more"></a> 
+<p>运行状态检测出现问题：<br><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jn7huhlvj20kg0n3wgi.jpg" alt="alt bug"></p>
 <p>几乎所有组件处于警告状态，基本可以确定是交换内存的问题，如果内存足够大，可以直接取消交换内存</p>
 <p>查看节点agent 状态：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@datanode128 ~]# /data2/CM/cm-5.13.3/etc/init.d/cloudera-scm-agent status</span><br><span class="line">cloudera-scm-agent 已死，但 pid 文件存在</span><br></pre></td></tr></table></figure>

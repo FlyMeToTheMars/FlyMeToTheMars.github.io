@@ -580,7 +580,6 @@
           <p>公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题</p>
 <p>昨天下班前，集群报警</p>
 <p>CDH中查看主机状态<br>datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。</p>
-<p>运行状态检测出现问题：<br><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jn7huhlvj20kg0n3wgi.jpg" alt="alt bug"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/04/29/Cluster Error Record1/#more" rel="contents">
@@ -914,20 +913,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>针对英语文档阅读使用能力和ML知识点开的一个新坑<br>不定期更新<br>尽量使用英语</p>
 </blockquote>
-<h2 id="Data-Preprocessing-Day-1"><a href="#Data-Preprocessing-Day-1" class="headerlink" title="Data Preprocessing | Day 1"></a>Data Preprocessing | Day 1</h2><h3 id="Step-1-Import-the-required-Libraries"><a href="#Step-1-Import-the-required-Libraries" class="headerlink" title="Step 1: Import the required Libraries"></a>Step 1: Import the required Libraries</h3><p>These Two are essential libraries which we will import every time.</p>
-<p>NumPy: Library which contains Mathematical functions.</p>
-<p>Pandas: Library used to import and manage the data sets.</p>
-<h3 id="Step-2-Importing-the-Data-Set"><a href="#Step-2-Importing-the-Data-Set" class="headerlink" title="Step 2: Importing the Data Set"></a>Step 2: Importing the Data Set</h3><p>Data sets are generally available in .csv format. A CSV file stores tabular data in plain text(纯文本). Each lines of the file is a data record. We use the read_csv method of the pandas library to read a local CSV file as a dataframe. Then we make separate(分离) Matrix and Vector of independent and dependent variables from the dataframe.(然后我们从dataframe中制作自变量和因变量的矩阵和向量)</p>
-<h3 id="Step-3-Handling-the-Missing-Data"><a href="#Step-3-Handling-the-Missing-Data" class="headerlink" title="Step 3: Handling the Missing Data"></a>Step 3: Handling the Missing Data</h3><p>The data we get is rarely homogeneous(同质的).Data can be missing due to various and needs to be handled so that it does not reduce the performance of our machine learning model. We can replace the missing data by the Mean or median of the entire column. We use <code>imputer</code> class of <code>sklearn.preprocessing</code> for this task.</p>
-<h3 id="Step-4-Encoding-Categorical-Data"><a href="#Step-4-Encoding-Categorical-Data" class="headerlink" title="Step 4: Encoding Categorical Data"></a>Step 4: Encoding Categorical Data</h3><p>Categorical data are variables that contain label values(标签值) rather than numeric values(数值).The number of possible values is often limited to a fixed set. Example values such as “Yes” and “No” cannot be used in mathematical equations(数学方程) of the model so we need  to encode these variables into numbers. To achieve this we import <code>LabelEncoder</code> class from <code>Sklearn.preprocessing</code> library.</p>
-<h3 id="Step-5-Splitting-the-dataset-into-test-set-and-training-set"><a href="#Step-5-Splitting-the-dataset-into-test-set-and-training-set" class="headerlink" title="Step 5: Splitting the dataset into test set and training set"></a>Step 5: Splitting the dataset into test set and training set</h3><p>We make two partitions of dataset one for training the model called training set and other for testing the performance of the trained model called test set. The split generally 80/20. We import <code>train_test_split()</code> method of <code>sklearn.crossvalidation</code> library.</p>
-<h3 id="Step-6-Feature-Scaling-特征归一化"><a href="#Step-6-Feature-Scaling-特征归一化" class="headerlink" title="Step 6: Feature Scaling(特征归一化)"></a>Step 6: Feature Scaling(特征归一化)</h3><p>Most of the machine learning algorithms use the Euclidean distance(欧式距离) between two data points in their computations, features highly varying(变化) in magnitudes(大小), units and range(范围) pose(提出) problems. high magnitudes(幅度) features will weigh more in the distance calculations than features with low magnitudes. Done by Feature standardization or Z-score normalization(正常化). <code>StandardScalar</code> of <code>sklearn.preprocessing</code> is imported.</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/22/100 Days Of ML Code/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
