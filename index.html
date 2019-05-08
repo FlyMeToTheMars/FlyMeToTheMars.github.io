@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/批处理更改IP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/LabelEnconder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fly Hugh">
@@ -316,7 +316,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/08/批处理更改IP/" itemprop="url">win环境下更换IP的批处理</a></h1>
+                <a class="post-title-link" href="/2019/05/09/LabelEnconder/" itemprop="url">LabelEnconder 和 OneHotEncoder</a></h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-08T10:07:23+08:00">
-                2019-05-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T01:08:31+08:00">
+                2019-05-09
               </time>
             
 
@@ -346,7 +346,347 @@
 
           
           
-             <span id="/2019/05/08/批处理更改IP/" class="leancloud_visitors" data-flag-title="win环境下更换IP的批处理">
+             <span id="/2019/05/09/LabelEnconder/" class="leancloud_visitors" data-flag-title="LabelEnconder 和 OneHotEncoder">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  324
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>不得不说 我还是小看了ML的知识涉及的广度<br>光是ML 100days 的第一天其实涉及的内容就非常多<br>从Sklearn包到pycharm自带的各种BUG都搞的人头大<br>这边先拉一个分支出来，这两天得空了准备一下category</p>
+</blockquote>
+<h3 id="LabelEnconder"><a href="#LabelEnconder" class="headerlink" title="LabelEnconder"></a>LabelEnconder</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEconder</span><br><span class="line">y = data.iloc[:.<span class="number">-1</span>] <span class="comment"># 索引所有的行 最后一列</span></span><br><span class="line"><span class="comment"># 三步</span></span><br><span class="line">le = LabelEnconder() <span class="comment"># 实例化</span></span><br><span class="line">le = le.fit(y) <span class="comment"># 导入数据</span></span><br><span class="line">label = le.transform(y) <span class="comment"># trasform就扣调取结果</span></span><br><span class="line"><span class="comment"># 这边fit了之后可以直接用le.classes_ 查看标签中有多少类别</span></span><br><span class="line">le.classes_</span><br><span class="line"><span class="comment"># 输出 array(['No','Unknown','Yes'],dtype=object)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以直接fit_transform()一步到位</span></span><br><span class="line">le.fit_transform(y)</span><br><span class="line"><span class="comment"># 这样看不到属性</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从上到下一步到位</span></span><br><span class="line">data.iloc[: , <span class="number">-1</span>] = LabelEncoder().fit_transform(data.iloc[: , <span class="number">-1</span>])</span><br><span class="line"><span class="comment"># 实例化、fit transform 全部完成</span></span><br></pre></td></tr></table></figure>
+<h3 id="OneHotEncoder"><a href="#OneHotEncoder" class="headerlink" title="OneHotEncoder"></a>OneHotEncoder</h3><p>遇到互相不相关的属性，为了避免模型训练的时候把欧式距离计算进去，对结果造成影响<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line">X = data.iloc[:,<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">enc = OneHotEncoder(categories=<span class="string">'auto'</span>).fit(X)</span><br><span class="line">result = enc.transform(X).toarray()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 任然可以一步到位</span></span><br><span class="line">OneHotEncoder(categories=<span class="string">'auto'</span>).fit_transform(X).toattay()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 同时这个数值还可以还原</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">pd.DataFrame(enc.inverse_transform(result))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当被哑变量（Onehot）之后，需要一个借口来查看每列的意义</span></span><br><span class="line">enc.get_feature_names()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 还有 concat 方法可以将两个表相连</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/Machine Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/09/Machine Learning/" itemprop="url">Machine Learning</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T01:05:00+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/09/Machine Learning/" class="leancloud_visitors" data-flag-title="Machine Learning">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  352
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>周志华的同名书籍的阅读笔记，入门读物</p>
+</blockquote>
+<h2 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h2><h3 id="1-1-引言"><a href="#1-1-引言" class="headerlink" title="1.1 引言"></a>1.1 引言</h3><h3 id="1-2-基本术语"><a href="#1-2-基本术语" class="headerlink" title="1.2 基本术语"></a>1.2 基本术语</h3><p>classification：预测结果是离散值（好瓜、坏瓜）</p>
+<p>regression：预测结果是连续值（成熟度0.95 0.37）</p>
+<p>binary classification：只涉及两个结果的分类，通常称之为一个为positive class 一个为 negative class</p>
+<p>multi-class classification：多分类</p>
+<p>预测任务是希望通过训练对训练集{(x<sub>1</sub>,y<sub>1</sub>),(x<sub>2</sub>,y<sub>2</sub>)…(x<sub>m</sub>,y<sub>m</sub>)}进行学习，建议一个从输入空间X到输出空间Y的映射，对于二分类任务，通常另Y = {-1,1}或者{0,1}，对多分类任务，|Y|&gt;2，回归任务，Y = R，R是实数集。</p>
+<p>学习完毕模型后，使用其预测的过程叫做测试(testing)，被预测的样本称为“测试样本”(testing sample)，例如在学得f之后，对测视例x，可得到其预测目标y = f(x).</p>
+<p>聚类（clustering），即将训练集中的西瓜分为若干组（cluster），在聚类学习中，分的类我们是事先不知道的，学习过程中使用的训练样本通常不配拥有标记信息。</p>
+<p>根据训练数据是否用哦与标记信息，学习任务大致可以划分为两大类：“监督学习（supervised learning）和非监督学习（unsupervised learning），分类和回归是前者的代表，聚类是后者的代表”</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/批处理更改IP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/09/批处理更改IP/" itemprop="url">win环境下更换IP的批处理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T01:03:21+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/09/批处理更改IP/" class="leancloud_visitors" data-flag-title="win环境下更换IP的批处理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,7 +754,7 @@
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/08/批处理更改IP/#more" rel="contents">
+            <a class="btn" href="/2019/05/09/批处理更改IP/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1043,7 +1383,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2.1k
+                  2.3k
                 </span>
               
 
@@ -1059,7 +1399,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  9
+                  10
                 </span>
               
             </div>
@@ -1509,7 +1849,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1599,7 +1939,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">23.7k</span>
+    <span title="Site words total count">24.5k</span>
   
 </div>
 
