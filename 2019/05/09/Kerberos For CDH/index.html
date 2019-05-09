@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Kerberos,">
 
 
 
@@ -98,9 +98,10 @@
 
 
 <meta name="description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29">
+<meta name="keywords" content="Kerberos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kerberos For CDH">
-<meta property="og:url" content="http://yoursite.com/2019/04/22/Kerberos For CDH/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/09/Kerberos For CDH/index.html">
 <meta property="og:site_name" content="Mars">
 <meta property="og:description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29">
 <meta property="og:locale" content="zh-CN">
@@ -113,7 +114,22 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0a1fxj20hz05d0ss.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0ayqyj20mx0oamxv.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0e6e7j20oc0q1wfz.jpg">
-<meta property="og:updated_time" content="2019-05-05T01:44:23.643Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v66w9mt3j212m0hw75j.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v697svjwj21a40zc771.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6aqpeh0j212i0gumxq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6d08i8dj20xk0cewga.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6dxwvacj21380pqwg3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6fxvq1xj220o0d0juw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6i16k8hj21140ccgmj.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6jctl01j20pa0bw76t.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6jsf7r8j20z2154qk7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6kt9fnvj212g0h2t9a.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6m4az4cj224a0tawhe.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6mjf0tvj20ws0wuq6q.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6oip712j21v80y2wlc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6pmygs4j21440ri7d2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6qjmveyj21s60len2w.jpg">
+<meta property="og:updated_time" content="2019-05-09T10:35:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kerberos For CDH">
 <meta name="twitter:description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29">
@@ -147,7 +163,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/22/Kerberos For CDH/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/09/Kerberos For CDH/">
 
 
 
@@ -327,7 +343,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/Kerberos For CDH/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/Kerberos For CDH/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fly Hugh">
@@ -356,8 +372,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-22T21:45:12+08:00">
-                2019-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T20:42:17+08:00">
+                2019-05-09
               </time>
             
 
@@ -367,6 +383,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -374,7 +423,7 @@
 
           
           
-             <span id="/2019/04/22/Kerberos For CDH/" class="leancloud_visitors" data-flag-title="Kerberos For CDH">
+             <span id="/2019/05/09/Kerberos For CDH/" class="leancloud_visitors" data-flag-title="Kerberos For CDH">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -399,7 +448,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  11.4k
+                  15.5k
                 </span>
               
 
@@ -415,7 +464,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  48
+                  63
                 </span>
               
             </div>
@@ -856,13 +905,171 @@
 <hr>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0e6e7j20oc0q1wfz.jpg" alt></p>
 <p>随后，直接勾选重启选项即可</p>
-<p>这边初步的配置就完成了</p>
-<p>后面涉及每个组件，都有不同的配置方法，有的简单，有的复杂一点</p>
-<p>还有Java连接代码需要补完</p>
+<p>初步的配置就完成了</p>
 <hr>
-<h3 id="Kerberos卸载BUG"><a href="#Kerberos卸载BUG" class="headerlink" title="Kerberos卸载BUG"></a>Kerberos卸载BUG</h3><p>Linux上的KDC存在严重的卸载BUG，使用<code>yum remove</code>卸载会出现严重的问题</p>
+<p><a href="https://docs.huihoo.com/solaris/10/simplified-chinese/html/819-7061/aadmin-3.html#setup-304" target="_blank" rel="noopener">Oracle系统管理指南：安全性服务文档</a></p>
+<p>（包括了备份和传播Kerberos、如何恢复Kerberos、如何在服务器升级后转换Kerberos数据库，如何重新配置主KDC服务器以使用增量传播，如何重新配置从KDC以使用增量传播，如何配置从 KDC 服务器以使用完全传播，如何验证KDC服务器已经同步，如何手动将Kerberos数据库传播到从KDC服务器，设计并行传播，设置并行传播的配置步骤，管理存储文件，如何删除存储文件等。）</p>
+<hr>
+<h3 id="对Kerberos-BDB的一点使用心得"><a href="#对Kerberos-BDB的一点使用心得" class="headerlink" title="对Kerberos BDB的一点使用心得"></a>对Kerberos BDB的一点使用心得</h3><hr>
+<h3 id="如何验证Kerberos已经安装完成"><a href="#如何验证Kerberos已经安装完成" class="headerlink" title="如何验证Kerberos已经安装完成"></a>如何验证Kerberos已经安装完成</h3><p><strong>HDFS</strong><br>登录到某一个节点后，切换到hdfs用户，然后用kinit来获取credentials</p>
+<p>现在用<code>hadoop hdfs -ls /</code>应该能正常输出结果<br>用kdestroy销毁credentials后，再使用<code>hadoop hdfs -ls /</code>会发现报错</p>
+<p><strong>Kafka</strong></p>
+<p>用新的一套API，消费者能正常消费，生产者能正常生产不报错误就算ok</p>
+<p>注意：是新API，开启Kerberos之后老API无法再使用</p>
+<p><strong>Zookeeper</strong></p>
+<p>启动zookeeper：</p>
+<p>Zookeeper-client -server master:2181</p>
+<p>创建一个 znode 节点：</p>
+<p>create /znode1 sasl:<a href="mailto:master@JIMI.com" target="_blank" rel="noopener">master@JIMI.com</a>:cdwra</p>
+<p>在另外的节点上执行 </p>
+<p>getAcl /znode1</p>
+<p>如果能够获取在另外一个节点上输入的输入就证明没有问题</p>
+<hr>
+<h3 id="Kerberos遇到的坑"><a href="#Kerberos遇到的坑" class="headerlink" title="Kerberos遇到的坑"></a>Kerberos遇到的坑</h3><h4 id="Kerberos卸载BUG"><a href="#Kerberos卸载BUG" class="headerlink" title="Kerberos卸载BUG"></a>Kerberos卸载BUG</h4><p>Linux上的KDC存在严重的卸载BUG，使用<code>yum remove</code>卸载会出现严重的问题</p>
 <p>因为之前<code>principal</code>的认证因为人为操作出现了一些问题，所以用yum remove卸载重新安装了一下，yum remove之后出现了大问题，凡是新连接外部的命令都无法使用，包括并不限于：yum、ssh、wgt等命令，FTP工具也无法使用，这就导致了无法连接外部下载kdc安装包</p>
 <p>还好我卸载之前连接的SSH窗口没有关闭（新的连接无法建立， 但是已经建立的连接不会断开），用的XSHELL 6，我尝试用XFTP连接，失败，但是XSHELL 6 默认输入框里就有传输文件的功能，上传四个Kerberos文件之后重新安装之后才解决了问题。</p>
+<hr>
+<h3 id="Windows下访问Kerberos-CDH集群的WebUI界面"><a href="#Windows下访问Kerberos-CDH集群的WebUI界面" class="headerlink" title="Windows下访问Kerberos CDH集群的WebUI界面"></a>Windows下访问Kerberos CDH集群的WebUI界面</h3><p><a href="http://web.mit.edu/kerberos/dist/" target="_blank" rel="noopener">MIT Kerberos下载地址</a></p>
+<p>先安装windows下的Kerberos安装包，无脑安装就行了。</p>
+<p>接着配置krb5..ini文件，将krb5.conf的内容拷贝进来，切忌不要直接更改后缀名就使用</p>
+<p>接着启动MIT Kerberos软件</p>
+<p>使用我们在linux KDC上注册的管理员账号登录即可。我们登录不同的服务使用到的不用的账号，这个软件貌似会通过我们这个管理员账号自己搞定。</p>
+<p>还有一种方法，需要使用Keytab，还涉及到文件权限的问题，因为上面的方法我很轻易就成功访问了WebUI，所以第二种方法就没有尝试。</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247483853&amp;idx=1&amp;sn=442a8ba87c922857253a437affe42506&amp;chksm=ec2ad1c4db5d58d2933ae5cde4ab1a7443c944e94aca85b51cbd8e9f4f3772162a39074da49d&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">更多内容访问阿里巨佬Fayson的公众号</a></p>
+<hr>
+<h3 id="Kerberos数据库BDB操作的经验之谈"><a href="#Kerberos数据库BDB操作的经验之谈" class="headerlink" title="Kerberos数据库BDB操作的经验之谈"></a>Kerberos数据库BDB操作的经验之谈</h3><p>kinit -k -t /etc/krb5.keytab <a href="mailto:test-client/myhost@EXAMPLE.COM" target="_blank" rel="noopener">test-client/myhost@EXAMPLE.COM</a></p>
+<hr>
+<h3 id="禁用Kerberos需要调整的设置"><a href="#禁用Kerberos需要调整的设置" class="headerlink" title="禁用Kerberos需要调整的设置"></a>禁用Kerberos需要调整的设置</h3><p>说明：设置可能会随着版本变化有所变化</p>
+<p><strong>Zookeeper</strong></p>
+<ul>
+<li><code>enableSecurity (Enable Kerberos Authentication)</code> : false</li>
+<li><code>zoo.cfg</code> 的Server 高级配置代码段（安全阀）写入skipACL: yes</li>
+</ul>
+<p><strong>HDFS</strong></p>
+<ul>
+<li><code>hadoop.security.authentication</code> : Simple</li>
+<li><code>hadoop.security.authorization</code> : false</li>
+<li><code>dfs.datanode.address</code> : 1004 (for Kerberos) 改为 50010 (default)</li>
+<li><code>dfs.datanode.http.address</code> : 1006 (for Kerberos) 改为 50075 (default)</li>
+<li><code>dfs.datanode.data.dir.perm</code> : 700 改为 755</li>
+</ul>
+<p><strong>HBase</strong></p>
+<ul>
+<li><code>hbase.security.authentication</code> : Simple</li>
+<li><code>hbase.security.authorization</code> : false</li>
+<li><code>hbase.thrift.security.qop</code> : none</li>
+</ul>
+<p><strong>Hue</strong></p>
+<ul>
+<li><code>Kerberos Ticket Renewer</code>: 删除或停用角色</li>
+</ul>
+<p><strong>Kafka</strong></p>
+<ul>
+<li><code>kerberos.auth.enable</code>: false</li>
+</ul>
+<p><strong>SOLR</strong></p>
+<ul>
+<li><code>solr Secure Authentication</code> : Simple</li>
+</ul>
+<hr>
+<h3 id="Kerberos优化"><a href="#Kerberos优化" class="headerlink" title="Kerberos优化"></a>Kerberos优化</h3><h4 id="美团优化实战"><a href="#美团优化实战" class="headerlink" title="美团优化实战"></a>美团优化实战</h4><p><strong>为什么要优化：</strong></p>
+<p>线上单台KDC服务器最大承受QPS是多少？哪台KDC的服务即将出现压力过大的问题？为什么机器的资源非常空闲，KDC的压力却会过大？如何优化？优化后瓶颈在哪儿？如何保证监控指标的全面性、可靠性和准确性？这都是本文需要回答的问题。从本次优化工作达成的最终结果上来看，单台服务器每秒的处理性能提升16倍左右，另外通过共享内存的方式设计了一个获取KDC各项核心指标的接口，使得服务的可用性进一步提升。</p>
+<p>名词：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v66w9mt3j212m0hw75j.jpg" alt></p>
+<p>下图是美团的架构，整个KDC服务都部署在同一个IDC</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v697svjwj21a40zc771.jpg" alt></p>
+<p><strong>主要优化工作</strong></p>
+<p>通过对KDC原理的分析，很容易判断只有前两部分才可能直接给KDC服务带来压力，因此本文涉及到的工作都将围绕上一部分的前两个环节展开分析。本次优化工作采用Grinder这一开源压测工具，分别对AS、TGS两个请求过程，采用相同机型（保证硬件的一致性）在不同场景下进行了压力测试。</p>
+<p>优化之前，线上KDC服务启动的单进程；为最低风险的完成美团和点评数据的融合，KDC中keytab都开启了PREAUTH属性；承载KDC服务的部分服务器没有做RAID。KDC服务出现故障时，机器整体资源空闲，怀疑是单进程的处理能力达到上限；PREAUTH属性进一步保证提升了KDC服务的安全性，但可能带来一定的性能开销；如果线上服务器只加载了少量的keytab信息，那么没有被加载到内存的数据必然读取磁盘，从而带来一定的IO损耗。</p>
+<p>因此本文中，对以下三个条件进行变动，分别进行了测试：</p>
+<ol>
+<li>对承载KDC服务的物理机型是否做RAID10；</li>
+<li>请求的keytab在库中是否带有PRAUTH属性；</li>
+<li>KDC是否启动多进程（多进程设置数目和物理机核数一致）。（实际测试工作中进行了多次测试）</li>
+</ol>
+<p><strong>Client和AS交互过程的压测</strong></p>
+<p>下图为AS压测的一组平均水平的测试数据，使用的物理机有40核，因此多进程测试启动40个进程。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6aqpeh0j212i0gumxq.jpg" alt></p>
+<p>分析表中的数据，很容易提出如下问题从而需要进一步探索：</p>
+<ol>
+<li>比较表中第一行和第二行、第三行和第四行，主机做不做RAID为什么对结果几乎无影响？</li>
+</ol>
+<p>该四组（测试结果为49、53、100和104所在表2中的行）数据均在达到处理能力上限一段时间后产生认证失败，分析机器的性能数据，内存、网卡、磁盘资源均没有成为系统的瓶颈，CPU资源除了某个CPU偶尔被打满，其他均很空闲。分析客户端和服务端的认证日志，服务端未见明显异常，但是客户端发现大量的Socket Timeout错误（测试设置的Socket超时时间为30s）。由于测试过程中，客户端输出的压力始终大于KDC的最大处理能力，导致KDC端的AS始终处于满负荷状态，暂时处理不了的请求必然导致排队；当排队的请求等待时间超过设置的30s后便会开始超时从而认证出错，且伴随机器某一CPU被打满（如图3）。 显然KDC单进程服务的处理能力已经达到瓶颈且瓶颈存在单核CPU的处理能力，从而决定向多进程方向进行优化测试。</p>
+<p>单进程KDC打满某一CPU：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6d08i8dj20xk0cewga.jpg" alt></p>
+<p>下图为本次压力测试的一个通用模型，假设KDC单位时间内的最大处理能力是A，来自客户端的请求速率稳定为B且 B&gt;A ；图中黄色区域为排队的请求数，当某一请求排队超过30s，便会导致Socket Timedout错误。</p>
+<p>AS处理能力和Client压力模型：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6dxwvacj21380pqwg3.jpg" alt></p>
+<ol start="2">
+<li>比较上上一张表中第1和3行、第2和4行、第7和8行相比，为什么有PREAUTH属性的认证QPS大致是无该属性处理能力的一半？</li>
+</ol>
+<p>如果Client的keytab在KDC的库中不带有PREAUTH这一属性，Client发送请求，KDC的AS模块验证其合法性之后返回正确的结果；整个过程只需要两次建立链接进行交互便可完成。如果带有PREAUTH属性，意味着该keytab的认证启动了Kerberos 5协议中的 pre-authentication概念：当AS模块收到Client的请求信息后；故意给Client返回一个错误的请求包，Client会“领悟到”这是KDC的AS端需要进行提前认证；从而Client获取自己服务器的时间戳并用自己的密钥加密发送KDC，KDC解密后和自身所在服务器的时间进行对比，如果误差在能容忍的范围内；返回给Client正确的TGT响应包；过程如下图所示。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6fxvq1xj220o0d0juw.jpg" alt></p>
+<ol start="3">
+<li>根据对问题2的分析，CPU占用表中第5和7行的值的比例应该近似为1:2，为什么第5行的值只有115，结果和理论差距如此之大？</li>
+</ol>
+<p>KDC的库中对客户端的keytab开启PREAUTH属性，客户端每认证一次，KDC需要将该次认证的时间戳等信息写到本次磁盘的BDB数据库的Log中；而关闭PREAUTH属性后，每次认证只需要从库中读取数据，只要给BDB数据库分配的内存足够大，就可以最大程度的减少和本次磁盘的交互。KDC40进程且开启PRAUTH，其AS处理能力的QPS只有115，分析机器性能的相关指标，发现瓶颈果然是单盘的IO，如图6所示。使用BDB提供的工具，查看美团数据平台KDC服务的BDB缓存命中率为99%，如下图所示：</p>
+<p>无RAID多KDC进程服务器磁盘IO：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6i16k8hj21140ccgmj.jpg" alt></p>
+<p>美团KDC缓存命中率：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6jctl01j20pa0bw76t.jpg" alt></p>
+<ol start="4">
+<li>KDC AS处理能力在多进程做RAID条件下，有无preauth属性，KDC服务是否有瓶颈？如果有在哪里？</li>
+</ol>
+<p>经多次实验，KDC的AS处理能力受目前物理机CPU处理能力的限制，图8为有PREAUTH属性的CPU使用情况截图，无PREAUTH结果一致。</p>
+<p>40进程有PREAUTH，AS对CPU资源的使用情况：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6jsf7r8j20z2154qk7.jpg" alt></p>
+<p><strong>Client和TGS交互过程的压测：</strong></p>
+<p>下表为TGS压测的一组平均水平的测试数据：</p>
+<p>TGS压测：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6kt9fnvj212g0h2t9a.jpg" alt></p>
+<p>可以发现KDC对TGS请求的处理能力和主机是否做RAID无关,结合KDC中TGS的请求原理，就较容易理解在BDB缓存命中率足够高的条件下，TGS的请求不需要和本次磁盘交互；进一步做实验，也充分验证了这一点，机器的磁盘IO在整个测试过程中，没有大的变化，如图所示，操作系统本身偶尔产生的IO完全构不成KDC的服务瓶颈。KDC单进程多进程的对比，其处理瓶颈和AS一致，均受到CPU处理能力的限制（单进程打满某一CPU，多进程几乎占用整台机器的CPU资源）。从Kerberos的设计原理分析，很容易理解，无论KDC库中的keytab是否带有PREAUTH属性，对TGS的处理逻辑几乎没有影响，压测的数据结果从实际角度验证了这一点。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6m4az4cj224a0tawhe.jpg" alt></p>
+<p><strong>C：其它问题</strong></p>
+<p>Client和KDC的交互，支持TCP和UDP两种协议。在网络环境良好的情况下，两种协议的KDC的测试结果理论上和实际中几乎一致。但是在原生代码中，使用TCP协议，在客户端给KDC造成一定压力持续6s左右，客户端开始认证出错，在远未达到超时时限的情况下，Client出现了<code>socket reset</code>类的错误。KDC查看内核日志，发现大量<code>possible SYN flooding on port 8089(KDC的服务端口). Sending cookies</code>，且通过<code>netstat -s</code>发现机器的<code>xxxx times the listen queue of a socket overflowed</code>异常增高，种种现象表明可能是服务端的半连接队列、全连接队列中的一个或者全部被打满。主要原理如图10所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6mjf0tvj20ws0wuq6q.jpg" alt></p>
+<p>发现KDC服务所在服务器：半队列<code>/proc/sys/net/ipv4/tcp_max_syn_backlog为2048</code>。</p>
+<p>全队列：1）系统参数<code>/proc/sys/net/core/somaxconn＝65535</code>，查看代码<code>listen()</code>函数的传入值为5。</p>
+<p>故而判断TCP的瓶颈在于全队列，因此目标为将<code>listen</code>函数的第二个<code>backlog</code>参数变成可控可传入。</p>
+<p><strong>KDC可监控的设计和实现</strong></p>
+<p>开源社区对Kerberos实现的KDC完全没有对外暴露可监控的接口，最初线上的场景主要通过检索Log进行相关指标的监控，在统计服务QPS、各种错误的监控等方面，存在准确准确监控难的尴尬局面。为了实现对KDC准确、较全面的监控，对KDC进行了二次开发，设计一个获取监控指标的接口。对监控的设计，主要从以下三个方面进行了考虑和设计。</p>
+<p><strong>A.设计上的权衡</strong></p>
+<ol>
+<li><p>监控的设计无论在什么场景下，都应该尽可能的不去或者最小程度的影响线上的服务，本文最终采用建立一块共享内存的方式，记录各个KDC进程的打点信息，实现的架构如图11所示。每个KDC进程对应共享内存中的一块区域，通过n个数组来存储KDC n个进程的服务指标：当某个KDC进程处理一个请求后，该请求对监控指标的影响会直接打点更新到其对应的Slot 数组中。更新的过程不受锁等待更新的影响，KDC对监控打点的调用仅仅是内存块中的更新，对服务的影响几乎可以忽略不计。相比其他方式，在实现上也更加简单、易理解。</p>
+</li>
+<li><p>纪录每个KDC进程的服务情况，便于准确查看每个进程的对请求的处理情况，有助于定位问题多种情况下出现的异常，缩短故障的定位时间。例如：能够准确的反应出每个进程的请求分布是否均匀、请求处理出现异常能够定位到具体是某个进程出现异常还是整体均有异常。</p>
+<p>KDC监控设计的整体架构：</p>
+</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6oip712j21v80y2wlc.jpg" alt></p>
+<p><strong>B.程序的可拓展性</strong></p>
+<p>任何指标的采集都是随着需求进行变更的，如果程序设计上不具有良好的扩展性，会后续的指标扩展带来很大的困扰。第一版KDC监控指标的采集只区分请求的成功与失败两种类型，美团数据平台KDC库中所有的keytab都具有PREAUTH属性。根据上文可知，去掉PREAUTH属性后，AS请求的QPS能够提升一倍。后续随着服务规模的进一步增长，如果AS请求的处理能力逐步成为瓶颈，会考虑去掉PREAUTH属性。为了准确监控去掉PREAUTH属性这一过程是否有、有多少请求出现错误，需要扩展一个监控指标，因此有了KDC监控的第二版。整个过程只需要修改三个地方，完成两个功能的实现：</p>
+<ol>
+<li>添加指标 ；</li>
+<li>打点逻辑的添加。</li>
+</ol>
+<p>整个修改过程简单明了，因此，该KDC监控程序的设计具有非常好的扩展性。图12为监控指标的罗列和注释：</p>
+<p>KDC监控指标及含义：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6pmygs4j21440ri7d2.jpg" alt></p>
+<p><strong>C.接口工具kstat的设计</strong></p>
+<p>获取KDC监控指标的接口工具主要分为两种：</p>
+<ol>
+<li>获取当前每个KDC进程对各个指标的累积值，该功能是为了和新美大的监控平台Falcon结合，方便实现指标的上报实现累加值和分钟级别速率值的处理；</li>
+<li>获取制定次数在制定时间间隔内每个进程监控指标的瞬时速率，最小统计间隔可达秒级，方便运维人员登陆机器无延迟的查看当前KDC的服务情况，使其在公司监控系统不可用的情况下分析服务的当前问题。具体使用见下图。</li>
+</ol>
+<p>kstat的使用帮助和两种功能使用样例：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6qjmveyj21s60len2w.jpg" alt></p>
+<p><strong>总结：</strong></p>
+<p>通过本次对KDC服务的压测实验和分析，总结出KDC最优性能的调整方案为：</p>
+<ol>
+<li>KDC服务本身需要开启多进程和以充分利用多核机器的CPU资源，同时确保BDB的内存资源足够，保证其缓存命中率达到一定比例（越高越好，否则查询库会带来大量的磁盘读IO）；</li>
+<li>选择的物理机要做RAID，否则在库中keytab带有PREAUTH属性的条件下，会带来大量的写，容易导致磁盘成为KDC的性能瓶颈。通过建立一块共享内存无锁的实现了KDC多进程指标的收集，加上其良好的扩展性和数据的精确性，极大的提高了KDC服务的可靠性。</li>
+</ol>
+<p>相比原来线上单进程的处理能力，目前单台服务器的处理性能提升10+倍以上。本次工作没有详细的论述TCP协议中半队列、全队列的相关参数应该如何设定才能达到最优，和服务本身结合到一起，每个参数的变更带来的影响具体是什么因为过于复杂，还没有介绍。</p>
+<hr>
+<p><a href="https://tech.meituan.com/2019/02/14/data-security-platform-construction-practice-jiangjunling.html" target="_blank" rel="noopener">美团数据安全平台建设实践</a></p>
+<p>介绍了权限模型和解决方案等</p>
+<hr>
 
       
     </div>
@@ -878,6 +1085,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Kerberos/" rel="tag"># Kerberos</a>
+          
+        </div>
+      
 
       
       
@@ -887,14 +1100,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/05/09/大数据病毒分析/" rel="next" title="hadoop病毒案例分析">
+                <i class="fa fa-chevron-left"></i> hadoop病毒案例分析
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/22/大数据在小米的实践/" rel="prev" title="广告大数据在小米的实践">
-                广告大数据在小米的实践 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/09/day01/" rel="prev" title="Data Preprocessing | Day 1">
+                Data Preprocessing | Day 1 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -979,7 +1196,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -990,7 +1207,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1001,7 +1218,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -1069,7 +1286,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Kerberos-入门"><span class="nav-number">1.</span> <span class="nav-text">1.Kerberos 入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Kerberos涉及名词"><span class="nav-number">2.</span> <span class="nav-text">2.Kerberos涉及名词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Kerberos原理"><span class="nav-number">3.</span> <span class="nav-text">3.Kerberos原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Kerberos的安装和Apach原生HDFS的配置"><span class="nav-number">4.</span> <span class="nav-text">4.Kerberos的安装和Apach原生HDFS的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Apach-原生Zookeeper的Kerberos配置及其验证"><span class="nav-number">5.</span> <span class="nav-text">5.Apach 原生Zookeeper的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Apach原生Kafka的Kerberos配置及其验证"><span class="nav-number">6.</span> <span class="nav-text">6.Apach原生Kafka的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Cloudera’s-Distribution-Including-Apache-Hadoop-CDH-上Kerberos的安装"><span class="nav-number">7.</span> <span class="nav-text">7.Cloudera’s Distribution Including Apache Hadoop(CDH)上Kerberos的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos卸载BUG"><span class="nav-number">8.</span> <span class="nav-text">Kerberos卸载BUG</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Kerberos-入门"><span class="nav-number">1.</span> <span class="nav-text">1.Kerberos 入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Kerberos涉及名词"><span class="nav-number">2.</span> <span class="nav-text">2.Kerberos涉及名词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Kerberos原理"><span class="nav-number">3.</span> <span class="nav-text">3.Kerberos原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Kerberos的安装和Apach原生HDFS的配置"><span class="nav-number">4.</span> <span class="nav-text">4.Kerberos的安装和Apach原生HDFS的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Apach-原生Zookeeper的Kerberos配置及其验证"><span class="nav-number">5.</span> <span class="nav-text">5.Apach 原生Zookeeper的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Apach原生Kafka的Kerberos配置及其验证"><span class="nav-number">6.</span> <span class="nav-text">6.Apach原生Kafka的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Cloudera’s-Distribution-Including-Apache-Hadoop-CDH-上Kerberos的安装"><span class="nav-number">7.</span> <span class="nav-text">7.Cloudera’s Distribution Including Apache Hadoop(CDH)上Kerberos的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对Kerberos-BDB的一点使用心得"><span class="nav-number">8.</span> <span class="nav-text">对Kerberos BDB的一点使用心得</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何验证Kerberos已经安装完成"><span class="nav-number">9.</span> <span class="nav-text">如何验证Kerberos已经安装完成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos遇到的坑"><span class="nav-number">10.</span> <span class="nav-text">Kerberos遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kerberos卸载BUG"><span class="nav-number">10.1.</span> <span class="nav-text">Kerberos卸载BUG</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows下访问Kerberos-CDH集群的WebUI界面"><span class="nav-number">11.</span> <span class="nav-text">Windows下访问Kerberos CDH集群的WebUI界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos数据库BDB操作的经验之谈"><span class="nav-number">12.</span> <span class="nav-text">Kerberos数据库BDB操作的经验之谈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#禁用Kerberos需要调整的设置"><span class="nav-number">13.</span> <span class="nav-text">禁用Kerberos需要调整的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos优化"><span class="nav-number">14.</span> <span class="nav-text">Kerberos优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#美团优化实战"><span class="nav-number">14.1.</span> <span class="nav-text">美团优化实战</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1103,7 +1320,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">24.9k</span>
+    <span title="Site words total count">32.5k</span>
   
 </div>
 

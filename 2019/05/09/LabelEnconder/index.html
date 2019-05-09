@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="sklearn,OneHotEncoder,LabelEncoder,">
 
 
 
@@ -97,17 +97,18 @@
 
 
 
-<meta name="description" content="不得不说 我还是小看了ML的知识涉及的广度光是ML 100days 的第一天其实涉及的内容就非常多从Sklearn包到pycharm自带的各种BUG都搞的人头大这边先拉一个分支出来，这两天得空了准备一下category  LabelEnconder123456789from sklearn.preprocessing import LabelEcondery = data.iloc[:.-1]">
+<meta name="description" content="不得不说 我还是小看了ML的知识涉及的广度光是ML 100days 的第一天其实涉及的内容就非常多从Sklearn包到pycharm自带的各种BUG都搞的人头大 总算把这个整的有点明白了">
+<meta name="keywords" content="sklearn,OneHotEncoder,LabelEncoder">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LabelEnconder 和 OneHotEncoder">
 <meta property="og:url" content="http://yoursite.com/2019/05/09/LabelEnconder/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="不得不说 我还是小看了ML的知识涉及的广度光是ML 100days 的第一天其实涉及的内容就非常多从Sklearn包到pycharm自带的各种BUG都搞的人头大这边先拉一个分支出来，这两天得空了准备一下category  LabelEnconder123456789from sklearn.preprocessing import LabelEcondery = data.iloc[:.-1]">
+<meta property="og:description" content="不得不说 我还是小看了ML的知识涉及的广度光是ML 100days 的第一天其实涉及的内容就非常多从Sklearn包到pycharm自带的各种BUG都搞的人头大 总算把这个整的有点明白了">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-08T18:46:45.000Z">
+<meta property="og:updated_time" content="2019-05-09T06:42:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LabelEnconder 和 OneHotEncoder">
-<meta name="twitter:description" content="不得不说 我还是小看了ML的知识涉及的广度光是ML 100days 的第一天其实涉及的内容就非常多从Sklearn包到pycharm自带的各种BUG都搞的人头大这边先拉一个分支出来，这两天得空了准备一下category  LabelEnconder123456789from sklearn.preprocessing import LabelEcondery = data.iloc[:.-1]">
+<meta name="twitter:description" content="不得不说 我还是小看了ML的知识涉及的广度光是ML 100days 的第一天其实涉及的内容就非常多从Sklearn包到pycharm自带的各种BUG都搞的人头大 总算把这个整的有点明白了">
 
 
 
@@ -346,7 +347,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T01:08:36+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T20:42:17+08:00">
                 2019-05-09
               </time>
             
@@ -356,6 +357,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mechine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Mechine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -389,7 +412,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  324
+                  315
                 </span>
               
 
@@ -427,8 +450,10 @@
 
       
         <blockquote>
-<p>不得不说 我还是小看了ML的知识涉及的广度<br>光是ML 100days 的第一天其实涉及的内容就非常多<br>从Sklearn包到pycharm自带的各种BUG都搞的人头大<br>这边先拉一个分支出来，这两天得空了准备一下category</p>
+<p>不得不说 我还是小看了ML的知识涉及的广度<br>光是ML 100days 的第一天其实涉及的内容就非常多<br>从Sklearn包到pycharm自带的各种BUG都搞的人头大</p>
+<p>总算把这个整的有点明白了</p>
 </blockquote>
+<a id="more"></a> 
 <h3 id="LabelEnconder"><a href="#LabelEnconder" class="headerlink" title="LabelEnconder"></a>LabelEnconder</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEconder</span><br><span class="line">y = data.iloc[:.<span class="number">-1</span>] <span class="comment"># 索引所有的行 最后一列</span></span><br><span class="line"><span class="comment"># 三步</span></span><br><span class="line">le = LabelEnconder() <span class="comment"># 实例化</span></span><br><span class="line">le = le.fit(y) <span class="comment"># 导入数据</span></span><br><span class="line">label = le.transform(y) <span class="comment"># trasform就扣调取结果</span></span><br><span class="line"><span class="comment"># 这边fit了之后可以直接用le.classes_ 查看标签中有多少类别</span></span><br><span class="line">le.classes_</span><br><span class="line"><span class="comment"># 输出 array(['No','Unknown','Yes'],dtype=object)</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以直接fit_transform()一步到位</span></span><br><span class="line">le.fit_transform(y)</span><br><span class="line"><span class="comment"># 这样看不到属性</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从上到下一步到位</span></span><br><span class="line">data.iloc[: , <span class="number">-1</span>] = LabelEncoder().fit_transform(data.iloc[: , <span class="number">-1</span>])</span><br><span class="line"><span class="comment"># 实例化、fit transform 全部完成</span></span><br></pre></td></tr></table></figure>
@@ -448,6 +473,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/sklearn/" rel="tag"># sklearn</a>
+          
+            <a href="/tags/OneHotEncoder/" rel="tag"># OneHotEncoder</a>
+          
+            <a href="/tags/LabelEncoder/" rel="tag"># LabelEncoder</a>
+          
+        </div>
+      
 
       
       
@@ -457,8 +492,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/08/Machine Learning/" rel="next" title="Machine Learning">
-                <i class="fa fa-chevron-left"></i> Machine Learning
+              <a href="/2019/05/09/day01/" rel="next" title="Data Preprocessing | Day 1">
+                <i class="fa fa-chevron-left"></i> Data Preprocessing | Day 1
               </a>
             
           </div>
@@ -466,6 +501,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/09/批处理更改IP/" rel="prev" title="win环境下更换IP的批处理">
+                win环境下更换IP的批处理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -549,7 +588,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -560,7 +599,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -571,7 +610,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -673,7 +712,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">24.9k</span>
+    <span title="Site words total count">32.5k</span>
   
 </div>
 
