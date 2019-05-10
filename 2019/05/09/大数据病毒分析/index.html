@@ -97,13 +97,13 @@
 
 
 
-<meta name="description" content="京东云和公司集群分别遇到过一次挖矿脚本，经过分析，发现两次挖矿事件有所不同，在这篇文档记录下两次挖矿事件的异同、总结和反思。  第二次事件分析我遇到的两次挖矿事件分别是由于Hadoop Yarn REST API未授权漏洞和Redis未授权访问漏洞这两种常见的配置问题引发的。 目前可以确定的是，第二次遇到的是Watchdogs蠕虫，这种蠕虫病毒第一次发现是2019年2月20日，阿里云安全监测到一">
+<meta name="description" content="京东云和公司集群分别遇到过一次挖矿脚本，经过分析，发现两次挖矿事件有所不同，在这篇文档记录下两次挖矿事件的异同、总结和反思。">
 <meta name="keywords" content="病毒,漏洞,脚本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hadoop病毒案例分析">
 <meta property="og:url" content="http://yoursite.com/2019/05/09/大数据病毒分析/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="京东云和公司集群分别遇到过一次挖矿脚本，经过分析，发现两次挖矿事件有所不同，在这篇文档记录下两次挖矿事件的异同、总结和反思。  第二次事件分析我遇到的两次挖矿事件分别是由于Hadoop Yarn REST API未授权漏洞和Redis未授权访问漏洞这两种常见的配置问题引发的。 目前可以确定的是，第二次遇到的是Watchdogs蠕虫，这种蠕虫病毒第一次发现是2019年2月20日，阿里云安全监测到一">
+<meta property="og:description" content="京东云和公司集群分别遇到过一次挖矿脚本，经过分析，发现两次挖矿事件有所不同，在这篇文档记录下两次挖矿事件的异同、总结和反思。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v117hz8tj20z80iygok.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v13zzr57j20ix036my8.jpg">
@@ -114,10 +114,10 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v17j9t4kj21c80eo0ul.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v1iwxf04j22uk0n4tbu.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v1ogyzquj20mo09sab7.jpg">
-<meta property="og:updated_time" content="2019-05-09T06:35:57.000Z">
+<meta property="og:updated_time" content="2019-05-10T03:02:03.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop病毒案例分析">
-<meta name="twitter:description" content="京东云和公司集群分别遇到过一次挖矿脚本，经过分析，发现两次挖矿事件有所不同，在这篇文档记录下两次挖矿事件的异同、总结和反思。  第二次事件分析我遇到的两次挖矿事件分别是由于Hadoop Yarn REST API未授权漏洞和Redis未授权访问漏洞这两种常见的配置问题引发的。 目前可以确定的是，第二次遇到的是Watchdogs蠕虫，这种蠕虫病毒第一次发现是2019年2月20日，阿里云安全监测到一">
+<meta name="twitter:description" content="京东云和公司集群分别遇到过一次挖矿脚本，经过分析，发现两次挖矿事件有所不同，在这篇文档记录下两次挖矿事件的异同、总结和反思。">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v117hz8tj20z80iygok.jpg">
 
 
@@ -357,7 +357,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T20:42:15+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T13:47:17+08:00">
                 2019-05-09
               </time>
             
@@ -473,6 +473,7 @@
         <blockquote>
 <p>京东云和公司集群分别遇到过一次挖矿脚本，经过分析，发现两次挖矿事件有所不同，在这篇文档记录下两次挖矿事件的异同、总结和反思。</p>
 </blockquote>
+<a id="more"></a> 
 <h3 id="第二次事件分析"><a href="#第二次事件分析" class="headerlink" title="第二次事件分析"></a>第二次事件分析</h3><p>我遇到的两次挖矿事件分别是由于<code>Hadoop Yarn REST API</code>未授权漏洞和<code>Redis</code>未授权访问漏洞这两种常见的配置问题引发的。</p>
 <p>目前可以确定的是，第二次遇到的是Watchdogs蠕虫，这种蠕虫病毒第一次发现是2019年2月20日，阿里云安全监测到一起大规模挖矿事件，判断为Watchdogs蠕虫导致，该蠕虫短时间内即造成大量Linux主机沦陷，一方面是利用Redis未授权访问和弱密码这两种常见的配置问题进行传播，另一方面从known_hosts文件读取ip列表，用于登录信任该主机的其他主机。这两种传播手段都不是第一次用于蠕虫，但结合在一起爆发出巨大的威力。</p>
 <p>蠕虫感染路径如下图：</p>
@@ -615,8 +616,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/05/rm -rf 后面的故事/" rel="next" title="发生在rm -rf /* 之后">
-                <i class="fa fa-chevron-left"></i> 发生在rm -rf /* 之后
+              <a href="/2019/05/09/LabelEnconder/" rel="next" title="LabelEnconder 和 OneHotEncoder">
+                <i class="fa fa-chevron-left"></i> LabelEnconder 和 OneHotEncoder
               </a>
             
           </div>
@@ -625,8 +626,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/09/Kerberos For CDH/" rel="prev" title="Kerberos For CDH">
-                Kerberos For CDH <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/10/win10搜索栏失效/" rel="prev" title="win10搜索栏失效">
+                win10搜索栏失效 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
