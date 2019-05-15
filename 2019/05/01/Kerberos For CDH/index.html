@@ -130,7 +130,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6oip712j21v80y2wlc.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6pmygs4j21440ri7d2.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6qjmveyj21s60len2w.jpg">
-<meta property="og:updated_time" content="2019-05-10T06:19:39.691Z">
+<meta property="og:updated_time" content="2019-05-15T01:27:11.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kerberos For CDH">
 <meta name="twitter:description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29 第二次更新：2019-5-10">
@@ -449,7 +449,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  16.8k
+                  17.1k
                 </span>
               
 
@@ -465,7 +465,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  68
+                  69
                 </span>
               
             </div>
@@ -682,9 +682,9 @@
 <p><strong>启动服务</strong>：</p>
 <p>在master节点上运行：</p>
 <p>centos 6：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chkconfig krb5kdc on </span><br><span class="line">chkconfig kadmin on </span><br><span class="line">service krb5kdc start </span><br><span class="line">service kadmin start</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chkconfig krb5kdc on </span><br><span class="line">chkconfig kadmin on </span><br><span class="line">service krb5kdc start </span><br><span class="line">service kadmin start</span><br></pre></td></tr></table></figure>
 <p>centos 7：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start krb5kdc </span><br><span class="line">systemctl start kadmin </span><br><span class="line">systemctl status krb5kdc </span><br><span class="line">systemctl status kadmin</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start krb5kdc </span><br><span class="line">systemctl start kadmin </span><br><span class="line">systemctl status krb5kdc </span><br><span class="line">systemctl status kadmin</span><br></pre></td></tr></table></figure>
 <hr>
 <p><strong>创建Kerberos管理员</strong></p>
 <p>Kerberos的管理，有两个方式，分别是kadmin.local 或 kadmin，至于使用哪个，取决于账户和权限访问。</p>
@@ -938,6 +938,10 @@
 <h4 id="Zookeeper报错"><a href="#Zookeeper报错" class="headerlink" title="Zookeeper报错"></a>Zookeeper报错</h4><p>Zk这个组件启动的时候在互相连接的装一下会报Error，这个Error曾今困扰了我挺久</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2019-02-26 18:37:15,898 WARN org.apache.zookeeper.server.NIOServerCnxn: caught end of stream exception</span><br><span class="line">EndOfStreamException: Unable to read additional data from client sessionid 0x269290a81950073, likely client has closed socket</span><br><span class="line">        at org.apache.zookeeper.server.NIOServerCnxn.doIO(NIOServerCnxn.java:231)</span><br><span class="line">        at org.apache.zookeeper.server.NIOServerCnxnFactory.run(NIOServerCnxnFactory.java:208)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:748)</span><br></pre></td></tr></table></figure>
 <p>其实只要Zk验证了没有问题就行了，这个报错不用纠结</p>
+<h4 id="Kafka启动-关闭Kerberos的坑"><a href="#Kafka启动-关闭Kerberos的坑" class="headerlink" title="Kafka启动/关闭Kerberos的坑"></a>Kafka启动/关闭Kerberos的坑</h4><p>CDH集群中为Kafka启用Kerberos需要些配置之外的操作，启用Kerberos的时候容易忽略这些细节，导致kafka开启不正确， 然后关闭的时候容易把这些操作忽略了，导致关闭不彻底，在有的环节仍然关闭了Kerberos。</p>
+<p>Kafka在CDH中的配置需要先登录CM进入kafka服务，修改<code>ssl.client.auth</code>为none，这届两个Kerberos相关的配置设为开启，接下来还要修改security.inter.broker.protocol配置为SASL_PLAINTEXT，保存以上修改的配置后，回到主页根据提示重启kafka Server,接下来就是在客户端上的配置，本身CDH就会为了Kafka生成配置文件jaas.conf，对于这个配置文件真实一言难尽，里面的配置文件会有 不起眼的错误（是关于KafkaClient和KafkaServer混淆的错误），这一个改正完毕，还有一个配置文件client.properties文件，两个文件设置完毕后，在<code>/etc/profile</code>里面设置环境变量<code>export
+KAFKA_OPTS=&quot;-Djava.security.krb5.conf=/etc/krb5.conf
+-Djava.security.auth.login.config=/opt/kafka/kafka_client.jaas&quot;</code>，配置完毕kafka这块，关闭的时候容易忘记，必须要记得从profile中删除才行。</p>
 <h4 id="Flume配置文件导致文件无限传输"><a href="#Flume配置文件导致文件无限传输" class="headerlink" title="Flume配置文件导致文件无限传输"></a>Flume配置文件导致文件无限传输</h4><p>Flume的配置文件出了错误，因为对Flume的KafkaChannel的不熟悉</p>
 <p>配置的时候把Channel的sink又连接到Source上导致了数据一致循环。。。</p>
 <p>排查之后发现了这个问题，附上Flume的配置文件</p>
@@ -1131,8 +1135,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/05/rm -rf 后面的故事/" rel="prev" title="发生在rm -rf /* 之后">
-                发生在rm -rf /* 之后 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/05/rm -rf 后面的故事/" rel="prev" title="删库跑路之前该做的事情">
+                删库跑路之前该做的事情 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1307,7 +1311,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Kerberos-入门"><span class="nav-number">1.</span> <span class="nav-text">1.Kerberos 入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Kerberos涉及名词"><span class="nav-number">2.</span> <span class="nav-text">2.Kerberos涉及名词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Kerberos原理"><span class="nav-number">3.</span> <span class="nav-text">3.Kerberos原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Kerberos的安装和Apach原生HDFS的配置"><span class="nav-number">4.</span> <span class="nav-text">4.Kerberos的安装和Apach原生HDFS的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Apach-原生Zookeeper的Kerberos配置及其验证"><span class="nav-number">5.</span> <span class="nav-text">5.Apach 原生Zookeeper的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Apach原生Kafka的Kerberos配置及其验证"><span class="nav-number">6.</span> <span class="nav-text">6.Apach原生Kafka的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Cloudera’s-Distribution-Including-Apache-Hadoop-CDH-上Kerberos的安装"><span class="nav-number">7.</span> <span class="nav-text">7.Cloudera’s Distribution Including Apache Hadoop(CDH)上Kerberos的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-对Kerberos的一点使用心得"><span class="nav-number">8.</span> <span class="nav-text">8.对Kerberos的一点使用心得</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-如何验证Kerberos已经安装完成"><span class="nav-number">9.</span> <span class="nav-text">9.如何验证Kerberos已经安装完成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Kerberos遇到的坑"><span class="nav-number">10.</span> <span class="nav-text">10.Kerberos遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kerberos卸载BUG"><span class="nav-number">10.1.</span> <span class="nav-text">Kerberos卸载BUG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zookeeper报错"><span class="nav-number">10.2.</span> <span class="nav-text">Zookeeper报错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flume配置文件导致文件无限传输"><span class="nav-number">10.3.</span> <span class="nav-text">Flume配置文件导致文件无限传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HUE中Oozie报错，时区错误"><span class="nav-number">10.4.</span> <span class="nav-text">HUE中Oozie报错，时区错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统自带的无法识别的配置文件"><span class="nav-number">10.5.</span> <span class="nav-text">系统自带的无法识别的配置文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Windows下访问Kerberos-CDH集群的WebUI界面"><span class="nav-number">11.</span> <span class="nav-text">11.Windows下访问Kerberos CDH集群的WebUI界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-禁用Kerberos需要调整的设置"><span class="nav-number">12.</span> <span class="nav-text">12.禁用Kerberos需要调整的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-集群同步脚本"><span class="nav-number">13.</span> <span class="nav-text">13.集群同步脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-Kerberos优化"><span class="nav-number">14.</span> <span class="nav-text">14.Kerberos优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#美团优化实战"><span class="nav-number">14.1.</span> <span class="nav-text">美团优化实战</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Kerberos-入门"><span class="nav-number">1.</span> <span class="nav-text">1.Kerberos 入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Kerberos涉及名词"><span class="nav-number">2.</span> <span class="nav-text">2.Kerberos涉及名词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Kerberos原理"><span class="nav-number">3.</span> <span class="nav-text">3.Kerberos原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Kerberos的安装和Apach原生HDFS的配置"><span class="nav-number">4.</span> <span class="nav-text">4.Kerberos的安装和Apach原生HDFS的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Apach-原生Zookeeper的Kerberos配置及其验证"><span class="nav-number">5.</span> <span class="nav-text">5.Apach 原生Zookeeper的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Apach原生Kafka的Kerberos配置及其验证"><span class="nav-number">6.</span> <span class="nav-text">6.Apach原生Kafka的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Cloudera’s-Distribution-Including-Apache-Hadoop-CDH-上Kerberos的安装"><span class="nav-number">7.</span> <span class="nav-text">7.Cloudera’s Distribution Including Apache Hadoop(CDH)上Kerberos的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-对Kerberos的一点使用心得"><span class="nav-number">8.</span> <span class="nav-text">8.对Kerberos的一点使用心得</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-如何验证Kerberos已经安装完成"><span class="nav-number">9.</span> <span class="nav-text">9.如何验证Kerberos已经安装完成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Kerberos遇到的坑"><span class="nav-number">10.</span> <span class="nav-text">10.Kerberos遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kerberos卸载BUG"><span class="nav-number">10.1.</span> <span class="nav-text">Kerberos卸载BUG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zookeeper报错"><span class="nav-number">10.2.</span> <span class="nav-text">Zookeeper报错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka启动-关闭Kerberos的坑"><span class="nav-number">10.3.</span> <span class="nav-text">Kafka启动/关闭Kerberos的坑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flume配置文件导致文件无限传输"><span class="nav-number">10.4.</span> <span class="nav-text">Flume配置文件导致文件无限传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HUE中Oozie报错，时区错误"><span class="nav-number">10.5.</span> <span class="nav-text">HUE中Oozie报错，时区错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统自带的无法识别的配置文件"><span class="nav-number">10.6.</span> <span class="nav-text">系统自带的无法识别的配置文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Windows下访问Kerberos-CDH集群的WebUI界面"><span class="nav-number">11.</span> <span class="nav-text">11.Windows下访问Kerberos CDH集群的WebUI界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-禁用Kerberos需要调整的设置"><span class="nav-number">12.</span> <span class="nav-text">12.禁用Kerberos需要调整的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-集群同步脚本"><span class="nav-number">13.</span> <span class="nav-text">13.集群同步脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-Kerberos优化"><span class="nav-number">14.</span> <span class="nav-text">14.Kerberos优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#美团优化实战"><span class="nav-number">14.1.</span> <span class="nav-text">美团优化实战</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1341,7 +1345,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">34.6k</span>
+    <span title="Site words total count">36.3k</span>
   
 </div>
 
