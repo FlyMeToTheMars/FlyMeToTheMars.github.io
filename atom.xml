@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-10T09:46:40.763Z</updated>
+  <updated>2019-05-16T10:41:19.153Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Analog Data With TPCDS &amp; TPCH</title>
+    <link href="http://yoursite.com/2019/05/15/analog_data/"/>
+    <id>http://yoursite.com/2019/05/15/analog_data/</id>
+    <published>2019-05-15T06:12:22.721Z</published>
+    <updated>2019-05-16T10:41:19.153Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段<br>本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同</p></blockquote><a id="more"></a> <h3 id="大神fayson的日志："><a href="#大神fayson的日志：" class="headerlink" title="大神fayson的日志："></a>大神<code>fayson</code>的日志：</h3><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247488108&amp;idx=1&amp;sn=8f34c674bc12990d61a8f4de4ca3c728&amp;chksm=ec2ac265db5d4b731b93c4b7da0b3a24f0bf200274dd763531873bb4dd205e37d704ea2719b6&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">如何编译及使用TPC-DS生成测试数据</a></p><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247488190&amp;idx=1&amp;sn=3f34824bdadbfa0823823121f86cafd4&amp;chksm=ec2ac2b7db5d4ba1484d6a6cf3161fdb90798d2605d2e79fa8bf633d32766c42cc8e2b41e206&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">如何编译及使用hive-testbench生成Hive基准测试数据</a></p><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247489095&amp;idx=1&amp;sn=5af481742664f79146c58f425c9429d3&amp;chksm=ec2ac64edb5d4f58860db96ae4b452fda70b108527e4cc78c1978461ed62e67fcf997631d270&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Impala TPC-DS基准测试</a></p><h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><h4 id="1-源码无法编译"><a href="#1-源码无法编译" class="headerlink" title="1.源码无法编译"></a>1.源码无法编译</h4><p>源码下载下来之后build，需要的组件根本下载不了</p><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g330ii05j5j20tt0bt75b.jpg" alt></p><p>这里Google到了一个办法</p><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g330lkku7yj20tn0a7wf6.jpg" alt></p><p>先把包下载下来，放进对应的文件夹里然后编译</p><h4 id="2-安装遇到的问题"><a href="#2-安装遇到的问题" class="headerlink" title="2.安装遇到的问题"></a>2.安装遇到的问题</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g330stw7enj20of0ebdgx.jpg" alt></p><p>类似配置冲突的问题 不知道为什么</p><p>yes和no我都分别选过，但是都不对，配置完成之后执行都有问题</p><p>我初步怀疑可能是版本问题，我下一个旧版本的试一试</p><p><a href="http://www.tpc.org/tpc_documents_current_versions/current_specifications.asp" target="_blank" rel="noopener">TPC下载地址</a></p><p>之前用的是V 2.11的，现在下载一个V 2.10.1的试一下</p><p>执行完毕之后，首先报错</p><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g335c98sa0j20ns0g2tac.jpg" alt></p><p>权限不够，我重新使用hdfs用户来创建目录</p><p><code>hdfs</code>用户没有办法<code>git clone</code></p><p>我使用了<code>root</code>用户<code>clone</code>之后</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown -R hdfs:hdfs hive-testbench/</span><br><span class="line">chmod -R 777 hive-testbench/</span><br></pre></td></tr></table></figure><p>将权限开放</p><p>其余操作使用HDFS完成</p><p>。。。</p><p>等了一段时间</p><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g336c9kby8j20rx05ydfz.jpg" alt></p><p>MR正常运行没有问题，可以MR运行完毕之后还是报错，不知道为什么</p><p>我要被气死了</p><p>难顶了</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段&lt;br&gt;本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="SRE" scheme="http://yoursite.com/categories/SRE/"/>
+    
+    
+      <category term="Analog Data" scheme="http://yoursite.com/tags/Analog-Data/"/>
+    
+  </entry>
   
   <entry>
     <title>Grokking Algorithms</title>
