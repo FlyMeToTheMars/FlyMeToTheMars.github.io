@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g330stw7enj20of0ebdgx.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g335c98sa0j20ns0g2tac.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g336c9kby8j20rx05ydfz.jpg">
-<meta property="og:updated_time" content="2019-05-16T10:41:19.153Z">
+<meta property="og:updated_time" content="2019-05-20T03:51:44.930Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Analog Data With TPCDS &amp; TPCH">
 <meta name="twitter:description" content="为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同">
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  376
+                  786
                 </span>
               
 
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  2
                 </span>
               
             </div>
@@ -462,7 +462,7 @@
 <h3 id="大神fayson的日志："><a href="#大神fayson的日志：" class="headerlink" title="大神fayson的日志："></a>大神<code>fayson</code>的日志：</h3><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247488108&amp;idx=1&amp;sn=8f34c674bc12990d61a8f4de4ca3c728&amp;chksm=ec2ac265db5d4b731b93c4b7da0b3a24f0bf200274dd763531873bb4dd205e37d704ea2719b6&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">如何编译及使用TPC-DS生成测试数据</a></p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247488190&amp;idx=1&amp;sn=3f34824bdadbfa0823823121f86cafd4&amp;chksm=ec2ac2b7db5d4ba1484d6a6cf3161fdb90798d2605d2e79fa8bf633d32766c42cc8e2b41e206&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">如何编译及使用hive-testbench生成Hive基准测试数据</a></p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247489095&amp;idx=1&amp;sn=5af481742664f79146c58f425c9429d3&amp;chksm=ec2ac64edb5d4f58860db96ae4b452fda70b108527e4cc78c1978461ed62e67fcf997631d270&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Impala TPC-DS基准测试</a></p>
-<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><h4 id="1-源码无法编译"><a href="#1-源码无法编译" class="headerlink" title="1.源码无法编译"></a>1.源码无法编译</h4><p>源码下载下来之后build，需要的组件根本下载不了</p>
+<h3 id="一、遇到的问题"><a href="#一、遇到的问题" class="headerlink" title="一、遇到的问题"></a>一、遇到的问题</h3><h4 id="1-源码无法编译"><a href="#1-源码无法编译" class="headerlink" title="1.源码无法编译"></a>1.源码无法编译</h4><p>源码下载下来之后build，需要的组件根本下载不了</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g330ii05j5j20tt0bt75b.jpg" alt></p>
 <p>这里Google到了一个办法</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g330lkku7yj20tn0a7wf6.jpg" alt></p>
@@ -485,8 +485,20 @@
 <p>等了一段时间</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g336c9kby8j20rx05ydfz.jpg" alt></p>
 <p>MR正常运行没有问题，可以MR运行完毕之后还是报错，不知道为什么</p>
-<p>我要被气死了</p>
-<p>难顶了</p>
+<p>中间又做了很多尝试，失败的尝试在这不做记录</p>
+<p>重点记录一下我在BUG日志中发现HiveServer2有一些问题</p>
+<p>Google之后发现了是因为配置里面出现了问题<br>Java 8里面用原先的配置代码已经被舍弃了，更改完毕之后解决了这个问题，</p>
+<p>但是<code>TPCDS</code>的问题还是没有解决，吐出一口老血</p>
+<p>验证<code>HiveServer2</code>正确开启的代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> /usr/lib/hive/bin/beeline</span><br><span class="line"><span class="meta">beeline&gt;</span> !connect jdbc:hive2://localhost:10000 username password org.apache.hive.jdbc.HiveDriver</span><br><span class="line">0: jdbc:hive2://localhost:10000&gt; SHOW TABLES;</span><br><span class="line">show tables;</span><br><span class="line">+-----------+</span><br><span class="line">| tab_name  |</span><br><span class="line">+-----------+</span><br><span class="line">+-----------+</span><br><span class="line">No rows selected (0.238 seconds)</span><br><span class="line">0: jdbc:hive2://localhost:10000&gt;</span><br></pre></td></tr></table></figure>
+<p>现在我解决问题的点还在于是不是<code>CDH</code>的配置还有一些问题</p>
+<p>但是<code>TPCH</code>明明又能够生成数据的，难顶了</p>
+<h4 id="3-数据从Hive转入Kudu速度过慢"><a href="#3-数据从Hive转入Kudu速度过慢" class="headerlink" title="3.数据从Hive转入Kudu速度过慢"></a>3.数据从Hive转入Kudu速度过慢</h4><p>从周五下班的点开始到周一上班，1000个Tasks，仅仅完成了210个，速度十分之慢。</p>
+<hr>
+<h3 id="二、解决办法"><a href="#二、解决办法" class="headerlink" title="二、解决办法"></a>二、解决办法</h3><h4 id="1-总结问题"><a href="#1-总结问题" class="headerlink" title="1.总结问题"></a>1.总结问题</h4><p>好好想了下我自己遇到的错误，有几个点，第一个点是<code>TPCH</code>是可以生成数据的，第二个点是我在编译<code>TPCDS</code>源码的过程中，报出了奇怪的提示，我一直怀疑可能是我编译的时候除了问题，但是重新编译了好几遍，一直没有找到解决办法。</p>
+<p>这边在<a href="https://blog.csdn.net/sinat_36300982/article/details/89556220" target="_blank" rel="noopener">另一个技术博客上</a>找到了解决方案，可以在本地编译完成之后再上传到服务器，但是我看了一下这篇博客，他是用的官方原版的<code>hive-testbench</code>，里面会有一些错误，我们</p>
+<p><a href="https://github.com/YunKillerE/kudu-learning" target="_blank" rel="noopener">github/kudu-learning</a></p>
+<p>这份资料已经被</p>
 
       
     </div>
@@ -699,7 +711,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#大神fayson的日志："><span class="nav-number">1.</span> <span class="nav-text">大神fayson的日志：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的问题"><span class="nav-number">2.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-源码无法编译"><span class="nav-number">2.1.</span> <span class="nav-text">1.源码无法编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-安装遇到的问题"><span class="nav-number">2.2.</span> <span class="nav-text">2.安装遇到的问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#大神fayson的日志："><span class="nav-number">1.</span> <span class="nav-text">大神fayson的日志：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、遇到的问题"><span class="nav-number">2.</span> <span class="nav-text">一、遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-源码无法编译"><span class="nav-number">2.1.</span> <span class="nav-text">1.源码无法编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-安装遇到的问题"><span class="nav-number">2.2.</span> <span class="nav-text">2.安装遇到的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-数据从Hive转入Kudu速度过慢"><span class="nav-number">2.3.</span> <span class="nav-text">3.数据从Hive转入Kudu速度过慢</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解决办法"><span class="nav-number">3.</span> <span class="nav-text">二、解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-总结问题"><span class="nav-number">3.1.</span> <span class="nav-text">1.总结问题</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -733,7 +745,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">36.7k</span>
+    <span title="Site words total count">37.1k</span>
   
 </div>
 
