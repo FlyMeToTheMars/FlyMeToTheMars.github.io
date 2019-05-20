@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Reading notes,Mechine Learning,">
+  <meta name="keywords" content="Analog Data,">
 
 
 
@@ -97,18 +97,24 @@
 
 
 
-<meta name="description" content="周志华的同名书籍的阅读笔记，入门读物">
-<meta name="keywords" content="Reading notes,Mechine Learning">
+<meta name="description" content="为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同">
+<meta name="keywords" content="Analog Data">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Machine Learning">
-<meta property="og:url" content="http://yoursite.com/2019/05/08/Machine Learning/index.html">
+<meta property="og:title" content="Analog Data With TPCDS &amp; TPCH">
+<meta property="og:url" content="http://yoursite.com/2019/05/20/analog_data/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="周志华的同名书籍的阅读笔记，入门读物">
+<meta property="og:description" content="为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-10T06:59:57.928Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g330ii05j5j20tt0bt75b.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g330lkku7yj20tn0a7wf6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g330stw7enj20of0ebdgx.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g335c98sa0j20ns0g2tac.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g336c9kby8j20rx05ydfz.jpg">
+<meta property="og:updated_time" content="2019-05-20T09:15:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Machine Learning">
-<meta name="twitter:description" content="周志华的同名书籍的阅读笔记，入门读物">
+<meta name="twitter:title" content="Analog Data With TPCDS &amp; TPCH">
+<meta name="twitter:description" content="为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g330ii05j5j20tt0bt75b.jpg">
 
 
 
@@ -138,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/08/Machine Learning/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/20/analog_data/">
 
 
 
 
 
-  <title>Machine Learning | Mars</title>
+  <title>Analog Data With TPCDS & TPCH | Mars</title>
   
 
 
@@ -318,7 +324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/Machine Learning/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/analog_data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fly Hugh">
@@ -335,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Machine Learning</h1>
+          <h1 class="post-title" itemprop="name headline">Analog Data With TPCDS & TPCH</h1>
         
 
         <div class="post-meta">
@@ -347,8 +353,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-08T16:36:35+08:00">
-                2019-05-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-20T01:05:36+08:00">
+                2019-05-20
               </time>
             
 
@@ -370,19 +376,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Reading-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Reading notes</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Reading-notes/Mechine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Mechine Learning</span>
+                  <a href="/categories/SRE/" itemprop="url" rel="index">
+                    <span itemprop="name">SRE</span>
                   </a>
                 </span>
 
@@ -398,7 +393,7 @@
 
           
           
-             <span id="/2019/05/08/Machine Learning/" class="leancloud_visitors" data-flag-title="Machine Learning">
+             <span id="/2019/05/20/analog_data/" class="leancloud_visitors" data-flag-title="Analog Data With TPCDS & TPCH">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -423,7 +418,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  352
+                  1.2k
                 </span>
               
 
@@ -439,7 +434,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  5
                 </span>
               
             </div>
@@ -461,17 +456,52 @@
 
       
         <blockquote>
-<p>周志华的同名书籍的阅读笔记，入门读物</p>
+<p>为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段<br>本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同</p>
 </blockquote>
 <a id="more"></a> 
-<h2 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h2><h3 id="1-1-引言"><a href="#1-1-引言" class="headerlink" title="1.1 引言"></a>1.1 引言</h3><h3 id="1-2-基本术语"><a href="#1-2-基本术语" class="headerlink" title="1.2 基本术语"></a>1.2 基本术语</h3><p>classification：预测结果是离散值（好瓜、坏瓜）</p>
-<p>regression：预测结果是连续值（成熟度0.95 0.37）</p>
-<p>binary classification：只涉及两个结果的分类，通常称之为一个为positive class 一个为 negative class</p>
-<p>multi-class classification：多分类</p>
-<p>预测任务是希望通过训练对训练集{(x<sub>1</sub>,y<sub>1</sub>),(x<sub>2</sub>,y<sub>2</sub>)…(x<sub>m</sub>,y<sub>m</sub>)}进行学习，建议一个从输入空间X到输出空间Y的映射，对于二分类任务，通常另Y = {-1,1}或者{0,1}，对多分类任务，|Y|&gt;2，回归任务，Y = R，R是实数集。</p>
-<p>学习完毕模型后，使用其预测的过程叫做测试(testing)，被预测的样本称为“测试样本”(testing sample)，例如在学得f之后，对测视例x，可得到其预测目标y = f(x).</p>
-<p>聚类（clustering），即将训练集中的西瓜分为若干组（cluster），在聚类学习中，分的类我们是事先不知道的，学习过程中使用的训练样本通常不配拥有标记信息。</p>
-<p>根据训练数据是否用哦与标记信息，学习任务大致可以划分为两大类：“监督学习（supervised learning）和非监督学习（unsupervised learning），分类和回归是前者的代表，聚类是后者的代表”</p>
+<h3 id="大神fayson的日志："><a href="#大神fayson的日志：" class="headerlink" title="大神fayson的日志："></a>大神<code>fayson</code>的日志：</h3><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247488108&amp;idx=1&amp;sn=8f34c674bc12990d61a8f4de4ca3c728&amp;chksm=ec2ac265db5d4b731b93c4b7da0b3a24f0bf200274dd763531873bb4dd205e37d704ea2719b6&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">如何编译及使用TPC-DS生成测试数据</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247488190&amp;idx=1&amp;sn=3f34824bdadbfa0823823121f86cafd4&amp;chksm=ec2ac2b7db5d4ba1484d6a6cf3161fdb90798d2605d2e79fa8bf633d32766c42cc8e2b41e206&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">如何编译及使用hive-testbench生成Hive基准测试数据</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&amp;mid=2247489095&amp;idx=1&amp;sn=5af481742664f79146c58f425c9429d3&amp;chksm=ec2ac64edb5d4f58860db96ae4b452fda70b108527e4cc78c1978461ed62e67fcf997631d270&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">Impala TPC-DS基准测试</a></p>
+<h3 id="一、遇到的问题"><a href="#一、遇到的问题" class="headerlink" title="一、遇到的问题"></a>一、遇到的问题</h3><h4 id="1-源码无法编译"><a href="#1-源码无法编译" class="headerlink" title="1.源码无法编译"></a>1.源码无法编译</h4><p>源码下载下来之后build，需要的组件根本下载不了</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g330ii05j5j20tt0bt75b.jpg" alt></p>
+<p>这里Google到了一个办法</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g330lkku7yj20tn0a7wf6.jpg" alt></p>
+<p>先把包下载下来，放进对应的文件夹里然后编译</p>
+<h4 id="2-安装遇到的问题"><a href="#2-安装遇到的问题" class="headerlink" title="2.安装遇到的问题"></a>2.安装遇到的问题</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g330stw7enj20of0ebdgx.jpg" alt></p>
+<p>类似配置冲突的问题 不知道为什么</p>
+<p>yes和no我都分别选过，但是都不对，配置完成之后执行都有问题</p>
+<p>我初步怀疑可能是版本问题，我下一个旧版本的试一试</p>
+<p><a href="http://www.tpc.org/tpc_documents_current_versions/current_specifications.asp" target="_blank" rel="noopener">TPC下载地址</a></p>
+<p>之前用的是V 2.11的，现在下载一个V 2.10.1的试一下</p>
+<p>执行完毕之后，首先报错</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g335c98sa0j20ns0g2tac.jpg" alt></p>
+<p>权限不够，我重新使用hdfs用户来创建目录</p>
+<p><code>hdfs</code>用户没有办法<code>git clone</code></p>
+<p>我使用了<code>root</code>用户<code>clone</code>之后</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown -R hdfs:hdfs hive-testbench/</span><br><span class="line">chmod -R 777 hive-testbench/</span><br></pre></td></tr></table></figure>
+<p>将权限开放</p>
+<p>其余操作使用HDFS完成</p>
+<p>。。。</p>
+<p>等了一段时间</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g336c9kby8j20rx05ydfz.jpg" alt></p>
+<p>MR正常运行没有问题，可以MR运行完毕之后还是报错，不知道为什么</p>
+<p>中间又做了很多尝试，失败的尝试在这不做记录</p>
+<p>重点记录一下我在BUG日志中发现HiveServer2有一些问题</p>
+<p>Google之后发现了是因为配置里面出现了问题<br>Java 8里面用原先的配置代码已经被舍弃了，更改完毕之后解决了这个问题，</p>
+<p>但是<code>TPCDS</code>的问题还是没有解决，吐出一口老血</p>
+<p>验证<code>HiveServer2</code>正确开启的代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> /usr/lib/hive/bin/beeline</span><br><span class="line"><span class="meta">beeline&gt;</span> !connect jdbc:hive2://localhost:10000 username password org.apache.hive.jdbc.HiveDriver</span><br><span class="line">0: jdbc:hive2://localhost:10000&gt; SHOW TABLES;</span><br><span class="line">show tables;</span><br><span class="line">+-----------+</span><br><span class="line">| tab_name  |</span><br><span class="line">+-----------+</span><br><span class="line">+-----------+</span><br><span class="line">No rows selected (0.238 seconds)</span><br><span class="line">0: jdbc:hive2://localhost:10000&gt;</span><br></pre></td></tr></table></figure>
+<p>现在我解决问题的点还在于是不是<code>CDH</code>的配置还有一些问题</p>
+<p>但是<code>TPCH</code>明明又能够生成数据的，难顶了</p>
+<h4 id="3-数据从Hive转入Kudu速度过慢"><a href="#3-数据从Hive转入Kudu速度过慢" class="headerlink" title="3.数据从Hive转入Kudu速度过慢"></a>3.数据从Hive转入Kudu速度过慢</h4><p>从周五下班的点开始到周一上班，1000个Tasks，仅仅完成了210个，速度十分之慢。</p>
+<hr>
+<h3 id="二、解决办法"><a href="#二、解决办法" class="headerlink" title="二、解决办法"></a>二、解决办法</h3><h4 id="1-总结问题"><a href="#1-总结问题" class="headerlink" title="1.总结问题"></a>1.总结问题</h4><p>好好想了下我自己遇到的错误，有几个点，第一个点是<code>TPCH</code>是可以生成数据的，第二个点是我在编译<code>TPCDS</code>源码的过程中，报出了奇怪的提示，我一直怀疑可能是我编译的时候除了问题，但是重新编译了好几遍，一直没有找到解决办法。</p>
+<p>这边在<a href="https://blog.csdn.net/sinat_36300982/article/details/89556220" target="_blank" rel="noopener">另一个技术博客上</a>找到了解决方案，可以在本地编译完成之后再上传到服务器，但是我看了一下这篇博客，他是用的官方原版的<code>hive-testbench</code>，里面会有一些错误，我使用的版本是已经改过错误的，所以直接<a href="http://dev.hortonworks.com.s3.amazonaws.com/hive-testbench/tpcds/TPCDS_Tools.zip" target="_blank" rel="noopener">下载TPCDS_Tools.zip</a>改名<code>tpcds_kit.zip</code>放进<code>tpcds</code>对应的文件夹就可以了，最后编译成功。</p>
+<p>编译完成之后，数据在Hive上面，Hive上面生成了两个库，一个是<code>ORC</code>库，还有一个是TEXT库，<code>ORC</code>文件<code>impala</code>用不了就算了，迁移TEXT就行，代码可以在下面的<code>github</code>中找到，然后要注意的事情是最后<code>package</code>的代码，因为是<code>scala</code>，打包的代码和别的并不一样</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>anlogSparkSQL<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 设置项目编译版本--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 用于编译scala代码到class --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.alchim31.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>scala-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>testCompile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>kuduimport.hiveToKudu<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">descriptorRef</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">descriptorRef</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>make-assembly<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>single<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用HUE里面的<code>Oozie</code>调用Spark程序的时候，如果想要在spark提交里面出现任务记录，应该添加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--conf spark.shuffle.memoryFraction=0.3</span><br><span class="line">--conf spark.yarn.historyServer.address=http://datanode127:18089</span><br><span class="line">--conf spark.eventLog.dir=hdfs://master126:8020/user/spark/spark2ApplicationHistory</span><br><span class="line">--conf spark.eventLog.enabled=true</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/YunKillerE/kudu-learning" target="_blank" rel="noopener">github/kudu-learning</a></p>
 
       
     </div>
@@ -489,9 +519,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Reading-notes/" rel="tag"># Reading notes</a>
-          
-            <a href="/tags/Mechine-Learning/" rel="tag"># Mechine Learning</a>
+            <a href="/tags/Analog-Data/" rel="tag"># Analog Data</a>
           
         </div>
       
@@ -504,8 +532,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/08/批处理更改IP/" rel="next" title="win环境下更换IP的批处理">
-                <i class="fa fa-chevron-left"></i> win环境下更换IP的批处理
+              <a href="/2019/05/10/Machine Learning/" rel="next" title="Machine Learning">
+                <i class="fa fa-chevron-left"></i> Machine Learning
               </a>
             
           </div>
@@ -514,8 +542,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/09/LabelEnconder/" rel="prev" title="LabelEnconder 和 OneHotEncoder">
-                LabelEnconder 和 OneHotEncoder <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/20/Kerberos For CDH/" rel="prev" title="Kerberos For CDH">
+                Kerberos For CDH <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -600,7 +628,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -690,7 +718,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-绪论"><span class="nav-number">1.</span> <span class="nav-text">第一章 绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-引言"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-基本术语"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 基本术语</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#大神fayson的日志："><span class="nav-number">1.</span> <span class="nav-text">大神fayson的日志：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、遇到的问题"><span class="nav-number">2.</span> <span class="nav-text">一、遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-源码无法编译"><span class="nav-number">2.1.</span> <span class="nav-text">1.源码无法编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-安装遇到的问题"><span class="nav-number">2.2.</span> <span class="nav-text">2.安装遇到的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-数据从Hive转入Kudu速度过慢"><span class="nav-number">2.3.</span> <span class="nav-text">3.数据从Hive转入Kudu速度过慢</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解决办法"><span class="nav-number">3.</span> <span class="nav-text">二、解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-总结问题"><span class="nav-number">3.1.</span> <span class="nav-text">1.总结问题</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -724,7 +752,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">37.5k</span>
+    <span title="Site words total count">41.2k</span>
   
 </div>
 
