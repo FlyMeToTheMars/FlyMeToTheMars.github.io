@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Reading notes,Grokking Algorithms,Algorithm,">
+  <meta name="keywords" content="Reading notes,Grokking Algorithms,Algorithm,欧几里得算法,快排,">
 
 
 
@@ -97,20 +97,21 @@
 
 
 
-<meta name="description" content="对算法的了解一直很肤浅（听学数学的朋友说算法在数学中也叫数论？），本书阅读不求快，本就是入门读物，希望能尽量理解，争取早日拿下。 这边值得一提的是作者推荐了一个网站，可汗学院，khanacademy.org  mark一下。">
-<meta name="keywords" content="Reading notes,Grokking Algorithms,Algorithm">
+<meta name="description" content="对算法的了解一直很肤浅（听学数学的朋友说算法在数学中也叫数论？），本书阅读不求快，本就是入门读物，希望能尽量理解，争取早日拿下。 这边值得一提的是作者推荐了一个网站，可汗学院，khanacademy.org  mark一下。 看完40%来总结一下，非常好，文盲也能看懂的算法入门。 这本书看完应该会扫一眼结城浩的《图解密码学》">
+<meta name="keywords" content="Reading notes,Grokking Algorithms,Algorithm,欧几里得算法,快排">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Grokking Algorithms">
 <meta property="og:url" content="http://yoursite.com/2019/05/10/Grokking Algorithms/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="对算法的了解一直很肤浅（听学数学的朋友说算法在数学中也叫数论？），本书阅读不求快，本就是入门读物，希望能尽量理解，争取早日拿下。 这边值得一提的是作者推荐了一个网站，可汗学院，khanacademy.org  mark一下。">
+<meta property="og:description" content="对算法的了解一直很肤浅（听学数学的朋友说算法在数学中也叫数论？），本书阅读不求快，本就是入门读物，希望能尽量理解，争取早日拿下。 这边值得一提的是作者推荐了一个网站，可汗学院，khanacademy.org  mark一下。 看完40%来总结一下，非常好，文盲也能看懂的算法入门。 这本书看完应该会扫一眼结城浩的《图解密码学》">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2w8rt2sg9j20fk026mxh.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g39qnoufddj20oz08a0v8.jpg">
-<meta property="og:updated_time" content="2019-05-21T23:48:34.806Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3c25jnmi2j20jx0ga0v4.jpg">
+<meta property="og:updated_time" content="2019-05-23T23:40:59.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Grokking Algorithms">
-<meta name="twitter:description" content="对算法的了解一直很肤浅（听学数学的朋友说算法在数学中也叫数论？），本书阅读不求快，本就是入门读物，希望能尽量理解，争取早日拿下。 这边值得一提的是作者推荐了一个网站，可汗学院，khanacademy.org  mark一下。">
+<meta name="twitter:description" content="对算法的了解一直很肤浅（听学数学的朋友说算法在数学中也叫数论？），本书阅读不求快，本就是入门读物，希望能尽量理解，争取早日拿下。 这边值得一提的是作者推荐了一个网站，可汗学院，khanacademy.org  mark一下。 看完40%来总结一下，非常好，文盲也能看懂的算法入门。 这本书看完应该会扫一眼结城浩的《图解密码学》">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2w8rt2sg9j20fk026mxh.jpg">
 
 
@@ -426,7 +427,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.2k
+                  2.6k
                 </span>
               
 
@@ -442,7 +443,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  10
                 </span>
               
             </div>
@@ -466,6 +467,8 @@
         <blockquote>
 <p>对算法的了解一直很肤浅（听学数学的朋友说算法在数学中也叫数论？），本书阅读不求快，本就是入门读物，希望能尽量理解，争取早日拿下。</p>
 <p>这边值得一提的是作者推荐了一个网站，可汗学院，<code>khanacademy.org</code>  mark一下。</p>
+<p>看完40%来总结一下，非常好，文盲也能看懂的算法入门。</p>
+<p>这本书看完应该会扫一眼结城浩的《图解密码学》</p>
 </blockquote>
 <a id="more"></a> 
 <h2 id="第一章-算法简介"><a href="#第一章-算法简介" class="headerlink" title="第一章 算法简介"></a>第一章 算法简介</h2><h3 id="1-1-引言"><a href="#1-1-引言" class="headerlink" title="1.1 引言"></a>1.1 引言</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2w8rt2sg9j20fk026mxh.jpg" alt></p>
@@ -532,7 +535,110 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Python3, print must use () to output string"</span>);</span><br></pre></td></tr></table></figure>
 <p>py3中，print作为函数必须要带括号</p>
 <h2 id="第三章-递归"><a href="#第三章-递归" class="headerlink" title="第三章 递归"></a>第三章 递归</h2><p>递归：优雅的问题解决办法</p>
-
+<h3 id="3-1-递归"><a href="#3-1-递归" class="headerlink" title="3.1 递归"></a>3.1 递归</h3><p>“如果使用循环，程序的性能可能更高；如果使用递归，程序可能 更容易理解。如何选择要看什么对你来说更重要“</p>
+<h3 id="3-2-基线条件和递归条件"><a href="#3-2-基线条件和递归条件" class="headerlink" title="3.2 基线条件和递归条件"></a>3.2 基线条件和递归条件</h3><p>递归条件(base case)是指函数调用自己，基线条件(recursive case)是指函数不再调用自己，从而表面形成无限循环。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countdown</span><span class="params">(i)</span>:</span></span><br><span class="line">    print(i)</span><br><span class="line">    <span class="keyword">if</span> i &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        countdown(i<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">countdown(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-栈"><a href="#3-3-栈" class="headerlink" title="3.3 栈"></a>3.3 栈</h3><p>调用栈（call stack）</p>
+<p>python虽然不是用的JVM 但是 对于栈内存的调用 好像都差不多</p>
+<p>递归函数factorial(5)写作5!</p>
+<p>意义是5! = 5 <em> 4 </em> 3 <em> 2 </em> 1</p>
+<p>使用栈虽然很方便但是也要付出代价：占用大量内存</p>
+<h2 id="第四章-快速排序"><a href="#第四章-快速排序" class="headerlink" title="第四章 快速排序"></a>第四章 快速排序</h2><h3 id="4-1-分而治之"><a href="#4-1-分而治之" class="headerlink" title="4.1 分而治之"></a>4.1 分而治之</h3><p>一种著名的递归式问题解决方法—divide and conquer,D&amp;C</p>
+<p>重要的D&amp;C是算法：快排，优雅代码的典范</p>
+<p>欧几里得算法(辗转相除法)：gcd(a.b) = gcd(b, a%b)</p>
+<table>
+<thead>
+<tr>
+<th>大的那个数</th>
+<th>小的那个数</th>
+<th>余数</th>
+<th>商</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>r0 = a%b</td>
+<td>q0</td>
+</tr>
+<tr>
+<td>b</td>
+<td>r0</td>
+<td>r1 = b% r0</td>
+<td>q1</td>
+</tr>
+<tr>
+<td>r0</td>
+<td>r1</td>
+<td>r2 = r0 % r1</td>
+<td>q2</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>rN-4</td>
+<td>rN-3</td>
+<td>rN-2 = rN-4 % rN-3</td>
+<td>qN-2</td>
+</tr>
+<tr>
+<td>rN-3</td>
+<td>rN-2</td>
+<td>rN-1 = rN-3 % rN-2</td>
+<td>qN-1</td>
+</tr>
+<tr>
+<td>rN-2</td>
+<td>rN-1</td>
+<td>rN = rN-2 % rN-1</td>
+<td>qN</td>
+</tr>
+<tr>
+<td>rN-1</td>
+<td>rN == 0</td>
+<td>rN-1 = 1 <em> rN-1 - 0 </em> rN</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>得到的最大公约数就是rN-1</p>
+<p>欧几里得算法的证明：</p>
+<p>我个人觉得反证法比较好理解：</p>
+<p> 要证欧几里德算法成立，即证: gcd(a,b)=gcd(b,r),其中 gcd是取最大公约数的意思，r=a mod b<br>    下面证 gcd（a，b）=gcd（b，r）<br>    设  c是a，b的最大公约数，即c=gcd（a，b），则有 a=mc，b=nc，其中m，n为正整数，且m，n互为质数<br>    由 r= a mod b可知，r= a- qb 其中，q是正整数，<br>    则 r=a-qb=mc-qnc=（m-qn）c<br>    b=nc,r=(m-qn)c，且n，（m-qn）互质（假设n，m-qn不互质，则n=xd, m-qn=yd 其中x,y,d都是正整数，且d&gt;1</p>
+<p>​    则a=mc=(qx+y)dc, b=xdc,这时a,b 的最大公约数变成dc，与前提矛盾，所以n ，m-qn一定互质）<br>​    则gcd（b,r）=c=gcd（a,b）<br>​    得证。</p>
+<p>编写涉及数组的递归函数时，基线条件通常是数组为空或只包含一个元素。陷入困境时， 请检查基线条件是不是这样的。 </p>
+<h3 id="4-2-快排"><a href="#4-2-快排" class="headerlink" title="4.2 快排"></a>4.2 快排</h3><p>快排使用了D&amp;C</p>
+<p>思路：</p>
+<p>基线条件：数组为空或者只包含一个元素。这种情况下，只需要原样返回。</p>
+<p>对于两个元素的数组：如果第一个元素比第二个元素小，直接返回，如果不是，就交换位置。</p>
+<p>三个元素的数组：</p>
+<p>从数组中选择一个元素，这个元素被称为基准值(pivot)，</p>
+<p>我们暂时先将数组的第一个元素作为基准值。</p>
+<p>接下来找出比基准值小的元素以及比他大的元素。这个过程被称为分区（partition）</p>
+<p>这里两个分区出来的数组时无需的，但是如果这两个数组是有序的，对整个数组进行排序将非常容易。</p>
+<p>那么问题就转化成了如何对子数组进行排序，</p>
+<p>这里我们讨论的是特定情况（三个元素），无论选用哪个元素作为pivot，剩下的情况总能用上面两个元素数组的排序方法代入。</p>
+<p>于是就得到了解决办法</p>
+<p>接下来四个元素的情况，类似的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quicksort</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="comment"># 基线条件</span></span><br><span class="line">    <span class="keyword">if</span> len(array) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> array</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 递归条件</span></span><br><span class="line">        pivot = array[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 分为两个数组</span></span><br><span class="line">        less = [ i <span class="keyword">for</span> i <span class="keyword">in</span> array[<span class="number">1</span>:] <span class="keyword">if</span> i &lt;= pivot]</span><br><span class="line">        greater = [i <span class="keyword">for</span> i <span class="keyword">in</span> array[<span class="number">1</span>:] <span class="keyword">if</span> i &gt; pivot]</span><br><span class="line">        <span class="keyword">return</span> quicksort(less) + [pivot] + quicksort(greater)</span><br><span class="line"></span><br><span class="line">print(quicksort([<span class="number">1</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">45645</span>,<span class="number">34</span>,<span class="number">23</span>,<span class="number">65</span>,<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<p>这边可以对比一下时间复杂度</p>
+<p>选择排序的时间复杂度是O(n<sup>2</sup>)</p>
+<p>快速排序的时间复杂度最差是O(n<sup>2</sup>)，平均情况是O(n log n)</p>
+<p>还有一种合并排序(merge sort)运行时间是O(n log n)</p>
+<p>现在做出一个有趣的假设，假设简单查找每次需要10ms，二分查找的常量是1s，现在我们假设查找的元素个数是10个，简单查找需要100ms，二分查找却需要log 10 * 1s，可以二分查找的时间远大于简单查找，但是我们查找的元素很大时，比如40亿，这个时候我们使用简单查找需要463天，但是二分查找只要32s。</p>
+<p>通过这个例子，我们可以看到常量的影响可能会很大。</p>
+<p>我们再来看快排，快排的效率取决于选择的pivot，当pivot是最小值的时候，我们其实只用到的一个数组，要递归很多次才能递归结束，这种情况是最坏的情况</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3c25jnmi2j20jx0ga0v4.jpg" alt></p>
+<p>如果我们选择的是中间值，是最佳情况，这种情况下根本不要这么多递归，因此调用栈就短得多。</p>
+<p>需要注意的是，我们并不是如图这么简单的+n次调用，作为递归二次每次调用栈都设计O(n)，这是递归的性质决定的。</p>
+<p>因此，实际上最佳情况是O(n log n)</p>
+<p>最佳情况也是平均情况（和最佳情况在同一数量级所以忽略掉前面的参数，剩下的相同），快排是D&amp;G的典范。</p>
+<h2 id="第五章-散列表"><a href="#第五章-散列表" class="headerlink" title="第五章 散列表"></a>第五章 散列表</h2>
       
     </div>
     
@@ -554,6 +660,10 @@
             <a href="/tags/Grokking-Algorithms/" rel="tag"># Grokking Algorithms</a>
           
             <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+            <a href="/tags/欧几里得算法/" rel="tag"># 欧几里得算法</a>
+          
+            <a href="/tags/快排/" rel="tag"># 快排</a>
           
         </div>
       
@@ -652,7 +762,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
             
               <p class="site-author-name" itemprop="name">Fly Hugh</p>
-              <p class="site-description motion-element" itemprop="description">Let me see what spring is like on Jupiter and Mars</p>
+              <p class="site-description motion-element" itemprop="description">TRUST THE PROCESS</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -662,7 +772,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -673,7 +783,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -684,7 +794,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -752,7 +862,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-算法简介"><span class="nav-number">1.</span> <span class="nav-text">第一章 算法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-引言"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-二分查找"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 二分查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行时间"><span class="nav-number">1.2.1.</span> <span class="nav-text">运行时间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-大-O-表示法"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 大 O 表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#旅行商问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">旅行商问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-选择排序"><span class="nav-number">2.</span> <span class="nav-text">第二章 选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-内存工作原理"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 内存工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-数组和链表"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数组和链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-选择排序"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 选择排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-递归"><span class="nav-number">3.</span> <span class="nav-text">第三章 递归</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-算法简介"><span class="nav-number">1.</span> <span class="nav-text">第一章 算法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-引言"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-二分查找"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 二分查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行时间"><span class="nav-number">1.2.1.</span> <span class="nav-text">运行时间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-大-O-表示法"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 大 O 表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#旅行商问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">旅行商问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-选择排序"><span class="nav-number">2.</span> <span class="nav-text">第二章 选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-内存工作原理"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 内存工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-数组和链表"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数组和链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-选择排序"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 选择排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-递归"><span class="nav-number">3.</span> <span class="nav-text">第三章 递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-递归"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基线条件和递归条件"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基线条件和递归条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-栈"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-快速排序"><span class="nav-number">4.</span> <span class="nav-text">第四章 快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-分而治之"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 分而治之</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-快排"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 快排</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-散列表"><span class="nav-number">5.</span> <span class="nav-text">第五章 散列表</span></a></li></ol></div>
             
 
           </div>
@@ -786,7 +896,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">41.8k</span>
+    <span title="Site words total count">46.3k</span>
   
 </div>
 

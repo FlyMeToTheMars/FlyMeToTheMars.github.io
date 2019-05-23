@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="HUE,">
+  <meta name="keywords" content="Linear Regression,">
 
 
 
@@ -97,18 +97,20 @@
 
 
 
-<meta name="description" content="HDFS上的数据在添加节点失败后，出现了很多块的损坏，得重新配置一遍">
-<meta name="keywords" content="HUE">
+<meta name="description" content="多元线性回归   TipsAssumptionsFor a successful regression analysis. It’s essential to validate these assumptions.  Linearity: The relationship between dependent and independent variables should be Linear.">
+<meta name="keywords" content="Linear Regression">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在HUE中整合Oozie和Spark2并验证">
-<meta property="og:url" content="http://yoursite.com/2019/05/22/HUE上Oozie和Spark2整合/index.html">
+<meta property="og:title" content="Multiple Linear Regression | Day 3">
+<meta property="og:url" content="http://yoursite.com/2019/05/24/day03/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="HDFS上的数据在添加节点失败后，出现了很多块的损坏，得重新配置一遍">
+<meta property="og:description" content="多元线性回归   TipsAssumptionsFor a successful regression analysis. It’s essential to validate these assumptions.  Linearity: The relationship between dependent and independent variables should be Linear.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-21T10:11:26.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3beehr6fqj20m81jke81.jpg">
+<meta property="og:updated_time" content="2019-05-23T19:06:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在HUE中整合Oozie和Spark2并验证">
-<meta name="twitter:description" content="HDFS上的数据在添加节点失败后，出现了很多块的损坏，得重新配置一遍">
+<meta name="twitter:title" content="Multiple Linear Regression | Day 3">
+<meta name="twitter:description" content="多元线性回归   TipsAssumptionsFor a successful regression analysis. It’s essential to validate these assumptions.  Linearity: The relationship between dependent and independent variables should be Linear.">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3beehr6fqj20m81jke81.jpg">
 
 
 
@@ -138,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/22/HUE上Oozie和Spark2整合/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/24/day03/">
 
 
 
 
 
-  <title>在HUE中整合Oozie和Spark2并验证 | Mars</title>
+  <title>Multiple Linear Regression | Day 3 | Mars</title>
   
 
 
@@ -318,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/HUE上Oozie和Spark2整合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/24/day03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fly Hugh">
@@ -335,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在HUE中整合Oozie和Spark2并验证</h1>
+          <h1 class="post-title" itemprop="name headline">Multiple Linear Regression | Day 3</h1>
         
 
         <div class="post-meta">
@@ -347,8 +349,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T03:50:24+08:00">
-                2019-05-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-24T03:20:52+08:00">
+                2019-05-24
               </time>
             
 
@@ -370,8 +372,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
+                  <a href="/categories/Mechine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Mechine Learning</span>
                   </a>
                 </span>
 
@@ -381,8 +383,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/CDH/" itemprop="url" rel="index">
-                    <span itemprop="name">CDH</span>
+                  <a href="/categories/Mechine-Learning/100-Days-Of-ML-Code/" itemprop="url" rel="index">
+                    <span itemprop="name">100 Days Of ML Code</span>
                   </a>
                 </span>
 
@@ -398,7 +400,7 @@
 
           
           
-             <span id="/2019/05/22/HUE上Oozie和Spark2整合/" class="leancloud_visitors" data-flag-title="在HUE中整合Oozie和Spark2并验证">
+             <span id="/2019/05/24/day03/" class="leancloud_visitors" data-flag-title="Multiple Linear Regression | Day 3">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -423,7 +425,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  227
+                  276
                 </span>
               
 
@@ -461,16 +463,26 @@
 
       
         <blockquote>
-<p>HDFS上的数据在添加节点失败后，出现了很多块的损坏，得重新配置一遍</p>
+<p>多元线性回归</p>
 </blockquote>
-<a id="more"></a> 
-<h3 id="查看sharelib文件夹的位置"><a href="#查看sharelib文件夹的位置" class="headerlink" title="查看sharelib文件夹的位置"></a>查看<code>sharelib</code>文件夹的位置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master126 ~]# oozie admin -oozie http://master126:11000/oozie -sharelibupdate</span><br><span class="line">[ShareLib update status]</span><br><span class="line">	sharelibDirOld = hdfs://master126:8020/user/oozie/share/lib/lib_20190521144826</span><br><span class="line">	host = http://master126:11000/oozie</span><br><span class="line">	sharelibDirNew = hdfs://master126:8020/user/oozie/share/lib/lib_20190521144826</span><br><span class="line">	status = Successful</span><br></pre></td></tr></table></figure>
-<h3 id="创建文件目录"><a href="#创建文件目录" class="headerlink" title="创建文件目录"></a>创建文件目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u oozie hdfs dfs -mkdir /user/oozie/share/lib/lib_20190521144826/spark2</span><br></pre></td></tr></table></figure>
-<h3 id="向文件夹中添加Spark2需要的jar包"><a href="#向文件夹中添加Spark2需要的jar包" class="headerlink" title="向文件夹中添加Spark2需要的jar包"></a>向文件夹中添加Spark2需要的jar包</h3><p><code>/opt/cloudera/parcels/SPARK2/lib/spark2/jars</code>文件夹下的所有内容和</p>
-<p><code>/opt/cloudera/parcels/CDH/lib/oozie/oozie-sharelib-yarn/lib/spark</code>下面的<code>oozie-sharelib-spark*.jar</code></p>
-<h3 id="修改目录的所有者和权限"><a href="#修改目录的所有者和权限" class="headerlink" title="修改目录的所有者和权限"></a>修改目录的所有者和权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u hdfs hadoop fs –chown -R oozie:oozie /user/oozie/share/lib/lib_20170921070424/spark2</span><br><span class="line">sudo -u hdfs hadoop fs –chmod -R 775 /user/oozie/share/lib/lib_20170921070424/spark2</span><br></pre></td></tr></table></figure>
-<h3 id="更新并且确认"><a href="#更新并且确认" class="headerlink" title="更新并且确认"></a>更新并且确认</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">oozie admin -oozie http://master126:11000/oozie -sharelibupdate</span><br><span class="line">oozie admin -oozie http://master126:11000/oozie -shareliblist</span><br></pre></td></tr></table></figure>
-<h3 id="用样例验证"><a href="#用样例验证" class="headerlink" title="用样例验证"></a>用样例验证</h3><p>测试的时候别的没什么。properties要注意修改为oozie.action.sharelib.for.spark spark2</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3beehr6fqj20m81jke81.jpg" alt></p>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><h4 id="Assumptions"><a href="#Assumptions" class="headerlink" title="Assumptions"></a>Assumptions</h4><p>For a successful regression analysis. It’s essential to validate these assumptions.</p>
+<ol>
+<li><p>Linearity: The relationship between dependent and independent variables should be Linear.</p>
+</li>
+<li><p>Homoscedasticity 方差齐性: (constant variance 恒定方差) of the errors should be maintained.  方差：离散程度的度量</p>
+</li>
+<li>Multivarivate Normality(多元正态性):  Multiple regression assumes that the residuals are normally distributed.</li>
+<li>Lack of Multicollinearity(没有多重共线性，由于存在精确相关关系或者高度相关关系而使模型估计失真或难以估计准确): It is assumed that there is little or no multicollinearity in the data. Multicollinearity occurs when the features (or independent variables) are not independent of each other.</li>
+</ol>
+<h4 id="Dummy-Variables-虚变量、哑变量"><a href="#Dummy-Variables-虚变量、哑变量" class="headerlink" title="Dummy Variables(虚变量、哑变量)"></a>Dummy Variables(虚变量、哑变量)</h4><p>Using categorical data in Multiple Regression Models is a powerful method to include non-numeric data types into a regression model.</p>
+<p>Categorical data refers to data values which represent categories - data values with a fixed and unordered number of values. for instance, gender(male/female). In a regression model, these values can be represented bu dummy variables - variables containing values such as 1 or 0 representing the presence or absence of the categorical.</p>
+<h4 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h4><p>having too many variables could potentially cause our model to become less accurate. especially if certain variables have no effect on the outcome or have a significant effect on other variables. There are various methods to select the appropriate various methods to select the appropriate variable like -</p>
+<ol>
+<li>Forward Selection</li>
+<li>Backward Elimination</li>
+<li>Bi-directional Comparision</li>
+</ol>
 
       
     </div>
@@ -488,7 +500,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HUE/" rel="tag"># HUE</a>
+            <a href="/tags/Linear-Regression/" rel="tag"># Linear Regression</a>
           
         </div>
       
@@ -501,8 +513,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/21/Overview of the different approaches to putting Machine Learning (ML) models in production/" rel="next" title="将机器学习模型应用入生产的几种策略">
-                <i class="fa fa-chevron-left"></i> 将机器学习模型应用入生产的几种策略
+              <a href="/2019/05/24/SparkML/" rel="next" title="Spark ML">
+                <i class="fa fa-chevron-left"></i> Spark ML
               </a>
             
           </div>
@@ -511,8 +523,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/22/analog_data/" rel="prev" title="Analog Data With TPCDS & TPCH">
-                Analog Data With TPCDS & TPCH <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/24/HUE上Oozie和Spark2整合/" rel="prev" title="在HUE中整合Oozie和Spark2并验证">
+                在HUE中整合Oozie和Spark2并验证 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -587,7 +599,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
             
               <p class="site-author-name" itemprop="name">Fly Hugh</p>
-              <p class="site-description motion-element" itemprop="description">Let me see what spring is like on Jupiter and Mars</p>
+              <p class="site-description motion-element" itemprop="description">TRUST THE PROCESS</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -597,7 +609,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -608,7 +620,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -619,7 +631,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -687,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看sharelib文件夹的位置"><span class="nav-number">1.</span> <span class="nav-text">查看sharelib文件夹的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建文件目录"><span class="nav-number">2.</span> <span class="nav-text">创建文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向文件夹中添加Spark2需要的jar包"><span class="nav-number">3.</span> <span class="nav-text">向文件夹中添加Spark2需要的jar包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改目录的所有者和权限"><span class="nav-number">4.</span> <span class="nav-text">修改目录的所有者和权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新并且确认"><span class="nav-number">5.</span> <span class="nav-text">更新并且确认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用样例验证"><span class="nav-number">6.</span> <span class="nav-text">用样例验证</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-number">1.</span> <span class="nav-text">Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Assumptions"><span class="nav-number">1.1.</span> <span class="nav-text">Assumptions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dummy-Variables-虚变量、哑变量"><span class="nav-number">1.2.</span> <span class="nav-text">Dummy Variables(虚变量、哑变量)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NOTE"><span class="nav-number">1.3.</span> <span class="nav-text">NOTE</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -721,7 +733,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">41.8k</span>
+    <span title="Site words total count">46.3k</span>
   
 </div>
 
