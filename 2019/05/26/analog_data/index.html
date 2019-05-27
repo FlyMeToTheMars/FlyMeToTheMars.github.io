@@ -101,7 +101,7 @@
 <meta name="keywords" content="Analog Data">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Analog Data With TPCDS &amp; TPCH">
-<meta property="og:url" content="http://yoursite.com/2019/05/24/analog_data/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/26/analog_data/index.html">
 <meta property="og:site_name" content="Mars">
 <meta property="og:description" content="为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同">
 <meta property="og:locale" content="zh-CN">
@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g335c98sa0j20ns0g2tac.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g336c9kby8j20rx05ydfz.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3azpwvi62j21c10k9ta6.jpg">
-<meta property="og:updated_time" content="2019-05-23T02:43:12.000Z">
+<meta property="og:updated_time" content="2019-05-25T19:11:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Analog Data With TPCDS &amp; TPCH">
 <meta name="twitter:description" content="为了测试Kudu的性能，学习了一下大公司SRE生成模拟数据的手段本文会贴上各种原帖，本文仅记录生成过程中遇到的困难和介绍文章中的不同">
@@ -145,7 +145,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/24/analog_data/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/26/analog_data/">
 
 
 
@@ -325,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/24/analog_data/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/26/analog_data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fly Hugh">
@@ -354,8 +354,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-24T03:20:54+08:00">
-                2019-05-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-26T07:31:24+08:00">
+                2019-05-26
               </time>
             
 
@@ -394,7 +394,7 @@
 
           
           
-             <span id="/2019/05/24/analog_data/" class="leancloud_visitors" data-flag-title="Analog Data With TPCDS & TPCH">
+             <span id="/2019/05/26/analog_data/" class="leancloud_visitors" data-flag-title="Analog Data With TPCDS & TPCH">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -515,6 +515,8 @@
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3azpwvi62j21c10k9ta6.jpg" alt></p>
 <p>如图栏目里，配置</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--max_create_tablets_per_ts=30</span><br></pre></td></tr></table></figure>
+<p>生成日志后</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail q* -n 1 &gt;&gt; kudu_time_2.log</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -761,7 +763,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.3k</span>
+    <span title="Site words total count">47.5k</span>
   
 </div>
 
