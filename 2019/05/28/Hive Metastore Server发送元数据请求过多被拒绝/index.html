@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="HUE,">
+  <meta name="keywords" content="Hive,">
 
 
 
@@ -97,18 +97,20 @@
 
 
 
-<meta name="description" content="HDFS上的数据在添加节点失败后，出现了很多块的损坏，得重新配置一遍">
-<meta name="keywords" content="HUE">
+<meta name="description" content="在TPCDS测试中Hive莫名其妙挂掉">
+<meta name="keywords" content="Hive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在HUE中整合Oozie和Spark2并验证">
-<meta property="og:url" content="http://yoursite.com/2019/05/21/HUE上Oozie和Spark2整合/index.html">
+<meta property="og:title" content="Hive Metastore Server发送元数据请求过多被拒绝">
+<meta property="og:url" content="http://yoursite.com/2019/05/28/Hive Metastore Server发送元数据请求过多被拒绝/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="HDFS上的数据在添加节点失败后，出现了很多块的损坏，得重新配置一遍">
+<meta property="og:description" content="在TPCDS测试中Hive莫名其妙挂掉">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-22T08:02:43.160Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h4gok9evj20lx09paaq.jpg">
+<meta property="og:updated_time" content="2019-05-28T08:44:36.804Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在HUE中整合Oozie和Spark2并验证">
-<meta name="twitter:description" content="HDFS上的数据在添加节点失败后，出现了很多块的损坏，得重新配置一遍">
+<meta name="twitter:title" content="Hive Metastore Server发送元数据请求过多被拒绝">
+<meta name="twitter:description" content="在TPCDS测试中Hive莫名其妙挂掉">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h4gok9evj20lx09paaq.jpg">
 
 
 
@@ -138,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/21/HUE上Oozie和Spark2整合/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/28/Hive Metastore Server发送元数据请求过多被拒绝/">
 
 
 
 
 
-  <title>在HUE中整合Oozie和Spark2并验证 | Mars</title>
+  <title>Hive Metastore Server发送元数据请求过多被拒绝 | Mars</title>
   
 
 
@@ -318,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/HUE上Oozie和Spark2整合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/Hive Metastore Server发送元数据请求过多被拒绝/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fly Hugh">
@@ -335,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在HUE中整合Oozie和Spark2并验证</h1>
+          <h1 class="post-title" itemprop="name headline">Hive Metastore Server发送元数据请求过多被拒绝</h1>
         
 
         <div class="post-meta">
@@ -347,8 +349,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-21T14:31:41+08:00">
-                2019-05-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T16:38:52+08:00">
+                2019-05-28
               </time>
             
 
@@ -398,7 +400,7 @@
 
           
           
-             <span id="/2019/05/21/HUE上Oozie和Spark2整合/" class="leancloud_visitors" data-flag-title="在HUE中整合Oozie和Spark2并验证">
+             <span id="/2019/05/28/Hive Metastore Server发送元数据请求过多被拒绝/" class="leancloud_visitors" data-flag-title="Hive Metastore Server发送元数据请求过多被拒绝">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -423,7 +425,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  272
+                  131
                 </span>
               
 
@@ -461,32 +463,14 @@
 
       
         <blockquote>
-<p>HDFS上的数据在添加节点失败后，出现了很多块的损坏，得重新配置一遍</p>
+<p>在TPCDS测试中Hive莫名其妙挂掉</p>
 </blockquote>
 <a id="more"></a> 
-<h3 id="查看sharelib文件夹的位置"><a href="#查看sharelib文件夹的位置" class="headerlink" title="查看sharelib文件夹的位置"></a>查看<code>sharelib</code>文件夹的位置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master126 ~]# oozie admin -oozie http://master126:11000/oozie -sharelibupdate</span><br><span class="line">[ShareLib update status]</span><br><span class="line">	sharelibDirOld = hdfs://master126:8020/user/oozie/share/lib/lib_20190521144826</span><br><span class="line">	host = http://master126:11000/oozie</span><br><span class="line">	sharelibDirNew = hdfs://master126:8020/user/oozie/share/lib/lib_20190521144826</span><br><span class="line">	status = Successful</span><br></pre></td></tr></table></figure>
-<h3 id="创建文件目录"><a href="#创建文件目录" class="headerlink" title="创建文件目录"></a>创建文件目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u oozie hdfs dfs -mkdir /user/oozie/share/lib/lib_20190521144826/spark2</span><br></pre></td></tr></table></figure>
-<h3 id="向文件夹中添加Spark2需要的jar包"><a href="#向文件夹中添加Spark2需要的jar包" class="headerlink" title="向文件夹中添加Spark2需要的jar包"></a>向文件夹中添加Spark2需要的jar包</h3><p><code>/opt/cloudera/parcels/SPARK2/lib/spark2/jars</code>文件夹下的所有内容和</p>
-<p><code>/opt/cloudera/parcels/CDH/lib/oozie/oozie-sharelib-yarn/lib/spark</code>下面的<code>oozie-sharelib-spark*.jar</code></p>
-<p>在公司当前环境下，最终能凑齐的一共有293个jar文件，这边我下载下来打个包存在TIM里面，下次使用方便一些。</p>
-<h3 id="修改目录的所有者和权限"><a href="#修改目录的所有者和权限" class="headerlink" title="修改目录的所有者和权限"></a>修改目录的所有者和权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u hdfs hadoop fs –chown -R oozie:oozie /user/oozie/share/lib/lib_20170921070424/spark2</span><br><span class="line">sudo -u hdfs hadoop fs –chmod -R 775 /user/oozie/share/lib/lib_20170921070424/spark2</span><br></pre></td></tr></table></figure>
-<h3 id="更新并且确认"><a href="#更新并且确认" class="headerlink" title="更新并且确认"></a>更新并且确认</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">oozie admin -oozie http://master126:11000/oozie -sharelibupdate</span><br><span class="line">oozie admin -oozie http://master126:11000/oozie -shareliblist</span><br></pre></td></tr></table></figure>
-<h3 id="用样例验证"><a href="#用样例验证" class="headerlink" title="用样例验证"></a>用样例验证</h3><p>测试的时候别的没什么</p>
-<p>properties要注意修改为</p>
-<table>
-<thead>
-<tr>
-<th>–</th>
-<th>–</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>oozie.action.sharelib.for.spark</td>
-<td>spark2</td>
-</tr>
-</tbody>
-</table>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h4gok9evj20lx09paaq.jpg" alt></p>
+<p>经查，是MySQL最大连接尝试数设置过低，连接失败10次就无法再连接</p>
+<p>在设置的mysql数据库里面，调整次数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| amon               |</span><br><span class="line">| cm                 |</span><br><span class="line">| hive               |</span><br><span class="line">| hue                |</span><br><span class="line">| mysql              |</span><br><span class="line">| oozie              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| test               |</span><br><span class="line">+--------------------+</span><br><span class="line">9 rows in set (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; show variables like &apos;%max_connect_errors%&apos;;</span><br><span class="line">+--------------------+-------+</span><br><span class="line">| Variable_name      | Value |</span><br><span class="line">+--------------------+-------+</span><br><span class="line">| max_connect_errors | 10    |</span><br><span class="line">+--------------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; set global max_connect_errors = 1000;</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; show variables like &apos;%max_connect_errors%&apos;;</span><br><span class="line">+--------------------+-------+</span><br><span class="line">| Variable_name      | Value |</span><br><span class="line">+--------------------+-------+</span><br><span class="line">| max_connect_errors | 1000  |</span><br><span class="line">+--------------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>搞定</p>
 
       
     </div>
@@ -504,7 +488,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HUE/" rel="tag"># HUE</a>
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
           
         </div>
       
@@ -517,8 +501,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/20/Overview of the different approaches to putting Machine Learning (ML) models in production/" rel="next" title="将机器学习模型应用入生产的几种策略">
-                <i class="fa fa-chevron-left"></i> 将机器学习模型应用入生产的几种策略
+              <a href="/2019/05/23/day03/" rel="next" title="Multiple Linear Regression | Day 3">
+                <i class="fa fa-chevron-left"></i> Multiple Linear Regression | Day 3
               </a>
             
           </div>
@@ -526,10 +510,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/22/day02/" rel="prev" title="Simple Linear Regression | Day 2">
-                Simple Linear Regression | Day 2 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -586,17 +566,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -693,22 +664,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看sharelib文件夹的位置"><span class="nav-number">1.</span> <span class="nav-text">查看sharelib文件夹的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建文件目录"><span class="nav-number">2.</span> <span class="nav-text">创建文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向文件夹中添加Spark2需要的jar包"><span class="nav-number">3.</span> <span class="nav-text">向文件夹中添加Spark2需要的jar包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改目录的所有者和权限"><span class="nav-number">4.</span> <span class="nav-text">修改目录的所有者和权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新并且确认"><span class="nav-number">5.</span> <span class="nav-text">更新并且确认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用样例验证"><span class="nav-number">6.</span> <span class="nav-text">用样例验证</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
