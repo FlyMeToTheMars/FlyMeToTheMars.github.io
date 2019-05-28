@@ -118,7 +118,14 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3fj7iusshj20f70azab9.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3fj9dzn13j20mt04pwf5.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3fjb7w4rwj20jv0ls77b.jpg">
-<meta property="og:updated_time" content="2019-05-26T23:59:41.250Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gntz3sx0j20aa06fq38.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gobfcl77j20fz0i4wek.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3goeygswbj20b00a6dgw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gofc9opgj205805zdg6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3goiypuf7j20e205z0sk.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gox0oz11j209g096wf7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gozpliz7j20aj05mjr7.jpg">
+<meta property="og:updated_time" content="2019-05-28T00:03:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Grokking Algorithms">
 <meta name="twitter:description" content="对算法的了解一直很肤浅（听学数学的朋友说算法在数学中也叫数论？），本书阅读不求快，本就是入门读物，希望能尽量理解，争取早日拿下。 这边值得一提的是作者推荐了一个网站，可汗学院，khanacademy.org  mark一下。 看完40%来总结一下，非常好，文盲也能看懂的算法入门。 这本书看完应该会扫一眼结城浩的《图解密码学》">
@@ -361,7 +368,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-10T19:49:39+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-10T14:54:51+08:00">
                 2019-05-10
               </time>
             
@@ -437,7 +444,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  3.8k
+                  4.5k
                 </span>
               
 
@@ -453,7 +460,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  14
+                  16
                 </span>
               
             </div>
@@ -714,6 +721,47 @@
 <p>上图中的有向图和无向图是等价的。</p>
 <h3 id="6-5-实现算法"><a href="#6-5-实现算法" class="headerlink" title="6.5 实现算法"></a>6.5 实现算法</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3fjb7w4rwj20jv0ls77b.jpg" alt></p>
 <p>在Python中，可以使用函数deque来创建一个双端队列</p>
+<p>这边需要考虑一个情况：就是朋友是朋友的朋友，循环调用会造成无限循环。</p>
+<p>所以需要添加容错判断。用一个列表来记录检查过的人。</p>
+<p>图的特殊情况：指针只往一个方向，比如说：族谱。</p>
+<h2 id="第七章-狄克斯特拉算法"><a href="#第七章-狄克斯特拉算法" class="headerlink" title="第七章 狄克斯特拉算法"></a>第七章 狄克斯特拉算法</h2><h3 id="7-1-狄克斯特拉算法介绍"><a href="#7-1-狄克斯特拉算法介绍" class="headerlink" title="7.1 狄克斯特拉算法介绍"></a>7.1 狄克斯特拉算法介绍</h3><p>依旧图的讨论。</p>
+<p>如果之前的路径有了权重（节点到节点之间花费的时间不等价），重新计算最短路径，就应该使用狄克斯特拉算法。</p>
+<p>狄克斯特拉算法包含四个步骤：</p>
+<ul>
+<li>找出最便宜的节点，即可在最短时间内前往的节点。</li>
+<li>对于该节点的邻居，检查是否有前往他们的最短路径，如果有，就更新其开销。</li>
+<li>重复这个过程，知道对图中的每个节点都这样做了。</li>
+<li>计算最终路径。</li>
+</ul>
+<h3 id="7-3-术语"><a href="#7-3-术语" class="headerlink" title="7.3 术语"></a>7.3 术语</h3><p>每条边关联的数字叫做权重（weight）。</p>
+<p>带权重的图称为加权图（weighted graph），不带权重的图称为非加权图（unweighted graph）。</p>
+<p>要计算非加权图中的最短路径，可以使用<strong>广度优先搜索</strong>。</p>
+<p>如果是为了计算加权图中的最短路径，可以使用<strong>迪克斯特拉算法</strong>。</p>
+<p>图还可能有环，这意味着你可以从一个节点出发，走一圈后又回到这个节点</p>
+<p>在无向图中，每条边都是一个环，狄克斯特拉算法只使用于有向无环图（DAG）</p>
+<h3 id="7-4-负权边"><a href="#7-4-负权边" class="headerlink" title="7.4 负权边"></a>7.4 负权边</h3><p>如果有负权边就不能用，就不能使用狄克斯特拉算法，因为负权边，就不能使用狄克斯特拉算法。</p>
+<p>因为负权边会导致这种算法不管用。</p>
+<p>因为：根据狄克斯特拉算法，没有比不支付任何费用获得海报更便宜的方式。</p>
+<p>因此：不能将狄克斯特拉算法用于包含负权边的图。</p>
+<p>要在包含负权边的图中，找出最短路径，可以使用另一种算法： 贝尔曼—福德算法（Bellman-Ford algorithm）.</p>
+<h3 id="7-5-实现"><a href="#7-5-实现" class="headerlink" title="7.5 实现"></a>7.5 实现</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gntz3sx0j20aa06fq38.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gobfcl77j20fz0i4wek.jpg" alt></p>
+<p>可以用以上代码表示上图的散列表。</p>
+<p>上面代码表达的表：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3goeygswbj20b00a6dgw.jpg" alt></p>
+<p>接下来需要一个散列表来粗春<strong>每个节点的开销</strong>。</p>
+<p>节点的开销：从起点出发前往该节点需要的时间。</p>
+<p>用表表示的话如图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gofc9opgj205805zdg6.jpg" alt></p>
+<p>表中的无穷大可以这么表示：</p>
+<p><a href="https://www.cnblogs.com/lvye-song/p/4029691.html" target="_blank" rel="noopener">python正负无穷</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3goiypuf7j20e205z0sk.jpg" alt></p>
+<p>除了上面两张表，还需要一个存储父节点的散列表：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gox0oz11j209g096wf7.jpg" alt></p>
+<p>创建这个散列表的代码如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3gozpliz7j20aj05mjr7.jpg" alt></p>
+<p>最后，需要一个数组用于记录处理过的节点，甜味对于同一个节点，你不用处理多次。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">processd = &#123;&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -762,8 +810,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/10/大数据病毒分析/" rel="prev" title="hadoop病毒案例分析">
-                hadoop病毒案例分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/15/analog_data/" rel="prev" title="Analog Data With TPCDS & TPCH">
+                Analog Data With TPCDS & TPCH <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -938,7 +986,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-算法简介"><span class="nav-number">1.</span> <span class="nav-text">第一章 算法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-引言"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-二分查找"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 二分查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行时间"><span class="nav-number">1.2.1.</span> <span class="nav-text">运行时间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-大-O-表示法"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 大 O 表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#旅行商问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">旅行商问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-选择排序"><span class="nav-number">2.</span> <span class="nav-text">第二章 选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-内存工作原理"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 内存工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-数组和链表"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数组和链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-选择排序"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 选择排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-递归"><span class="nav-number">3.</span> <span class="nav-text">第三章 递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-递归"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基线条件和递归条件"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基线条件和递归条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-栈"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-快速排序"><span class="nav-number">4.</span> <span class="nav-text">第四章 快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-分而治之"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 分而治之</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-快排"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 快排</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-散列表-Hash-Table"><span class="nav-number">5.</span> <span class="nav-text">第五章 散列表 Hash Table</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-散列函数"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 散列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-应用案例"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 应用案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-冲突-collision"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 冲突 collision</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-性能"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 性能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-广度优先搜索"><span class="nav-number">6.</span> <span class="nav-text">第六章 广度优先搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-图简介"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 图简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-图是什么"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 图是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-广度优先搜索"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 广度优先搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-实现图"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 实现图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-实现算法"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 实现算法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-算法简介"><span class="nav-number">1.</span> <span class="nav-text">第一章 算法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-引言"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-二分查找"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 二分查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行时间"><span class="nav-number">1.2.1.</span> <span class="nav-text">运行时间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-大-O-表示法"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 大 O 表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#旅行商问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">旅行商问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-选择排序"><span class="nav-number">2.</span> <span class="nav-text">第二章 选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-内存工作原理"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 内存工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-数组和链表"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数组和链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-选择排序"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 选择排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-递归"><span class="nav-number">3.</span> <span class="nav-text">第三章 递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-递归"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-基线条件和递归条件"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 基线条件和递归条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-栈"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-快速排序"><span class="nav-number">4.</span> <span class="nav-text">第四章 快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-分而治之"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 分而治之</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-快排"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 快排</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-散列表-Hash-Table"><span class="nav-number">5.</span> <span class="nav-text">第五章 散列表 Hash Table</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-散列函数"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 散列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-应用案例"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 应用案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-冲突-collision"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 冲突 collision</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-性能"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 性能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-广度优先搜索"><span class="nav-number">6.</span> <span class="nav-text">第六章 广度优先搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-图简介"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 图简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-图是什么"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 图是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-广度优先搜索"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 广度优先搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-实现图"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 实现图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-实现算法"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 实现算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七章-狄克斯特拉算法"><span class="nav-number">7.</span> <span class="nav-text">第七章 狄克斯特拉算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-狄克斯特拉算法介绍"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 狄克斯特拉算法介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-术语"><span class="nav-number">7.2.</span> <span class="nav-text">7.3 术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-负权边"><span class="nav-number">7.3.</span> <span class="nav-text">7.4 负权边</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-实现"><span class="nav-number">7.4.</span> <span class="nav-text">7.5 实现</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -972,7 +1020,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">47.5k</span>
+    <span title="Site words total count">48.2k</span>
   
 </div>
 
