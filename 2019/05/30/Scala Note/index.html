@@ -108,7 +108,8 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3izm7uublj20f30ch0t5.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3izmsgpxxj20pw0lnab5.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3iznzcv6ej20sw0o13zt.jpg">
-<meta property="og:updated_time" content="2019-05-29T23:53:53.763Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3jcuo85e8j20of0gtta1.jpg">
+<meta property="og:updated_time" content="2019-05-31T10:37:07.964Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala Note">
 <meta name="twitter:description" content="开一个新坑，Scala这门语言在优化上有很大的操作余地，需要相当的熟练度。本文仅做基础笔记的整理。">
@@ -351,7 +352,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-30T07:01:15+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-30T08:44:38+08:00">
                 2019-05-30
               </time>
             
@@ -427,7 +428,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  862
+                  2.1k
                 </span>
               
 
@@ -443,7 +444,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  3
+                  8
                 </span>
               
             </div>
@@ -468,14 +469,14 @@
 <p>开一个新坑，Scala这门语言在优化上有很大的操作余地，需要相当的熟练度。本文仅做基础笔记的整理。</p>
 </blockquote>
 <a id="more"></a> 
-<h2 id="Scala"><a href="#Scala" class="headerlink" title="Scala"></a>Scala</h2><h3 id="Scala-介绍"><a href="#Scala-介绍" class="headerlink" title="Scala 介绍"></a>Scala 介绍</h3><p>Scala 是 Scalable Language 的简写，是一门多范式的编程语言</p>
+<h1 id="Scala"><a href="#Scala" class="headerlink" title="Scala"></a>Scala</h1><h2 id="Scala-介绍"><a href="#Scala-介绍" class="headerlink" title="Scala 介绍"></a>Scala 介绍</h2><p>Scala 是 Scalable Language 的简写，是一门多范式的编程语言</p>
 <p>联邦理工学院洛桑（EPFL）的Martin Odersky于2001年基于Funnel的工作开始设计Scala。</p>
 <p>Funnel是把函数式编程思想和Petri网相结合的一种编程语言。</p>
 <p>Odersky先前的工作是Generic Java和javac（Sun Java编译器）。Java平台的Scala于2003年底/2004年初发布。.NET平台的Scala发布于2004年6月。该语言第二个版本，v2.0，发布于2006年3月。</p>
 <p>截至2009年9月，最新版本是版本2.7.6 。Scala 2.8预计的特性包括重写的Scala类库（Scala collections library）、方法的命名参数和默认参数、包对象（package object），以及Continuation。</p>
 <p>2009年4月，Twitter宣布他们已经把大部分后端程序从Ruby迁移到Scala，其余部分也打算要迁移。此外， Wattzon已经公开宣称，其整个平台都已经是基于Scala基础设施编写的。</p>
 <hr>
-<h3 id="环境部分："><a href="#环境部分：" class="headerlink" title="环境部分："></a>环境部分：</h3><p>安装：和Java一样也要配置环境变量</p>
+<h2 id="环境部分："><a href="#环境部分：" class="headerlink" title="环境部分："></a>环境部分：</h2><p>安装：和Java一样也要配置环境变量</p>
 <p>配置IDEA：</p>
 <p>先安装插件Scala</p>
 <p>然后创建Maven项目</p>
@@ -485,10 +486,10 @@
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3izmsgpxxj20pw0lnab5.jpg" alt></p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3iznzcv6ej20sw0o13zt.jpg" alt></p>
 <p>Scala文件夹标记为Source</p>
-<h3 id="语法部分"><a href="#语法部分" class="headerlink" title="语法部分"></a>语法部分</h3><h4 id="Hello-Scala"><a href="#Hello-Scala" class="headerlink" title="Hello Scala"></a>Hello Scala</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">HelloScala</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    println(<span class="string">"hello Scala"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="语法部分"><a href="#语法部分" class="headerlink" title="语法部分"></a>语法部分</h2><h3 id="Hello-Scala"><a href="#Hello-Scala" class="headerlink" title="Hello Scala"></a>Hello Scala</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">HelloScala</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    println(<span class="string">"hello Scala"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>命令台执行命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala -cp C:\Users\61661\Desktop\scala-1.0-SNAPSHOT.jar HelloScala</span><br></pre></td></tr></table></figure>
-<h4 id="声明值和变量"><a href="#声明值和变量" class="headerlink" title="声明值和变量"></a>声明值和变量</h4><p>Scala声明变量有两种方式：<code>val</code> 和 <code>var</code></p>
+<h3 id="声明值和变量"><a href="#声明值和变量" class="headerlink" title="声明值和变量"></a>声明值和变量</h3><p>Scala声明变量有两种方式：<code>val</code> 和 <code>var</code></p>
 <p><code>val</code>定义的值是不可变的，它不是一个常量，是不可变量，或者称之为只读变量。</p>
 <p>Tips：</p>
 <ol>
@@ -496,7 +497,7 @@
 <li><code>val</code>定义的变量虽然不能改变其引用的内存地址，但是可以改变其引用的对象的内部的其他属性值。</li>
 <li>为了减少可变性引起的bug，应该尽可能地使用不可变变量。变量类型可以省略，解析器会根据值进行推断。<code>val</code>和<code>var</code>声明变量时都必须初始化。</li>
 </ol>
-<h4 id="常用类型"><a href="#常用类型" class="headerlink" title="常用类型"></a>常用类型</h4><p>8种常用类型</p>
+<h3 id="常用类型"><a href="#常用类型" class="headerlink" title="常用类型"></a>常用类型</h3><p>8种常用类型</p>
 <table>
 <thead>
 <tr>
@@ -548,8 +549,41 @@
 <p>由于String实际是一系列Char的不可变的集合，Scala中大部分针对集合的操作，都可以用于String，具体来说，String的这些方法存在于类<code>scala.collection.immutable.StringOps</code>中。</p>
 <p>由于String在需要时能隐式转换为<code>StringOps</code>，因此不需要任何额外的转换，String就可以使用这些方法。</p>
 <p>每一种数据类型都有对应的<code>Rich*</code>类型，如<code>RichInt</code>、<code>RichChar</code>等，为基本类型提供了更多的有用操作。</p>
-<h4 id="常用类型结构图"><a href="#常用类型结构图" class="headerlink" title="常用类型结构图"></a>常用类型结构图</h4><p>Scala中，所有的值都是类对象，而所有的类，包括值类型，都最终继承自一个统一的根类型<code>Any</code>。统一类型，是Scala的又一大特点。更特别的是，Scala中还定义了几个底层类<code>Bottom Class</code>，比如<code>Null</code>和<code>Nothing</code>。</p>
-<p>1. </p>
+<h3 id="常用类型结构图"><a href="#常用类型结构图" class="headerlink" title="常用类型结构图"></a>常用类型结构图</h3><p>Scala中，所有的值都是类对象，而所有的类，包括值类型，都最终继承自一个统一的根类型<code>Any</code>。统一类型，是Scala的又一大特点。更特别的是，Scala中还定义了几个底层类<code>Bottom Class</code>，比如<code>Null</code>和<code>Nothing</code>。</p>
+<ol>
+<li><code>Null</code>是所有引用类型的子类型，而<code>Nothing</code>是所有类型的子类型。<code>Null</code>类只有一个实例对象，<code>null</code>，类似于Java中的<code>null</code>引用。<code>null</code>可以赋值给任意引用类型，但是不能赋值给值类型。</li>
+<li><code>Nothing</code>，可以作为没有正常返回值的方法的返回类型，非常直观的告诉你这个方法不会正常返回，而且由于<code>Nothing</code>是其他任意类型的子类，他还能跟要求返回值的方法兼容。</li>
+<li><code>Unit</code>类型用来标识过程，也就是没有明确返回值的函数。 由此可见，<code>Unit</code>类似于<code>Java</code>里的<code>void</code>。<code>Unit</code>只有一个实例，()，这个实例也没有实质的意义。</li>
+</ol>
+<p>关系图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3jcuo85e8j20of0gtta1.jpg" alt></p>
+<h3 id="算数操作符重载"><a href="#算数操作符重载" class="headerlink" title="算数操作符重载"></a>算数操作符重载</h3><p><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>%</code>可以完成和Java中相同的工作，但是有一点区别，他们都是方法。你几乎可以用任何符号来为方法命名。</p>
+<p><code>1 + 2</code> 等同于 <code>1.+(2)</code></p>
+<p>Tips: Scala中没有++、–操作符，需要通过+=、-=来实现同样的效果。</p>
+<h3 id="调用函数与方法"><a href="#调用函数与方法" class="headerlink" title="调用函数与方法"></a>调用函数与方法</h3><p>在Scala中，一般情况下我们不会刻意的去区分<code>函数</code>与<code>方法</code>的区别，但是他们确实是不同的东西。</p>
+<p>后面我们再详细探讨。首先我们要学会使用Scala来调用函数与方法。</p>
+<h4 id="1-调用函数，求方根"><a href="#1-调用函数，求方根" class="headerlink" title="1.调用函数，求方根"></a>1.调用函数，求方根</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.math</span><br><span class="line">sqrt(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="2-调用方法，静态方法（Scala中没有静态方法这个概念，需要通过伴生类对象来实现）"><a href="#2-调用方法，静态方法（Scala中没有静态方法这个概念，需要通过伴生类对象来实现）" class="headerlink" title="2.调用方法，静态方法（Scala中没有静态方法这个概念，需要通过伴生类对象来实现）"></a>2.调用方法，静态方法（Scala中没有静态方法这个概念，需要通过伴生类对象来实现）</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BigInt</span>.probablePrime(<span class="number">16</span>, scala.util.<span class="type">Random</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="3-调用方法，非静态方法，使用对象调用"><a href="#3-调用方法，非静态方法，使用对象调用" class="headerlink" title="3.调用方法，非静态方法，使用对象调用"></a>3.调用方法，非静态方法，使用对象调用</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"HelloWorld"</span>.distinct</span><br></pre></td></tr></table></figure>
+<h4 id="4-apply与update方法"><a href="#4-apply与update方法" class="headerlink" title="4.apply与update方法"></a>4.apply与update方法</h4><p>apply方法是调用时可以省略方法名的方法。用于构造和获取元素：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"Hello"</span>(<span class="number">4</span>)  等同于  <span class="string">"Hello"</span>.apply(<span class="number">4</span>)</span><br><span class="line"><span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>) 等同于 <span class="type">Array</span>.apply(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">如：</span><br><span class="line">println(<span class="string">"Hello"</span>(<span class="number">4</span>))</span><br><span class="line">println(<span class="string">"Hello"</span>.apply(<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<p>在<code>StringOps</code>中你会发现一个 <code>def apply(n: Int): Char</code>方法定义。<code>update</code>方法也是调用时可以省略方法名的方法，用于元素的更新：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">arr(<span class="number">4</span>) = <span class="number">5</span>  等同于  arr.update(<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">如：</span><br><span class="line"><span class="keyword">val</span> arr1 = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">5</span>)</span><br><span class="line">arr1(<span class="number">1</span>) = <span class="number">2</span></span><br><span class="line">arr1.update(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">println(arr1.mkString(<span class="string">","</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="Option类型"><a href="#Option类型" class="headerlink" title="Option类型"></a>Option类型</h4><p>Scala为单个值提供了对象的包装器，表示为那种可能存在也可能不存在的值。他只有两个有效的子类对象，一个是Some，表示某个值，另外一个是None，表示为空，通过Option的使用，避免了使用null、空字符串等方式来表示缺少某个值的做法。</p>
+<p>如：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map1 = <span class="type">Map</span>(<span class="string">"Alice"</span> -&gt; <span class="number">20</span>, <span class="string">"Bob"</span> -&gt; <span class="number">30</span>)</span><br><span class="line">println(map1.get(<span class="string">"Alice"</span>))</span><br><span class="line">println(map1.get(<span class="string">"Jone"</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="控制结构和函数"><a href="#控制结构和函数" class="headerlink" title="控制结构和函数"></a>控制结构和函数</h3><h4 id="if-else"><a href="#if-else" class="headerlink" title="if else"></a>if else</h4><p>Scala中没有三目运算符，因为根本不需要。Scala中if else表达式是有返回值的，如果if或者else返回的类型不一样，就返回Any类型（所有类型的公共超类型）。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> a3 = <span class="number">10</span></span><br><span class="line">    <span class="keyword">val</span> a4 =</span><br><span class="line">      <span class="comment">//返回类型一样</span></span><br><span class="line">      <span class="keyword">if</span>(a3 &gt; <span class="number">20</span>)&#123;</span><br><span class="line">        <span class="string">"a3大于20"</span></span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="string">"a3小于20"</span></span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">val</span> a5 = </span><br><span class="line">      <span class="keyword">if</span>(a3 &gt; <span class="number">20</span>)&#123;</span><br><span class="line">          <span class="string">"a3大于20"</span></span><br><span class="line">      &#125;</span><br><span class="line">    println(a4)</span><br><span class="line">    <span class="comment">//a3小于20</span></span><br><span class="line">    println(a5)</span><br><span class="line">    <span class="comment">//()</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果缺少一个判断，什么都没有返回，但是Scala认为任何表达式都会有值，对于空值，使用Unit类，写做()，叫做无用占位符，相当于Java中的void。</p>
+<p>Tips: 行尾的位置不需要分号，只要能够从上下文判断出语句的终止即可。但是如果在单行中写多个语句，则需要分号分割。在Scala中，{}块包含一系列表达式，其结果也是一个表达式。块中最后一个表达式的值就是块的值。</p>
+<h4 id="while-表达式"><a href="#while-表达式" class="headerlink" title="while 表达式"></a>while 表达式</h4><p>Scala提供和Java一样的while和do循环，与If语句不同，While语句本身没有值，即整个While语句的结果是Unit类型的()。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">var</span> n = <span class="number">1</span></span><br><span class="line">    <span class="keyword">val</span> while1 = <span class="keyword">while</span>(n &lt;= <span class="number">10</span>)&#123;</span><br><span class="line">      n += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(while1) <span class="comment">//()</span></span><br><span class="line">    println(n) <span class="comment">//11</span></span><br><span class="line">    <span class="comment">//Scala提供和Java一样的while和do循环，与If语句不同，While语句本身没有值，即整个While语句的结果是Unit类型的()。</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>while循环的中断</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.util.control.<span class="type">Breaks</span></span><br><span class="line"><span class="keyword">val</span> loop = <span class="keyword">new</span> <span class="type">Breaks</span></span><br><span class="line">loop.breakable&#123;</span><br><span class="line">  <span class="keyword">while</span>(n &lt;= <span class="number">20</span>)&#123;</span><br><span class="line">    n += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">18</span>)&#123;</span><br><span class="line">      loop.<span class="keyword">break</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">println(n)</span><br></pre></td></tr></table></figure>
+<p>Tips: Scala并没有提供break和continue语句来退出循环，如果需要break，可以通过几种方法来做1、使用Boolean型的控制变量 2、使用嵌套函数，从函数中return 3、使用Breaks对象的break方法。</p>
+<h4 id="for表达式"><a href="#for表达式" class="headerlink" title="for表达式"></a>for表达式</h4><p>Scala也为for循环这一常见的控制结构提供了非常多的特性，这些for循环特性被称为for推导式(for comprehension)或for表达式(for expression).</p>
+<h5 id="for示例1-to左右两边为前闭后闭的访问"><a href="#for示例1-to左右两边为前闭后闭的访问" class="headerlink" title="for示例1: to左右两边为前闭后闭的访问"></a>for示例1: to左右两边为前闭后闭的访问</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i &lt;- <span class="number">1</span> to <span class="number">3</span>; j &lt;- <span class="number">1</span> to <span class="number">3</span>)&#123;</span><br><span class="line">  print(i * j + <span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line">println()</span><br></pre></td></tr></table></figure>
+<h5 id="for示例2：until左右两边为前闭后开的访问"><a href="#for示例2：until左右两边为前闭后开的访问" class="headerlink" title="for示例2：until左右两边为前闭后开的访问"></a>for示例2：until左右两边为前闭后开的访问</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i &lt;- <span class="number">1</span> until <span class="number">3</span>; j &lt;- <span class="number">1</span> until <span class="number">3</span>) &#123;</span><br><span class="line">  print(i * j + <span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line">println()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -580,7 +614,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/29/流式计算浪潮/" rel="next" title="大规模数据处理的演化历程">
+              <a href="/2019/05/28/流式计算浪潮/" rel="next" title="大规模数据处理的演化历程">
                 <i class="fa fa-chevron-left"></i> 大规模数据处理的演化历程
               </a>
             
@@ -762,7 +796,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scala"><span class="nav-number">1.</span> <span class="nav-text">Scala</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scala-介绍"><span class="nav-number">1.1.</span> <span class="nav-text">Scala 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境部分："><span class="nav-number">1.2.</span> <span class="nav-text">环境部分：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法部分"><span class="nav-number">1.3.</span> <span class="nav-text">语法部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hello-Scala"><span class="nav-number">1.3.1.</span> <span class="nav-text">Hello Scala</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#声明值和变量"><span class="nav-number">1.3.2.</span> <span class="nav-text">声明值和变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用类型"><span class="nav-number">1.3.3.</span> <span class="nav-text">常用类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用类型结构图"><span class="nav-number">1.3.4.</span> <span class="nav-text">常用类型结构图</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scala"><span class="nav-number">1.</span> <span class="nav-text">Scala</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scala-介绍"><span class="nav-number">1.1.</span> <span class="nav-text">Scala 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境部分："><span class="nav-number">1.2.</span> <span class="nav-text">环境部分：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法部分"><span class="nav-number">1.3.</span> <span class="nav-text">语法部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-Scala"><span class="nav-number">1.3.1.</span> <span class="nav-text">Hello Scala</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声明值和变量"><span class="nav-number">1.3.2.</span> <span class="nav-text">声明值和变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用类型"><span class="nav-number">1.3.3.</span> <span class="nav-text">常用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用类型结构图"><span class="nav-number">1.3.4.</span> <span class="nav-text">常用类型结构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算数操作符重载"><span class="nav-number">1.3.5.</span> <span class="nav-text">算数操作符重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用函数与方法"><span class="nav-number">1.3.6.</span> <span class="nav-text">调用函数与方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-调用函数，求方根"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">1.调用函数，求方根</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-调用方法，静态方法（Scala中没有静态方法这个概念，需要通过伴生类对象来实现）"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">2.调用方法，静态方法（Scala中没有静态方法这个概念，需要通过伴生类对象来实现）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-调用方法，非静态方法，使用对象调用"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">3.调用方法，非静态方法，使用对象调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-apply与update方法"><span class="nav-number">1.3.6.4.</span> <span class="nav-text">4.apply与update方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Option类型"><span class="nav-number">1.3.6.5.</span> <span class="nav-text">Option类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制结构和函数"><span class="nav-number">1.3.7.</span> <span class="nav-text">控制结构和函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if-else"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">if else</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#while-表达式"><span class="nav-number">1.3.7.2.</span> <span class="nav-text">while 表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for表达式"><span class="nav-number">1.3.7.3.</span> <span class="nav-text">for表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#for示例1-to左右两边为前闭后闭的访问"><span class="nav-number">1.3.7.3.1.</span> <span class="nav-text">for示例1: to左右两边为前闭后闭的访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#for示例2：until左右两边为前闭后开的访问"><span class="nav-number">1.3.7.3.2.</span> <span class="nav-text">for示例2：until左右两边为前闭后开的访问</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -796,7 +830,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">65k</span>
+    <span title="Site words total count">67.7k</span>
   
 </div>
 
