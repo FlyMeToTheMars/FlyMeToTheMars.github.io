@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-28T10:26:24.914Z</updated>
+  <updated>2019-06-19T10:52:11.604Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Apache Kudu</title>
+    <link href="http://yoursite.com/2019/06/19/kudu_test/"/>
+    <id>http://yoursite.com/2019/06/19/kudu_test/</id>
+    <published>2019-06-19T08:33:51.894Z</published>
+    <updated>2019-06-19T10:52:11.604Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>数据模拟完成后的 Kudu 对比性能测试</p></blockquote><a id="more"></a> <h3 id="测试介绍"><a href="#测试介绍" class="headerlink" title="测试介绍"></a>测试介绍</h3><p>TPCDS 和 TPCH 是专门为超大数据量设置的测试项目，下面的是Kudu官网上官方用TPCH测试的结果：</p><p><img src="https://o59mpa.by.files.1drv.com/y4mA8w9Pf83M66l791AicbzEiuNzwVX4g4cBec-VP___6-UAnjPtWMl-GL4worC01W_SVpnXxhqIib-CTLsjnNi0DAjav_B5FpF9JVfWq1dgF0YZwb8SPSGgZl88X96ZhvR9-AysqpK3a6Wbt5L_oFf1L-JabZic5epZcecBgL_Hs937A5vMe_Y9HnWoepnsnctIat0QIijPkQsXI8aulx7yg?width=574&amp;height=258&amp;cropmode=none" alt></p><p>我自己做的表格也是模仿的<a href="https://kudu.apache.org/overview.html" target="_blank" rel="noopener">官方的图表</a>格式。</p><p>介绍一下这个图表的含义，TPCH测试中含有很多超复杂SQL，用不同的数据库在相同数据下运行了这些语句之后，然后对比运行时间，图表横坐标是SQL的序号，纵坐标是运行时间，官方的运行环境是75节点的，她的横坐标是毫秒。</p><h3 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h3><p>下面是我做的测试，三节点下的kudu，机器配置都是64G内存，16核心，系统是Centos 7.4，Kudu版本是1.5，SQL是用impala+Kudu的形式运行的，测试数据量是用TPCDS生成的100G数据。</p><p><img src="https://oj9gpa.by.files.1drv.com/y4mMCX7UM5aW2Q-AcVklQJrf5ZZ72ypNIIrCkO1UakfnMLQ7gfq3KudD80TWG0CpUUJ2zR_aAEiMTPKznwaIcKpLDxRnoYpgnnuyQ-uMGT0zuVrrOvpG3zyPP2CZKVXcS-v1bPxU3xZ1etv2t_9e-lDnftN2cYqM29n_OIZPWOx6NF7jo5EPXx9FOLyipipqNZdR2eVhoHutBQSIMrW9xyXVw?width=1443&amp;height=691&amp;cropmode=none" alt></p><p>我的测试相比官方的添加了文本格式的HiveSQL测试，测试下来确实是速度最慢的。</p><p>Kudu和parquet各有千秋，和官方的测试结果相差不大。</p><h3 id="写入性能"><a href="#写入性能" class="headerlink" title="写入性能"></a>写入性能</h3><p>Kudu的写入性能测试的时候没有能够完全发挥出来，短板不在kudu的写入，这边的写入测试是我用脚本统计5分钟内表多出来的行数然后除以600s得到的，这边截取一段（因为是5分钟统计一次，图表的表述可能不够准确）</p><p><img src="https://o59lpa.by.files.1drv.com/y4mTSkFgZzq__Ts2m5ZTdUr9MBUPBEGXJnEzp3ss_3cDbmVjyxh3gMkQnD0ZBVa5AGdeACWzycw83MmAoszRmiMgdFZgFrbviTB7gckxqw0fTDGuohEWxSo2npNc90L6oRZA1b7l5EizbDLEjJTlpTnWmLtu6dPnJeNxOwdKdPgYziqEisqyfE7rLS0Ekk3yEOgii45aCJ_hfZ2QU99_71yOw?width=476&amp;height=286&amp;cropmode=none" alt></p><p>监测过程中得到的最大写入速度在9.5w/s左右，大部分时候速度在3.5w条到5w条之间。</p><p>后来在开启多线程写入kudu的时候，kudu的写入速度很轻松就能达到20w/s，但是可能因为资源不足，kudu的tablet Server容易挂掉，因为impala也是非常吃内存的组件，64G有点捉襟见肘。</p><h4 id="kudu写入速度和表格大小的关系"><a href="#kudu写入速度和表格大小的关系" class="headerlink" title="kudu写入速度和表格大小的关系"></a>kudu写入速度和表格大小的关系</h4><p>kudu的这个写入速度和表格大小有直接关系。</p><p>结论：</p><p><strong>kudu导入小表的速度十分快，但是导入大表的时候性能会严重下降。</strong></p><p>为了避免测试误差，在用tpcds生成不同大小的测试样本中取相同表格不同大小来测试，避免阻断等等误差，测试结果如下：</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;数据模拟完成后的 Kudu 对比性能测试&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Hadoop" scheme="http://yoursite.com/categories/Hadoop/"/>
+    
+      <category term="Kudu" scheme="http://yoursite.com/categories/Hadoop/Kudu/"/>
+    
+    
+      <category term="Kudu" scheme="http://yoursite.com/tags/Kudu/"/>
+    
+      <category term="test" scheme="http://yoursite.com/tags/test/"/>
+    
+  </entry>
   
   <entry>
     <title>大规模数据处理的演化历程</title>
@@ -544,30 +572,6 @@
     
     
       <category term="Picks" scheme="http://yoursite.com/tags/Picks/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CDH集群代理状态问题</title>
-    <link href="http://yoursite.com/2019/04/29/Cluster%20Error%20Record1/"/>
-    <id>http://yoursite.com/2019/04/29/Cluster Error Record1/</id>
-    <published>2019-04-29T09:27:12.000Z</published>
-    <updated>2019-05-09T06:39:08.605Z</updated>
-    
-    <content type="html"><![CDATA[<p>公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题</p><p>昨天下班前，集群报警</p><p>CDH中查看主机状态<br>datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。</p><a id="more"></a> <p>运行状态检测出现问题：<br><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jn7huhlvj20kg0n3wgi.jpg" alt="alt bug"></p><p>几乎所有组件处于警告状态，基本可以确定是交换内存的问题，如果内存足够大，可以直接取消交换内存</p><p>查看节点agent 状态：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@datanode128 ~]# /data2/CM/cm-5.13.3/etc/init.d/cloudera-scm-agent status</span><br><span class="line">cloudera-scm-agent 已死，但 pid 文件存在</span><br></pre></td></tr></table></figure><p>解决办法：删除了pid文件，重新增加节点，将swappiness设置为0（不能用VIM设置，用<code>sysctl -w vm.swappiness=0</code>），swappiness文件有一些特性，这边不展开。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;公司测试集群因为有好几个项目组的同事都在用，时不时会出一些问题&lt;/p&gt;
-&lt;p&gt;昨天下班前，集群报警&lt;/p&gt;
-&lt;p&gt;CDH中查看主机状态&lt;br&gt;datanode128出现：该主机与 Cloudera Manager Server 失去联系的时间过长。 该主机未与 Host Monitor 建立联系。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Hadoop" scheme="http://yoursite.com/categories/Hadoop/"/>
-    
-      <category term="CDH" scheme="http://yoursite.com/categories/Hadoop/CDH/"/>
-    
     
   </entry>
   
