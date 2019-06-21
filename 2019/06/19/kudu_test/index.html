@@ -112,7 +112,7 @@
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lubfzqyj20r80hzacf.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lu7zq04j20qy0hbq3l.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/bec9bff2gy1g47m9zhf2dj20p20h6gm3.jpg">
-<meta property="og:updated_time" content="2019-06-20T08:14:12.409Z">
+<meta property="og:updated_time" content="2019-06-21T05:40:53.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kudu测试报告">
 <meta name="twitter:description" content="数据模拟完成后的 Kudu 对比性能测试">
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  912
+                  909
                 </span>
               
 
@@ -475,7 +475,7 @@
 <h3 id="测试介绍"><a href="#测试介绍" class="headerlink" title="测试介绍"></a>测试介绍</h3><p>TPCDS 和 TPCH 是专门为超大数据量设置的测试项目，下面的是Kudu官网上官方用TPCH测试的结果：</p>
 <p><img src="https://o59mpa.by.files.1drv.com/y4mA8w9Pf83M66l791AicbzEiuNzwVX4g4cBec-VP___6-UAnjPtWMl-GL4worC01W_SVpnXxhqIib-CTLsjnNi0DAjav_B5FpF9JVfWq1dgF0YZwb8SPSGgZl88X96ZhvR9-AysqpK3a6Wbt5L_oFf1L-JabZic5epZcecBgL_Hs937A5vMe_Y9HnWoepnsnctIat0QIijPkQsXI8aulx7yg?width=574&amp;height=258&amp;cropmode=none" alt></p>
 <p>我自己做的表格也是模仿的<a href="https://kudu.apache.org/overview.html" target="_blank" rel="noopener">官方的图表</a>格式。</p>
-<p>介绍一下这个图表的含义，TPCH测试中含有很多超复杂SQL，用不同的数据库在相同数据下运行了这些语句之后，然后对比运行时间，图表横坐标是SQL的序号，纵坐标是运行时间，官方的运行环境是75节点的，她的横坐标是毫秒。</p>
+<p>介绍一下这个图表的含义，TPCH测试中含有很多超复杂SQL，用不同的数据库在相同数据下运行了这些语句之后，然后对比运行时间，图表横坐标是SQL的序号，纵坐标是运行时间，官方的运行环境是75节点的，单位是毫秒。</p>
 <h3 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h3><p>下面是我做的测试，三节点下的kudu，机器配置都是64G内存，16核心，系统是Centos 7.4，Kudu版本是1.5，SQL是用impala+Kudu的形式运行的，测试数据量是用TPCDS生成的100G数据。</p>
 <p><img src="https://oj9gpa.by.files.1drv.com/y4mMCX7UM5aW2Q-AcVklQJrf5ZZ72ypNIIrCkO1UakfnMLQ7gfq3KudD80TWG0CpUUJ2zR_aAEiMTPKznwaIcKpLDxRnoYpgnnuyQ-uMGT0zuVrrOvpG3zyPP2CZKVXcS-v1bPxU3xZ1etv2t_9e-lDnftN2cYqM29n_OIZPWOx6NF7jo5EPXx9FOLyipipqNZdR2eVhoHutBQSIMrW9xyXVw?width=1443&amp;height=691&amp;cropmode=none" alt></p>
 <p>我的测试相比官方的添加了文本格式的HiveSQL测试，测试下来确实是速度最慢的。</p>
@@ -754,7 +754,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">71.3k</span>
+    <span title="Site words total count">71.4k</span>
   
 </div>
 
