@@ -112,7 +112,8 @@
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lubfzqyj20r80hzacf.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lu7zq04j20qy0hbq3l.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/bec9bff2gy1g47m9zhf2dj20p20h6gm3.jpg">
-<meta property="og:updated_time" content="2019-06-21T05:40:53.751Z">
+<meta property="og:image" content="https://arbgdq.by.files.1drv.com/y4mcprp_tVDZU3zFzgcmpoJtNJKwwr5PEVDcLXL_K-4D9X9ST4Vru8dYseDZ8sUPMTd7LwyKYe7MQI1fkaeXZGZG6ZyHTMGE1OvqLVCIJOBpK1NFAbatJZ6fmTTlvZjc6fFYT_8cCFOLjYhbWKeqbalRJ70sWjBHvRgqcnyyKKvhFltneMaGeQx4iunOQC-yk5_p-KmD3H_8tko7WCCj45ZDw?width=451&height=289&cropmode=none">
+<meta property="og:updated_time" content="2019-06-21T08:46:24.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kudu测试报告">
 <meta name="twitter:description" content="数据模拟完成后的 Kudu 对比性能测试">
@@ -431,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  909
+                  990
                 </span>
               
 
@@ -501,7 +502,11 @@
 <p>1T的和10T的相差不是特别大</p>
 <p>结论：<strong>kudu表目前看来不太适合大表，分区能否解决这个问题，还要靠实验</strong></p>
 <h4 id="资源使用情况"><a href="#资源使用情况" class="headerlink" title="资源使用情况"></a>资源使用情况</h4><p>Impala使用的资源整体上少于Spark，磁盘的读取少于Spark，这对于速度的提高至关重要，这与其语句的优化有关。Impala的CPU一直维持在较低的水平，说明其C++的实现比Java高效。</p>
-<p>Spark的CPU占用较高，但是维持在50%的水平，可见CPU并没有成为其瓶颈，在使用Oozie多线程写入的时候可能遇到了kudu的瓶颈，Kudu的写入瓶颈是可以通过一些参数进行简单调整的。目前看到可能在2000-3000M/s的样子，磁盘负担比较重。</p>
+<h4 id="kudu写入速度"><a href="#kudu写入速度" class="headerlink" title="kudu写入速度"></a>kudu写入速度</h4><p>Spark的CPU占用较高，但是维持在50%的水平，可见CPU并没有成为其瓶颈，在使用Oozie多线程写入的时候可能遇到了kudu的瓶颈，Kudu的写入瓶颈是可以通过一些参数进行简单调整的。</p>
+<p>目前从集群的写入速度上来分析，初步判断硬盘的写入速度已经成为了瓶颈。</p>
+<p>下图以Master节点为例，列出的Kudu TS以6个小时为一个窗口使用磁盘的峰值和平均值：</p>
+<p><img src="https://arbgdq.by.files.1drv.com/y4mcprp_tVDZU3zFzgcmpoJtNJKwwr5PEVDcLXL_K-4D9X9ST4Vru8dYseDZ8sUPMTd7LwyKYe7MQI1fkaeXZGZG6ZyHTMGE1OvqLVCIJOBpK1NFAbatJZ6fmTTlvZjc6fFYT_8cCFOLjYhbWKeqbalRJ70sWjBHvRgqcnyyKKvhFltneMaGeQx4iunOQC-yk5_p-KmD3H_8tko7WCCj45ZDw?width=451&amp;height=289&amp;cropmode=none" alt></p>
+<p>MiB单位换算成Mbit/s是Mbit/s = MiB/s * 0.1192，图中所示峰值几乎达到了机械硬盘写入极限。</p>
 
       
     </div>
@@ -720,7 +725,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试介绍"><span class="nav-number">1.</span> <span class="nav-text">测试介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能对比"><span class="nav-number">2.</span> <span class="nav-text">性能对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写入性能"><span class="nav-number">3.</span> <span class="nav-text">写入性能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kudu写入速度和表格大小的关系"><span class="nav-number">3.1.</span> <span class="nav-text">kudu写入速度和表格大小的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源使用情况"><span class="nav-number">3.2.</span> <span class="nav-text">资源使用情况</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试介绍"><span class="nav-number">1.</span> <span class="nav-text">测试介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能对比"><span class="nav-number">2.</span> <span class="nav-text">性能对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写入性能"><span class="nav-number">3.</span> <span class="nav-text">写入性能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kudu写入速度和表格大小的关系"><span class="nav-number">3.1.</span> <span class="nav-text">kudu写入速度和表格大小的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源使用情况"><span class="nav-number">3.2.</span> <span class="nav-text">资源使用情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kudu写入速度"><span class="nav-number">3.3.</span> <span class="nav-text">kudu写入速度</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -754,7 +759,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">71.4k</span>
+    <span title="Site words total count">71.5k</span>
   
 </div>
 

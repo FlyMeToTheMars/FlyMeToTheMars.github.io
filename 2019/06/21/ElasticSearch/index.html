@@ -106,7 +106,7 @@
 <meta property="og:description" content="ES这个组件其实挺重要的，早就应该了解的组件，借着这次机会，我尽量把这个组件摸摸透">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ws4.sinaimg.cn/large/bec9bff2gy1g47rpbap0aj20n30a6gls.jpg">
-<meta property="og:updated_time" content="2019-06-21T05:38:59.432Z">
+<meta property="og:updated_time" content="2019-06-21T10:37:54.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ElasticSearch">
 <meta name="twitter:description" content="ES这个组件其实挺重要的，早就应该了解的组件，借着这次机会，我尽量把这个组件摸摸透">
@@ -494,7 +494,7 @@
 </tbody>
 </table>
 <p>这个表格对ES介绍的很好，从概念上很容易就能把ES和MySQL联系到一起。</p>
-<h3 id="ElasticSearch-Java-API"><a href="#ElasticSearch-Java-API" class="headerlink" title="ElasticSearch Java API"></a>ElasticSearch Java API</h3><h3 id="ElasticSearch-Query-DSL"><a href="#ElasticSearch-Query-DSL" class="headerlink" title="ElasticSearch Query DSL"></a>ElasticSearch Query DSL</h3><h4 id="查询与过滤"><a href="#查询与过滤" class="headerlink" title="查询与过滤"></a>查询与过滤</h4><p>数据检索分为两种情况：<strong>查询</strong>和<strong>过滤</strong></p>
+<h3 id="ElasticSearch-版本新特性"><a href="#ElasticSearch-版本新特性" class="headerlink" title="ElasticSearch 版本新特性"></a>ElasticSearch 版本新特性</h3><h3 id="ElasticSearch-Java-API"><a href="#ElasticSearch-Java-API" class="headerlink" title="ElasticSearch Java API"></a>ElasticSearch Java API</h3><h3 id="ElasticSearch-Query-DSL"><a href="#ElasticSearch-Query-DSL" class="headerlink" title="ElasticSearch Query DSL"></a>ElasticSearch Query DSL</h3><h4 id="查询与过滤"><a href="#查询与过滤" class="headerlink" title="查询与过滤"></a>查询与过滤</h4><p>数据检索分为两种情况：<strong>查询</strong>和<strong>过滤</strong></p>
 <p>Query会对检索结果进行<strong>评分</strong>，注重的点是匹配程度，计算的是查询与文档的相关程度，计算完成之后会酸醋一个评分，记录在<code>_score</code>中，最终按照<code>_score</code>进行排序。</p>
 <p>Filter过滤不会对检索结果进行评分，注重的点是是否匹配，，所以速度 要快一点，并且过滤的结果会被缓存到内存中，性能要比Query高很多。</p>
 <h4 id="简单查询"><a href="#简单查询" class="headerlink" title="简单查询"></a>简单查询</h4><p>最简单的DSL查询表达式：</p>
@@ -752,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES和结构型数据库的横向对比"><span class="nav-number">1.</span> <span class="nav-text">ES和结构型数据库的横向对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElasticSearch-Java-API"><span class="nav-number">2.</span> <span class="nav-text">ElasticSearch Java API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElasticSearch-Query-DSL"><span class="nav-number">3.</span> <span class="nav-text">ElasticSearch Query DSL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询与过滤"><span class="nav-number">3.1.</span> <span class="nav-text">查询与过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单查询"><span class="nav-number">3.2.</span> <span class="nav-text">简单查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定索引"><span class="nav-number">3.3.</span> <span class="nav-text">指定索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页查询"><span class="nav-number">4.</span> <span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合查询"><span class="nav-number">5.</span> <span class="nav-text">组合查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES调优"><span class="nav-number">6.</span> <span class="nav-text">ES调优</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES和结构型数据库的横向对比"><span class="nav-number">1.</span> <span class="nav-text">ES和结构型数据库的横向对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElasticSearch-版本新特性"><span class="nav-number">2.</span> <span class="nav-text">ElasticSearch 版本新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElasticSearch-Java-API"><span class="nav-number">3.</span> <span class="nav-text">ElasticSearch Java API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElasticSearch-Query-DSL"><span class="nav-number">4.</span> <span class="nav-text">ElasticSearch Query DSL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询与过滤"><span class="nav-number">4.1.</span> <span class="nav-text">查询与过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单查询"><span class="nav-number">4.2.</span> <span class="nav-text">简单查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定索引"><span class="nav-number">4.3.</span> <span class="nav-text">指定索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页查询"><span class="nav-number">5.</span> <span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合查询"><span class="nav-number">6.</span> <span class="nav-text">组合查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES调优"><span class="nav-number">7.</span> <span class="nav-text">ES调优</span></a></li></ol></div>
             
 
           </div>
@@ -786,7 +786,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">71.4k</span>
+    <span title="Site words total count">71.5k</span>
   
 </div>
 
