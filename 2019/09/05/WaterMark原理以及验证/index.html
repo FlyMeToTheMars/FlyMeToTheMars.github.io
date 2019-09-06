@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Kudu,test,">
+  <meta name="keywords" content="Flink,">
 
 
 
@@ -97,27 +97,32 @@
 
 
 
-<meta name="description" content="数据模拟完成后的 Kudu 对比性能测试">
-<meta name="keywords" content="Kudu,test">
+<meta name="description" content="之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。">
+<meta name="keywords" content="Flink">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Kudu测试报告">
-<meta property="og:url" content="http://yoursite.com/2019/06/19/kudu_test/index.html">
+<meta property="og:title" content="WaterMark原理以及验证">
+<meta property="og:url" content="http://yoursite.com/2019/09/05/WaterMark原理以及验证/index.html">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="数据模拟完成后的 Kudu 对比性能测试">
+<meta property="og:description" content="之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://o59mpa.by.files.1drv.com/y4mA8w9Pf83M66l791AicbzEiuNzwVX4g4cBec-VP___6-UAnjPtWMl-GL4worC01W_SVpnXxhqIib-CTLsjnNi0DAjav_B5FpF9JVfWq1dgF0YZwb8SPSGgZl88X96ZhvR9-AysqpK3a6Wbt5L_oFf1L-JabZic5epZcecBgL_Hs937A5vMe_Y9HnWoepnsnctIat0QIijPkQsXI8aulx7yg?width=574&height=258&cropmode=none">
-<meta property="og:image" content="https://oj9gpa.by.files.1drv.com/y4mMCX7UM5aW2Q-AcVklQJrf5ZZ72ypNIIrCkO1UakfnMLQ7gfq3KudD80TWG0CpUUJ2zR_aAEiMTPKznwaIcKpLDxRnoYpgnnuyQ-uMGT0zuVrrOvpG3zyPP2CZKVXcS-v1bPxU3xZ1etv2t_9e-lDnftN2cYqM29n_OIZPWOx6NF7jo5EPXx9FOLyipipqNZdR2eVhoHutBQSIMrW9xyXVw?width=1443&height=691&cropmode=none">
-<meta property="og:image" content="https://o59lpa.by.files.1drv.com/y4mTSkFgZzq__Ts2m5ZTdUr9MBUPBEGXJnEzp3ss_3cDbmVjyxh3gMkQnD0ZBVa5AGdeACWzycw83MmAoszRmiMgdFZgFrbviTB7gckxqw0fTDGuohEWxSo2npNc90L6oRZA1b7l5EizbDLEjJTlpTnWmLtu6dPnJeNxOwdKdPgYziqEisqyfE7rLS0Ekk3yEOgii45aCJ_hfZ2QU99_71yOw?width=476&height=286&cropmode=none">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g47cbzp1cuj20d407vdfp.jpg">
-<meta property="og:image" content="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lubfzqyj20r80hzacf.jpg">
-<meta property="og:image" content="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lu7zq04j20qy0hbq3l.jpg">
-<meta property="og:image" content="http://wx2.sinaimg.cn/large/bec9bff2gy1g47m9zhf2dj20p20h6gm3.jpg">
-<meta property="og:image" content="https://arbgdq.by.files.1drv.com/y4mcprp_tVDZU3zFzgcmpoJtNJKwwr5PEVDcLXL_K-4D9X9ST4Vru8dYseDZ8sUPMTd7LwyKYe7MQI1fkaeXZGZG6ZyHTMGE1OvqLVCIJOBpK1NFAbatJZ6fmTTlvZjc6fFYT_8cCFOLjYhbWKeqbalRJ70sWjBHvRgqcnyyKKvhFltneMaGeQx4iunOQC-yk5_p-KmD3H_8tko7WCCj45ZDw?width=451&height=289&cropmode=none">
-<meta property="og:updated_time" content="2019-06-21T08:46:24.000Z">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/bec9bff2ly1g6osjwahpzj20u00ehq9p.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/bec9bff2ly1g6osn8t7z6j20u0086wki.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/large/bec9bff2ly1g6osvn3didj20u003f410.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/bec9bff2ly1g6osxh1acdj20u0050q6y.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/bec9bff2ly1g6osy23r6vj20u006o43x.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/bec9bff2ly1g6osz2lg2gj20br021gmf.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/large/bec9bff2ly1g6oszlzdevj20r703wwig.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/bec9bff2ly1g6ot06x8knj20r703wwig.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/bec9bff2ly1g6ot0p6347j20u00ddwlf.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/large/bec9bff2ly1g6ot1afzo9j20u00g6jzx.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/bec9bff2ly1g6ot1wbsw1j20u00izak8.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/bec9bff2ly1g6ot2yw6v8j20n40bttd8.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/large/bec9bff2ly1g6ot3dn93qj20u00ezwlb.jpg">
+<meta property="og:updated_time" content="2019-09-06T03:18:32.804Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kudu测试报告">
-<meta name="twitter:description" content="数据模拟完成后的 Kudu 对比性能测试">
-<meta name="twitter:image" content="https://o59mpa.by.files.1drv.com/y4mA8w9Pf83M66l791AicbzEiuNzwVX4g4cBec-VP___6-UAnjPtWMl-GL4worC01W_SVpnXxhqIib-CTLsjnNi0DAjav_B5FpF9JVfWq1dgF0YZwb8SPSGgZl88X96ZhvR9-AysqpK3a6Wbt5L_oFf1L-JabZic5epZcecBgL_Hs937A5vMe_Y9HnWoepnsnctIat0QIijPkQsXI8aulx7yg?width=574&height=258&cropmode=none">
+<meta name="twitter:title" content="WaterMark原理以及验证">
+<meta name="twitter:description" content="之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。">
+<meta name="twitter:image" content="https://wx2.sinaimg.cn/large/bec9bff2ly1g6osjwahpzj20u00ehq9p.jpg">
 
 
 
@@ -147,13 +152,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/06/19/kudu_test/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/05/WaterMark原理以及验证/">
 
 
 
 
 
-  <title>Kudu测试报告 | Mars</title>
+  <title>WaterMark原理以及验证 | Mars</title>
   
 
 
@@ -327,7 +332,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/19/kudu_test/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/05/WaterMark原理以及验证/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fly Hugh">
@@ -344,7 +349,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Kudu测试报告</h1>
+          <h1 class="post-title" itemprop="name headline">WaterMark原理以及验证</h1>
         
 
         <div class="post-meta">
@@ -356,8 +361,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-19T16:33:51+08:00">
-                2019-06-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-05T18:25:59+08:00">
+                2019-09-05
               </time>
             
 
@@ -379,19 +384,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hadoop/Kudu/" itemprop="url" rel="index">
-                    <span itemprop="name">Kudu</span>
+                  <a href="/categories/Flink/" itemprop="url" rel="index">
+                    <span itemprop="name">Flink</span>
                   </a>
                 </span>
 
@@ -407,7 +401,7 @@
 
           
           
-             <span id="/2019/06/19/kudu_test/" class="leancloud_visitors" data-flag-title="Kudu测试报告">
+             <span id="/2019/09/05/WaterMark原理以及验证/" class="leancloud_visitors" data-flag-title="WaterMark原理以及验证">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -432,7 +426,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  990
+                  2.2k
                 </span>
               
 
@@ -448,7 +442,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  3
+                  9
                 </span>
               
             </div>
@@ -470,43 +464,101 @@
 
       
         <blockquote>
-<p>数据模拟完成后的 Kudu 对比性能测试</p>
+<p>之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。</p>
 </blockquote>
 <a id="more"></a> 
-<h3 id="测试介绍"><a href="#测试介绍" class="headerlink" title="测试介绍"></a>测试介绍</h3><p>TPCDS 和 TPCH 是专门为超大数据量设置的测试项目，下面的是Kudu官网上官方用TPCH测试的结果：</p>
-<p><img src="https://o59mpa.by.files.1drv.com/y4mA8w9Pf83M66l791AicbzEiuNzwVX4g4cBec-VP___6-UAnjPtWMl-GL4worC01W_SVpnXxhqIib-CTLsjnNi0DAjav_B5FpF9JVfWq1dgF0YZwb8SPSGgZl88X96ZhvR9-AysqpK3a6Wbt5L_oFf1L-JabZic5epZcecBgL_Hs937A5vMe_Y9HnWoepnsnctIat0QIijPkQsXI8aulx7yg?width=574&amp;height=258&amp;cropmode=none" alt></p>
-<p>我自己做的表格也是模仿的<a href="https://kudu.apache.org/overview.html" target="_blank" rel="noopener">官方的图表</a>格式。</p>
-<p>介绍一下这个图表的含义，TPCH测试中含有很多超复杂SQL，用不同的数据库在相同数据下运行了这些语句之后，然后对比运行时间，图表横坐标是SQL的序号，纵坐标是运行时间，官方的运行环境是75节点的，单位是毫秒。</p>
-<h3 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h3><p>下面是我做的测试，三节点下的kudu，机器配置都是64G内存，16核心，系统是Centos 7.4，Kudu版本是1.5，SQL是用impala+Kudu的形式运行的，测试数据量是用TPCDS生成的100G数据。</p>
-<p><img src="https://oj9gpa.by.files.1drv.com/y4mMCX7UM5aW2Q-AcVklQJrf5ZZ72ypNIIrCkO1UakfnMLQ7gfq3KudD80TWG0CpUUJ2zR_aAEiMTPKznwaIcKpLDxRnoYpgnnuyQ-uMGT0zuVrrOvpG3zyPP2CZKVXcS-v1bPxU3xZ1etv2t_9e-lDnftN2cYqM29n_OIZPWOx6NF7jo5EPXx9FOLyipipqNZdR2eVhoHutBQSIMrW9xyXVw?width=1443&amp;height=691&amp;cropmode=none" alt></p>
-<p>我的测试相比官方的添加了文本格式的HiveSQL测试，测试下来确实是速度最慢的。</p>
-<p>Kudu和parquet各有千秋，和官方的测试结果相差不大。</p>
-<h3 id="写入性能"><a href="#写入性能" class="headerlink" title="写入性能"></a>写入性能</h3><p>Kudu的写入性能测试的时候没有能够完全发挥出来，短板不在kudu的写入，这边的写入测试是我用脚本统计5分钟内表多出来的行数然后除以600s得到的，这边截取一段（因为是5分钟统计一次，图表的表述可能不够准确）</p>
-<p><img src="https://o59lpa.by.files.1drv.com/y4mTSkFgZzq__Ts2m5ZTdUr9MBUPBEGXJnEzp3ss_3cDbmVjyxh3gMkQnD0ZBVa5AGdeACWzycw83MmAoszRmiMgdFZgFrbviTB7gckxqw0fTDGuohEWxSo2npNc90L6oRZA1b7l5EizbDLEjJTlpTnWmLtu6dPnJeNxOwdKdPgYziqEisqyfE7rLS0Ekk3yEOgii45aCJ_hfZ2QU99_71yOw?width=476&amp;height=286&amp;cropmode=none" alt></p>
-<p>监测过程中得到的最大写入速度在9.5w/s左右，大部分时候速度在3.5w条到5w条之间。</p>
-<p>后来在开启多线程写入kudu的时候，kudu的写入速度很轻松就能达到20w/s，但是可能因为资源不足，kudu的tablet Server容易挂掉，因为impala也是非常吃内存的组件，64G有点捉襟见肘。</p>
-<h4 id="kudu写入速度和表格大小的关系"><a href="#kudu写入速度和表格大小的关系" class="headerlink" title="kudu写入速度和表格大小的关系"></a>kudu写入速度和表格大小的关系</h4><p>kudu的这个写入速度和表格大小有直接关系。</p>
-<p>结论：</p>
-<p><strong>kudu导入小表的速度十分快，但是导入大表的时候性能会严重下降。</strong></p>
-<p>为了避免测试误差，在用tpcds生成不同大小的测试样本中取相同表格不同大小来测试，避免阻断等等误差，测试结果如下：</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g47cbzp1cuj20d407vdfp.jpg" alt></p>
-<p>根据测试结果基本可以判断，我们测试集群环境下，小表的导入速度明显要比大表大很多。</p>
-<p>类似的，我们根据TPCDS生成的不同大小的数据样本，分析数据量大小对kudu的影响（这边的数据来源网易的报告，1T的因为测试集群环境原因没有测试）：</p>
-<p>100G:</p>
-<p><img src="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lubfzqyj20r80hzacf.jpg" alt></p>
-<p>1T:</p>
-<p><img src="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lu7zq04j20qy0hbq3l.jpg" alt></p>
-<p>根据上面两张折线图可以看出，随着表的数据量变成巨大，kudu和parquet的之间的性能也被拉开了。</p>
-<p>10T:</p>
-<p><img src="http://wx2.sinaimg.cn/large/bec9bff2gy1g47m9zhf2dj20p20h6gm3.jpg" alt></p>
-<p>1T的和10T的相差不是特别大</p>
-<p>结论：<strong>kudu表目前看来不太适合大表，分区能否解决这个问题，还要靠实验</strong></p>
-<h4 id="资源使用情况"><a href="#资源使用情况" class="headerlink" title="资源使用情况"></a>资源使用情况</h4><p>Impala使用的资源整体上少于Spark，磁盘的读取少于Spark，这对于速度的提高至关重要，这与其语句的优化有关。Impala的CPU一直维持在较低的水平，说明其C++的实现比Java高效。</p>
-<h4 id="kudu写入速度"><a href="#kudu写入速度" class="headerlink" title="kudu写入速度"></a>kudu写入速度</h4><p>Spark的CPU占用较高，但是维持在50%的水平，可见CPU并没有成为其瓶颈，在使用Oozie多线程写入的时候可能遇到了kudu的瓶颈，Kudu的写入瓶颈是可以通过一些参数进行简单调整的。</p>
-<p>目前从集群的写入速度上来分析，初步判断硬盘的写入速度已经成为了瓶颈。</p>
-<p>下图以Master节点为例，列出的Kudu TS以6个小时为一个窗口使用磁盘的峰值和平均值：</p>
-<p><img src="https://arbgdq.by.files.1drv.com/y4mcprp_tVDZU3zFzgcmpoJtNJKwwr5PEVDcLXL_K-4D9X9ST4Vru8dYseDZ8sUPMTd7LwyKYe7MQI1fkaeXZGZG6ZyHTMGE1OvqLVCIJOBpK1NFAbatJZ6fmTTlvZjc6fFYT_8cCFOLjYhbWKeqbalRJ70sWjBHvRgqcnyyKKvhFltneMaGeQx4iunOQC-yk5_p-KmD3H_8tko7WCCj45ZDw?width=451&amp;height=289&amp;cropmode=none" alt></p>
-<p>MiB单位换算成Mbit/s是Mbit/s = MiB/s * 0.1192，图中所示峰值几乎达到了机械硬盘写入极限。</p>
+<h3 id="WaterMark"><a href="#WaterMark" class="headerlink" title="WaterMark"></a>WaterMark</h3><p><img src="https://wx2.sinaimg.cn/large/bec9bff2ly1g6osjwahpzj20u00ehq9p.jpg" alt></p>
+<p>实时计算中，数据时间比较敏感。有<code>eventTime</code>和<code>processTime</code>区分，一般来说<code>eventTime</code>是从原始的消息中提取过来的，<code>processTime</code>是<code>Flink</code>自己提供的，<code>Flink</code>中一个亮点就是可以基于<code>eventTime</code>计算，这个功能很有用，因为实时数据可能会经过比较长的链路，多少会有延时，并且有很大的不确定性，对于一些需要精确体现事件变化趋势的场景中，单纯使用<code>processTime</code>显然是不合理的。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>watermark</code>是一种衡量<code>Event Time</code>进展的机制，它是数据本身的一个隐藏属性。通常基于Event Time的数据，自身都包含一个<code>timestamp.watermark</code>是用于处理乱序事件的，而正确的处理乱序事件，通常用<code>watermark</code>机制结合<code>window</code>来实现。</p>
+<p>流处理从事件产生，到流经<code>source</code>，再到<code>operator</code>，中间是有一个过程和时间的。虽然大部分情况下，流到operator的数据都是按照事件产生的时间顺序来的，但是也不排除由于网络、背压等原因，导致乱序的产生（<code>out-of-order</code>或者说<code>late element</code>）。</p>
+<p>但是对于<code>late element</code>，我们又不能无限期的等下去，必须要有个机制来保证一个特定的时间后，必须触发<code>window</code>去进行计算了。这个特别的机制，就是<code>watermark</code>。</p>
+<h3 id="window划分"><a href="#window划分" class="headerlink" title="window划分"></a>window划分</h3><p><code>window</code>的设定无关数据本身，而是系统定义好了的。<br><code>window</code>是<code>flink</code>中划分数据一个基本单位，<code>window</code>的划分方式是固定的，默认会根据自然时间划分<code>window</code>，并且划分方式是前闭后开。</p>
+<p><img src="https://wx2.sinaimg.cn/large/bec9bff2ly1g6osn8t7z6j20u0086wki.jpg" alt></p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>如果设置最大允许的乱序时间是10s，滚动时间窗口为5s</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"datetime"</span>:<span class="string">"2019-03-26 16:25:24"</span>,<span class="attr">"name"</span>:<span class="string">"zhangsan"</span>&#125;</span><br><span class="line">//currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:24],currentMaxTimestamp:[2019-03-26 16:25:24],watermark:[2019-03-26 16:25:14]</span><br></pre></td></tr></table></figure>
+<p>触达改记录的时间窗口应该为<code>2019-03-26 16:25:20~2019-03-26 16:25:25</code><br>即当有数据eventTime &gt;= 2019-03-26 16:25:35 时</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"datetime"</span>:<span class="string">"2019-03-26 16:25:35"</span>,<span class="attr">"name"</span>:<span class="string">"zhangsan"</span>&#125;</span><br><span class="line">//currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:35],currentMaxTimestamp:[2019-03-26 16:25:35],watermark:[2019-03-26 16:25:25]</span><br><span class="line">//(zhangsan,1,2019-03-26 16:25:24,2019-03-26 16:25:24,2019-03-26 16:25:20,2019-03-26 16:25:25)</span><br></pre></td></tr></table></figure>
+<h3 id="提取watermark"><a href="#提取watermark" class="headerlink" title="提取watermark"></a>提取watermark</h3><p>watermark的提取工作在taskManager中完成，意味着这项工作是并行进行的的，而watermark是一个全局的概念，就是一个整个Flink作业之后一个warkermark。</p>
+<h3 id="AssignerWithPeriodicWatermarks"><a href="#AssignerWithPeriodicWatermarks" class="headerlink" title="AssignerWithPeriodicWatermarks"></a>AssignerWithPeriodicWatermarks</h3><p>定时提取watermark，这种方式会定时提取更新wartermark。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认200ms</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStreamTimeCharacteristic</span><span class="params">(TimeCharacteristic characteristic)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.timeCharacteristic = Preconditions.checkNotNull(characteristic);</span><br><span class="line">    <span class="keyword">if</span> (characteristic == TimeCharacteristic.ProcessingTime) &#123;</span><br><span class="line">        getConfig().setAutoWatermarkInterval(<span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        getConfig().setAutoWatermarkInterval(<span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AssignerWithPunctuatedWatermarks"><a href="#AssignerWithPunctuatedWatermarks" class="headerlink" title="AssignerWithPunctuatedWatermarks"></a>AssignerWithPunctuatedWatermarks</h3><p>伴随event的到来就提取watermark，就是每一个event到来的时候，就会提取一次Watermark。<br>这样的方式当然设置watermark更为精准，但是当数据量大的时候，频繁的更新wartermark会比较影响性能。<br>通常情况下采用定时提取就足够了。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h3 id="设置数据流时间特征"><a href="#设置数据流时间特征" class="headerlink" title="设置数据流时间特征"></a>设置数据流时间特征</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置为事件时间</span></span><br><span class="line">env.setStreamTimeCharacteristic(<span class="type">TimeCharacteristic</span>.<span class="type">EventTime</span>)</span><br></pre></td></tr></table></figure>
+<p>默认为<code>TimeCharacteristic.ProcessingTime</code>,默认水位线更新每隔200ms</p>
+<p>入口文件</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> env = <span class="type">StreamExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line"></span><br><span class="line"><span class="comment">//便于测试，并行度设置为1</span></span><br><span class="line">env.setParallelism(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//env.getConfig.setAutoWatermarkInterval(9000)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//设置为事件时间</span></span><br><span class="line">env.setStreamTimeCharacteristic(<span class="type">TimeCharacteristic</span>.<span class="type">EventTime</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置source 本地socket</span></span><br><span class="line"><span class="keyword">val</span> text: <span class="type">DataStream</span>[<span class="type">String</span>] = env.socketTextStream(<span class="string">"localhost"</span>, <span class="number">9000</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> lateText = <span class="keyword">new</span> <span class="type">OutputTag</span>[(<span class="type">String</span>, <span class="type">String</span>, <span class="type">Long</span>, <span class="type">Long</span>)](<span class="string">"late_data"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> value = text.filter(<span class="keyword">new</span> <span class="type">MyFilterNullOrWhitespace</span>)</span><br><span class="line">.flatMap(<span class="keyword">new</span> <span class="type">MyFlatMap</span>)</span><br><span class="line">.assignTimestampsAndWatermarks(<span class="keyword">new</span> <span class="type">MyWaterMark</span>)</span><br><span class="line">.map(x =&gt; (x.name, x.datetime, x.timestamp, <span class="number">1</span>L))</span><br><span class="line">.keyBy(_._1)</span><br><span class="line">.window(<span class="type">TumblingEventTimeWindows</span>.of(<span class="type">Time</span>.seconds(<span class="number">5</span>)))</span><br><span class="line">.sideOutputLateData(lateText)</span><br><span class="line"><span class="comment">//.sum(2)</span></span><br><span class="line">.apply(<span class="keyword">new</span> <span class="type">MyWindow</span>)</span><br><span class="line"><span class="comment">//.window(TumblingEventTimeWindows.of(Time.seconds(3)))</span></span><br><span class="line"><span class="comment">//.apply(new MyWindow)</span></span><br><span class="line">value.getSideOutput(lateText).map(x =&gt; &#123;</span><br><span class="line"><span class="string">"延迟数据|name:"</span> + x._1 + <span class="string">"|datetime:"</span> + x._2</span><br><span class="line">&#125;).print()</span><br><span class="line"></span><br><span class="line">value.print()</span><br><span class="line"></span><br><span class="line">env.execute(<span class="string">"watermark test"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWaterMark</span> <span class="keyword">extends</span> <span class="title">AssignerWithPeriodicWatermarks</span>[<span class="type">EventObj</span>] </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> maxOutOfOrderness = <span class="number">10000</span>L <span class="comment">// 3.0 seconds</span></span><br><span class="line">  <span class="keyword">var</span> currentMaxTimestamp = <span class="number">0</span>L</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> sdf = <span class="keyword">new</span> <span class="type">SimpleDateFormat</span>(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 用于生成新的水位线，新的水位线只有大于当前水位线才是有效的</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * 通过生成水印的间隔（每n毫秒）定义 ExecutionConfig.setAutoWatermarkInterval(...)。</span></span><br><span class="line"><span class="comment">    * getCurrentWatermark()每次调用分配器的方法，如果返回的水印非空并且大于先前的水印，则将发出新的水印。</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * @return</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">getCurrentWatermark</span></span>: <span class="type">Watermark</span> = &#123;</span><br><span class="line">    <span class="keyword">new</span> <span class="type">Watermark</span>(<span class="keyword">this</span>.currentMaxTimestamp - <span class="keyword">this</span>.maxOutOfOrderness)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 用于从消息中提取事件时间</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * @param element                  EventObj</span></span><br><span class="line"><span class="comment">    * @param previousElementTimestamp Long</span></span><br><span class="line"><span class="comment">    * @return</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">extractTimestamp</span></span>(element: <span class="type">EventObj</span>, previousElementTimestamp: <span class="type">Long</span>): <span class="type">Long</span> = &#123;</span><br><span class="line"></span><br><span class="line">    currentMaxTimestamp = <span class="type">Math</span>.max(element.timestamp, currentMaxTimestamp)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> id = <span class="type">Thread</span>.currentThread().getId</span><br><span class="line">    println(<span class="string">"currentThreadId:"</span> + id + <span class="string">",key:"</span> + element.name + <span class="string">",eventTime:["</span> + element.datetime + <span class="string">"],currentMaxTimestamp:["</span> + sdf.format(currentMaxTimestamp) + <span class="string">"],watermark:["</span> + sdf.format(getCurrentWatermark().getTimestamp) + <span class="string">"]"</span>)</span><br><span class="line"></span><br><span class="line">    element.timestamp</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码详解"><a href="#代码详解" class="headerlink" title="代码详解"></a>代码详解</h3><ol>
+<li>设置为事件时间</li>
+<li>接受本地socket数据</li>
+<li>抽取timestamp生成watermark，打印(线程id,key,eventTime,currentMaxTimestamp,watermark）</li>
+<li>event time每隔3秒触发一次窗口，打印（key,窗口内元素个数，窗口内最早元素的时间，窗口内最晚元素的时间，窗口自身开始时间，窗口自身结束时间）</li>
+</ol>
+<h3 id="试验"><a href="#试验" class="headerlink" title="试验"></a>试验</h3><h4 id="第一次"><a href="#第一次" class="headerlink" title="第一次"></a>第一次</h4><p>数据</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"datetime"</span>:<span class="string">"2019-03-26 16:25:24"</span>,<span class="attr">"name"</span>:<span class="string">"zhangsan"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:24],currentMaxTimestamp:[2019-03-26 16:25:24],watermark:[2019-03-26 16:25:14]</span><br></pre></td></tr></table></figure>
+<p>汇总</p>
+<p><img src="https://wx1.sinaimg.cn/large/bec9bff2ly1g6osvn3didj20u003f410.jpg" alt></p>
+<h4 id="第二次"><a href="#第二次" class="headerlink" title="第二次"></a>第二次</h4><p>数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;datetime&quot;:&quot;2019-03-26 16:25:27&quot;,&quot;name&quot;:&quot;zhangsan&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:27],currentMaxTimestamp:[2019-03-26 16:25:27],watermark:[2019-03-26 16:25:17]</span><br></pre></td></tr></table></figure>
+<p>汇总</p>
+<p><img src="https://wx3.sinaimg.cn/large/bec9bff2ly1g6osxh1acdj20u0050q6y.jpg" alt></p>
+<p>随着EventTime的升高，Watermark升高。</p>
+<h4 id="第三次"><a href="#第三次" class="headerlink" title="第三次"></a>第三次</h4><p>数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;datetime&quot;:&quot;2019-03-26 16:25:34&quot;,&quot;name&quot;:&quot;zhangsan&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:34],currentMaxTimestamp:[2019-03-26 16:25:34],watermark:[2019-03-26 16:25:24]</span><br></pre></td></tr></table></figure>
+<p>汇总</p>
+<p><img src="https://wx3.sinaimg.cn/large/bec9bff2ly1g6osy23r6vj20u006o43x.jpg" alt></p>
+<p>到这里，window仍然没有被触发，此时watermark的时间已经等于了第一条数据的Event Time了。</p>
+<h4 id="第四次"><a href="#第四次" class="headerlink" title="第四次"></a>第四次</h4><p>数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;datetime&quot;:&quot;2019-03-26 16:25:35&quot;,&quot;name&quot;:&quot;zhangsan&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://wx3.sinaimg.cn/large/bec9bff2ly1g6osz2lg2gj20br021gmf.jpg" alt></p>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:35],currentMaxTimestamp:[2019-03-26 16:25:35],watermark:[2019-03-26 16:25:25](zhangsan,1,2019-03-26 16:25:24,2019-03-26 16:25:24,2019-03-26 16:25:20,2019-03-26 16:25:25)</span><br></pre></td></tr></table></figure>
+<p><img src="https://wx4.sinaimg.cn/large/bec9bff2ly1g6oszlzdevj20r703wwig.jpg" alt></p>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:35],currentMaxTimestamp:[2019-03-26 16:25:35],watermark:[2019-03-26 16:25:25](zhangsan,1,2019-03-26 16:25:24,2019-03-26 16:25:24,2019-03-26 16:25:20,2019-03-26 16:25:25)</span><br></pre></td></tr></table></figure>
+<p><img src="https://wx2.sinaimg.cn/large/bec9bff2ly1g6ot06x8knj20r703wwig.jpg" alt></p>
+<p>汇总</p>
+<p><img src="https://wx2.sinaimg.cn/large/bec9bff2ly1g6ot0p6347j20u00ddwlf.jpg" alt></p>
+<p>直接证明了window的设定无关数据本身，而是系统定义好了的。<br>输入的数据中，根据自身的Event Time，将数据划分到不同的window中，如果window中有数据，则当watermark时间&gt;=Event Time时，就符合了window触发的条件了，最终决定window触发，还是由数据本身的Event Time所属的window中的window_end_time决定。</p>
+<p>当最后一条数据16:25:35到达是，Watermark提升到16:25:25，此时窗口16:25:20~16:25:25中有数据，Window被触发。</p>
+<h4 id="第五次"><a href="#第五次" class="headerlink" title="第五次"></a>第五次</h4><p>数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;datetime&quot;:&quot;2019-03-26 16:25:37&quot;,&quot;name&quot;:&quot;zhangsan&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:37],currentMaxTimestamp:[2019-03-26 16:25:37],watermark:[2019-03-26 16:25:27]</span><br></pre></td></tr></table></figure>
+<p>汇总</p>
+<p><img src="https://wx1.sinaimg.cn/large/bec9bff2ly1g6ot1afzo9j20u00g6jzx.jpg" alt></p>
+<p>此时，watermark时间虽然已经达到了第二条数据的时间，但是由于其没有达到第二条数据所在window的结束时间，所以window并没有被触发。</p>
+<p>第二条数据所在的window时间是：<code>[2019-03-26 16:25:25,2019-03-26 16:25:30)</code></p>
+<h4 id="第六次"><a href="#第六次" class="headerlink" title="第六次"></a>第六次</h4><p>数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;datetime&quot;:&quot;2019-03-26 16:25:40&quot;,&quot;name&quot;:&quot;zhangsan&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currentThreadId:38,key:zhangsan,eventTime:[2019-03-26 16:25:40],currentMaxTimestamp:[2019-03-26 16:25:40],watermark:[2019-03-26 16:25:30](zhangsan,1,2019-03-26 16:25:27,2019-03-26 16:25:27,2019-03-26 16:25:25,2019-03-26 16:25:30)</span><br></pre></td></tr></table></figure>
+<p>汇总</p>
+<p><img src="https://wx2.sinaimg.cn/large/bec9bff2ly1g6ot1wbsw1j20u00izak8.jpg" alt></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>window的触发要符合以下几个条件：</p>
+<ol>
+<li>watermark时间 &gt;= window_end_time</li>
+<li>在[window_start_time,window_end_time)中有数据存在</li>
+</ol>
+<p>同时满足了以上2个条件，window才会触发。<br>watermark是一个全局的值，不是某一个key下的值，所以即使不是同一个key的数据，其warmark也会增加.</p>
+<h3 id="多并行度"><a href="#多并行度" class="headerlink" title="多并行度"></a>多并行度</h3><p><img src="https://wx3.sinaimg.cn/large/bec9bff2ly1g6ot2yw6v8j20n40bttd8.jpg" alt></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h3 id="Flink如何处理乱序？"><a href="#Flink如何处理乱序？" class="headerlink" title="Flink如何处理乱序？"></a>Flink如何处理乱序？</h3><p>watermark+window机制。window中可以对input进行按照Event Time排序，使得完全按照Event Time发生的顺序去处理数据，以达到处理乱序数据的目的。</p>
+<h3 id="Flink何时触发window？"><a href="#Flink何时触发window？" class="headerlink" title="Flink何时触发window？"></a>Flink何时触发window？</h3><p>对于late element太多的数据而言</p>
+<ol>
+<li>Event Time &lt; watermark时间</li>
+</ol>
+<p>对于out-of-order以及正常的数据而言</p>
+<ol>
+<li>watermark时间 &gt;= window_end_time</li>
+<li>在[window_start_time,window_end_time)中有数据存在</li>
+</ol>
+<h3 id="Flink应该如何设置最大乱序时间？"><a href="#Flink应该如何设置最大乱序时间？" class="headerlink" title="Flink应该如何设置最大乱序时间？"></a>Flink应该如何设置最大乱序时间？</h3><p>结合自己的业务以及数据情况去设置。</p>
+<p><img src="https://wx4.sinaimg.cn/large/bec9bff2ly1g6ot3dn93qj20u00ezwlb.jpg" alt></p>
 
       
     </div>
@@ -524,9 +576,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kudu/" rel="tag"># Kudu</a>
-          
-            <a href="/tags/test/" rel="tag"># test</a>
+            <a href="/tags/Flink/" rel="tag"># Flink</a>
           
         </div>
       
@@ -539,8 +589,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/18/流式计算浪潮/" rel="next" title="大规模数据处理的演化历程">
-                <i class="fa fa-chevron-left"></i> 大规模数据处理的演化历程
+              <a href="/2019/08/06/Flink集群搭建/" rel="next" title="Flink集群搭建">
+                <i class="fa fa-chevron-left"></i> Flink集群搭建
               </a>
             
           </div>
@@ -548,10 +598,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/21/ElasticSearch/" rel="prev" title="ElasticSearch">
-                ElasticSearch <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -725,7 +771,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试介绍"><span class="nav-number">1.</span> <span class="nav-text">测试介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能对比"><span class="nav-number">2.</span> <span class="nav-text">性能对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写入性能"><span class="nav-number">3.</span> <span class="nav-text">写入性能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kudu写入速度和表格大小的关系"><span class="nav-number">3.1.</span> <span class="nav-text">kudu写入速度和表格大小的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源使用情况"><span class="nav-number">3.2.</span> <span class="nav-text">资源使用情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kudu写入速度"><span class="nav-number">3.3.</span> <span class="nav-text">kudu写入速度</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WaterMark"><span class="nav-number">1.</span> <span class="nav-text">WaterMark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window划分"><span class="nav-number">3.</span> <span class="nav-text">window划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">4.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取watermark"><span class="nav-number">5.</span> <span class="nav-text">提取watermark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AssignerWithPeriodicWatermarks"><span class="nav-number">6.</span> <span class="nav-text">AssignerWithPeriodicWatermarks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AssignerWithPunctuatedWatermarks"><span class="nav-number">7.</span> <span class="nav-text">AssignerWithPunctuatedWatermarks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">8.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置数据流时间特征"><span class="nav-number">9.</span> <span class="nav-text">设置数据流时间特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码详解"><span class="nav-number">10.</span> <span class="nav-text">代码详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#试验"><span class="nav-number">11.</span> <span class="nav-text">试验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一次"><span class="nav-number">11.1.</span> <span class="nav-text">第一次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二次"><span class="nav-number">11.2.</span> <span class="nav-text">第二次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三次"><span class="nav-number">11.3.</span> <span class="nav-text">第三次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四次"><span class="nav-number">11.4.</span> <span class="nav-text">第四次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五次"><span class="nav-number">11.5.</span> <span class="nav-text">第五次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第六次"><span class="nav-number">11.6.</span> <span class="nav-text">第六次</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">12.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多并行度"><span class="nav-number">13.</span> <span class="nav-text">多并行度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">14.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink如何处理乱序？"><span class="nav-number">15.</span> <span class="nav-text">Flink如何处理乱序？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink何时触发window？"><span class="nav-number">16.</span> <span class="nav-text">Flink何时触发window？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink应该如何设置最大乱序时间？"><span class="nav-number">17.</span> <span class="nav-text">Flink应该如何设置最大乱序时间？</span></a></li></ol></div>
             
 
           </div>
