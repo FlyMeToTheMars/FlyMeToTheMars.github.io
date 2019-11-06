@@ -106,9 +106,9 @@
 <meta property="og:description" content="之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8o1sw7244j20xd0g4q9s.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9vmdiplj20xd0h3wlo.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9wgi62lj210b0i446b.jpg">
-<meta property="og:updated_time" content="2019-11-06T02:32:57.287Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8o5410mbdj20xd0h3wlo.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8o549eyilj210b0i446b.jpg">
+<meta property="og:updated_time" content="2019-11-06T03:06:09.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WaterMark原理以及验证">
 <meta name="twitter:description" content="之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。">
@@ -794,7 +794,7 @@
 <li>在[window_start_time,window_end_time)中有数据存在</li>
 </ol>
 <p>同时满足了以上2个条件，window才会触发。<br>watermark是一个全局的值，不是某一个key下的值，所以即使不是同一个key的数据，其warmark也会增加.</p>
-<h3 id="多并行度"><a href="#多并行度" class="headerlink" title="多并行度"></a>多并行度</h3><p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9vmdiplj20xd0h3wlo.jpg" alt="2.png"></p>
+<h3 id="多并行度"><a href="#多并行度" class="headerlink" title="多并行度"></a>多并行度</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8o5410mbdj20xd0h3wlo.jpg" alt="2.png"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h3 id="Flink如何处理乱序？"><a href="#Flink如何处理乱序？" class="headerlink" title="Flink如何处理乱序？"></a>Flink如何处理乱序？</h3><p>watermark+window机制。window中可以对input进行按照Event Time排序，使得完全按照Event Time发生的顺序去处理数据，以达到处理乱序数据的目的。</p>
 <h3 id="Flink何时触发window？"><a href="#Flink何时触发window？" class="headerlink" title="Flink何时触发window？"></a>Flink何时触发window？</h3><p>对于late element太多的数据而言</p>
 <ol>
@@ -806,7 +806,7 @@
 <li>在[window_start_time,window_end_time)中有数据存在</li>
 </ol>
 <h3 id="Flink应该如何设置最大乱序时间？"><a href="#Flink应该如何设置最大乱序时间？" class="headerlink" title="Flink应该如何设置最大乱序时间？"></a>Flink应该如何设置最大乱序时间？</h3><p>结合自己的业务以及数据情况去设置。</p>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9wgi62lj210b0i446b.jpg" alt="3.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8o549eyilj210b0i446b.jpg" alt="3.png"></p>
 
       
     </div>
