@@ -105,14 +105,14 @@
 <meta property="og:site_name" content="Mars">
 <meta property="og:description" content="之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9udtbw4j20xd0g4q9s.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8o1sw7244j20xd0g4q9s.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9vmdiplj20xd0h3wlo.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9wgi62lj210b0i446b.jpg">
-<meta property="og:updated_time" content="2019-11-05T09:06:04.642Z">
+<meta property="og:updated_time" content="2019-11-06T02:32:57.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WaterMark原理以及验证">
 <meta name="twitter:description" content="之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。">
-<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9udtbw4j20xd0g4q9s.jpg">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8o1sw7244j20xd0g4q9s.jpg">
 
 
 
@@ -457,7 +457,7 @@
 <p>之前Flink的Watermark原理老是不明白，并且在CSDN上找的一篇文章，似乎是因为版本的问题，两年前的博客，代码验证下来始终有问题，在网上和人谈论之后，重新用代码验证了，才有点清晰明了，在此记录一下。</p>
 </blockquote>
 <a id="more"></a> 
-<h3 id="WaterMark"><a href="#WaterMark" class="headerlink" title="WaterMark"></a>WaterMark</h3><p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8n9udtbw4j20xd0g4q9s.jpg" alt="1.png"></p>
+<h3 id="WaterMark"><a href="#WaterMark" class="headerlink" title="WaterMark"></a>WaterMark</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8o1sw7244j20xd0g4q9s.jpg" alt="1.png"></p>
 <p>实时计算中，数据时间比较敏感。有<code>eventTime</code>和<code>processTime</code>区分，一般来说<code>eventTime</code>是从原始的消息中提取过来的，<code>processTime</code>是<code>Flink</code>自己提供的，<code>Flink</code>中一个亮点就是可以基于<code>eventTime</code>计算，这个功能很有用，因为实时数据可能会经过比较长的链路，多少会有延时，并且有很大的不确定性，对于一些需要精确体现事件变化趋势的场景中，单纯使用<code>processTime</code>显然是不合理的。</p>
 <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>watermark</code>是一种衡量<code>Event Time</code>进展的机制，它是数据本身的一个隐藏属性。通常基于Event Time的数据，自身都包含一个<code>timestamp.watermark</code>是用于处理乱序事件的，而正确的处理乱序事件，通常用<code>watermark</code>机制结合<code>window</code>来实现。</p>
 <p>流处理从事件产生，到流经<code>source</code>，再到<code>operator</code>，中间是有一个过程和时间的。虽然大部分情况下，流到operator的数据都是按照事件产生的时间顺序来的，但是也不排除由于网络、背压等原因，导致乱序的产生（<code>out-of-order</code>或者说<code>late element</code>）。</p>
