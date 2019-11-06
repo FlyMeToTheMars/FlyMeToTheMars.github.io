@@ -105,19 +105,19 @@
 <meta property="og:site_name" content="Mars">
 <meta property="og:description" content="PhoenixPhoenix实践">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8na3dl3cmj20yg0judjv.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8na4y0qs7j20qy0fn769.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nb54lcgaj20dp0613yt.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc2o8bb9j20u105u0u5.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc30qes4j20u10b8q5t.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc8ipu4pj20k50btgmf.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc9c5l7mj20h60adwf4.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc9w1eo4j20h40avq3j.jpg">
-<meta property="og:updated_time" content="2019-11-05T10:42:26.070Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oabze7naj20yg0judjv.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oacads47j20qy0fn769.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oad0y9u2j20dp0613yt.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oad8uzidj20u105u0u5.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oadcvtxwj20u10b8q5t.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oadgrbgpj20k50btgmf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oadnpw9uj20h60adwf4.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oadtjlhgj20h40avq3j.jpg">
+<meta property="og:updated_time" content="2019-11-06T06:08:14.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Phoenix测试">
 <meta name="twitter:description" content="PhoenixPhoenix实践">
-<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/bec9bff2ly1g8na3dl3cmj20yg0judjv.jpg">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oabze7naj20yg0judjv.jpg">
 
 
 
@@ -473,9 +473,9 @@
 <a id="more"></a> 
 <h2 id="Phoenix启动安装基本操作"><a href="#Phoenix启动安装基本操作" class="headerlink" title="Phoenix启动安装基本操作"></a>Phoenix启动安装基本操作</h2><p>二级索引支持(gobal index + local index)</p>
 <p>编译SQL成为原生HBase的可并行执行的Scan</p>
-<h3 id="Phoenix结构"><a href="#Phoenix结构" class="headerlink" title="Phoenix结构"></a>Phoenix结构</h3><p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8na3dl3cmj20yg0judjv.jpg" alt="4.jpg"></p>
+<h3 id="Phoenix结构"><a href="#Phoenix结构" class="headerlink" title="Phoenix结构"></a>Phoenix结构</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oabze7naj20yg0judjv.jpg" alt="4.jpg"></p>
 <p>Phoenix在Hadoop生态系统中的位置</p>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8na4y0qs7j20qy0fn769.jpg" alt="5.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oacads47j20qy0fn769.jpg" alt="5.jpg"></p>
 <p>HBase性能提升</p>
 <p>hbase1.2性能能提：</p>
 <p>1.2相对1.1，提升是十分显著的，在某些方面的额提升，延迟低了好几倍，</p>
@@ -588,7 +588,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--conf spark.driver.extraClassPath=phoenix-spark-4.14.0-HBase-1.2.jar --conf spark.executor.extraClassPath=phoenix-spark-4.14.0-HBase-1.2.jar</span><br></pre></td></tr></table></figure>
 <h3 id="Phoenix-Jar包冲突（大坑）"><a href="#Phoenix-Jar包冲突（大坑）" class="headerlink" title="Phoenix Jar包冲突（大坑）"></a>Phoenix Jar包冲突（大坑）</h3><p>Jar包冲突的原因是HBase…这个包和CDH…这个包加载顺序的问题</p>
 <p>先加载CDH这个包的话就会导致问题Jar包冲突，必须先加载HBase包，要手动指定。</p>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nb54lcgaj20dp0613yt.jpg" alt="8.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oad0y9u2j20dp0613yt.jpg" alt="8.png"></p>
 <p>图上还缺少一个HBase包放在oozie的lib里面，这些是加载必备的。</p>
 <p>不然会出现奇怪的错误，因为加载是随机加载的，如果先加载了CDH包就会报错。</p>
 <h2 id="映射、索引分区"><a href="#映射、索引分区" class="headerlink" title="映射、索引分区"></a>映射、索引分区</h2><h3 id="映射："><a href="#映射：" class="headerlink" title="映射："></a>映射：</h3><p>默认情况下，直接在hbase中创建的表，通过phoenix是查看不到的</p>
@@ -631,8 +631,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">一般我们可以使用CREATE INDEX来创建一个索引，这是一种同步的方法。但是有时候我们创建索引的表非常大，我们需要等很长时间。Phoenix 4.5以后有一个异步创建索引的方式，使用关键字ASYNC来创建索引：</span><br><span class="line"> ​</span><br><span class="line"> CREATE INDEX index1_c ON hao1 (age) INCLUDE(name) ASYNC;</span><br><span class="line"> 这时候创建的索引表中不会有数据。你还必须要单独的使用命令行工具来执行数据的创建。当语句给执行的时候，后端会启动一个map reduce任务，只有等到这个任务结束，数据都被生成在索引表中后，这个索引才能被使用。启动工具的方法：</span><br><span class="line"> ​</span><br><span class="line"> $&#123;HBASE_HOME&#125;/bin/hbase org.apache.phoenix.mapreduce.index.IndexTool</span><br><span class="line"> --schema MY_SCHEMA --data-table MY_TABLE --index-table ASYNC_IDX</span><br><span class="line"> --output-path ASYNC_IDX_HFILES</span><br><span class="line"> 这个任务不会因为客户端给关闭而结束，是在后台运行。你可以在指定的文件ASYNC_IDX_HFILES中找到最终实行的结果。</span><br></pre></td></tr></table></figure>
 <h2 id="测试和遇到的一些问题"><a href="#测试和遇到的一些问题" class="headerlink" title="测试和遇到的一些问题"></a>测试和遇到的一些问题</h2><p>使用Spark写入11亿5千万测试数据,分为24个分区,使用异步索引针对time和imei字段各建立了一个索引.</p>
 <p>这边有个问题，索引在创建完成之后，数据类型自动变化了，详细：</p>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc2o8bb9j20u105u0u5.jpg" alt="10.jpg"></p>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc30qes4j20u10b8q5t.jpg" alt="11.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oad8uzidj20u105u0u5.jpg" alt="10.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oadcvtxwj20u10b8q5t.jpg" alt="11.jpg"></p>
 <p>上面两张图分别是索引表和原数据表的数据类型，可以看到原表和索引表的数据类型并不相同，让人有点费解。</p>
 <p>考虑到phoenix有很多时间种类和别的一些情况，于是提出了几种解决办法：</p>
 <p>1.建表的时候不用timestamp作为时间类型</p>
@@ -655,11 +655,11 @@
 <p>测试结果</p>
 <p>下面分别是50并发 100并发 200并发的测试结果,</p>
 <p>测试中现在Phoenix建表,用Spark写入,随机IMEI和时间段,时间长度为1天,用对应的线程数至少跑30分钟以上.,测试过程中的CPU使用量因为测试集群性能较高,使用最多不超过40%,所以没有记录.</p>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc8ipu4pj20k50btgmf.jpg" alt="12.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oadgrbgpj20k50btgmf.jpg" alt="12.jpg"></p>
 <p>50并发稳定后的查询大多在200ms以下.</p>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc9c5l7mj20h60adwf4.jpg" alt="13.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oadnpw9uj20h60adwf4.jpg" alt="13.jpg"></p>
 <p>100并发的查询时间大多数在400ms以下</p>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2ly1g8nc9w1eo4j20h40avq3j.jpg" alt="14.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8oadtjlhgj20h40avq3j.jpg" alt="14.jpg"></p>
 <p>200并发的查询大多数在500ms以下.</p>
 <p>针对云车金融数据的测试:</p>
 <p>云车金融测试采用映射表,原数据在HBase中,在Phoenix中建立映射表,把原先设计好的ROWKEY作为主键,建立映射表.</p>
