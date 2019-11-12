@@ -451,71 +451,17 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>数据中台是什么？能发挥什么作用？</p>
 <p>对最近很火的数据中台一些思考。</p>
 </blockquote>
-<h1 id="数据中台是什么？"><a href="#数据中台是什么？" class="headerlink" title="数据中台是什么？"></a>数据中台是什么？</h1><h2 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h2><p>2015年全年产生的数据量等于历史上所有人类产生数据的总和，人类的数据增长正式从乘法型增长变成了指数型增长，海量数据处理成为了全人类的挑战。</p>
-<p>阿里提出了DT时代已经到来：DataTech替代ITTech，强调数据驱动的重要性。</p>
-<p>阿里走在了前面，阿里用几百人的团队支撑了几万亿的GMV，其中60%-70%来源于数据支持的机器决策，机器智能赋能业务，用更低的成本，更高的效率去服务顾客，提供个性化推荐。</p>
-<p>阿里的数据处理经理了四个阶段，分别是：</p>
-<p>一、数据库阶段，主要是OLTP（联机事务处理）的需求；</p>
-<p>二、数据仓库阶段，OLAP（联机分析处理）成为主要需求；</p>
-<p>三、数据平台阶段，主要解决BI和报表需求的技术问题；</p>
-<p>四、数据中台阶段，通过系统来对接OLTP（事务处理）和OLAP（报表分析）的需求，强调数据业务化的能力。</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v3ih8b6lj22ii1qi7aa.jpg" alt="undefined"></p>
-<p>第一个阶段到第二阶段很好理解，数据库阶段，简单的OLTP（OLTP强调高并发，单条数据简单提取和战士，后者对并发的要求并不高，后者是地并发，大批量，面向分析。）</p>
-<p>第一次转型就是从数据库阶段走到了数据仓库的阶段。互联网数据里面数据量最大的是网页日志，90%以上的数据是非结构化数据，数据量已经到了TB界别，针对分析需求，诞生了数据仓库（DW），阿里的第一个DW是Oracle RAC搭建了DW，这个阶段DW支持的主要久食BI和报表需求。数据库这是也在从传统CB转向分布式DB。</p>
-<p>第二次转型就是从数据仓库阶段到数据平台阶段，这个阶段解决的 还是BI和报表需求，但是主要是在解决底层的技术问题。也即是数据库架构设计问题。</p>
-<p>第二次转型是数据从TB阶段走向了PB级别， Oracle RAC是基于IOE架构的，所有数据用同一个EMC存储。在海量数据处理上，IOE架构有天然的限制，不适合未来的发展。阿里巴巴的第一个数据仓库就是建立在Oracle RAC上，由于数据量增长太快，所以很快就到达20个节点，当时是全亚洲最大的Oracle RAC集群，但阿里巴巴早年算过一笔账，如果仍然沿用IOE架构，那么几年后，阿里的预计营收还远远赶不上服务器的支出费用，就是说，如果不去IOE，阿里会破产。  Shared Nothing的代表就是Hadoop。Hadoop的各个处理单元都有自己私有的存储单元和处理单元， Shared Everything一般是针对单个主机，完全透明共享CPU/MEMORY/IO，并行处理能力是最差的，典型的代表SQLServer。</p>
-<p>所以第二次转型关键词就是去IOE，建立Shared Nothing的海量数据平台来解决数据存储成本增长过快的问题，在阿里巴巴，前期是Hadoop，后期转向自研的ODPS。</p>
-<p>第四阶段就是数据中台服务，这个阶段的特征是数据量的指数级增长，从PB级别到了EB级别，未来会到什么级别，还不好说。</p>
-<p>目前互联网是主力，15年之后，视图声数据指数级增长，未来90%的数据可能都是非结构化数据，这些数据需要CV等技术的解析，5G技术发展，可能会进一步方法数据的体量。</p>
-<p>另一方面，从业务来看，数据也好，数据分析也好，最终都是要为了业务服务，也就是说，要在系统层面能把OLAP和OLTP去做对接，这个对接不能靠人来完成，要靠智能算法。</p>
-<p>目前的数据中台，最底下的数据平台还是偏技术，是中台技术方案中的一个组件，主要解决数据存储和计算，上面是数据服务层，数据服务层通过服务化API能够把数据平台和前台的业务层对接；数据中台里面就没有人的事情，直接系统去做对接，通过智能算法，能把前台的分析需求和交易需求去做对接，最终赋能业务。 </p>
-<p>未来的数据中台，一定是「AI驱动的数据中台」，这个中台包括「计算平台+算法模型+智能硬件」，不仅要在端上具备视觉数据的收集和分析能力，而且还要能通过Face ID，帮助企业去打通业务数据，最终建立线上线下触达和服务消费者的能力。</p>
-<p>真正做到「一切业务数据化，一切数据业务化」。</p>
-<p>数据中台需要三种能力：</p>
-<p>数据模型能力，AI算法模型能力，行业的应用能力。</p>
-<h2 id="Ex"><a href="#Ex" class="headerlink" title="Ex."></a>Ex.</h2><p><strong>阿里中台全景图</strong></p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v7cv7jsfj21b50ka121.jpg" alt="1.png"></p>
-<p><strong>基础设施服务</strong>，即IAAS层，提供硬件底层支持。</p>
-<p><strong>基础服务层</strong>，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。</p>
-<p><strong>互联网业务中台</strong>，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结算中心、用户中心、账户中心等等。也包括非业务类服务，如日志分析中心、配置中心、序列中心、基础中心。</p>
-<p><strong>业务应用</strong>，经过调取业务中台，组装形成独立业务服务能力的业务应用。</p>
-<p><strong>交易来源</strong>，就是前台用户使用的各个端，如淘宝App、PC站等。</p>
-<p>数据量超EB，表数量超过百万。</p>
-<p>PPT小结：</p>
-<p><strong>1、阿里业务中台架构图。</strong>阿里完整前后中台技术架构图。</p>
-<p><strong>2、业务中台化-产品形态。</strong>将商业基础形态和逻辑梳理出来，解构成业务“积木块”。</p>
-<p><strong>3、业务中台化-全局架构。</strong>建立中台的中心化控制单元，对中台有一个纵观全局的视图。</p>
-<p><strong>4、业务中台化 - 业务创新和智能化。</strong>业务中台化，汇集和沉淀业务逻辑和数据，对快速创新提供支持。</p>
-<p><strong>5、阿里核心业务架构。</strong>小前台、大中台、轻后台的相互支撑体系。</p>
-<p><strong>6、阿里数据中台架构。</strong>数据中台建设理论、方法和实践。</p>
-<p><strong>7、阿里技术全栈全景图。</strong>阿里的移动中台、业务中台、数据中台、技术中台。</p>
-<p><strong>8、阿里技术平台底座。</strong>阿里多年技术积累和沉淀，构建在阿里云之上。</p>
-<p><strong>9、阿里中台组织架构。</strong>阿里的中台战略，相匹配的组织架构升级。</p>
-<p><strong>10、业务中台建设路径。</strong>企业中台建设应遵循的3个步骤：决心变革、成功试点、持续融合。</p>
-<p><strong>11、企业中台战略4个升级。</strong>从战略、组织、流程、技术四个方面进行升级。</p>
-<p><strong>12、阿里中台的能力开放。</strong>基于阿里云、ET大脑、业务&amp;数据双中台的能力开放。</p>
-<p><strong>13、阿里业务中台建设方法论。</strong>中台建设和基础协议、中心化操控单元。</p>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>中台这个概念被炒作的恨火，然而究竟什么是中台，似乎并没有人给出一个明确的定义。</p>
-<p>有的人把技术集成平台叫中台，都感觉很片面。</p>
-<p>我查阅了很多资料，中台像业务发展遇到某一瓶颈的时候，为了解决实际问题提出的解决方案。</p>
-<p>2018年9月，腾讯宣布组织架构调整，在原有七大事业部重新组织机构， 新成立了云与智慧产业事业群（CSIG）、平台与内容事业群（PCG），调整为新的6大事业群。而6大事业群紧紧围绕的，正是技术委员会充当“技术中台”角色。 </p>
-<p> 同年12月18日，百度集团进行了一次大的架构调整，由百度创始人、董事长李彦宏发信宣布：”百度将打造AI时代最领先的技术平台，实现前端业务和技术平台的资源高效统筹及组织全面协同。” </p>
-<p> 3天后的12月21日，京东集团人力资源部发布关于京东商城组织架构调整的公告，公告内容称：“在新的组织架构下，京东商城将围绕以客户为中心，划分为前中后台。中台为前台业务运营和创新提供专业能力的共享平台职能。” </p>
-<p>建设方法：</p>
-<p>阿里：业务数据双中台；移动中台；技术中台。</p>
-<p>腾讯：业务中台和数据中台。</p>
-<p>百度：搜索中台</p>
-<p>京东：数据中台</p>
-<p>阿里数据中台概念提出这么久了，我看了这么多资料，对中台的定义大多是一家之言，我个人观点：中台是阿里为了两个目的提出来的概念，第一个目标是大企业的尾大不掉，第二点是数据驱动价值。</p>
-<p>第二点在电商领域的价值已经不用多提，第一点可能是他觉得阿里必须要克服的问题。</p>
-<p>说实话，具体的落地可能都还在摸索之中，先把这个概念拿出来炒作挺离谱的。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/12/数据中台是什么？/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -669,7 +615,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.4k
+                  4.7k
                 </span>
               
 
@@ -685,7 +631,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  18
                 </span>
               
             </div>
@@ -707,44 +653,17 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>Kylin是在Hadoop上的SQL层，最近对Phoenix调研完成之后，对Kylin产生了兴趣。</p>
 </blockquote>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v1qog93xj209d08laa6.jpg" alt="undefined"></p>
-<h1 id="Kylin"><a href="#Kylin" class="headerlink" title="Kylin"></a>Kylin</h1><h2 id="第一章-概述"><a href="#第一章-概述" class="headerlink" title="第一章 概述"></a>第一章 概述</h2><h3 id="1-1-Kylin定义"><a href="#1-1-Kylin定义" class="headerlink" title="1.1 Kylin定义"></a>1.1 Kylin定义</h3><p>Apache Kylin是一个开源的分布式分析引擎，提供Hadoop/Spark之上的SQL查询接口及多维分析（OLAP）能力以支持超大规模数据，最初由eBay Inc开发并贡献至开源社区。它能在亚秒内查询巨大的Hive表。</p>
-<h3 id="1-2-Kylin特点"><a href="#1-2-Kylin特点" class="headerlink" title="1.2 Kylin特点"></a>1.2 Kylin特点</h3><p>Kylin的主要特点包括支持SQL接口、支持超大规模数据集、亚秒级响应、可伸缩性、高吞吐率、BI工具集成等。</p>
-<p>1）标准SQL接口：Kylin是以标准的SQL作为对外服务的接口。</p>
-<p>2）支持超大数据集：Kylin对于大数据的支撑能力可能是目前所有技术中最为领先的。早在2015年eBay的生产环境中就能支持百亿记录的秒级查询，之后在移动的应用场景中又有了千亿记录秒级查询的案例。</p>
-<p>3）亚秒级响应：Kylin拥有优异的查询相应速度，这点得益于预计算，很多复杂的计算，比如连接、聚合，在离线的预计算过程中就已经完成，这大大降低了查询时刻所需的计算量，提高了响应速度。</p>
-<p>4）可伸缩性和高吞吐率：单节点Kylin可实现每秒70个查询，还可以搭建Kylin的集群。</p>
-<p>5）BI工具集成</p>
-<p>Kylin可以与现有的BI工具集成，具体包括如下内容。</p>
-<p>ODBC：与Tableau、Excel、PowerBI等工具集成</p>
-<p>JDBC：与Saiku、BIRT等Java工具集成</p>
-<p>Restate：与JavaScript、Web网页集成</p>
-<p>Kylin开发团队还贡献了<strong>Stippling</strong>的插件，也可以使用Stippling来访问Kylin服务。</p>
-<h3 id="1-3-Kylin架构"><a href="#1-3-Kylin架构" class="headerlink" title="1.3 Kylin架构"></a>1.3 Kylin架构</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v1uuzn2pj215o0k5ta3.jpg" alt="undefined"></p>
-<p>1）REST Server</p>
-<p>REST Server是一套面向应用程序开发的入口点，旨在实现针对Kylin平台的应用开发工作。 此类应用程序可以提供查询、获取结果、触发cube构建任务、获取元数据以及获取用户权限等等。另外可以通过Restful接口实现SQL查询。</p>
-<p>2）查询引擎（Query Engine）</p>
-<p>当cube准备就绪后，查询引擎就能够获取并解析用户查询。它随后会与系统中的其它组件进行交互，从而向用户返回对应的结果。 </p>
-<p>3）Routing</p>
-<p>负责将解析的SQL生成的执行计划转换成cube缓存的查询，cube是通过预计算缓存在hbase中，这部分查询可以在秒级设置毫秒级完成，而且还有一些操作使用过的查询原始数据（存储在Hadoop的hdfs中通过hive查询）。这部分查询延迟较高。</p>
-<p>4）元数据管理工具（Metadata）</p>
-<p>Kylin是一款元数据驱动型应用程序。元数据管理工具是一大关键性组件，用于对保存在Kylin当中的所有元数据进行管理，其中包括最为重要的cube元数据。其它全部组件的正常运作都需以元数据管理工具为基础。 Kylin的元数据存储在hbase中。 </p>
-<p>5）任务引擎（Cube Build Engine）</p>
-<p>这套引擎的设计目的在于处理所有离线任务，其中包括shell脚本、Java API以及Map Reduce任务等等。任务引擎对Kylin当中的全部任务加以管理与协调，从而确保每一项任务都能得到切实执行并解决其间出现的故障。</p>
-<h3 id="1-4-Kylin工作原理"><a href="#1-4-Kylin工作原理" class="headerlink" title="1.4 Kylin工作原理"></a>1.4 Kylin工作原理</h3><p>Apache Kylin的工作原理本质上是MOLAP（Multidimension On-Line Analysis Processing）Cube，也就是多维立方体分析。是数据分析中非常经典的理论，下面对其做简要介绍。</p>
-<h4 id="1-4-1-纬度和度量"><a href="#1-4-1-纬度和度量" class="headerlink" title="1.4.1 纬度和度量"></a>1.4.1 纬度和度量</h4><p>维度：即观察数据的角度。比如员工数据，可以从性别角度来分析，也可以更加细化，从入职时间或者地区的维度来观察。维度是一组离散的值，比如说性别中的男和女，或者时间维度上的每一个独立的日期。因此在统计时可以将维度值相同的记录聚合在一起，然后应用聚合函数做累加、平均、最大和最小值等聚合计算。</p>
-<p>度量：即被聚合（观察）的统计值，也就是聚合运算的结果。比如说员工数据中不同性别员工的人数，又或者说在同一年入职的员工有多少。</p>
-<p>基数：某个维度的种类数。比如说性别维度，基数为2（男和女）。按照某个维度进行聚合，结果数据的大小主要取决于该维度的基数。</p>
-<h4 id="Cube和Cuboid"><a href="#Cube和Cuboid" class="headerlink" title="Cube和Cuboid"></a>Cube和Cuboid</h4><p>有了维度跟度量，一个数据或数据模型上的所有字段就可以分类了，他们要么是纬度要么是度量（可以被聚合）。于是就有了根据维度和度量做预计算的理论。</p>
-<p>给定一个数据模型，我们可以对其上的所有维度进行聚合，对于N个维度来说，组合的所有可能性共有2^n种。对于每一种维度的组合，将度量值做聚合计算，然后将结果保存为一个物化视图，称为Cuboid。所有维度组合的Cuboid作为一个整体，称为Cube。</p>
-<p>下面举一个简单的例子说明，假设有一个电商的销售数据集，其中维度包括时间[time]、商品[item]、地区[location]和供应商[supplier]，度量为销售额。那么所有维度的组合就有2^4 = 16种，如下图所示：</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v2nn4skoj20hq0db75f.jpg" alt="undefined"></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/12/Kylin/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2500,7 +2419,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">112.1k</span>
+    <span title="Site words total count">115.4k</span>
   
 </div>
 
