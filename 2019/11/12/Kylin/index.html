@@ -118,7 +118,22 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlqat61cj20jf05qt8z.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlrfg7plj20sg0b6ahm.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlxz8a4ej20sg06taf5.jpg">
-<meta property="og:updated_time" content="2019-11-18T08:57:49.062Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92byqbpinj20sg0enq3v.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92bzc39h9j20g60ajmxc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92bzqjxlmj20sg0b00td.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c01zg2dj20sg0cijs8.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c0ds7dij20sg0augmf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c0z1koyj20sg0bjjs2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cvbklxij20sg0bf0t6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cwad8r9j20m50f1aaq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cwti90pj20sg0bygmq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d1xm7dbj20sg04qt9j.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d2ii64cj20sg0bimyh.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d55mrpgj20sg09bdgg.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g94igifi2xj20zk0gxtc3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g94ih39tw6j20zk0gxq4q.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g94ihodonej20zk0gx0un.jpg">
+<meta property="og:updated_time" content="2019-11-22T07:26:50.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apache Kylin">
 <meta name="twitter:description" content="Kylin是在Hadoop上的SQL层，最近对Phoenix调研完成之后，对Kylin产生了兴趣。">
@@ -437,7 +452,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  11.1k
+                  14.1k
                 </span>
               
 
@@ -453,7 +468,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  40
+                  51
                 </span>
               
             </div>
@@ -772,18 +787,126 @@
 </tr>
 </tbody>
 </table>
-<h5 id="Tips-Impala速度快的原因"><a href="#Tips-Impala速度快的原因" class="headerlink" title="Tips: Impala速度快的原因"></a>Tips: Impala速度快的原因</h5><h4 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h4><p>之前ES需要90s完成的查询，使用Kylin只需要2-3s，原来需要加载几分钟的仪表盘，现在只需要几秒钟就能加载完成，速度提升30多倍。</p>
+<h5 id="Tips-Impala速度快的原因"><a href="#Tips-Impala速度快的原因" class="headerlink" title="Tips: Impala速度快的原因"></a>Tips: Impala速度快的原因</h5><p>impala采用了MPP查询引擎(Massively Parallel Processor)， 在数据库非共享集群中，每个节点都有独立的磁盘存储系统和内存系统，业务数据根据数据库模型和应用特点划分到各个节点上，每台数据节点通过专用网络或者商业通用网络互相连接，彼此协同计算，作为整体提供数据 库服务。非共享数据库集群有完全的可伸缩性、高可用、高性能、优秀的性价比、资源共享等优势。 </p>
+<p>Elasticsearch也是一种MPP架构的数据库，Presto、Impala等都是MPP engine，各节点不共享资源，每个executor可以独自完成数据的读取和计算，缺点在于怕stragglers，遇到后整个engine的性能下降到该straggler的能力，所谓木桶的短板，这也是为什么MPP架构不适合异构的机器，要求各节点配置一样。 </p>
+<h4 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h4><p>之前ES需要90s完成的查询，使用Kylin只需要2-3s，原来需要加载几分钟的仪表盘，现在只需要几秒钟就能加载完成，速度提升30多倍。</p>
 <p>在开发效率上，切换至 Kylin 在前期不熟悉的情况下的确走了一些弯路，踩了不少坑（跟数据质量、对 Kylin 原理的掌握等都有关）。但是后面在熟悉之后便可以有不逊色于 ES 的开发效率，用起来非常不错。</p>
 <p>目前版本的 Kylin 也有一些不足，例如数据的时效性，因为 Kylin 2.x 的流数据源只能达到准实时（Near Real-time），准实时延迟通常在十几到几十分钟的，对 APM 系统中的实时告警模块还不能满足业务要求。所以目前实时告警这一块走的还是ES，由于告警只需要对上个短暂周期（1~5 分钟）内的数据做聚合，数据量较小，ES 对此没有性能问题倒能承受。对于海量历史数据，通过 Kylin 来查询的效果更好。</p>
 <p>新系统于 2018 年 11 月正式上线，目前已经稳定运行近一年。我们也注意到 Kylin 3.0 已经在实时统计上开始发力，能够做到 ES 这样的秒级延迟，我们会持续关注，希望 Kylin 可以发展的越来越好。</p>
-<p><a href="https://kyligence.io/zh/blog/kylin-在腾讯的平台化及-flink-引擎实践/" target="_blank" rel="noopener">https://kyligence.io/zh/blog/kylin-%e5%9c%a8%e8%85%be%e8%ae%af%e7%9a%84%e5%b9%b3%e5%8f%b0%e5%8c%96%e5%8f%8a-flink-%e5%bc%95%e6%93%8e%e5%ae%9e%e8%b7%b5/</a> </p>
-<p>Kylin在tencent的改造</p>
-<h2 id="第五章-Kylin实操"><a href="#第五章-Kylin实操" class="headerlink" title="第五章 Kylin实操"></a>第五章 Kylin实操</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Kylin的安装相对简单，我们使用的Kylin是2.6.3版本的，安装并没有多少复杂的步骤，按照官网的步骤安装即可：</p>
+<h2 id="第五章-Kylin在腾讯的平台化及Flink引擎实践"><a href="#第五章-Kylin在腾讯的平台化及Flink引擎实践" class="headerlink" title="第五章 Kylin在腾讯的平台化及Flink引擎实践"></a>第五章 Kylin在腾讯的平台化及Flink引擎实践</h2><p>Kylin 现有的用户管理、资源隔离机制并不能满足我们需求，基于此，腾讯对 Kylin 进行了平台化改造。希望平台化改造完成后，在下面这些层面，能够有一些改进：</p>
+<ul>
+<li>用户管理</li>
+<li>资源隔离</li>
+<li>易用性提升</li>
+<li>方便运维</li>
+</ul>
+<h3 id="用户管理："><a href="#用户管理：" class="headerlink" title="用户管理："></a>用户管理：</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92byqbpinj20sg0enq3v.jpg" alt="undefined"></p>
+<p>为了便于系统的管理及安全，公司内部有一套自己的认证系统，而且需要用个人账号去验证，所以 Kylin 作为一个平台对外提供服务的话，也需要接入到该系统。所以，我们新增了一个用户管理界面，该界面展示了 Kylin 平台内的所有用户。管理员可以新增任一用户到 Kylin 平台，新增用户时会填写企业微信名、用户角色以及是否激活用户。当用户登录系统时，会自动检测用户账号以及该账号是否在平台内注册，如果没有注册则无权限，反之自动登录系统。 </p>
+<h3 id="内部Hive兼容"><a href="#内部Hive兼容" class="headerlink" title="内部Hive兼容"></a>内部Hive兼容</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92bzc39h9j20g60ajmxc.jpg" alt="undefined"></p>
+<p>由于历史原因，我们部门内的 Hive 版本（THive）与 Kylin 不兼容，这就导致 Kylin 无法正常访问 Kylin 集群，所以我们采用了上图所示的兼容方案。首先，我们使用社区 Hive 版本搭建一个全新的 Hive，并作为 Kylin 的默认 Hive；其次，当 kylin 加载源表时，我们是通过内部的 UPS 系统读取 THive 的元数据信息；最后，在 Load 源表到 Kylin 时，我们根据表的元数据信息在 Kylin 的 Hive 上创建一张相同的表，但该表的存储路径依旧指向 THive 的路径，而用户在构建 cube 时，则访问新创建的表，至此就解决了 Kylin 访问 THive 的问题。 </p>
+<h3 id="计算资源可配置化"><a href="#计算资源可配置化" class="headerlink" title="计算资源可配置化"></a>计算资源可配置化</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92bzqjxlmj20sg0b00td.jpg" alt="undefined"></p>
+<p> 目前，Kylin 配置计算资源信息有两种方式：一是在 Kylin 配置文件中配置一个全局的计算集群及队列；二是在创建工程或者 Cube 时，在扩展参数中指定集群配置。这两种配置方式在灵活性及便捷性方面都比较差，而在我们内部是有接口可以获取到某一个用户有计算资源的计算集群及计算队列的，所以，在创建工程或者 Cube 时，我们使用了下拉框选择式的方式，让用户选择提交任务的计算资源及队列，从而大大简化了用户的使用流程。 </p>
+<h3 id="通知机制"><a href="#通知机制" class="headerlink" title="通知机制"></a>通知机制</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c01zg2dj20sg0cijs8.jpg" alt="undefined"></p>
+<p>Kylin 只提供了发邮件通知的功能，而作为目前使用最广泛的工具，微信、企业微信在实时性及便捷性方面都远远胜于邮件，所以，我们提供了邮件、微信、企业微信三种方式，供用户选择。 </p>
+<h3 id="定时调度"><a href="#定时调度" class="headerlink" title="定时调度"></a>定时调度</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c0ds7dij20sg0augmf.jpg" alt="undefined"></p>
+<p>Kylin 系统自身并没有提供定时调度功能，但基本上每家公司都有自己的统一调度平台，我们也不例外。我们通过 Kylin 提供的API接口，将 Cube 定时构建的功能作为一个插件集成到了公司内部的统一调度平台上。 </p>
+<h3 id="业务接入"><a href="#业务接入" class="headerlink" title="业务接入"></a>业务接入</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c0z1koyj20sg0bjjs2.jpg" alt="undefined"></p>
+<p>做完以上平台化改造后，Kylin 平台基本具备了接入不同类型业务的能力，用户申请接入流程如上图所示。</p>
+<p>业务使用情况：</p>
+<p>我们团队是在今年初才开始引入 Kylin，目前已经在使用的业务主要有 QQ 音乐、腾讯视频、广点通、财付通等，Cube 的数量有 10 个，单份数据存储总量是 5 T，数据规模在 30 亿条左右。</p>
+<h3 id="Flink-Cube-Engion："><a href="#Flink-Cube-Engion：" class="headerlink" title="Flink Cube Engion："></a>Flink Cube Engion：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">目前，Kylin 已经支持使用 MapReduce 和 Spark 作为构建引擎，而作为目前比较火的流批一体的大数据计算引擎怎能缺席？所以我使用 Flink 开发了一个高性能的构建引擎：Flink Cube Engine。</span><br><span class="line"></span><br><span class="line">Flink Cube Engine 是腾讯基于 Kylin 插件化的 Cube Engine 架构开发的一个高性能构建引擎，目前已具备了上线使用的能力，感兴趣的同学可以体验一下，目前该引擎已经在腾讯生产环境上线 1 个月+，非常稳定而且效果不错。</span><br><span class="line"></span><br><span class="line">Umbrella issue: </span><br><span class="line"></span><br><span class="line">Umbrella issue: </span><br><span class="line"></span><br><span class="line">https://issues.apache.org/jira/browse/KYLIN-3758</span><br><span class="line"></span><br><span class="line">分支：</span><br><span class="line"></span><br><span class="line">https://github.com/apache/kylin/tree/engine-flink</span><br></pre></td></tr></table></figure>
+<p>上面</p>
+<p>第一个链接可以看到flink cube的完成情况</p>
+<p>第二个链接可以看到flink cube在github的代码</p>
+<p>使用：<img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cvbklxij20sg0bf0t6.jpg" alt="undefined"></p>
+<p>Kylin 的一次 Cube 构建任务，包含了很多个子任务，而最重要的莫过于 Cube 构建这一步骤，所以，我们在 build 和 merge Cube 这两种任务中，优先实现了Cube 构建这一步骤，其他计算步骤依旧通过使用 MapReduce 来实现。 </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cwad8r9j20m50f1aaq.jpg" alt="undefined"></p>
+<p>选择使用 Flink Cube Engine 的方式也和选择 Map Reduce 和 Spark 任务类似，我们提供了前台可视化的界面，供用户选择。 </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cwti90pj20sg0bygmq.jpg" alt="undefined"></p>
+<p>上图是我们内部业务上线 Flink Cube Engine 之后的性能对比，从图中可见，该步骤的构建耗时从 49 分钟降到了 13 分钟，优化效果比较明显。两种情况的资源配置如下：</p>
+<p>Flink 配置为：</p>
+<p>-ytm 4G -yjm 2G -ys 1 -p 100 -yn 100</p>
+<p>Spark 采用的动态分配资源如下：</p>
+<p>kylin.engine.spark-conf.spark.dynamicAllocation.enabled=true</p>
+<p>kylin.engine.spark-conf.spark.dynamicAllocation.minExecutors=2</p>
+<p>kylin.engine.spark-conf.spark.dynamicAllocation.maxExecutors=1000</p>
+<p>kylin.engine.spark-conf.spark.dynamicAllocation.executorIdleTimeout=300</p>
+<p>kylin.engine.spark-conf.spark.shuffle.service.enabled=true</p>
+<p>kylin.engine.spark-conf.spark.shuffle.service.port=7337</p>
+<p>虽然，Spark 采用的是动态分配资源，但在任务执行过程中，我们观察到 Spark实际分配的资源远比 Flink 要多的多。</p>
+<p>那为什么性能提升会那么明显呢？</p>
+<ol start="4">
+<li>Flink Cube Engine 的优化</li>
+</ol>
+<p>性能的提升，无非有两方面的原因，一是参数的优化，二是代码的优化。</p>
+<p>1) 调参</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d1xm7dbj20sg04qt9j.jpg" alt="undefined"></p>
+<p>影响 Flink 任务性能主要有几个核心参数：并行度、单个 TM slot 数目、TM container 数目，其中单个 TM container 数目=并行度/单个 TM slot 数目。</p>
+<p>我们调优的过程采用了控制变量法，即：固定并行度不变、固定 Job 总内存数不变。通过不断的调整单个 TM 的 slot 数目，我们发现如果单个 TM 的 slot 数目减少，拉起更多的 TM container 性能会更好。</p>
+<p>此外，我们还使用了对象复用、内存预分配等方法，发现没有对性能提升起到太大的效果。</p>
+<p>2) 代码优化(合并计算)</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d2ii64cj20sg0bimyh.jpg" alt="undefined"></p>
+<p> 在实现 Flink Cube Engine 的时候，一开始我们使用了 Map/Reduce 两个算子，发现性能很差，比 Spark 的性能还要差很多，后来我们通过调整使用了 Flink 的 mapPartition/reduceGroup 两个算子，性能就有了明显的提升。 </p>
+<p>Flink Cube Engine 下一步的计划：</p>
+<ol>
+<li>全链路 Flink</li>
+</ol>
+<p>如上所述，目前 Cube 构建过程中，只有最关键的 cube 构建这一子任务使用了 Flink，而其他子任务仍然使用的是 MapReduce，我们下一步会继续完善 Flink Cube Engine，将所有的子任务都使用 Flink 来构建。</p>
+<ol start="2">
+<li>Flink 升级到 1.9</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d55mrpgj20sg09bdgg.jpg" alt="undefined"></p>
+<p>Flink 最近发布了 1.9.0，该版本包含了很多重要特性且性能也有了一定提升，所以，我们会把 Flink Cube Engine 使用的 Flink 版本升级到1.9.0。 </p>
+<h2 id="第六章-Kylin实操"><a href="#第六章-Kylin实操" class="headerlink" title="第六章 Kylin实操"></a>第六章 Kylin实操</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Kylin的安装相对简单，我们使用的Kylin是2.6.3版本的，安装并没有多少复杂的步骤，按照官网的步骤安装即可：</p>
 <p><a href="http://kylin.apache.org/docs/install/index.html" target="_blank" rel="noopener">官方文档安装步骤</a></p>
 <p>安装完成后，在bin目录下面执行check-env.sh，这个脚本会执行检查，如果仅仅显示KYLIN_HOME is set to… 说明一切配置正常，就可以启动了。</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>回到Kylin的bin目录下执行sample.sh，成功执行后会有如下提示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Retrieving hadoop conf dir...</span><br><span class="line">KYLIN_HOME is set to /data1/CM/kylin-2.6.3</span><br></pre></td></tr></table></figure>
 <p>出现这个提示，就说明已经成功了。</p>
+<p>根据日志提示信息，重新加载元数据，使kylin能读取到创建好的project “learn_kylin”.跳转至system ,点击reload metadata</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g94igifi2xj20zk0gxtc3.jpg" alt="undefined"></p>
+<p> 然后buil cube</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g94ih39tw6j20zk0gxq4q.jpg" alt="undefined"></p>
+<p>此时cube正在创建，可以在Monitor中监控到整个cube构造的过程以及可以查看到每一步构建的过程和日志。 </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g94ihodonej20zk0gx0un.jpg" alt="undefined"></p>
+<p>然后就可以在SQL输入框输入相关的SQL，就可以做简单的可视化。</p>
+<h2 id="第七章-Kylin的优化"><a href="#第七章-Kylin的优化" class="headerlink" title="第七章 Kylin的优化"></a>第七章 Kylin的优化</h2><h3 id="查询时间优化"><a href="#查询时间优化" class="headerlink" title="查询时间优化"></a>查询时间优化</h3><p>Kylin 的查询过程主要包含四个步骤：解析 SQL，从 HBase 获取数据，二次聚合运算，返回结果。显然优化的重点就落在如何加快 HBase 获取数据的速度和减少二次聚合预算。</p>
+<ul>
+<li>提高 HBase 响应时间：修改配置，修改 Cache 的策略，增加 Block Cache 的容量</li>
+<li>减少二次聚合运算：合理设计纬度，使查询时尽量能精确命中 Cuboid。去重值使用有损算法。</li>
+</ul>
+<h3 id="预计算优化"><a href="#预计算优化" class="headerlink" title="预计算优化"></a>预计算优化</h3><p>预计算的优化，主要考虑有何缩短构建花费的时间，以及中间结果和最终结果占用的空间。每个业务单独一个 Cube，避免每个 Cube 大而全，减少不必要的计算。</p>
+<h4 id="Cube优化"><a href="#Cube优化" class="headerlink" title="Cube优化"></a>Cube优化</h4><p>随着维度数目的增加，Cuboid 的数量成指数级增长。为了缓解 Cube 的构建压力，Kylin 提供了 Cube 的高级设置。这些高级设置包括聚合组（Aggregation Group）、联合维度（Joint Dimension）、层级维度（Hierarchy Dimension）和必要维度（Mandatory Dimension）等。</p>
+<p>合理调整纬度配置，对需构建的 Cuboid 进行剪枝，刷选出真正需要的 Cuboid，优化构建性能，降低构建时间，大大提高了集群资源的利用效率。</p>
+<p>如果Cube优化的好，效果可以非常明显。</p>
+<h5 id="优化方法："><a href="#优化方法：" class="headerlink" title="优化方法："></a>优化方法：</h5><p>1.必须维度</p>
+<p>查询时，经常使用的维度，以及低基数纬度。如该维度基数&lt;10，可以考虑作为必须维度。 </p>
+<p>2.层级维度</p>
+<p> 维度关系有一定层级性、基数有小到大情况可以使用层级维度。 </p>
+<p>3.Joint维度</p>
+<p>维度之间是同时出现的关系，及查询时，绝大部分情况都是同时出现的。可以使用 joint 维。 </p>
+<p>4.维度组合组</p>
+<p>将为维度进行分组，查询时组与组之间的维度不会同时出现。 </p>
+<h5 id="配置优化："><a href="#配置优化：" class="headerlink" title="配置优化："></a>配置优化：</h5><p> 配置优化，包括 Kylin 资源的配置以及 Hadoop 集群配置相关修改。 </p>
+<ol>
+<li>构建资源</li>
+</ol>
+<p>每个 Cube 构建时，所需的资源不太一样，需要进行相应的资源调整。</p>
+<ol start="2">
+<li>调整副本</li>
+</ol>
+<p>集群默认的文件副本数为 3，Cube 构建时，将副本数调为 2，个别中间任务还可以调整为 1，这样可以降低构建任务时集群 IO。为了保证查询的稳定性，HBase 副本数依然为 3。</p>
+<ol start="3">
+<li>压缩格式</li>
+</ol>
+<p>在实验中发现，如果Hive和Hbase都设置了snappy格式，那么集群IO交互会小很多。</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>Kylin在复杂业务的查询中可以用预计算的方式提前计算好预期结果存在Hive临时表中，然后写入Hbase，优点显而易见：</p>
+<p>1.可以合理配置集群资源，预计算的时间可以提前设定。</p>
+<p>2.对海量数据的提前预计算意味着用户查询时不用重复计算，直接从Hbase中获取结果即可。</p>
+<p>缺点：</p>
+<p>Kylin仅支持星型模型的数据集，对原数据提出了要求。</p>
+<p>并且作为空间换时间的OLAP应用，需要占用HBase集群大量的空间。</p>
+<p>维度的膨胀需要结合业务控制，不同的业务还需要研究不同Cube的优化，使用成本会比IMPALA 这种使用SQL语言的高不少。</p>
 
       
     </div>
@@ -1000,7 +1123,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kylin"><span class="nav-number">1.</span> <span class="nav-text">Kylin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-概述"><span class="nav-number">1.1.</span> <span class="nav-text">第一章 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Kylin定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Kylin定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Kylin特点"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 Kylin特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Kylin架构"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 Kylin架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Kylin工作原理"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 Kylin工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-纬度和度量"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">1.4.1 纬度和度量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-Cube和Cuboid"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">1.4.2 Cube和Cuboid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-核心算法"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">1.4.3 核心算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-1-逐层构建算法"><span class="nav-number">1.1.4.3.1.</span> <span class="nav-text">1.4.3.1 逐层构建算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-2-快速构建算法（inmem）"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">1.4.3.2 快速构建算法（inmem）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章：Kylin安装指南"><span class="nav-number">1.2.</span> <span class="nav-text">第二章：Kylin安装指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1安装地址"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1安装地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-软件要求"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 软件要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-硬件要求："><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 硬件要求：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Hadoop环境"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 Hadoop环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Kylin安装"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 Kylin安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kylin-tarball-目录"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">Kylin tarball 目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查运行环境"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">检查运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动-Kylin"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">启动 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-Kylin"><span class="nav-number">1.2.5.4.</span> <span class="nav-text">使用 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#停止-Kylin"><span class="nav-number">1.2.5.5.</span> <span class="nav-text">停止 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS-目录结构"><span class="nav-number">1.2.5.6.</span> <span class="nav-text">HDFS 目录结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-集群模式部署"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 集群模式部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#任务引擎高可用"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">任务引擎高可用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装负载均衡器"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">安装负载均衡器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-快速入门"><span class="nav-number">1.3.</span> <span class="nav-text">第三章 快速入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-Kylin实例调研"><span class="nav-number">1.4.</span> <span class="nav-text">第四章 Kylin实例调研</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#美团大规模使用Kylin的例子："><span class="nav-number">1.4.1.</span> <span class="nav-text">美团大规模使用Kylin的例子：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斗鱼大规模使用Kylin的例子"><span class="nav-number">1.4.2.</span> <span class="nav-text">斗鱼大规模使用Kylin的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、背景"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">一、背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、使用Kylin的挑战和解决方案"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">二、使用Kylin的挑战和解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Kylin集群的搭建"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text">Kylin集群的搭建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构建实时Cube的问题"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text">构建实时Cube的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Kylin集群优化"><span class="nav-number">1.4.2.2.3.</span> <span class="nav-text">Kylin集群优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HBase超时优化"><span class="nav-number">1.4.2.2.4.</span> <span class="nav-text">HBase超时优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#已有-Cube-的修改"><span class="nav-number">1.4.2.2.5.</span> <span class="nav-text">已有 Cube 的修改</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、效果对比"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">三、效果对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对比表格"><span class="nav-number">1.4.2.3.1.</span> <span class="nav-text">对比表格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips-Impala速度快的原因"><span class="nav-number">1.4.2.3.2.</span> <span class="nav-text">Tips: Impala速度快的原因</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、总结"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">四、总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-Kylin实操"><span class="nav-number">1.5.</span> <span class="nav-text">第五章 Kylin实操</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.5.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kylin"><span class="nav-number">1.</span> <span class="nav-text">Kylin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-概述"><span class="nav-number">1.1.</span> <span class="nav-text">第一章 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Kylin定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Kylin定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Kylin特点"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 Kylin特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Kylin架构"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 Kylin架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Kylin工作原理"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 Kylin工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-纬度和度量"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">1.4.1 纬度和度量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-Cube和Cuboid"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">1.4.2 Cube和Cuboid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-核心算法"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">1.4.3 核心算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-1-逐层构建算法"><span class="nav-number">1.1.4.3.1.</span> <span class="nav-text">1.4.3.1 逐层构建算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-2-快速构建算法（inmem）"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">1.4.3.2 快速构建算法（inmem）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章：Kylin安装指南"><span class="nav-number">1.2.</span> <span class="nav-text">第二章：Kylin安装指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1安装地址"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1安装地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-软件要求"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 软件要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-硬件要求："><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 硬件要求：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Hadoop环境"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 Hadoop环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Kylin安装"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 Kylin安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kylin-tarball-目录"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">Kylin tarball 目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查运行环境"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">检查运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动-Kylin"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">启动 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-Kylin"><span class="nav-number">1.2.5.4.</span> <span class="nav-text">使用 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#停止-Kylin"><span class="nav-number">1.2.5.5.</span> <span class="nav-text">停止 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS-目录结构"><span class="nav-number">1.2.5.6.</span> <span class="nav-text">HDFS 目录结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-集群模式部署"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 集群模式部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#任务引擎高可用"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">任务引擎高可用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装负载均衡器"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">安装负载均衡器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-快速入门"><span class="nav-number">1.3.</span> <span class="nav-text">第三章 快速入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-Kylin实例调研"><span class="nav-number">1.4.</span> <span class="nav-text">第四章 Kylin实例调研</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#美团大规模使用Kylin的例子："><span class="nav-number">1.4.1.</span> <span class="nav-text">美团大规模使用Kylin的例子：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斗鱼大规模使用Kylin的例子"><span class="nav-number">1.4.2.</span> <span class="nav-text">斗鱼大规模使用Kylin的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、背景"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">一、背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、使用Kylin的挑战和解决方案"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">二、使用Kylin的挑战和解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Kylin集群的搭建"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text">Kylin集群的搭建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构建实时Cube的问题"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text">构建实时Cube的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Kylin集群优化"><span class="nav-number">1.4.2.2.3.</span> <span class="nav-text">Kylin集群优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HBase超时优化"><span class="nav-number">1.4.2.2.4.</span> <span class="nav-text">HBase超时优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#已有-Cube-的修改"><span class="nav-number">1.4.2.2.5.</span> <span class="nav-text">已有 Cube 的修改</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、效果对比"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">三、效果对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对比表格"><span class="nav-number">1.4.2.3.1.</span> <span class="nav-text">对比表格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips-Impala速度快的原因"><span class="nav-number">1.4.2.3.2.</span> <span class="nav-text">Tips: Impala速度快的原因</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、总结"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">四、总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-Kylin在腾讯的平台化及Flink引擎实践"><span class="nav-number">1.5.</span> <span class="nav-text">第五章 Kylin在腾讯的平台化及Flink引擎实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理："><span class="nav-number">1.5.1.</span> <span class="nav-text">用户管理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部Hive兼容"><span class="nav-number">1.5.2.</span> <span class="nav-text">内部Hive兼容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算资源可配置化"><span class="nav-number">1.5.3.</span> <span class="nav-text">计算资源可配置化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通知机制"><span class="nav-number">1.5.4.</span> <span class="nav-text">通知机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定时调度"><span class="nav-number">1.5.5.</span> <span class="nav-text">定时调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务接入"><span class="nav-number">1.5.6.</span> <span class="nav-text">业务接入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Cube-Engion："><span class="nav-number">1.5.7.</span> <span class="nav-text">Flink Cube Engion：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-Kylin实操"><span class="nav-number">1.6.</span> <span class="nav-text">第六章 Kylin实操</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.6.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七章-Kylin的优化"><span class="nav-number">1.7.</span> <span class="nav-text">第七章 Kylin的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询时间优化"><span class="nav-number">1.7.1.</span> <span class="nav-text">查询时间优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预计算优化"><span class="nav-number">1.7.2.</span> <span class="nav-text">预计算优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cube优化"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">Cube优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优化方法："><span class="nav-number">1.7.2.1.1.</span> <span class="nav-text">优化方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置优化："><span class="nav-number">1.7.2.1.2.</span> <span class="nav-text">配置优化：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">1.8.</span> <span class="nav-text">总结：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1034,7 +1157,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">121.7k</span>
+    <span title="Site words total count">124.7k</span>
   
 </div>
 
