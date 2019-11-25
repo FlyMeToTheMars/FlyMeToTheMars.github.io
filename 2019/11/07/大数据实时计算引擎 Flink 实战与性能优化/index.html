@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="Mars">
 <meta property="og:description" content="大数据实时计算引擎 Flink 实战与性能优化 Flink作为流处理方案的最佳选择，还有流处理 批处理大一统之势，可谓必知必会">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8plgw1pltj20sg0sgn3t.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g9a0z5j7i6j20bp04tdgk.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8plho80ksj20z50u042l.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8plhzw2umj210c0dsdh7.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8pli7o9s7j20gm12540a.jpg">
@@ -157,11 +157,11 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8pnl2lqdzj21y417i0wa.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8pnmiv3uoj21fi106q8b.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8pnneh4l3j228o1j6myu.jpg">
-<meta property="og:updated_time" content="2019-11-12T02:21:59.214Z">
+<meta property="og:updated_time" content="2019-11-25T01:29:51.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据实时计算引擎 Flink 实战与性能优化">
 <meta name="twitter:description" content="大数据实时计算引擎 Flink 实战与性能优化 Flink作为流处理方案的最佳选择，还有流处理 批处理大一统之势，可谓必知必会">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8plgw1pltj20sg0sgn3t.jpg">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g9a0z5j7i6j20bp04tdgk.jpg">
 
 
 
@@ -505,7 +505,7 @@
         <h1 id="大数据实时计算引擎-Flink-实战与性能优化"><a href="#大数据实时计算引擎-Flink-实战与性能优化" class="headerlink" title="大数据实时计算引擎 Flink 实战与性能优化"></a>大数据实时计算引擎 Flink 实战与性能优化</h1><blockquote>
 <p>Flink作为流处理方案的最佳选择，还有流处理 批处理大一统之势，可谓必知必会</p>
 </blockquote>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8plgw1pltj20sg0sgn3t.jpg" alt="undefined"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g9a0z5j7i6j20bp04tdgk.jpg" alt="undefined"></p>
 <a id="more"></a> 
 <h2 id="一、公司到底需不需要引入实时计算引擎？"><a href="#一、公司到底需不需要引入实时计算引擎？" class="headerlink" title="一、公司到底需不需要引入实时计算引擎？"></a>一、公司到底需不需要引入实时计算引擎？</h2><h3 id="实时计算需求"><a href="#实时计算需求" class="headerlink" title="实时计算需求"></a>实时计算需求</h3><p>大数据发展至今，数据呈指数倍的增长，对实效性的要求也越来越高，所以你可能接触到下面这类需求会越来越多。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">小田，你看能不能做个监控大屏实时查看促销活动销售额（GMV）？</span><br><span class="line"></span><br><span class="line">小朱，搞促销活动的时候能不能实时统计下网站的 PV/UV 啊？</span><br><span class="line"></span><br><span class="line">小鹏，我们现在搞促销活动能不能实时统计销量 Top5 啊？</span><br><span class="line"></span><br><span class="line">小李，怎么回事啊？现在搞促销活动结果服务器宕机了都没告警，能不能加一个？</span><br><span class="line"></span><br><span class="line">小刘，服务器这会好卡，是不是出了什么问题啊，你看能不能做个监控大屏实时查看机器的运行情况？</span><br><span class="line"></span><br><span class="line">小赵，我们线上的应用频繁出现 Error 日志，但是只有靠人肉上机器查看才知道情况，能不能在出现错误的时候及时告警通知？</span><br><span class="line"></span><br><span class="line">小夏，我们 1 元秒杀促销活动中有件商品被某个用户薅了 100 件，怎么都没有风控啊？</span><br><span class="line"></span><br><span class="line">小宋，你看我们搞促销活动能不能根据每个顾客的浏览记录实时推荐不同的商品啊？</span><br><span class="line"></span><br><span class="line">……</span><br></pre></td></tr></table></figure>
