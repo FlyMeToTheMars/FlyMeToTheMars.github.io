@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gayewywqkgj223w1kwq6g.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gayh2t0m3fj22gw1e0b29.jpg">
 <meta property="og:image" content="https://tvax2.sinaimg.cn/large/bec9bff2gy1gb1zr647gxj225y124drp.jpg">
-<meta property="og:updated_time" content="2020-01-20T07:34:16.000Z">
+<meta property="og:updated_time" content="2020-01-20T10:31:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark源码调试（一）">
 <meta name="twitter:description" content="对源码的调试和修改是精进的必经之路，但是在调试的过程中第一步往往就会出现问题，本文仅针对第一步做出一些说明。">
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  987
+                  1.3k
                 </span>
               
 
@@ -443,7 +443,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  6
                 </span>
               
             </div>
@@ -474,8 +474,8 @@
 <p>3.Maven</p>
 <p>4.Git</p>
 <p>5.Intellij Idea</p>
-<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p>下载spark源码,<a href="http://spark.apache.org/downloads.html" target="_blank" rel="noopener">http://spark.apache.org/downloads.html</a> 选择source code</p>
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="安装Scala插件"><a href="#安装Scala插件" class="headerlink" title="安装Scala插件"></a>安装Scala插件</h3><p>File–&gt;Settings–&gt;Plugins–&gt;Install JetBrains plugin</p>
+<h3 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h3><p>下载spark源码,<a href="http://spark.apache.org/downloads.html" target="_blank" rel="noopener">http://spark.apache.org/downloads.html</a> 选择source code</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><h3 id="安装Scala插件"><a href="#安装Scala插件" class="headerlink" title="安装Scala插件"></a>安装Scala插件</h3><p>File–&gt;Settings–&gt;Plugins–&gt;Install JetBrains plugin</p>
 <h3 id="配置Maven"><a href="#配置Maven" class="headerlink" title="配置Maven"></a>配置Maven</h3><p>在编译之前，首先需要对Maven的相关参数进行配置，以确保编译过程中不会出错，在Maven安装目录下找到bin/mvn.cmd文件，打开在文件中添加</p>
 <p>MAVEN_OPTS=”-Xmx2g -XX:ReservedCodeCacheSize=512m”</p>
 <p>VM options: -Dspark.master=local  代表使用本地模式运行Spark代码，也可以选择其他模式。</p>
@@ -486,8 +486,8 @@
 <p>成功</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gayh2t0m3fj22gw1e0b29.jpg" alt="WX20200116-161538@2x.png"></p>
 <p>关于源码编译，直接用idea 的Maven Pull好像不太行，晚一些 我还会用flink的源码试一下。</p>
-<h2 id="Spark-WordCount"><a href="#Spark-WordCount" class="headerlink" title="Spark WordCount"></a>Spark WordCount</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> lines = sc.textFile(<span class="string">"/Users/flyhugh/Documents/Spark/spark-2.4.4-bin-hadoop2.7/README.md"</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> words = lines.flatMap(line=&gt;line.split(<span class="string">" "</span>))</span><br><span class="line"><span class="keyword">val</span> ones = words.map(w=&gt;(w,<span class="number">1</span>))</span><br><span class="line"><span class="keyword">val</span> counts=ones.reduceByKey(_+_)</span><br><span class="line">counts.foreach(println)</span><br></pre></td></tr></table></figure>
-<h2 id="解剖Spark-Shell"><a href="#解剖Spark-Shell" class="headerlink" title="解剖Spark-Shell"></a>解剖Spark-Shell</h2><p>打开Spark-Shell命令</p>
+<h3 id="Spark-WordCount"><a href="#Spark-WordCount" class="headerlink" title="Spark WordCount"></a>Spark WordCount</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> lines = sc.textFile(<span class="string">"/Users/flyhugh/Documents/Spark/spark-2.4.4-bin-hadoop2.7/README.md"</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> words = lines.flatMap(line=&gt;line.split(<span class="string">" "</span>))</span><br><span class="line"><span class="keyword">val</span> ones = words.map(w=&gt;(w,<span class="number">1</span>))</span><br><span class="line"><span class="keyword">val</span> counts=ones.reduceByKey(_+_)</span><br><span class="line">counts.foreach(println)</span><br></pre></td></tr></table></figure>
+<h3 id="解剖Spark-Shell"><a href="#解剖Spark-Shell" class="headerlink" title="解剖Spark-Shell"></a>解剖Spark-Shell</h3><p>打开Spark-Shell命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function main() &#123;</span><br><span class="line">  if $cygwin; then</span><br><span class="line">    # Workaround for issue involving JLine and Cygwin</span><br><span class="line">    # (see http://sourceforge.net/p/jline/bugs/40/).</span><br><span class="line">    # If you're using the Mintty terminal emulator in Cygwin, may need to set the</span><br><span class="line">    # "Backspace sends ^H" setting in "Keys" section of the Mintty options</span><br><span class="line">    # (see https://github.com/sbt/sbt/issues/562).</span><br><span class="line">    stty -icanon min 1 -echo &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">    export SPARK_SUBMIT_OPTS="$SPARK_SUBMIT_OPTS -Djline.terminal=unix"</span><br><span class="line">    "$&#123;SPARK_HOME&#125;"/bin/spark-submit --class org.apache.spark.repl.Main --name "Spark shell" "$@"</span><br><span class="line">    stty icanon echo &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">  else</span><br><span class="line">    export SPARK_SUBMIT_OPTS</span><br><span class="line">    "$&#123;SPARK_HOME&#125;"/bin/spark-submit --class org.apache.spark.repl.Main --name "Spark shell" "$@"</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>从上面的脚本可以看出来是调用SparkSubmit的jvm进程，为了方便在本地对Spark进行远程监控，给Spark-Class脚本追加以下JVM的配置。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS="-XX:MaxPermSize=128M $OUR_JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=10207 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"</span><br></pre></td></tr></table></figure>
@@ -497,6 +497,12 @@
 <p>从下面慢慢捋顺序的话，应该是 SparkSubmit.main -&gt; repl.main -&gt; SparkILoop.Process. SparkILoop.Process方法中会调用 initializeSpark 方法。</p>
 <p>initializeSpark调用了 createSparkContext方法，createSparkContext主要使用了SparkConf和SparkContext来完成初始化。</p>
 <p>上面设计的repl主要涉及与Spark实时交互。</p>
+<h3 id="MRv1存在以下不足："><a href="#MRv1存在以下不足：" class="headerlink" title="MRv1存在以下不足："></a>MRv1存在以下不足：</h3><p>可拓展性差：运行时，JobTracker既负责资源管理又负责任务调度</p>
+<p>可用性差：单节点</p>
+<p>资源利用率低：TaskTracker使用slot灯亮互粉本届电商的资源量，solt代表计算资源，一个Task获取到一个slot后才有机会运行，Hadoop调度器负责将各个TaskTracker上的空闲Slot分配给Task使用。一些Task并不能充分利用slot，其他Task也无法使用这些空闲资源。</p>
+<p>不能支持多种MR框架：无法通过可查吧的方式将自身的MR框架替代为其他实现，这时ReduceSlot也会被闲置。</p>
+<p>MRv1为了解决以上问题，对Hadoop进行了改造，诞生了MRv2，重用了MRv1中的编程模型和数据处理引擎，但是运行时环境被重构了。JobTracker被拆成了通用的资源调度平台（RM）和负责各个计算框架的任务调度模型，MRv2的核心不再是MR框架，而是Yarn，在以Yarn为核心的MRv2种，MR的框架是可插拔的，完全可以替代为其他MR实现，比如Spark Storm，Hadoop MRv2虽然解决了MRv1的一些问题，，但是对于HDFS的频繁操作，包括结果持久化，数据备份 shuffle等，导致IO成为系统性能的瓶颈。</p>
+<p>### </p>
 
       
     </div>
@@ -713,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark源码调试（第一步）"><span class="nav-number">1.</span> <span class="nav-text">Spark源码调试（第一步）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码下载"><span class="nav-number">1.2.</span> <span class="nav-text">源码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">1.3.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Scala插件"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装Scala插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Maven"><span class="nav-number">1.3.2.</span> <span class="nav-text">配置Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.3.3.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark-WordCount"><span class="nav-number">1.4.</span> <span class="nav-text">Spark WordCount</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解剖Spark-Shell"><span class="nav-number">1.5.</span> <span class="nav-text">解剖Spark-Shell</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark源码调试（第一步）"><span class="nav-number">1.</span> <span class="nav-text">Spark源码调试（第一步）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.1.</span> <span class="nav-text">环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#源码下载"><span class="nav-number">1.1.1.</span> <span class="nav-text">源码下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">1.1.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Scala插件"><span class="nav-number">1.1.3.</span> <span class="nav-text">安装Scala插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Maven"><span class="nav-number">1.1.4.</span> <span class="nav-text">配置Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.1.5.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark-WordCount"><span class="nav-number">1.1.6.</span> <span class="nav-text">Spark WordCount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解剖Spark-Shell"><span class="nav-number">1.1.7.</span> <span class="nav-text">解剖Spark-Shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MRv1存在以下不足："><span class="nav-number">1.1.8.</span> <span class="nav-text">MRv1存在以下不足：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -747,7 +753,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">223.7k</span>
+    <span title="Site words total count">224k</span>
   
 </div>
 
