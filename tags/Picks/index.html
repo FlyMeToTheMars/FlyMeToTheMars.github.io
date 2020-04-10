@@ -100,7 +100,7 @@
 <meta name="description" content="TRUST THE PROCESS">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mars">
-<meta property="og:url" content="http://yoursite.com/tags/Picks/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/PICKS/index.html">
 <meta property="og:site_name" content="Mars">
 <meta property="og:description" content="TRUST THE PROCESS">
 <meta property="og:locale" content="zh-CN">
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Picks/">
+  <link rel="canonical" href="http://yoursite.com/tags/PICKS/">
 
 
 
 
 
-  <title>Tag: Picks | Mars</title>
+  <title>Tag: PICKS | Mars</title>
   
 
 
@@ -309,7 +309,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Picks<small>Tag</small>
+        <h1>PICKS<small>Tag</small>
         </h1>
       </div>
 
@@ -321,43 +321,17 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/05/05/rm -rf 后面的故事/" itemprop="url">
+            <a class="post-title-link" href="/2020/04/10/朝花夕拾/" itemprop="url">
               
-                <span itemprop="name">删库跑路之前该做的事情</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-05T21:45:12+08:00" content="2019-05-05">
-          05-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/22/大数据在小米的实践/" itemprop="url">
-              
-                <span itemprop="name">广告大数据在小米的实践</span>
+                <span itemprop="name">朝花夕拾</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-22T21:45:12+08:00" content="2019-04-22">
-          04-22
+        <time class="post-time" itemprop="dateCreated" datetime="2020-04-10T09:32:57+08:00" content="2020-04-10">
+          04-10
         </time>
       </div>
 
@@ -527,7 +501,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">230.7k</span>
+    <span title="Site words total count">230.9k</span>
   
 </div>
 
@@ -1132,6 +1106,54 @@
               success: function(newcounter) {
                 var $element = $(document.getElementById(url));
                 $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+
+
+</html>
+
+ $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
               },
               error: function(newcounter, error) {
                 console.log('Failed to create');
