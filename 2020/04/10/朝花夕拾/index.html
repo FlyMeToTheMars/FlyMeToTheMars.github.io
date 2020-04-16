@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gdnjra9kkrj20sk0c6myf.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gdnkbsp9sij20pp0gy75i.jpg">
-<meta property="og:updated_time" content="2020-04-13T18:55:00.653Z">
+<meta property="og:updated_time" content="2020-04-16T17:36:30.214Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="朝花夕拾">
 <meta name="twitter:description" content="资质低下 三心二意 昨日知识 朝花夕拾">
@@ -415,7 +415,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  777
+                  1.1k
                 </span>
               
 
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  2
+                  4
                 </span>
               
             </div>
@@ -478,6 +478,15 @@
 <p>下面两条建议是 IDEA给的:</p>
 <p>1.不要将将随机数放大10的若干倍然后取整，直接使用Random对象的nextInt或者nextLong方法</p>
 <p>2.Math.random()应避免在多线程环境下使用</p>
+<h3 id="为什么阿里禁止使用Executor创建线程池"><a href="#为什么阿里禁止使用Executor创建线程池" class="headerlink" title="为什么阿里禁止使用Executor创建线程池"></a>为什么阿里禁止使用Executor创建线程池</h3><p>阿里规约之所以强制要求手动创建线程池，也是和这些参数有关。具体为什么不允许，规约是这么说的：</p>
+<p>线程池不允许使用Executors去创建，而是通过ThreadPoolExecutor的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。</p>
+<p>Executor提供的四个静态方法创建线程池，但是阿里规约却并不建议使用它。</p>
+<p>Executors各个方法的弊端：<br>1）newFixedThreadPool和newSingleThreadExecutor:<br>  主要问题是堆积的请求处理队列可能会耗费非常大的内存，甚至OOM。<br>2）newCachedThreadPool和newScheduledThreadPool:<br>  主要问题是线程数最大数是Integer.MAX_VALUE，可能会创建数量非常多的线程，甚至OOM。</p>
+<p>看一下这两种弊端怎么导致的。</p>
+<p>第一种，newFixedThreadPool和newSingleThreadExecutor分别获得 FixedThreadPool 类型的线程池 和  SingleThreadExecutor 类型的线程池。　</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                     <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                     <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static ExecutorService newSingleThreadExecutor() &#123;</span><br><span class="line">       return new FinalizableDelegatedExecutorService</span><br><span class="line">           (new ThreadPoolExecutor(1, 1,</span><br><span class="line">                                   0L, TimeUnit.MILLISECONDS,</span><br><span class="line">                                   new LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为，创建了一个无界队列LinkedBlockingQueuesize，是一个最大值为Integer.MAX_VALUE的线程阻塞队列，当添加任务的速度大于线程池处理任务的速度，可能会在队列堆积大量的请求，消耗很大的内存，甚至导致OOM。</p>
 
       
     </div>
@@ -694,7 +703,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li></ol></div>
             
 
           </div>
@@ -728,7 +737,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">237.3k</span>
+    <span title="Site words total count">237.7k</span>
   
 </div>
 
