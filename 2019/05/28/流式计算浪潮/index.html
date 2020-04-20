@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="大数据浪潮史,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "bfb40164"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+<meta name="description" content="文章原作者是Google MapReduce小组的一员，翻译自《Streaming System》最后一章《The Evolution of Large-Scale Data Processing》，翻译者是 陈守元（花名：巴真），阿里巴巴高级产品专家。阿里巴巴实时计算团队产品负责人。  我最近看了一些深度学习的文章，有一些感触，机器学习的使用范围确实很有限，大众以为现在的AI和现在实际上的A">
+<meta name="keywords" content="大数据浪潮史">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大规模数据处理的演化历程">
+<meta property="og:url" content="http://yoursite.com/2019/05/28/流式计算浪潮/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="文章原作者是Google MapReduce小组的一员，翻译自《Streaming System》最后一章《The Evolution of Large-Scale Data Processing》，翻译者是 陈守元（花名：巴真），阿里巴巴高级产品专家。阿里巴巴实时计算团队产品负责人。  我最近看了一些深度学习的文章，有一些感触，机器学习的使用范围确实很有限，大众以为现在的AI和现在实际上的A">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h75jzktjj20u00e80sx.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h76cbmb5j20u00e4glt.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h76jh1w8j20u00e20t6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h76rug8xj20u00lrwhb.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h76yqegmj20os0oj75n.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h77gg7y9j20u00dwdg1.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h77mn4tmj20u00n8jsn.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h77zrwe0j20u00dwjrl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h785ps5gj20u00e50st.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h78bx6woj20u00fb0sv.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h78hq0dzj20u00gwglp.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h78n948fj20u00dxmx9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h78xgh4qj20u00mewi2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h796bl2pj20u00kwabc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h79kbcyqj20u00dwglt.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h79pvt78j20u00jt75d.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h79w7p4ej20u00oj0ve.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7a341dvj20u00mtjv0.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7aed762j20u00dwq35.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7aler0xj20u00srwi6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7bomue7j20u00dwt8x.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7c6d50hj20u00jrdix.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7citnfkj20u00dwt8x.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7cqke9dj20dw0i80tf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7cwnv5vj20u00clq3j.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7d644kqj20u00qe0xe.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7dd2y3uj20u00qe0xe.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7doer6ij20u00dwaaa.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7du1knjj20u00qbwha.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7e1vjk5j20u00wwq5v.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7ec9lylj20u00vk0u6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7ein1n1j20u00qstdj.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7evt7rkj20u00dw3yq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7f2cqotj20u00l4gnr.jpg">
+<meta property="og:updated_time" content="2020-04-10T17:01:53.833Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大规模数据处理的演化历程">
+<meta name="twitter:description" content="文章原作者是Google MapReduce小组的一员，翻译自《Streaming System》最后一章《The Evolution of Large-Scale Data Processing》，翻译者是 陈守元（花名：巴真），阿里巴巴高级产品专家。阿里巴巴实时计算团队产品负责人。  我最近看了一些深度学习的文章，有一些感触，机器学习的使用范围确实很有限，大众以为现在的AI和现在实际上的A">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h75jzktjj20u00e80sx.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/28/流式计算浪潮/">
+
+
+
+
+
+  <title>大规模数据处理的演化历程 | Mars</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'f6a8160e9467bb9adc80f36030e1c37b', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mars</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/流式计算浪潮/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">大规模数据处理的演化历程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T18:26:24+08:00">
+                2019-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Reading Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/28/流式计算浪潮/" class="leancloud_visitors" data-flag-title="大规模数据处理的演化历程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  15.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  53
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<blockquote>
+<p>文章原作者是Google MapReduce小组的一员，翻译自《Streaming System》最后一章《The Evolution of Large-Scale Data Processing》，翻译者是 陈守元（花名：巴真），阿里巴巴高级产品专家。阿里巴巴实时计算团队产品负责人。</p>
+</blockquote>
+<p>我最近看了一些深度学习的文章，有一些感触，机器学习的使用范围确实很有限，大众以为现在的AI和现在实际上的AI其实根本不是一个东西，如果机器学习能在短时间内迅速发展起来，我个人觉得只有两种可能：第一种可能：要么横向在某个传统行业取得巨大进展，被其他行业纷纷效仿，但是很难，机器学习需要都整体数据有一个完全的把控，只有已经自动化相当完备的行业才有使用机器学习的基础，更何况还有行业壁垒，从中盈利的公司可能根本不会宣传，别的人也就无从得知了。</p>
+<p>第二种可能：深度学习出现重大进展，深度学习作为黑盒使用是一件很离谱的事情，理论上来说要解析深度学习的原理需要很多别的学科来进行理论支持，短时间内出现重大进展其实可能也不大。</p>
+<p>那么如果AI这阵风最终没有刮起来，那么还是要看流处理的了。</p>
+<p>下面是原文：</p>
+</blockquote>
+<a id="more"></a> 
+<h2 id="大规模数据处理的演化历程"><a href="#大规模数据处理的演化历程" class="headerlink" title="大规模数据处理的演化历程"></a>大规模数据处理的演化历程</h2><p>大数据如果从 Google 对外发布 MapReduce 论文算起，已经前后跨越十五年，我打算在本文和你蜻蜓点水般一起浏览下大数据的发展史，我们从最开始 MapReduce 计算模型开始，一路走马观花看看大数据这十五年关键发展变化，同时也顺便会讲解流式处理这个领域是如何发展到今天的这幅模样。这其中我也会加入一些我对一些业界知名大数据处理系统 (可能里面有些也不那么出名) 的观察和评论，同时考虑到我很有可能简化、低估甚至于忽略了很多重要的大数据处理系统，我也会附带一些参考材料帮助大家学习更多更详细的知识。</p>
+<p>另外，我们仅仅讨论了大数据处理中偏 MapReduce/Hadoop 系统及其派系分支的大数据处理。我没有讨论任何 SQL 引擎 [1]，我们同样也没有讨论 HPC 或者超级计算机。尽管我这章的标题听上去领域覆盖非常广泛，但实际上我仅仅会讨论一个相对比较垂直的大数据领域。</p>
+<p>同样需要提醒的一件事情是，我在本文里面或多或少会提到一些 Google 的技术，不用说这块是因为与我在谷歌工作了十多年的经历有关。 但还有另外两个原因：1）大数据对谷歌来说一直很重要，因此在那里创造了许多有价值的东西值得详细讨论，2）我的经验一直是 谷歌以外的人似乎更喜欢学习 Google 所做的事情，因为 Google 公司在这方面一直有点守口如瓶。 所以，当我过分关注我们一直在”闭门造车”的东西时，姑且容忍下我吧。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h75jzktjj20u00e80sx.jpg" alt></p>
+<p>为了使我们这一次大数据旅行显得更加具体有条理，我们设计了图 10-1 的时间表，这张时间表概括地展示了不同系统的诞生日期。</p>
+<p>在每一个系统介绍过程中，我会尽可能说明清楚该系统的简要历史，并且我会尝试从流式处理系统的演化角度来阐释该系统对演化过程的贡献。最后，我们将回顾以上系统所有的贡献，从而全面了解上述系统如何演化并构建出现代流式处理系统的。</p>
+<h3 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h3><p>我们从 MapReduce 开始我们的旅程。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h76cbmb5j20u00e4glt.jpg" alt></p>
+<p>我认为我们可以很确定地说，今天我们讨论的大规模数据处理系统都源自于 2003 年 MapReduce。当时，谷歌的工程师正在构建各种定制化系统，以解决互联网时代下大数据处理难题。当他们这样尝试去解决这些问题时候，发现有三个难以逾越的坎儿：</p>
+<ul>
+<li>数据处理很难 只要是数据科学家或者工程师都很清楚。如果你能够精通于从原始数据挖掘出对企业有价值的信息，那这个技能能够保你这辈子吃喝不愁。</li>
+<li>可伸缩性很难 本来数据处理已经够难了，要从大规模数据集中挖掘出有价值的数据更加困难。</li>
+<li>容错很难 要从大规模数据集挖掘数据已经很难了，如果还要想办法在一批廉价机器构建的分布式集群上可容错地、准确地方式挖掘数据价值，那真是难于上青天了。</li>
+</ul>
+<p>在多种应用场景中都尝试解决了上述三个问题之后，Google 的工程师们开始注意到各自构建的定制化系统之间颇有相似之处。最终，Google 工程师悟出来一个道理: 如果他们能够构建一个可以解决上述问题二和问题三的框架，那么工程师就将可以完全放下问题二和三，从而集中精力解决每个业务都需要解决的问题一。于是，MapReduce 框架诞生了。</p>
+<p>MapReduce 的基本思想是提供一套非常简洁的数据处理 API，这套 API 来自于函数式编程领域的两个非常易于理解的操作：map 和 reduce（图 10-3）。使用该 API 构建的底层数据流将在这套分布式系统框架上执行，框架负责处理所有繁琐的可扩展性和容错性问题。可扩展性和容错性问题对于分布式底层工程师来说无疑是非常有挑战的课题，但对于我们普通工程师而言，无益于是灾难。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h76jh1w8j20u00e20t6.jpg" alt></p>
+<p>我们已经在第 6 章详细讨论了 MapReduce 的语义，所以我们在此不再赘述。仅仅简单地回想一下，我们将处理过程分解为六个离散阶段（MapRead，Map，MapWrite，ReduceRead，Reduce，ReduceWrite）作为对于流或者表进行分析的几个步骤。我们可以看到，整体上 Map 和 Reduce 阶段之间差异其实也不大 ; 更高层次来看，他们都做了以下事情：</p>
+<ul>
+<li>从表中读取数据，并转换为数据流 (译者注: 即 MapRead、ReduceRead)</li>
+<li>针对上述数据流，将用户编写业务处理代码应用于上述数据流，转换并形成新的一个数据流。 (译者注: 即 Map、Reduce)</li>
+<li>将上述转换后的流根据某些规则分组，并写出到表中。 (译者注: 即 MapWrite、ReduceWrite)</li>
+</ul>
+<p>随后，Google 内部将 MapReduce 投入生产使用并得到了非常广泛的业务应用，Google 认为应该和公司外的同行分享我们的研究成果，最终我们将 MapReduce 论文发表于 OSDI 2004（见图 10-4）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h76rug8xj20u00lrwhb.jpg" alt></p>
+<p>论文中，Google 详细描述了 MapReduce 项目的历史，API 的设计和实现，以及有关使用了 MapReduce 框架的许多不同生产案例的详细信息。当然，Google 没有提供任何实际的源代码，以至于最终 Google 以外的人都认为：“是的，这套系统确实牛啊！”，然后立马回头去模仿 MapReduce 去构建他们的定制化系统。</p>
+<p>在随后这十年的过程中，MapReduce 继续在谷歌内部进行大量开发，投入大量时间将这套系统规模推进到前所未有的水平。如果读者朋友希望了解一些更加深入更加详细的 MapReduce 说明，我推荐由我们的 MapReduce 团队中负责扩展性、性能优化的大牛 Marián Dvorský撰写的文章《History of massive-scale sorting experiments at Google》（图 10-5）</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h76yqegmj20os0oj75n.jpg" alt></p>
+<p>我这里希望强调的是，这么多年来看，其他任何的分布式架构最终都没有达到 MapReduce 的集群规模，甚至在 Google 内部也没有。从 MapReduce 诞生起到现在已经跨越十载之久，都未能看到真正能够超越 MapReduce 系统规模的另外一套系统，足见 MapReduce 系统之成功。14 年的光阴看似不长，对于互联网行业已然永久。</p>
+<p>从流式处理系统来看，我想为读者朋友强调的是 MapReduce 的简单性和可扩展性。 MapReduce 给我们的启发是：MapReduce 系统的设计非常勇于创新，它提供一套简便且直接的 API，用于构建业务复杂但可靠健壮的底层分布式数据 Pipeline，并足够将这套分布式数据 Pipeline 运行在廉价普通的商用服务器集群之上。</p>
+<h3 id="hadoop"><a href="#hadoop" class="headerlink" title="hadoop"></a>hadoop</h3><p>我们大数据旅程的下一站是 Hadoop（图 10-6）。需要着重说明的是：我为了保证我们讨论的重心不至于偏离太多，而压缩简化讨论 Hadoop 的内容。但必须承认的是，Hadoop 对我们的行业甚至整个世界的影响不容小觑，它带来的影响远远超出了我在此书讨论的范围。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h77gg7y9j20u00dwdg1.jpg" alt></p>
+<p>Hadoop 于 2005 年问世，当时 Doug Cutting 和 Mike Cafarella 认为 MapReduce 论文中的想法太棒了，他们在构建 Nutch webcrawler 的分布式版本正好需要这套分布式理论基础。在这之前，他们已经实现了自己版本的 Google 分布式文件系统（最初称为 Nutch 分布式文件系统的 NDFS，后来改名为 HDFS 或 Hadoop 分布式文件系统）。因此下一步，自然而然的，基于 HDFS 之上添加 MapReduce 计算层。他们称 MapReduce 这一层为 Hadoop。</p>
+<p>Hadoop 和 MapReduce 之间的主要区别在于 Cutting 和 Cafarella 通过开源（以及 HDFS 的源代码）确保 Hadoop 的源代码与世界各地可以共享，最终成为 Apache Hadoop 项目的一部分。雅虎聘请 Cutting 来帮助将雅虎网络爬虫项目升级为全部基于 Hadoop 架构，这个项目使得 Hadoop 有效提升了生产可用性以及工程效率。自那以后，整个开源生态的大数据处理工具生态系统得到了蓬勃发展。与 MapReduce 一样，相信其他人已经能够比我更好地讲述了 Hadoop 的历史。我推荐一个特别好的讲解是 Marko Bonaci 的《The history of Hadoop》，它本身也是一本已经出版的纸质书籍（图 10-7）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h77mn4tmj20u00n8jsn.jpg" alt></p>
+<p>在 Hadoop 这部分，我期望读者朋友能够了解到围绕 Hadoop 的开源生态系统对整个行业产生的巨大影响。通过创建一个开放的社区，工程师可以从早期的 GFS 和 MapReduce 论文中改进和扩展这些想法，这直接促进生态系统的蓬勃发展，并基于此之上产生了许多有用的工具，如 Pig，Hive，HBase，Crunch 等等。这种开放性是导致我们整个行业现有思想多样性的关键，同时 Hadoop 开放性生态亦是直接促进流计算系统发展。</p>
+<h3 id="flume"><a href="#flume" class="headerlink" title="flume"></a>flume</h3><p>我们现在再回到 Google，讨论 Google 公司中 MapReduce 的官方继承者：Flume（[图 10-8]，有时也称为 FlumeJava，这个名字起源于最初 Flume 的 Java 版本。需要注意的是，这里的 Flume 不要与 Apache Flume 混淆，这部分是面向不同领域的东西，只是恰好有同样的名字）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h77zrwe0j20u00dwjrl.jpg" alt></p>
+<p>Flume 项目由 Craig Chambers 在 2007 年谷歌西雅图办事处成立时发起。Flume 最初打算是希望解决 MapReduce 的一些固有缺点，这些缺点即使在 MapReduce 最初大红大紫的阶段已经非常明显。其中许多缺点都与 MapReduce 完全限定的 Map→Shuffle→Reduce 编程模型相关 ; 这个编程模型虽然简单，但它带来了一些缺点：</p>
+<ul>
+<li>由于单个 MapReduce 作业并不能完成大量实际上的业务案例，因此许多定制的编排系统开始在 Google 公司内部出现，这些编排系统主要用于协调 MapReduce 作业的顺序。这些系统基本上都在解决同一类问题，即将多个 MapReduce 作业粘合在一起，创建一个解决复杂问题的数据管道。然而，这些编排系统都是 Google 各自团队独立开发的，相互之间也完全不兼容，是一类典型的重复造轮子案例。</li>
+<li>更糟糕的是，由于 MapReduce 设计的 API 遵循严格结构，在很多情况下严格遵循 MapReduce 编程模型会导致作业运行效率低下。例如，一个团队可能会编写一个简单地过滤掉一些元素的 MapReduce，即，仅有 Map 阶段没有 Reduce 阶段的作业。这个作业下游紧接着另一个团队同样仅有 Map 阶段的作业，进行一些字段扩展和丰富 (仍然带一个空的 Reduce 阶段作业）。第二个作业的输出最终可能会被第三个团队的 MapReduce 作业作为输入，第三个作业将对数据执行某些分组聚合。这个 Pipeline，实际上由一个合并 Map 阶段 (译者注: 前面两个 Map 合并为一个 Map)，外加一个 Reduce 阶段即可完成业务逻辑，但实际上却需要编排三个完全独立的作业，每个作业通过 Shuffle 和 Output 两个步骤链接在一起。假设你希望保持代码的逻辑性和清洁性，于是你考虑将部分代码进行合并，但这个最终导致第三个问题。</li>
+<li>为了优化 MapReduce 作业中的这些低效代码，工程师们开始引入手动优化，但不幸的是，这些优化会混淆 Pipeline 的简单逻辑，进而增加维护和调试成本。</li>
+</ul>
+<p>Flume 通过提供可组合的高级 API 来描述数据处理流水线，从而解决了这些问题。这套设计理念同样也是 Beam 主要的抽象模型，即 PCollection 和 PTransform 概念，如图 10-9 所示。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h785ps5gj20u00e50st.jpg" alt></p>
+<p>这些数据处理 Pipeline 在作业启动时将通过优化器生成，优化器将以最佳效率生成 MapReduce 作业，然后交由框架编排执行。整个编译执行原理图可以在图 10-10 中看到。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h78bx6woj20u00fb0sv.jpg" alt></p>
+<p>也许 Flume 在自动优化方面最重要的案例就是是合并（Reuven 在第 5 章中讨论了这个主题），其中两个逻辑上独立的阶段可以在同一个作业中顺序地（消费者 - 生产者融合）执行或者并行执行（兄弟融合），如图 10-11 所示。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h78hq0dzj20u00gwglp.jpg" alt></p>
+<p>将两个阶段融合在一起消除了序列化 / 反序列化和网络开销，这在处理大量数据的底层 Pipeline 中非常重要。</p>
+<p>另一种类型的自动优化是 combiner lifting（见图 10-12），当我们讨论增量合并时，我们已经在第 7 章中讨论了这些机制。combiner lifting 只是我们在该章讨论的多级组合逻辑的编译器自动优化：以求和操作为例，求和的合并逻辑本来应该运算在分组 (译者注: 即 Group-By) 操作后，由于优化的原因，被提前到在 group-by-key 之前做局部求和（根据 group-by-key 的语义，经过 group-by-key 操作需要跨网络进行大量数据 Shuffle）。在出现数据热点情况下，将这个操作提前可以大大减少通过网络 Shuffle 的数据量，并且还可以在多台机器上分散掉最终聚合的机器负载。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h78n948fj20u00dxmx9.jpg" alt></p>
+<p>由于其更清晰的 API 定义和自动优化机制，在 2009 年初 Google 内部推出后 FlumeJava 立即受到巨大欢迎。之后，该团队发表了题为《Flume Java: Easy, Efficient Data-Parallel Pipelines》（<a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/35650.pdf）" target="_blank" rel="noopener">https://storage.googleapis.com/pub-tools-public-publication-data/pdf/35650.pdf）</a> 的论文（参见图 10-13），这篇论文本身就是一个很好的学习 FlumeJava 的资料。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h78xgh4qj20u00mewi2.jpg" alt></p>
+<p>Flume C++ 版本很快于 2011 年发布。之后 2012 年初，Flume 被引入为 Google 的所有新工程师提供的 Noogler6 培训内容。MapReduce 框架于是最终被走向被替换的命运。</p>
+<p>从那时起，Flume 已经迁移到不再使用 MapReduce 作为执行引擎 ; 相反，Flume 底层基于一个名为 Dax 的内置自定义执行引擎。 工作本身。不仅让 Flume 更加灵活选择执行计划而不必拘泥于 Map→Shuffle→Reduce MapReduce 的模型，Dax 还启用了新的优化，例如 Eugene Kirpi-chov 和 Malo Denielou 的《No shard left behind》博客文章（<a href="https://cloud.google.com/blog/products/gcp/no-shard-left-behind-dynamic-work-rebalancing-in-google-cloud-dataflow）" target="_blank" rel="noopener">https://cloud.google.com/blog/products/gcp/no-shard-left-behind-dynamic-work-rebalancing-in-google-cloud-dataflow）</a> 中描述的动态负载均衡（图 10-14）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h796bl2pj20u00kwabc.jpg" alt></p>
+<p>尽管那篇博客主要是基于 Google DataFlow 框架下讨论问题，但动态负载均衡（或液态分片，Google 内部更习惯这样叫）可以让部分已经完成工作的 Worker 能够从另外一些繁忙的 Worker 手中分配一些额外的工作。在 Job 运行过程中，通过不断的动态调整负载分配可以将系统运行效率趋近最优，这种算法将比传统方法下有经验工程师手工设置的初始参数性能更好。Flume 甚至为 Worker 池变化进行了适配，一个拖慢整个作业进度的 Worker 会将其任务转移到其他更加高效的 Worker 上面进行执行。Flume 的这些优化手段，在 Google 内部为公司节省了大量资源。</p>
+<p>最后一点，Flume 后来也被扩展为支持流语义。除 Dax 作为一个批处理系统引擎外，Flume 还扩展为能够在 MillWheel 流处理系统上执行作业（稍后讨论）。在 Google 内部，之前本书中讨论过的大多数高级流处理语义概念首先被整合到 Flume 中，然后才进入 Cloud Dataflow 并最终进入 Apache Beam。</p>
+<p>总而言之，本节我们主要强调的是 Flume 产品给人引入高级管道概念，这使得能够让用户编写清晰易懂且自动优化的分布式大数据处理逻辑，从而让创建更大型更复杂的分布式大数据任务成为了可能，Flume 让我们业务代码在保持代码清晰逻辑干净的同时，自动具备编译器优化能力。</p>
+<h3 id="strom"><a href="#strom" class="headerlink" title="strom"></a>strom</h3><p>接下来是 Apache Storm（图 10-15），这是我们研究的第一个真正的流式系统。 Storm 肯定不是业界使用最早的流式处理系统，但我认为这是整个行业真正广泛采用的第一个流式处理系统，因此我们在这里需要仔细研究一下。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h79kbcyqj20u00dwglt.jpg" alt></p>
+<p>Storm 是 Nathan Marz 的心血结晶，Nathan Marz 后来在一篇题为《History of Apache Storm and lessons learned》的博客文章（<a href="http://nathanmarz.com/blog/history-of-apache-storm-and-lessons-learned.html）" target="_blank" rel="noopener">http://nathanmarz.com/blog/history-of-apache-storm-and-lessons-learned.html）</a> 中记录了其创作历史（图 10-16）。 这篇冗长的博客讲述了 BackType 这家创业公司一直在自己通过消息队列和自定义代码去处理 Twitter 信息流。Nathan 和十几年前 Google 里面设计 MapReduce 相关工程师有相同的认识：实际的业务处理的代码仅仅是系统代码很小一部分，如果有个统一的流式实时处理框架负责处理各类分布式系统底层问题，那么基于之上构建我们的实时大数据处理将会轻松得多。基于此，Nathan 团队完成了 Storm 的设计和开发。</p>
+<p>值得一提的是，Storm 的设计原则和其他系统大相径庭，Storm 更多考虑到实时流计算的处理时延而非数据的一致性保证。后者是其他大数据系统必备基础产品特征之一。Storm 针对每条流式数据进行计算处理，并提供至多一次或者至少一次的语义保证；同时不提供任何状态存储能力。相比于 Batch 批处理系统能够提供一致性语义保证，Storm 系统能够提供更低的数据处理延迟。对于某些数据处理业务场景来说，这确实也是一个非常合理的取舍。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h79pvt78j20u00jt75d.jpg" alt></p>
+<p>不幸的是，人们很快就清楚地知道他们想要什么样的流式处理系统。他们不仅希望快速得到业务结果，同时希望系统具有低延迟和准确性，但仅凭 Storm 架构实际上不可能做到这一点。针对这个情况，Nathan 后面又提出了 Lambda 架构。</p>
+<p>鉴于 Storm 的局限性，聪明的工程师结合弱一致语义的 Storm 流处理以及强一致语义的 Hadoop 批处理。前者产生了低延迟，但不精确的结果，而后者产生了高延迟，但精确的结果，双剑合璧，整合两套系统整体提供的低延迟但最终一致的输出结果。我们在第 1 章中了解到，Lambda 架构是 Marz 的另一个创意，详见他的文章《“如何击败 CAP 定理”》（<a href="http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html）" target="_blank" rel="noopener">http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html）</a> （图 10-17）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h79w7p4ej20u00oj0ve.jpg" alt></p>
+<p>我已经花了相当多的时间来分析 Lambda 架构的缺点，以至于我不会在这里啰嗦这些问题。但我要重申一下：尽管它带来了大量成本问题，Lambda 架构当前还是非常受欢迎，仅仅是因为它满足了许多企业一个关键需求：系统提供低延迟但不准确的数据，后续通过批处理系统纠正之前数据，最终给出一致性的结果。从流处理系统演变的角度来看，Storm 确实为普罗大众带来低延迟的流式实时数据处理能力。然而，它是以牺牲数据强一致性为代价的，这反过来又带来了 Lambda 架构的兴起，导致接下来多年基于两套系统架构之上的数据处理带来无尽的麻烦和成本。</p>
+<p>撇开其他问题先不说，Storm 是行业首次大规模尝试低延迟数据处理的系统，其影响反映在当前线上大量部署和应用各类流式处理系统。在我们要放下 Storm 开始聊其他系统之前，我觉得还是很有必要去说说 Heron 这个系统。在 2015 年，Twitter 作为 Storm 项目孵化公司以及世界上已知最大的 Storm 用户，突然宣布放弃 Storm 引擎，宣称正在研发另外一套称之为 Heron 的流式处理框架。Heron 旨在解决困扰 Storm 的一系列性能和维护问题，同时向 Storm 保持 API 兼容，详见题为《Twitter Heron：Stream Processing at scale》的论文（<a href="https://www.semanticscholar.org/paper/Twitter-Heron%3A-Stream-Processing-at-Scale-Kulkarni-Bhagat/e847c3ec130da57328db79a7fea794b07dbccdd9）" target="_blank" rel="noopener">https://www.semanticscholar.org/paper/Twitter-Heron%3A-Stream-Processing-at-Scale-Kulkarni-Bhagat/e847c3ec130da57328db79a7fea794b07dbccdd9）</a> （图 10-18）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7a341dvj20u00mtjv0.jpg" alt></p>
+<p>Heron 本身也是开源产品（但开源不在 Apache 项目中）。鉴于 Storm 仍然在社区中持续发展，现在又冒出一套和 Storm 竞争的软件，最终两边系统鹿死谁手，我们只能拭目以待了。</p>
+<h3 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h3><p>继续走起，我们现在来到 Apache Spark（图 10-19）。再次，我又将大量简化 Spark 系统对行业的总体影响探讨，仅仅关注我们的流处理领域部分。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7aed762j20u00dwq35.jpg" alt></p>
+<p>Spark 在 2009 年左右诞生于加州大学伯克利分校的著名 AMPLab。最初推动 Spark 成名的原因是它能够经常在内存执行大量的计算工作，直到作业的最后一步才写入磁盘。工程师通过弹性分布式数据集（RDD）理念实现了这一目标，在底层 Pipeline 中能够获取每个阶段数据结果的所有派生关系，并且允许在机器故障时根据需要重新计算中间结果，当然，这些都基于一些假设 a）输入是总是可重放的，b）计算是确定性的。对于许多案例来说，这些先决条件是真实的，或者看上去足够真实，至少用户确实在 Spark 享受到了巨大的性能提升。从那时起，Spark 逐渐建立起其作为 Hadoop 事实上的继任产品定位。</p>
+<p>在 Spark 创建几年后，当时 AMPLab 的研究生 Tathagata Das 开始意识到：嘿，我们有这个快速的批处理引擎，如果我们将多个批次的任务串接起来，用它能否来处理流数据？于是乎，Spark Streaming 诞生了。</p>
+<p>关于 Spark Streaming 的真正精彩之处在于：强大的批处理引擎解决了太多底层麻烦的问题，如果基于此构建流式处理引擎则整个流处理系统将简单很多，于是世界又多一个流处理引擎，而且是可以独自提供一致性语义保障的流式处理系统。换句话说，给定正确的用例，你可以不用 Lambda 架构系统直接使用 Spark Streaming 即可满足数据一致性需求。为 Spark Streaming 手工点赞！</p>
+<p>这里的一个主要问题是“正确的用例”部分。早期版本的 Spark Streaming（1.x 版本）的一大缺点是它仅支持特定的流处理语义：即，处理时间窗口。因此，任何需要使用事件时间，需要处理延迟数据等等案例都无法让用户使用 Spark 开箱即用解决业务。这意味着 Spark Streaming 最适合于有序数据或事件时间无关的计算。而且，正如我在本书中重申的那样，在处理当今常见的大规模、以用户为中心的数据集时，这些先决条件看上去并不是那么常见。</p>
+<p>围绕 Spark Streaming 的另一个有趣的争议是“microbatch 和 true streaming”争论。由于 Spark Streaming 建立在批处理引擎的重复运行的基础之上，因此批评者声称 Spark Streaming 不是真正的流式引擎，因为整个系统的处理基于全局的数据切分规则。这个或多或少是实情。尽管流处理引擎几乎总是为了吞吐量而使用某种批处理或者类似的加大吞吐的系统策略，但它们可以灵活地在更精细的级别上进行处理，一直可以细化到某个 key。但基于微批处理模型的系统在基于全局切分方式处理数据包，这意味着同时具备低延迟和高吞吐是不可能的。确实我们看到许多基准测试表明这说法或多或少有点正确。当然，作业能够做到几分钟或几秒钟的延迟已经相当不错了，实际上生产中很少有用例需要严格数据正确性和低延迟保证。所以从某种意义上说，Spark 瞄准最初目标客户群体打法是非常到位的，因为大多数业务场景均属于这一类。但这并未阻止其竞争对手将此作为该平台的巨大劣势。就个人而言，在大多数情况下，我认为这只是一个很小问题。</p>
+<p>撇开缺点不说，Spark Streaming 是流处理的分水岭：第一个广泛使用的大规模流处理引擎，它也可以提供批处理系统的正确性保证。 当然，正如前面提到的，流式系统只是 Spark 整体成功故事的一小部分，Spark 在迭代处理和机器学习领域做出了重要贡献，其原生 SQL 集成以及上述快如闪电般的内存计算，都是非常值得大书特书的产品特性。</p>
+<p>如果您想了解有关原始 Spark 1.x 架构细节的更多信息，我强烈推荐 Matei Zaharia 关于该主题的论文《 “An Architecture for Fast and General Data Processing on Large Clusters》（图 10-20）。 这是 113 页的 Spark 核心讲解论文，非常值得一读。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7aler0xj20u00srwi6.jpg" alt></p>
+<p>时至今日，Spark 的 2.x 版本极大地扩展了 Spark Streaming 的语义功能，其中已经包含了本书中描述流式处理模型的许多部分，同时试图简化一些更复杂的设计。 Spark 甚至推出了一种全新的、真正面向流式处理的架构，用以规避掉微批架构的种种问题。但是曾经，当 Spark 第一次出现时，它带来的重要贡献是它是第一个公开可用的流处理引擎，具有数据处理的强一致性语义，尽管这个特性只能用在有序数据或使用处理时间计算的场景。</p>
+<h3 id="MillWheel"><a href="#MillWheel" class="headerlink" title="MillWheel"></a>MillWheel</h3><p>接下来我们讨论 MillWheel，这是我在 2008 年加入 Google 后的花 20％时间兼职参与的项目，后来在 2010 年全职加入该团队（图 10-21）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7bomue7j20u00dwt8x.jpg" alt></p>
+<p>MillWheel 是 Google 最早的通用流处理架构，该项目由 Paul Nordstrom 在 Google 西雅图办事处开业时发起。 MillWheel 在 Google 内的成功与长期以来一直致力于为无序数据提供低延迟，强一致的处理能力不无关系。在本书的讲解中，我们已经多次分别讨论了促使 MillWheel 成为一款成功产品的方方面面。</p>
+<ul>
+<li>第五章，Reuven 详细讨论过数据精准一次的语义保证。精准一次的语义保证对于正确性至关重要。</li>
+<li>第七章，我们研究了状态持久化，这为在不那么靠谱的普通硬件上执行的长时间数据处理业务并且需要保证正确性奠定了基础。</li>
+<li>第三章，Slava 讨论了 Watermark。Watermark 为处理无序数据提供了基础。</li>
+<li>第七章，我们研究了持久性计时器，它们提供了 Watermark 与业务逻辑之间的某些关联特性。</li>
+</ul>
+<p>有点令人惊讶的是，MillWheel 项目最开始并未关注数据正确性。保罗最初的想法更接近于 Storm 的设计理论：具有弱一致性的低延迟数据处理。这是最初的 MillWheel 客户，一个关于基于用户搜索数据构建会话和另一个对搜索查询执行异常检测（来自 MillWheel 论文的 Zeitgeist 示例），这两家客户迫使项目走向了正确的方向。两者都非常需要强一致的数据结果：会话用于推断用户行为，异常检测用于推断搜索查询的趋势 ; 如果他们提供的数据不靠谱，两者效果都会显着下降。最终，幸运的是，MillWheel 的设计被客户需求导向追求数据强一致性的结果。</p>
+<p>支持乱序数据处理，这是现代流式处理系统的另一个核心功能。这个核心功能通常也被认为是被 MillWheel 引入到流式处理领域，和数据准确性一样，这个功能也是被客户需求推动最终加入到我们系统。 Zeitgeist 项目的大数据处理过程，通常被我们拿来用作一个真正的流式处理案例来讨论。Zeitgeist 项目希望检测识别搜索查询流量中的异常，并且需要捕获异常流量。对于这个大数据项目数据消费者来说，流计算将所有计算结果产出并让用户轮询所有 key 用来识别异常显然不太现实，数据用户要求系统直接计算某个 key 出现异常的数据结果，而不需要上层再来轮询。对于异常峰值（即查询流量的增加），这还相对来说比较简单好解决：当给定查询的计数超过查询的预期值时，系统发出异常信号。但是对于异常下降（即查询流量减少），问题有点棘手。仅仅看到给定搜索词的查询数量减少是不够的，因为在任何时间段内，计算结果总是从零开始。在这些情况下你必须确保你的数据输入真的能够代表当前这段时间真实业务流量，然后才将计算结果和预设模型进行比较。</p>
+<blockquote>
+<p><strong>真正的流式处理</strong></p>
+</blockquote>
+<blockquote>
+<p>“真正的流式处理用例”需要一些额外解释。流式系统的一个新的演化趋势是，舍弃掉部分产品需求以简化编程模型，从而使整个系统简单易用。例如，在撰写本文时，Spark Structured Streaming 和 Apache Kafka Streams 都将系统提供的功能限制在第 8 章中称为“物化视图语义”范围内，本质上对最终一致性的输出表不停做数据更新。当您想要将上述输出表作为结果查询使用时，物化视图语义非常匹配你的需求：任何时候我们只需查找该表中的值并且 (译者注: 尽管结果数据一直在不停被更新和改变) 以当前查询时间请求到查询结果就是最新的结果。但在一些需要真正流式处理的场景，例如异常检测，上述物化视图并不能够很好地解决这类问题。</p>
+</blockquote>
+<blockquote>
+<p>接下来我们会讨论到，异常检测的某些需求使其不适合纯物化视图语义（即，依次针对单条记录处理），特别当需要完整的数据集才能够识别业务异常，而这些异常恰好是由于数据的缺失或者不完整导致的。另外，不停轮询结果表以查看是否有异常其实并不是一个扩展性很好的办法。真正的流式用户场景是推动 watermark 等功能的原始需求来源。(Watermark 所代表的时间有先有后，我们需要最低的 Watermark 追踪数据的完整性，而最高的 Watermark 在数据时间发生倾斜时候非常容易导致丢数据的情况发生，类似 Spark Structured Streaming 的用法)。省略类似 Watermark 等功能的系统看上去简单不少，但换来代价是功能受限。在很多情况下，这些功能实际上有非常重要的业务价值。但如果这样的系统声称这些简化的功能会带来系统更多的普适性，不要听他们忽悠。试问一句，功能需求大量被砍掉，如何保证系统的普适性呢？</p>
+</blockquote>
+<p>Zeitgeist 项目首先尝试通过在计算逻辑之前插入处理时间的延迟数值来解决数据延迟问题。当数据按顺序到达时，这个思路处理逻辑正常。但业务人员随后发现数据有时可能会延迟很大，从而导致数据无序进入流式处理系统。一旦出现这个情况，系统仅仅采用处理时间的延迟是不够的，因为底层数据处理会因为数据乱序原因被错误判断为异常。最终，我们需要一种等待数据到齐的机制。</p>
+<p>之后 Watermark 被设计出来用以解决数据乱序的问题。正如 Slava 在第 3 章中所描述的那样，基本思想是跟踪系统输入数据的当前进度，对于每个给定的数据源，构建一个数据输入进度用来表征输入数据的完整性。对于一些简单的数据源，例如一个带分区的 Kafka Topic，每个 Topic 下属的分区被写入的是业务时间持续递增的数据（例如通过 Web 前端实时记录的日志事件），这种情况下我们可以计算产生一个非常完美的 Watermark。但对于一些非常复杂的数据输入，例如动态的输入日志集，一个启发式算法可能是我们能够设计出来最能解决业务问题的 Watermark 生成算法了。但无论哪种方式，Watermark 都是解决输入事件完整性最佳方式。之前我们尝试使用处理时间来解决事件输入完整性，有点驴头不及马嘴的感觉。</p>
+<p>得益于客户的需求推动，MillWheel 最终成为能够支持无序数据的强大流处理引擎。因此，题为《MillWheel: Fault-Tolerant Stream Processing at Internet Scale》（图 10-22）的论文花费大部分时间来讨论在这样的系统中提供正确性的各种问题，一致性保证、Watermark。如果您对这个主题感兴趣，那值得花时间去读读这篇论文。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7c6d50hj20u00jrdix.jpg" alt></p>
+<p>MillWheel 论文发表后不久，MillWheel 就成为 Flume 底层提供支撑的流式处理引擎，我们称之为 Streaming Flume。今天在谷歌内部，MillWheel 被下一代理论更为领先的系统所替换: Windmill（这套系统同时也为 DataFlow 提供了执行引擎），这是一套基于 MillWheel 之上，博采众家之长的大数据处理系统，包括提供更好的调度和分发策略、更清晰的框架和业务代码解耦。</p>
+<p>MillWheel 给我们带来最大的价值是之前列出的四个概念（数据精确一次性处理，持久化的状态存储，Watermark，持久定时器）为流式计算提供了工业级生产保障：即使在不可靠的商用硬件上，也可以对无序数据进行稳定的、低延迟的处理。</p>
+<h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><p>我们开始讨论 Kafka（图 10-23）。 Kafka 在本章讨论的系统中是独一无二的，因为它不是数据计算框架，而是数据传输和存储的工具。但是，毫无疑问，Kafka 在我们正在讨论的所有系统中扮演了推动流处理的最有影响力的角色之一。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7citnfkj20u00dwt8x.jpg" alt></p>
+<p>如果你不熟悉它，我们可以简单描述为: Kafka 本质上是一个持久的流式数据传输和存储工具，底层系统实现为一组带有分区结构的日志型存储。它最初是由 Neha Narkhede 和 Jay Kreps 等业界大牛在 LinkedIn 公司内部开发的，其卓越的特性有:</p>
+<ul>
+<li>提供一个干净的持久性模型，让大家在流式处理领域里面可以享受到批处理的产品特性，例如持久化、可重放。</li>
+<li>在生产者和消费者之间提供弹性隔离。</li>
+<li>我们在第 6 章中讨论过的流和表之间的关系，揭示了思考数据处理的基本方式，同时还提供了和数据库打通的思路和概念。</li>
+<li>来自于上述所有方面的影响，不仅让 Kafka 成为整个行业中大多数流处理系统的基础，而且还促进了流处理数据库和微服务运动。</li>
+</ul>
+<p>在这些特性中，有两个对我来说最为突出。第一个是流数据的持久化和可重放性的应用。在 Kafka 之前，大多数流处理系统使用某种临时、短暂的消息系统，如 Rabbit MQ 甚至是普通的 TCP 套接字来发送数据。数据处理的一致性往往通过生产者数据冗余备份来实现（即，如果下游数据消费者出现故障，则上游生产者将数据进行重新发送），但是上游数据的备份通常也是临时保存一下。大多数系统设计完全忽略在开发和测试中需要重新拉取数据重新计算的需求。但 Kafka 的出现改变了这一切。从数据库持久日志概念得到启发并将其应用于流处理领域，Kafka 让我们享受到了如同 Batch 数据源一样的安全性和可靠性。凭借持久化和可重放的特点，流计算在健壮性和可靠性上面又迈出关键的一步，为后续替代批处理系统打下基础。</p>
+<p>作为一个流式系统开发人员，Kafka 的持久化和可重放功能对业界产生一个更有意思的变化就是: 当今大量流处理引擎依赖源头数据可重放来提供端到端精确一次的计算保障。可重放的特点是 Apex，Flink，Kafka Streams，Spark 和 Storm 的端到端精确一次保证的基础。当以精确一次模式执行时，每个系统都假设 / 要求输入数据源能够重放之前的部分数据 (从最近 Checkpoint 到故障发生时的数据)。当流式处理系统与不具备重放能力的输入源一起使用时（哪怕是源头数据能够保证可靠的一致性数据投递，但不能提供重放功能），这种情况下无法保证端到端的完全一次语义。这种对可重放（以及持久化等其他特点）的广泛依赖是 Kafka 在整个行业中产生巨大影响的间接证明。</p>
+<p>Kafka 系统中第二个值得注意的重点是流和表理论的普及。我们花了整个第 6 章以及第 8 章、第 9 章来讨论流和表，可以说流和表构成了数据处理的基础，无论是 MapReduce 及其演化系统，SQL 数据库系统，还是其他分支的数据处理系统。并不是所有的数据处理方法都直接基于流或者表来进行抽象，但从概念或者理论上说，表和流的理论就是这些系统的运作方式。作为这些系统的用户和开发人员，理解我们所有系统构建的核心基础概念意义重大。我们都非常感谢 Kafka 社区的开发者，他们帮助我们更广泛更加深入地了解到批流理论。</p>
+<p>如果您想了解更多关于 Kafka 及其理论核心，JackKreps 的《I❤Logs》（O’Reilly; 图 10-24）是一个很好的学习资料。另外，正如第 6 章中引用的那样，Kreps 和 Martin Kleppmann 有两篇文章（图 10-25），我强烈建议您阅读一下关于流和表相关理论。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7cqke9dj20dw0i80tf.jpg" alt></p>
+<p>Kafka 为流处理领域做出了巨大贡献，可以说比其他任何单一系统都要多。特别是，对输入和输出流的持久性和可重放的设计，帮助将流计算从近似工具的小众领域发展到在大数据领域妇孺皆知的程度起了很大作用。此外，Kafka 社区推广的流和表理论对于数据处理引发了我们深入思考。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7cwnv5vj20u00clq3j.jpg" alt></p>
+<h3 id="DataFlow"><a href="#DataFlow" class="headerlink" title="DataFlow"></a>DataFlow</h3><p>Cloud Dataflow（图 10-26）是 Google 完全托管的、基于云架构的数据处理服务。 Dataflow 于 2015 年 8 月推向全球。DataFlow 将 MapReduce，Flume 和 MillWheel 的十多年经验融入其中，并将其打包成 Serverless 的云体验。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7d644kqj20u00qe0xe.jpg" alt></p>
+<p>虽然 Google 的 Dataflow 的 Serverless 特点可能是从系统角度来看最具技术挑战性以及有别于其他云厂商产品的重要因素，但我想在此讨论主要是其批流统一的编程模型。编程模型包括我们在本书的大部分内容中所讨论的转换，窗口，水印，触发器和聚合计算。当然，所有这些讨论都包含了思考问题的 what、where、when、how。</p>
+<p>DataFlow 模型首先诞生于 Flume，因为我们希望将 MillWheel 中强大的无序数据计算能力整合到 Flume 提供的更高级别的编程模型中。这个方式可以让 Google 员工在内部使用 Flume 进行统一的批处理和流处理编程。</p>
+<p>关于统一模型的核心关键思考在于，尽管在当时我们也没有深刻意识到，批流处理模型本质上没有区别: 仅仅是在表和流的处理上有些小变化而已。正如我们在第 6 章中所讨论到的，主要的区别仅仅是在将表上增量的变化转换为流，其他一切在概念上是相同的。通过利用批处理和流处理两者大量的共性需求，可以提供一套引擎，适配于两套不同处理方式，这让流计算系统更加易于使用。</p>
+<p>除了利用批处理和流处理之间的系统共性之外，我们还仔细查看了多年来我们在 Google 中遇到的各种案例，并使用这些案例来研究统一模型下系统各个部分。我们研究主要内容如下：</p>
+<ul>
+<li>未对齐的事件时间窗口（如会话窗口），能够简明地表达这类复杂的分析，同时亦能处理乱序数据。</li>
+<li>自定义窗口支持，系统内置窗口很少适合所有业务场景，需要提供给用户自定义窗口的能力。</li>
+<li>灵活的触发和统计模式，能够满足正确性，延迟，成本的各项业务需求。</li>
+<li>使用 Watermark 来推断输入数据的完整性，这对于异常检测等用例至关重要，其中异常检测逻辑会根据是否缺少数据做出异常判断。</li>
+<li>底层执行环境的逻辑抽象，无论是批处理，微批处理还是流式处理，都可以在执行引擎中提供灵活的选择，并避免系统级别的参数设置（例如微批量大小）进入逻辑 API。</li>
+</ul>
+<p>总之，这些平衡了灵活性，正确性，延迟和成本之间的关系，将 DataFlow 的模型应用于大量用户业务案例之中。</p>
+<p>考虑到我们之前整本书都在讨论 DataFlow 和 Beam 模型的各类问题，我在此处重新给大家讲述这些概念纯属多此一举。但是，如果你正在寻找稍微更具学术性的内容以及一些应用案例，我推荐你看下 2015 年发表的《DataFlow 论文..》（图 10-27）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7dd2y3uj20u00qe0xe.jpg" alt></p>
+<p>DataFlow 还有不少可以大书特书的功能特点，但在这章内容构成来看，我认为 DataFlow 最重要的是构建了一套批流统一的大数据处理模型。DataFlow 为我们提供了一套全面的处理无界且无序数据集的能力，同时这套系统很好的平衡了正确性、延迟、成本之间的相互关系。</p>
+<h3 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h3><p>Flink（图 10-28）在 2015 年突然出现在大数据舞台，然后似乎在一夜之间从一个无人所知的系统迅速转变为人人皆知的流式处理引擎。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7doer6ij20u00dwaaa.jpg" alt></p>
+<p>在我看来，Flink 崛起有两个主要原因：</p>
+<ul>
+<li>采用 Dataflow/Beam 编程模型，使其成为完备语义功能的开源流式处理系统。</li>
+<li>其高效的快照实现方式，源自 Chandy 和 Lamport 的原始论文《“Distributed Snapshots: Determining Global States of Distributed Systems”》的研究，这为其提供了正确性所需的强一致性保证。</li>
+</ul>
+<p>Reuven 在第 5 章中简要介绍了 Flink 的一致性机制，这里在重申一下，其基本思想是在系统中的 Worker 之间沿着数据传播路径上产生周期性 Barrier。这些 Barrier 充当了在不同 Worker 之间传输数据时的对齐机制。当一个 Worker 在其所有上游算子输入来源（即来自其所有上游一层的 Worker）上接收到全部 Barrier 时，Worker 会将当前所有 key 对应的状态写入一个持久化存储。这个过程意味着将这个 Barrier 之前的所有数据都做了持久化。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7du1knjj20u00qbwha.jpg" alt></p>
+<p>通过调整 Barrier 的生成频率，可以间接调整 Checkpoint 的执行频率，从而降低时延并最终获取更高的吞吐（其原因是做 Checkpoint 过程中涉及到对外进行持久化数据，因此会有一定的 IO 导致延时）。</p>
+<p>Flink 既能够支持精确一次的语义处理保证，同时又能够提供支持事件时间的处理能力，这让 Flink 获取的巨大的成功。接着， Jamie Grier 发表他的题为“《Extending the Yahoo! Streaming Benchmark》“（图 10-30）的文章，文章中描述了 Flink 性能具体的测试数据。在那篇文章中，杰米描述了两个令人印象深刻的特点：</p>
+<ol>
+<li><p>构建一个用于测试的 Flink 数据管道，其拥有比 Twitter Storm 更高的准确性（归功于 Flink 的强一次性语义），但成本却降到了 1％。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7e1vjk5j20u00wwq5v.jpg" alt></p>
+<ol start="2">
+<li><p>Flink 在精确一次的处理语义参数设定下，仍然达到 Storm 的 7.5 倍吞吐量（而且，Storm 还不具备精确一次的处理语义）。此外，由于网络被打满导致 Flink 的性能受到限制 ; 进一步消除网络瓶颈后 Flink 的吞吐量几乎达到 Storm 的 40 倍。</p>
+<p>从那时起，许多其他流式处理项目（特别是 Storm 和 Apex）都采用了类似算法的数据处理一致性机制。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7ec9lylj20u00vk0u6.jpg" alt></p>
+<p>通过快照机制，Flink 获得了端到端数据一致性。Flink 更进了一步，利用其快照的全局特性，提供了从过去的任何一点重启整个管道的能力，这一功能称为 SavePoint（在 Fabian Hueske 和 Michael Winters 的帖子 [《Savepoints: Turning Back Time》(<a href="https://data-artisans.com/blog/turning-back-time-savepoints)]" target="_blank" rel="noopener">https://data-artisans.com/blog/turning-back-time-savepoints)]</a> 中有所描述，[图 10-31]）。Savepoints 功能参考了 Kafka 应用于流式传输层的持久化和可重放特性，并将其扩展应用到整个底层 Pipeline。流式处理仍然遗留大量开放性问题有待优化和提升，但 Flink 的 Savepoints 功能是朝着正确方向迈出的第一步，也是整个行业非常有特点的一步。 如果您有兴趣了解有关 Flink 快照和保存点的系统构造的更多信息，请参阅《State Management in Apache Flink》（图 10-32），论文详细讨论了相关的实现。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7ein1n1j20u00qstdj.jpg" alt></p>
+<p>除了保存点之外，Flink 社区还在不断创新，包括将第一个实用流式 SQL API 推向大规模分布式流处理引擎的领域，正如我们在第 8 章中所讨论的那样。 总之，Flink 的迅速崛起成为流计算领军角色主要归功于三个特点：</p>
+<ol>
+<li>整合行业里面现有的最佳想法（例如，成为第一个开源 DataFlow/Beam 模型）</li>
+<li>创新性在表上做了大量优化，并将状态管理发挥更大价值，例如基于 Snapshot 的强一致性语义保证，Savepoints 以及流式 SQL。</li>
+<li>迅速且持续地推动上述需求落地。</li>
+</ol>
+<p>另外，所有这些改进都是在开源社区中完成的，我们可以看到为什么 Flink 一直在不断提高整个行业的流计算处理标准。</p>
+<h3 id="Beam"><a href="#Beam" class="headerlink" title="Beam"></a>Beam</h3><p>我们今天谈到的最后一个系统是 Apache Beam（图 10-33）。 Beam 与本章中的大多数其他系统的不同之处在于，它主要是编程模型，API 设计和可移植层，而不是带有执行引擎的完整系统栈。但这正是我想强调的重点：正如 SQL 作为声明性数据处理的通用语言一样，Beam 的目标是成为程序化数据处理的通用语言。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7evt7rkj20u00dw3yq.jpg" alt></p>
+<p>具体而言，Beam 由许多组件组成：</p>
+<ul>
+<li>一个统一的批量加流式编程模型，继承自 Google DataFlow 产品设计，以及我们在本书的大部分内容中讨论的细节。该模型独立于任何语言实现或 runtime 系统。您可以将此视为 Beam 等同于描述关系代数模型的 SQL。</li>
+<li>一组实现该模型的 SDK（软件开发工具包），允许底层的 Pipeline 以不同 API 语言的惯用方式编排数据处理模型。 Beam 目前提供 Java，Python 和 Go 的 SDK，可以将它们视为 Beam 的 SQL 语言本身的程序化等价物。</li>
+<li>一组基于 SDK 的 DSL（特定于域的语言），提供专门的接口，以独特的方式描述模型在不同领域的接口设计。SDK 来描述上述模型处理能力的全集，但 DSL 描述一些特定领域的处理逻辑。 Beam 目前提供了一个名为 Scio 的 Scala DSL 和一个 SQL DSL，它们都位于现有 Java SDK 之上。</li>
+<li>一组可以执行 Beam Pipeline 的执行引擎。执行引擎采用 Beam SDK 术语中描述的逻辑 Pipeline，并尽可能高效地将它们转换为可以执行的物理计划。目前，针对 Apex，Flink，Spark 和 Google Cloud Dataflow 存在对应的 Beam 引擎适配。在 SQL 术语中，您可以将这些引擎适配视为 Beam 在各种 SQL 数据库的实现，例如 Postgres，MySQL，Oracle 等。</li>
+</ul>
+<p>Beam 的核心愿景是实现一套可移植接口层，最引人注目的功能之一是它计划支持完整的跨语言可移植性。尽管最终目标尚未完全完成（但即将面市），让 Beam 在 SDK 和引擎适配之间提供足够高效的抽象层，从而实现 SDK 和引擎适配之间的任意切换。我们畅想的是，用 JavaScript SDK 编写的数据 Pipeline 可以在用 Haskell 编写的引擎适配层上无缝地执行，即使 Haskell 编写的引擎适配本身没有执行 JavaScript 代码的能力。</p>
+<p>作为一个抽象层，Beam 如何定位自己和底层引擎关系，对于确保 Beam 实际为社区带来价值至关重要，我们也不希望看到 Beam 引入一个不必要的抽象层。这里的关键点是，Beam 的目标永远不仅仅是其所有底层引擎功能的交集（类似最小公分母）或超集（类似厨房水槽）。相反，它旨在为整个社区大数据计算引擎提供最佳的想法指导。这里面有两个创新的角度:</p>
+<ul>
+<li><strong>Beam 本身的创新</strong></li>
+</ul>
+<p>Beam 将会提出一些 API，这些 API 需要底层 runtime 改造支持，并非所有底层引擎最初都支持这些功能。这没关系，随着时间的推移，我们希望许多底层引擎将这些功能融入未来版本中 ; 对于那些需要这些功能的业务案例来说，具备这些功能的引擎通常会被业务方选择。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g3h7f2cqotj20u00l4gnr.jpg" alt></p>
+<p>这里举一个 Beam 里面关于 SplittableDoFn 的 API 例子，这个 API 可以用来实现一个可组合的，可扩展的数据源。（具体参看 Eugene Kirpichov 在他的文章《 “Powerful and modular I/O connectors with Splittable DoFn in Apache Beam》中描述 [图 10-34]）。它设计确实很有特点且功能强大，目前我们还没有看到所有底层引擎对动态负载均衡等一些更具创新性功能进行广泛支持。然而，我们预计这些功能将随着时间的推移而持续加入底层引擎支持的范围。</p>
+<ul>
+<li><strong>底层引擎的创新</strong></li>
+</ul>
+<p>底层引擎适配可能会引入底层引擎所独特的功能，而 Beam 最初可能并未提供 API 支持。这没关系，随着时间的推移，已证明其有用性的引擎功能将在 Beam API 逐步实现。</p>
+<p>这里的一个例子是 Flink 中的状态快照机制，或者我们之前讨论过的 Savepoints。 Flink 仍然是唯一一个以这种方式支持快照的公开流处理系统，但是 Beam 提出了一个围绕快照的 API 建议，因为我们相信数据 Pipeline 运行时优雅更新对于整个行业都至关重要。如果我们今天推出这样的 API，Flink 将是唯一支持它的底层引擎系统。但同样没关系，这里的重点是随着时间的推移，整个行业将开始迎头赶上，因为这些功能的价值会逐步为人所知。这些变化对每个人来说都是一件好事。</p>
+<p>通过鼓励 Beam 本身以及引擎的创新，我们希望推进整个行业快速演化，而不用再接受功能妥协。 通过实现跨执行引擎的可移植性承诺，我们希望将 Beam 建立为表达程序化数据处理流水线的通用语言，类似于当今 SQL 作为声明性数据处理的通用处理方式。这是一个雄心勃勃的目标，我们并没有完全实现这个计划，到目前为止我们还有很长的路要走。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>我们对数据处理技术的十五年发展进行了蜻蜓点水般的回顾，重点关注那些推动流式计算发展的关键系统和关键思想。来，最后，我们再做一次总结：</p>
+<ul>
+<li><strong>MapReduce：可扩展性和简单性</strong> 通过在强大且可扩展的执行引擎之上提供一组简单的数据处理抽象，MapReduce 让我们的数据工程师专注于他们的数据处理需求的业务逻辑，而不是去构建能够适应在一大堆普通商用服务器上的大规模分布式处理程序。</li>
+<li><strong>Hadoop：开源生态系统</strong> 通过构建一个关于 MapReduce 的开源平台，无意中创建了一个蓬勃发展的生态系统，其影响力所及的范围远远超出了其最初 Hadoop 的范围，每年有大量的创新性想法在 Hadoop 社区蓬勃发展。</li>
+<li><strong>Flume：管道及优化</strong> 通过将逻辑流水线操作的高级概念与智能优化器相结合，Flume 可以编写简洁且可维护的 Pipeline，其功能突破了 MapReduce 的 Map→Shuffle→Reduce 的限制，而不会牺牲性能。</li>
+<li><strong>Storm：弱一致性，低延迟</strong> 通过牺牲结果的正确性以减少延迟，Storm 为大众带来了流计算，并开创了 Lambda 架构的时代，其中弱一致的流处理引擎与强大一致的批处理系统一起运行，以实现真正的业务目标低延迟，最终一致型的结果。</li>
+<li><strong>Spark: 强一致性</strong> 通过利用强大一致的批处理引擎的重复运行来提供无界数据集的连续处理，Spark Streaming 证明至少对于有序数据集的情况，可以同时具有正确性和低延迟结果。</li>
+<li><strong>MillWheel：乱序处理</strong> 通过将强一致性、精确一次处理与用于推测时间的工具（如水印和定时器）相结合，MillWheel 做到了无序数据进行准确的流式处理。</li>
+<li><strong>Kafka: 持久化的流式存储，流和表对偶性</strong> 通过将持久化数据日志的概念应用于流传输问题，Kafka 支持了流式数据可重放功能。通过对流和表理论的概念进行推广，阐明数据处理的概念基础。</li>
+<li><strong>Cloud Dataflow：统一批流处理引擎</strong> 通过将 MillWheel 的无序流式处理与高阶抽象、自动优化的 Flume 相结合，Cloud Dataflow 为批流数据处理提供了统一模型，并且灵活地平衡正确性、计算延迟、成本的关系。</li>
+<li><strong>Flink：开源流处理创新者</strong> 通过快速将无序流式数据处理的强大功能带到开源世界，并将其与分布式快照及保存点功能等自身创新相结合，Flink 提高了开源流处理的业界标准并引领了当前流式处理创新趋势。</li>
+<li><strong>Beam: 可移植性</strong> 通过提供整合行业最佳创意的强大抽象层，Beam 提供了一个可移植 API 抽象，其定位为与 SQL 提供的声明性通用语言等效的程序接口，同时也鼓励在整个行业中推进创新。</li>
+</ul>
+<p>可以肯定的说，我在这里强调的这 10 个项目及其成就的说明并没有超出当前大数据的历史发展。但是，它们对我来说是一系列重要且值得注意的大数据发展里程碑，它共同描绘了过去十五年中流处理演变的时间轴。自最早的 MapReduce 系统开始，尽管沿途有许多起伏波折，但不知不觉我们已经走出来很长一段征程。即便如此，在流式系统领域，未来我们仍然面临着一系列的问题亟待解决。正所谓：路漫漫其修远兮，吾将上下而求索。</p>
+</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/大数据浪潮史/" rel="tag"># 大数据浪潮史</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/28/Hive Metastore Server发送元数据请求过多被拒绝/" rel="next" title="Hive Metastore Server发送元数据请求过多被拒绝">
+                <i class="fa fa-chevron-left"></i> Hive Metastore Server发送元数据请求过多被拒绝
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/30/Grokking Algorithms/" rel="prev" title="Grokking Algorithms">
+                Grokking Algorithms <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
+            
+              <p class="site-author-name" itemprop="name">Fly Hugh</p>
+              <p class="site-description motion-element" itemprop="description">TRUST THE PROCESS</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/FlyMeToTheMars" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3200892914" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/Fly__HoBo" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大规模数据处理的演化历程"><span class="nav-number">1.</span> <span class="nav-text">大规模数据处理的演化历程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MapReduce"><span class="nav-number">1.1.</span> <span class="nav-text">MapReduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop"><span class="nav-number">1.2.</span> <span class="nav-text">hadoop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flume"><span class="nav-number">1.3.</span> <span class="nav-text">flume</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strom"><span class="nav-number">1.4.</span> <span class="nav-text">strom</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark"><span class="nav-number">1.5.</span> <span class="nav-text">Spark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MillWheel"><span class="nav-number">1.6.</span> <span class="nav-text">MillWheel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka"><span class="nav-number">1.7.</span> <span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFlow"><span class="nav-number">1.8.</span> <span class="nav-text">DataFlow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink"><span class="nav-number">1.9.</span> <span class="nav-text">Flink</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beam"><span class="nav-number">1.10.</span> <span class="nav-text">Beam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.11.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">239.1k</span>
+  
+</div>
+
+
+<!-- 
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+       <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/src/src/clicklove.js"></script>
+
+    
+  </div>
+
+
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("72l8G3xFxrAReJk0PBs8jCeC-gzGzoHsz", "r0TXzhifsg8y5LTKokFte6fz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+
+
+</html>
+
