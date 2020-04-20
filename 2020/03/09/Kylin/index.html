@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Kylin,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "bfb40164"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+<meta name="description" content="Kylin是在Hadoop上的SQL层，最近对Phoenix调研完成之后，对Kylin产生了兴趣。">
+<meta name="keywords" content="Kylin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache Kylin">
+<meta property="og:url" content="http://yoursite.com/2020/03/09/Kylin/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="Kylin是在Hadoop上的SQL层，最近对Phoenix调研完成之后，对Kylin产生了兴趣。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v1qog93xj209d08laa6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v1uuzn2pj215o0k5ta3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v2nn4skoj20hq0db75f.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8vblwtlk5j20iu0bltdn.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/bec9bff2ly1g8vcz4iabpj20e20ckt8q.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8we03d0ryj20hh06r41n.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xbb72l6hj20q607u0tt.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xbbe37fxj20sg0aw43o.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xktgl70sj20sg0bjn0p.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xl9j5qrcj20sg06ywfg.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlqat61cj20jf05qt8z.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlrfg7plj20sg0b6ahm.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlxz8a4ej20sg06taf5.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92byqbpinj20sg0enq3v.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92bzc39h9j20g60ajmxc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92bzqjxlmj20sg0b00td.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c01zg2dj20sg0cijs8.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c0ds7dij20sg0augmf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c0z1koyj20sg0bjjs2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cvbklxij20sg0bf0t6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cwad8r9j20m50f1aaq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cwti90pj20sg0bygmq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d1xm7dbj20sg04qt9j.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d2ii64cj20sg0bimyh.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d55mrpgj20sg09bdgg.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g94igifi2xj20zk0gxtc3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g94ih39tw6j20zk0gxq4q.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g94ihodonej20zk0gx0un.jpg">
+<meta property="og:updated_time" content="2019-11-22T10:21:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Apache Kylin">
+<meta name="twitter:description" content="Kylin是在Hadoop上的SQL层，最近对Phoenix调研完成之后，对Kylin产生了兴趣。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v1qog93xj209d08laa6.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/09/Kylin/">
+
+
+
+
+
+  <title>Apache Kylin | Mars</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'f6a8160e9467bb9adc80f36030e1c37b', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mars</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/Kylin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Apache Kylin</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-09T17:47:29+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/" itemprop="url" rel="index">
+                    <span itemprop="name">Apache</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/Kylin/" itemprop="url" rel="index">
+                    <span itemprop="name">Kylin</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/09/Kylin/" class="leancloud_visitors" data-flag-title="Apache Kylin">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  14.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  51
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>Kylin是在Hadoop上的SQL层，最近对Phoenix调研完成之后，对Kylin产生了兴趣。</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v1qog93xj209d08laa6.jpg" alt="undefined"></p>
+<a id="more"></a> 
+<h1 id="Kylin"><a href="#Kylin" class="headerlink" title="Kylin"></a>Kylin</h1><h2 id="第一章-概述"><a href="#第一章-概述" class="headerlink" title="第一章 概述"></a>第一章 概述</h2><h3 id="1-1-Kylin定义"><a href="#1-1-Kylin定义" class="headerlink" title="1.1 Kylin定义"></a>1.1 Kylin定义</h3><p>Apache Kylin是一个开源的分布式分析引擎，提供Hadoop/Spark之上的SQL查询接口及多维分析（OLAP）能力以支持超大规模数据，最初由eBay Inc开发并贡献至开源社区。它能在亚秒内查询巨大的Hive表。</p>
+<h3 id="1-2-Kylin特点"><a href="#1-2-Kylin特点" class="headerlink" title="1.2 Kylin特点"></a>1.2 Kylin特点</h3><p>Kylin的主要特点包括支持SQL接口、支持超大规模数据集、亚秒级响应、可伸缩性、高吞吐率、BI工具集成等。</p>
+<p>1）标准SQL接口：Kylin是以标准的SQL作为对外服务的接口。</p>
+<p>2）支持超大数据集：Kylin对于大数据的支撑能力可能是目前所有技术中最为领先的。早在2015年eBay的生产环境中就能支持百亿记录的秒级查询，之后在移动的应用场景中又有了千亿记录秒级查询的案例。</p>
+<p>3）亚秒级响应：Kylin拥有优异的查询相应速度，这点得益于预计算，很多复杂的计算，比如连接、聚合，在离线的预计算过程中就已经完成，这大大降低了查询时刻所需的计算量，提高了响应速度。</p>
+<p>4）可伸缩性和高吞吐率：单节点Kylin可实现每秒70个查询，还可以搭建Kylin的集群。</p>
+<p>5）BI工具集成</p>
+<p>Kylin可以与现有的BI工具集成，具体包括如下内容。</p>
+<p>ODBC：与Tableau、Excel、PowerBI等工具集成</p>
+<p>JDBC：与Saiku、BIRT等Java工具集成</p>
+<p>Restate：与JavaScript、Web网页集成</p>
+<p>Kylin开发团队还贡献了<strong>Stippling</strong>的插件，也可以使用Stippling来访问Kylin服务。</p>
+<h3 id="1-3-Kylin架构"><a href="#1-3-Kylin架构" class="headerlink" title="1.3 Kylin架构"></a>1.3 Kylin架构</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v1uuzn2pj215o0k5ta3.jpg" alt="undefined"></p>
+<p>1）REST Server</p>
+<p>REST Server是一套面向应用程序开发的入口点，旨在实现针对Kylin平台的应用开发工作。 此类应用程序可以提供查询、获取结果、触发cube构建任务、获取元数据以及获取用户权限等等。另外可以通过Restful接口实现SQL查询。</p>
+<p>2）查询引擎（Query Engine）</p>
+<p>当cube准备就绪后，查询引擎就能够获取并解析用户查询。它随后会与系统中的其它组件进行交互，从而向用户返回对应的结果。 </p>
+<p>3）Routing</p>
+<p>负责将解析的SQL生成的执行计划转换成cube缓存的查询，cube是通过预计算缓存在hbase中，这部分查询可以在秒级设置毫秒级完成，而且还有一些操作使用过的查询原始数据（存储在Hadoop的hdfs中通过hive查询）。这部分查询延迟较高。</p>
+<p>4）元数据管理工具（Metadata）</p>
+<p>Kylin是一款元数据驱动型应用程序。元数据管理工具是一大关键性组件，用于对保存在Kylin当中的所有元数据进行管理，其中包括最为重要的cube元数据。其它全部组件的正常运作都需以元数据管理工具为基础。 Kylin的元数据存储在hbase中。 </p>
+<p>5）任务引擎（Cube Build Engine）</p>
+<p>这套引擎的设计目的在于处理所有离线任务，其中包括shell脚本、Java API以及Map Reduce任务等等。任务引擎对Kylin当中的全部任务加以管理与协调，从而确保每一项任务都能得到切实执行并解决其间出现的故障。</p>
+<h3 id="1-4-Kylin工作原理"><a href="#1-4-Kylin工作原理" class="headerlink" title="1.4 Kylin工作原理"></a>1.4 Kylin工作原理</h3><p>Apache Kylin的工作原理本质上是MOLAP（Multidimension On-Line Analysis Processing）Cube，也就是多维立方体分析。是数据分析中非常经典的理论，下面对其做简要介绍。</p>
+<h4 id="1-4-1-纬度和度量"><a href="#1-4-1-纬度和度量" class="headerlink" title="1.4.1 纬度和度量"></a>1.4.1 纬度和度量</h4><p>维度：即观察数据的角度。比如员工数据，可以从性别角度来分析，也可以更加细化，从入职时间或者地区的维度来观察。维度是一组离散的值，比如说性别中的男和女，或者时间维度上的每一个独立的日期。因此在统计时可以将维度值相同的记录聚合在一起，然后应用聚合函数做累加、平均、最大和最小值等聚合计算。</p>
+<p>度量：即被聚合（观察）的统计值，也就是聚合运算的结果。比如说员工数据中不同性别员工的人数，又或者说在同一年入职的员工有多少。</p>
+<p>基数：某个维度的种类数。比如说性别维度，基数为2（男和女）。按照某个维度进行聚合，结果数据的大小主要取决于该维度的基数。</p>
+<h4 id="1-4-2-Cube和Cuboid"><a href="#1-4-2-Cube和Cuboid" class="headerlink" title="1.4.2 Cube和Cuboid"></a>1.4.2 Cube和Cuboid</h4><p>有了维度跟度量，一个数据或数据模型上的所有字段就可以分类了，他们要么是纬度要么是度量（可以被聚合）。于是就有了根据维度和度量做预计算的理论。</p>
+<p>给定一个数据模型，我们可以对其上的所有维度进行聚合，对于N个维度来说，组合的所有可能性共有2^n种。对于每一种维度的组合，将度量值做聚合计算，然后将结果保存为一个物化视图，称为Cuboid。所有维度组合的Cuboid作为一个整体，称为Cube。</p>
+<p>下面举一个简单的例子说明，假设有一个电商的销售数据集，其中维度包括时间[time]、商品[item]、地区[location]和供应商[supplier]，度量为销售额。那么所有维度的组合就有2^4 = 16种，如下图所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v2nn4skoj20hq0db75f.jpg" alt="undefined"></p>
+<p>一维度（1D）的组合有：[time]、[item]、[location]和[supplier]4种；</p>
+<p>二维度（2D）的组合有：[time, item]、[time, location]、[time, supplier]、[item, location]、[item, supplier]、[location, supplier]3种；</p>
+<p>三维度（3D）的组合也有4种；</p>
+<p>最后还有零维度（0D）和四维度（4D）各有一种，总共16种。</p>
+<p>注意：每一种维度组合就是一个Cuboid，16个Cuboid整体就是一个Cube。</p>
+<h4 id="1-4-3-核心算法"><a href="#1-4-3-核心算法" class="headerlink" title="1.4.3 核心算法"></a>1.4.3 核心算法</h4><p>Kylin的工作原理就是对数据模型做Cube预计算，并利用计算的结果加速查询：</p>
+<p>1）指定数据模型，定义维度和度量；</p>
+<p>2）预计算Cube，计算所有Cuboid并保存为物化视图；</p>
+<p>预计算过程是Kylin从Hive中读取原始数据，按照我们选定的维度进行计算，并将结果集保存到Hbase中，默认的计算引擎为MapReduce，可以选择Spark作为计算引擎。一次build的结果，我们称为一个Segment。构建过程中会涉及多个Cuboid的创建，具体创建过程由kylin.cube.algorithm参数决定，参数值可选 auto，layer 和 inmem， 默认值为 auto，即 Kylin 会通过采集数据动态地选择一个算法 (layer or inmem)，如果用户很了解 Kylin 和自身的数据、集群，可以直接设置喜欢的算法。</p>
+<p>3）执行查询，读取Cuboid，运行，产生查询结果。</p>
+<h5 id="1-4-3-1-逐层构建算法"><a href="#1-4-3-1-逐层构建算法" class="headerlink" title="1.4.3.1 逐层构建算法"></a>1.4.3.1 逐层构建算法</h5><p>我们知道，一个N维的Cube，是由1个N维子立方体、N个(N-1)维子立方体、N*(N-1)/2个(N-2)维子立方体、……、N个1维子立方体和1个0维子立方体构成，总共有2^N个子立方体组成，在逐层算法中，按维度数逐层减少来计算，每个层级的计算（除了第一层，它是从原始数据聚合而来），是基于它上一层级的结果来计算的。比如，[Group by A, B]的结果，可以基于[Group by A, B, C]的结果，通过去掉C后聚合得来的；这样可以减少重复计算；当 0维度Cuboid计算出来的时候，整个Cube的计算也就完成了。每一轮的计算都是一个MapReduce任务，且串行执行；一个N维的Cube，至少需要N+1次MapReduce Job。</p>
+<p><strong>算法优点</strong>：</p>
+<p>每一轮的计算都是一个MapReduce任务，且串行执行；一个N维的Cube，至少需要N+1次MapReduce Job。2）受益于Hadoop的日趋成熟，此算法对集群要求低，运行稳定；在内部维护Kylin的过程中，很少遇到在这几步出错的情况；即便是在Hadoop集群比较繁忙的时候，任务也能完成。</p>
+<p>算法缺点</p>
+<p>2）受益于Hadoo    p的日趋成熟，此算法对集群要求低，运行稳定；在内部维护Kylin的过程中，很少遇到在这几步出错的情况；即便是在Hadoop集群比较繁忙的时候，任务也能完成。</p>
+<p><strong>算法缺点：</strong></p>
+<p>1）当Cube有比较多维度的时候，所需要的MapReduce任务也相应增加；由于Hadoop的任务调度需要耗费额外资源，特别是集群较庞大的时候，反复递交任务造成的额外开销会相当可观；</p>
+<p>2）此算法会对Hadoop MapReduce输出较多数据; 虽然已经使用了Combiner来减少从Mapper端到Reducer端的数据传输，所有数据依然需要通过Hadoop MapReduce来排序和组合才能被聚合，无形之中增加了集群的压力;</p>
+<p>3）对HDFS的读写操作较多：由于每一层计算的输出会用做下一层计算的输入，这些Key-Value需要写到HDFS上；当所有计算都完成后，Kylin还需要额外的一轮任务将这些文件转成HBase的HFile格式，以导入到HBase中去；</p>
+<p>总体而言，该算法的效率较低，尤其是当Cube维度数较大的时候。</p>
+<h4 id="1-4-3-2-快速构建算法（inmem）"><a href="#1-4-3-2-快速构建算法（inmem）" class="headerlink" title="1.4.3.2 快速构建算法（inmem）"></a>1.4.3.2 快速构建算法（inmem）</h4><p>也被称作“逐段”(By Segment) 或“逐块”(By Split) 算法，从1.5.x开始引入该算法，利用Mapper端计算先完成大部分聚合，再将聚合后的结果交给Reducer，从而降低对网络瓶颈的压力。该算法的主要思想是，对Mapper所分配的数据块，将它计算成一个完整的小Cube 段（包含所有Cuboid）；每个Mapper将计算完的Cube段输出给Reducer做合并，生成大Cube，也就是最终结果；如图所示解释了此流程。</p>
+<p>与旧算法相比，快速算法主要有两点不同：</p>
+<p>1） Mapper会利用内存做预聚合，算出所有组合；Mapper输出的每个Key都是不同的，这样会减少输出到Hadoop MapReduce的数据量；</p>
+<p>2）一轮MapReduce便会完成所有层次的计算，减少Hadoop任务的调配。</p>
+<h2 id="第二章：Kylin安装指南"><a href="#第二章：Kylin安装指南" class="headerlink" title="第二章：Kylin安装指南"></a>第二章：Kylin安装指南</h2><h3 id="2-1安装地址"><a href="#2-1安装地址" class="headerlink" title="2.1安装地址"></a>2.1安装地址</h3><p>1.官网地址：</p>
+<p><a href="http://kylin.apache.org/cn/" target="_blank" rel="noopener">http://kylin.apache.org/cn/</a></p>
+<p>2.官方文档</p>
+<p><a href="http://kylin.apache.org/cn/docs/" target="_blank" rel="noopener">http://kylin.apache.org/cn/docs/</a></p>
+<p>3.下载地址</p>
+<p><a href="http://kylin.apache.org/cn/download/" target="_blank" rel="noopener">http://kylin.apache.org/cn/download/</a></p>
+<h3 id="2-2-软件要求"><a href="#2-2-软件要求" class="headerlink" title="2.2 软件要求"></a>2.2 软件要求</h3><ul>
+<li><p>Hadoop: 2.7+, 3.1+ (since v2.5)</p>
+</li>
+<li><p>Hive: 0.13 - 1.2.1+</p>
+</li>
+<li><p>HBase: 1.1+, 2.0 (since v2.5)</p>
+</li>
+<li><p>Spark (可选) 2.3.0+</p>
+</li>
+<li><p>Kafka (可选) 1.0.0+ (since v2.5)</p>
+</li>
+<li><p>JDK: 1.8+ (since v2.5)</p>
+</li>
+<li><p>OS: Linux only, CentOS 6.5+ or Ubuntu 16.0.4+</p>
+</li>
+</ul>
+<p>官网提示：在 Hortonworks HDP 2.2-2.6 and 3.0, Cloudera CDH 5.7-5.11 and 6.0, AWS EMR 5.7-5.10, Azure HDInsight 3.5-3.6 上测试通过。</p>
+<h3 id="2-3-硬件要求："><a href="#2-3-硬件要求：" class="headerlink" title="2.3 硬件要求："></a>2.3 硬件要求：</h3><p>运行 Kylin 的服务器的最低配置为 4 core CPU，16 GB 内存和 100 GB 磁盘。 对于高负载的场景，建议使用 24 core CPU，64 GB 内存或更高的配置。</p>
+<h3 id="2-4-Hadoop环境"><a href="#2-4-Hadoop环境" class="headerlink" title="2.4 Hadoop环境"></a>2.4 Hadoop环境</h3><p>Kylin依赖于Hadoop集群处理大量的数据集。需要准备一个配置好HDFS，YARN，MapReduce,，Hive，HBase，Zookeeper和其他服务的Hadoop 集群供 Kylin 运行。<br>   Kylin可以在 Hadoop 集群的任意节点上启动。方便起见，可以在master节点上运行Kylin。但为了更好的稳定性，官网建议将Kylin部署在一个干净的Hadoop client节点上，该节点上 Hive，HBase，HDFS 等命令行已安装好且client 配置（如 <code>core-site.xml</code>，<code>hive-site.xml</code>，<code>hbase-site.xml</code>及其他）也已经合理的配置且其可以自动和其它节点同步。</p>
+<p>运行Kylin的Linux账户要有访问 Hadoop 集群的权限，包括创建/写入 HDFS 文件夹，Hive表，HBase 表和提交MapReduce任务的权限。</p>
+<h3 id="2-5-Kylin安装"><a href="#2-5-Kylin安装" class="headerlink" title="2.5 Kylin安装"></a>2.5 Kylin安装</h3><ol>
+<li>从 <a href="https://kylin.apache.org/download/" target="_blank" rel="noopener">Apache Kylin下载网站</a> 下载一个适用于您 Hadoop 版本的二进制文件。例如，适用于 HBase 1.x 的 Kylin 2.5.0 可通过如下命令行下载得到：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/</span><br><span class="line">wget http://mirror.bit.edu.cn/apache/kylin/apache-kylin-2.5.0/apache-kylin-2.5.0-bin-hbase1x.tar.gz</span><br></pre></td></tr></table></figure>
+<ol>
+<li>解压 tar 包，配置环境变量 <code>$KYLIN_HOME</code> 指向 Kylin 文件夹。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-kylin-2.5.0-bin-hbase1x.tar.gzcd apache-kylin-2.5.0-bin-hbase1xexport KYLIN_HOME=`pwd`</span><br></pre></td></tr></table></figure>
+<p>从 v2.6.1 开始， Kylin 不再包含 Spark 二进制包; 您需要另外下载 Spark，然后设置 <code>SPARK_HOME</code> 系统变量到 Spark 安装目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export SPARK_HOME=/path/to/spark</span><br></pre></td></tr></table></figure>
+<p>或者使用脚本下载:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$KYLIN_HOME/bin/download-spark.sh</span><br></pre></td></tr></table></figure>
+<h4 id="Kylin-tarball-目录"><a href="#Kylin-tarball-目录" class="headerlink" title="Kylin tarball 目录"></a>Kylin tarball 目录</h4><ul>
+<li><code>bin</code>: shell 脚本，用于启动/停止 Kylin，备份/恢复 Kylin 元数据，以及一些检查端口、获取 Hive/HBase 依赖的方法等；</li>
+<li><code>conf</code>: Hadoop 任务的 XML 配置文件</li>
+<li><code>lib</code>: 供外面应用使用的 jar 文件，例如 Hadoop 任务 jar, JDBC 驱动, HBase coprocessor 等.</li>
+<li><code>meta_backups</code>: 执行 <code>bin/metastore.sh     backup</code> 后的默认的备份目录;</li>
+<li><code>sample_cube</code> 用于创建样例 Cube 和表的文件。</li>
+<li><code>spark</code>: 自带的 spark。</li>
+<li><code>tomcat</code>: 自带的 tomcat，用于启动 Kylin 服务。</li>
+<li><code>tool</code>: 用于执行一些命令行的jar文件。</li>
+</ul>
+<h4 id="检查运行环境"><a href="#检查运行环境" class="headerlink" title="检查运行环境"></a>检查运行环境</h4><p>Kylin 运行在 Hadoop 集群上，对各个组件的版本、访问权限及 CLASSPATH 等都有一定的要求，为了避免遇到各种环境问题，您可以运行 <code>$KYLIN_HOME/bin/check-env.sh</code> 脚本来进行环境检测，如果您的环境存在任何的问题，脚本将打印出详细报错信息。如果没有报错信息，代表您的环境适合 Kylin 运行。</p>
+<h4 id="启动-Kylin"><a href="#启动-Kylin" class="headerlink" title="启动 Kylin"></a>启动 Kylin</h4><p>运行 <code>$KYLIN_HOME/bin/kylin.sh start</code> 脚本来启动 Kylin，界面输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Retrieving hadoop conf dir...</span><br><span class="line">KYLIN_HOME is set to /usr/local/apache-kylin-2.5.0-bin-hbase1x</span><br><span class="line">......</span><br><span class="line">A new Kylin instance is started by root. To stop it, run &apos;kylin.sh stop&apos;</span><br><span class="line">Check the log at /usr/local/apache-kylin-2.5.0-bin-hbase1x/logs/kylin.log</span><br><span class="line">Web UI is at http://&lt;hostname&gt;:7070/kylin</span><br></pre></td></tr></table></figure>
+<h4 id="使用-Kylin"><a href="#使用-Kylin" class="headerlink" title="使用 Kylin"></a>使用 Kylin</h4><p>Kylin 启动后您可以通过浏览器 <code>http://:7070/kylin</code> 进行访问。<br> 其中 <code></code> 为具体的机器名、IP 地址或域名，默认端口为 7070。<br> 初始用户名和密码是 <code>ADMIN/KYLIN</code>。<br> 服务器启动后，您可以通过查看 <code>$KYLIN_HOME/logs/kylin.log</code> 获得运行时日志。</p>
+<h4 id="停止-Kylin"><a href="#停止-Kylin" class="headerlink" title="停止 Kylin"></a>停止 Kylin</h4><p>运行 <code>$KYLIN_HOME/bin/kylin.sh stop</code> 脚本来停止 Kylin，界面输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Retrieving hadoop conf dir...</span><br><span class="line">KYLIN_HOME is set to /usr/local/apache-kylin-2.5.0-bin-hbase1x</span><br><span class="line">Stopping Kylin: 25964</span><br><span class="line">Stopping in progress. Will check after 2 secs again...</span><br><span class="line">Kylin with pid 25964 has been stopped.</span><br></pre></td></tr></table></figure>
+<p>您可以运行 <code>ps -ef | grep kylin</code> 来查看 Kylin 进程是否已停止。</p>
+<h4 id="HDFS-目录结构"><a href="#HDFS-目录结构" class="headerlink" title="HDFS 目录结构"></a>HDFS 目录结构</h4><p>Kylin 会在 HDFS 上生成文件，根目录是 “/kylin/”, 然后会使用 Kylin 集群的元数据表名作为第二层目录名，默认为 “kylin_metadata” (可以在<code>conf/kylin.properties</code>中定制).</p>
+<p>通常, <code>/kylin/kylin_metadata</code> 目录下会有这么几种子目录：<code>cardinality</code>, <code>coprocessor</code>, <code>kylin-job_id</code>, <code>resources</code>, <code>jdbc-resources</code>.<br> \1. <code>cardinality</code>: Kylin 加载 Hive 表时，会启动一个 MR 任务来计算各个列的基数，输出结果会暂存在此目录。此目录可以安全清除。<br> \2. <code>coprocessor</code>: Kylin 用于存放 HBase coprocessor jar 的目录；请勿删除。<br> \3. <code>kylin-job_id</code>: Cube 计算过程的数据存储目录，请勿删除。 如需要清理，请遵循 <a href="http://kylin.apache.org/docs/howto/howto_cleanup_storage.html" target="_blank" rel="noopener">storage cleanup guide</a>.<br> \4. <code>resources</code>: Kylin 默认会将元数据存放在 HBase，但对于太大的文件（如字典或快照），会转存到 HDFS 的该目录下，请勿删除。</p>
+<p>\5. <code>jdbc-resources</code>：性质同上，只在使用 MySQL 做元数据存储时候出现。</p>
+<h3 id="2-6-集群模式部署"><a href="#2-6-集群模式部署" class="headerlink" title="2.6 集群模式部署"></a>2.6 集群模式部署</h3><p>Kylin 实例是无状态的服务，运行时的状态信息存储在 HBase metastore 中。 出于负载均衡的考虑，可以启用多个共享一个 metastore 的 Kylin 实例，使得各个节点分担查询压力且互为备份，从而提高服务的可用性。</p>
+<p>下图描绘了 Kylin 集群模式部署的一个典型场景：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8vblwtlk5j20iu0bltdn.jpg" alt="2.png"></p>
+<p>将多个 Kylin 节点组成集群，先确保他们使用同一个 Hadoop 集群、HBase 集群。然后在每个节点的配置文件 <code>$KYLIN_HOME/conf/kylin.properties</code> 中执行下述操作：</p>
+<ol>
+<li>配置相同的 <code>kylin.metadata.url</code> 值，即配置所有的 Kylin 节点使用同一个 HBase metastore。</li>
+<li>配置 Kylin 节点列表 <code>kylin.server.cluster-servers</code>，包括所有节点（包括当前节点），当事件变化时，接收变化的节点需要通知其他所有节点（包括当前节点）。</li>
+<li>配置 Kylin 节点的运行模式 <code>kylin.server.mode</code>，参数值可选 <code>all</code>, <code>job</code>, <code>query</code> 中的一个，默认值为 <code>all</code>。<pre><code>`job` 模式代表该服务仅用于任务调度，不用于查询；`query` 模式代表该服务仅用于查询，不用于构建任务的调度；`all` 模式代表该服务同时用于任务调度和 SQL 查询。
+</code></pre></li>
+</ol>
+<p><strong>注意：</strong>默认情况下只有<strong>一个实例</strong>用于构建任务的调度 （即 <code>kylin.server.mode</code>设置为 <code>all</code> 或者 <code>job</code> 模式）。</p>
+<h4 id="任务引擎高可用"><a href="#任务引擎高可用" class="headerlink" title="任务引擎高可用"></a>任务引擎高可用</h4><p>从 v2.0 开始, Kylin 支持多个任务引擎一起运行，相比于默认单任务引擎的配置，多引擎可以保证任务构建的高可用。</p>
+<p>使用多任务引擎，可以在多个 Kylin 节点上配置它的角色为 <code>job</code> 或 <code>all</code>。为了避免它们之间产生竞争，需要启用分布式任务锁，需在 <code>kylin.properties</code> 里配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kylin.job.scheduler.default=2</span><br><span class="line">kylin.job.lock=org.apache.kylin.storage.hbase.util.ZookeeperJobLock</span><br></pre></td></tr></table></figure>
+<p>并记得将所有任务和查询节点的地址注册到 <code>kylin.server.cluster-servers</code>。</p>
+<h4 id="安装负载均衡器"><a href="#安装负载均衡器" class="headerlink" title="安装负载均衡器"></a>安装负载均衡器</h4><p>为了将查询请求发送给集群而非单个节点，可以部署一个负载均衡器，如<a href="http://nginx.org/en/" target="_blank" rel="noopener">Nginx</a>等，使得客户端和负载均衡器通信代替和特定的 Kylin 实例通信。</p>
+<p>1.安装依赖包</p>
+<p>yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</p>
+<p>2.下载并解压安装包</p>
+<p>mkdir -p /usr/local/nginx</p>
+<p>//下载tar包</p>
+<p>wget <a href="http://nginx.org/download/nginx-1.13.7.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.13.7.tar.gz</a></p>
+<p>tar -zxvf nginx-1.13.7.tar.g</p>
+<p>3.安装nginx</p>
+<p>//进入nginx-1.13.7目录</p>
+<p>//执行命令</p>
+<p>./configure –prefix=/usr/local/nginx</p>
+<p>//执行make命令</p>
+<p>make</p>
+<p>//执行make install命令</p>
+<p>make install</p>
+<p>4.配置nginx.conf</p>
+<p># 打开配置文件</p>
+<p>vi /usr/local/nginx/conf/nginx.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#gzip  on;</span><br><span class="line">   upstream kylinserver &#123;</span><br><span class="line">     server 172.16.0.125:7070 weight=5 max_fails=5 fail_timeout=600s;</span><br><span class="line">     server 172.16.0.127:7070 weight=5 max_fails=5 fail_timeout=600s;</span><br><span class="line">     server 172.16.0.128:7070 weight=5 max_fails=5 fail_timeout=600s;</span><br><span class="line">   &#125;</span><br><span class="line">   server &#123;</span><br><span class="line">       listen       8087;</span><br><span class="line">       server_name  172.16.0.125;</span><br><span class="line"></span><br><span class="line">       #charset koi8-r;</span><br><span class="line"></span><br><span class="line">       #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">       location / &#123;</span><br><span class="line">           #root   html;</span><br><span class="line">           #index  index.html index.htm;</span><br><span class="line">          proxy_pass http://kylinserver;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       location /kylin &#123;</span><br><span class="line">           proxy_pass http://kylinserver;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/bec9bff2ly1g8vcz4iabpj20e20ckt8q.jpg" alt="3"></p>
+<p>检查配置文件是否正确：/usr/local/nginx/sbin/nginx -t</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">启动：/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+<p>重启：/usr/local/nginx/sbin/nginx -s reload</p>
+<p>查看进程：ps -ef | grep nginx</p>
+<p>从容停止：kill -QUIT 进程号</p>
+<p>快速停止：kill -TERM 进程号</p>
+<p>强制停止：pkill -9 nginx</p>
+<h2 id="第三章-快速入门"><a href="#第三章-快速入门" class="headerlink" title="第三章 快速入门"></a>第三章 快速入门</h2><p><a href="https://www.jianshu.com/p/c49c61b654da" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="第四章-Kylin实例调研"><a href="#第四章-Kylin实例调研" class="headerlink" title="第四章 Kylin实例调研"></a>第四章 Kylin实例调研</h2><p>从业务层面来讲，OLAP一般分为两个种类。</p>
+<p><strong>即席查询</strong>： 即席查询（Ad Hoc）是用户根据自己的需求，灵活的选择查询条件，系统能够根据用户的选择生成相应的统计报表。即席查询与普通应用查询最大的不同是普通的应用查询是定制开发的，而即席查询是由用户自定义查询条件的。 </p>
+<p>就是用户通过手写SQL来完成一些临时的数据分析需求，这类需求的SQL形式多变，逻辑复杂，对相应时间没有严格的眼球。</p>
+<p><strong>固化查询</strong>：对一些固化下来的取数，看数的需求，通过数据产品的形式提供给用户，从而提高数据分析和运行效率。这类SQL有固定的模式，对相应时间有较高要求。</p>
+<h3 id="美团大规模使用Kylin的例子："><a href="#美团大规模使用Kylin的例子：" class="headerlink" title="美团大规模使用Kylin的例子："></a>美团大规模使用Kylin的例子：</h3><p>随着公司业务数据量和复杂度的不断提升 ，第二种方案会出现几个突出的问题：</p>
+<ol>
+<li><p>随着维度的不断增加，在数仓中维护各种维度组合的聚合表的成本越来越高，数据开发效率明显下降; </p>
+</li>
+<li><p>数据量超过千万行后，MySQL的导入和查询变得非常慢，经常把MySQL搞崩，DBA的抱怨很大;</p>
+</li>
+<li><p>由于大数据平台缺乏更高效率的查询引擎，查询需求都跑在Hive/Presto上，导致集群的计算压力大，跟不上业务需求的增长。</p>
+</li>
+</ol>
+<p>目前OLAP引擎种类还有挺多，目前还没有一个西永能够满足各种场景的查询需求，本质是：没有一个能在数据量、性能、灵活性三个方面做到完美，每个西永在设计时都需要在这三者间做出取舍。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8we03d0ryj20hh06r41n.jpg" alt="1.png"></p>
+<p>例如:</p>
+<p>MPP架构的系统（Presto/Impala/SparkSQL/Drill等）有很好的数据量和灵活性支持，但是对响应时间是没有保证的。当数据量和计算复杂度增加后，响应时间会变慢，从秒级到分钟级，甚至小时级都有可能。</p>
+<p>搜索引擎架构的系统（Elasticsearch等）相对比MPP系统，在入库时将数据转换为倒排索引，采用Scatter-Gather计算模型，牺牲了灵活性换取很好的性能，在搜索类查询上能做到亚秒级响应。但是对于扫描聚合为主的查询，随着处理数据量的增加，响应时间也会退化到分钟级。 </p>
+<p>预计算系统 （Druid/Kylin等）则在入库时对数据进行预聚合，进一步牺牲灵活性换取性能，以实现对超大数据集的秒级响应。<br>对这些特点有了了解，针对不用的场合才知道选择什么。</p>
+<p>典型的使用场景：</p>
+<ul>
+<li>数据以离线生产为主，数据量在千万到百亿之间级别。</li>
+<li>需要多维度任意组合的。</li>
+<li>指标中包含大量去重主表，要求结果精确的。</li>
+<li>相应时间要求：3s内</li>
+<li>可以提供SQL接口</li>
+</ul>
+<p>Kylin在生产环境经过了考研，2016年初美团开始推广Kylin解决方案。一年后覆盖了所有业务线，成为OLAP首选。</p>
+<p>截止16年底，一年时间产生了214个Cube，包含的数据总行数2853亿行，Cube在HBase中的存储有59TB。日查询次数超过了50w次，TP50查询延迟87ms，TP99延迟1266ms，很好满足性能需求。</p>
+<p>美团的硬件环境是：30个节点的Kylin专属Hbase集群，2台用于Cube构建的物理机，和8台8核16GVM用作Kylin的查询机。Cube的构建是运行在主计算机群的MR作业，各业务线的构建任务拆分到了他们各自的资源队列上。</p>
+<p>Kylin对外是REST接口，我们接入了公司统一的http服务治理框架来实现负载均衡和平滑重启。 </p>
+<p>调研的时候，看到Cube这个概念，一般都会担心“维度爆炸这个问题”，就是每增加一个维度，由于维度组合翻倍，可能会产生纬度爆炸，对预计算的算力和磁盘空间都产生很大考验，后来发现这个问题并没有想象的严重。这主要是因为：</p>
+<p>Kylin支持Partial Cube，不需要对所有维度组合都进行预计算。</p>
+<p>实际业务中，纬度之间往往存在衍生关系，而Kylin可以把衍生纬度的计算从预计算推迟到查询处理阶段。</p>
+<p>以事实表上的衍生维度为例，业务中的很多维度都是(ID, NAME)成对出现的。查询时需要对ID列进行过滤，但显示时只需要取对应的NAME列。如果把这两列都作为维度，维度个数会翻倍。而在Kylin中，可以把NAME作为ID列的extendedcolumn指标，这样Cube中的维度个数就减半了。 </p>
+<p>美团在采用衍生维度后，90%的场景可以把Cube中的维度个数（Rowkey列数）控制在20个以内。指标个数呈现长尾分布，小于10个指标的Cube是最多的，不过也有近一半的Cube指标数超过20。总共有382个去重指标，占到了总指标数的10%，绝大多数都是精确去重指标。49%的Cube膨胀率小于100%，即Cube存储量不超过上游Hive表。68%的Cube能够在1小时内完成构建，92%在2小时内完成构建。 </p>
+<p>从美团的实践中能看出美团投入Kylin是看重的Kylin的海量数据超高查询性能的特点，虽然在磁盘空间上做了一部分牺牲，实践证明Kylin的空间换时间是可行的。</p>
+<h3 id="斗鱼大规模使用Kylin的例子"><a href="#斗鱼大规模使用Kylin的例子" class="headerlink" title="斗鱼大规模使用Kylin的例子"></a>斗鱼大规模使用Kylin的例子</h3><p>斗鱼的这个例子，更有代表性，斗鱼随着业务的增长，在2019年Q2，平均MAU，达到1.6亿MAU，每天，超大量的用户使用斗鱼各客户端参与线上互动，斗鱼需要对客户端采集到的的性能数据进行统计和分析，开发出具有多维度分析图标和数据监控的APM（ Application Performance Monitoring，应用性能监控 ）平台。 最初，斗鱼采用了市面上非常流行的 Elasticsearch （简称 ES）实时聚合实现。运行一段时间后，基于 ES 的方案面临用户查询时间长、数据精度丢失等问题，斗鱼采用 Apache Kylin 替换 Elasticsearch， 对 APM 平台中存在的问题进行优化。不试不知道，一试吓一跳。</p>
+<h4 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h4><p>斗鱼是一家面向大众用户的在线直播平台，每天都有超大量的终端用户在使用斗鱼各客户端参与线上互动。伴随业务的迅猛发展，斗鱼需要对客户端采集到的性能数据进行统计和分析，开发出具有多维度分析图表和数据监控的 APM （Application Performance Monitoring，应用性能监控） 平台。 </p>
+<p>针对不同的客户端采集的不同数据，我们需要将各种维度之间相互组合并聚合，最终产出的数据变成指标在图表中展示。例如：对在时间、地域、网络环境、客户端以及 CDN 厂商等维度聚合下的各项指标情况进行<strong>多维度分析</strong>，包括客户端网络性能（包含完整请求耗时，请求耗时，响应耗时，DNS 耗时，TCP 耗时，TLS 耗时等等指标）各类错误时间段内的占比以及详细数量、状态码分布等等。图一和图二分别是两个示例： </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xbb72l6hj20q607u0tt.jpg" alt="undefined"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xbbe37fxj20sg0aw43o.jpg" alt="undefined"></p>
+<p>最初使用ES实施聚合，配合字眼多数据源统一接口（REST多数据源统一接口平台）框架，能够实现纬度指标的自由组合查询。数据采用strom实时消费kafka写入ES，醉倒了数据的事实展示，告警采用定时查询ES的方式。</p>
+<p>运行一段时间后，ES的方案存在问题： <strong>采用 ES 实时聚合的方式，大多数时候对单个字段的聚合查询是非常快的，一旦遇到较为复杂的多维度组合查询并且聚合的数据量比较大（如数十亿），就可能会产生大量的分组，对 ES 的性能压力很大，查询时间很长（几十秒到数分钟）导致用户难以等待，还可能会遇到数据精度丢失的问题。</strong> 因此为了支撑业务， 考虑再三我们决定寻找替代方案，注意到 Apache Kylin 在大数据 OLAP 分析方面非常有优势，于是决定采用 <strong>Kylin 替换 Elasticsearch</strong>， 对斗鱼 APM 平台中存在的问题进行优化。不试不知道，一试吓一跳，效果还真的不错。 </p>
+<h4 id="二、使用Kylin的挑战和解决方案"><a href="#二、使用Kylin的挑战和解决方案" class="headerlink" title="二、使用Kylin的挑战和解决方案"></a>二、使用Kylin的挑战和解决方案</h4><h5 id="Kylin集群的搭建"><a href="#Kylin集群的搭建" class="headerlink" title="Kylin集群的搭建"></a>Kylin集群的搭建</h5><p>斗鱼的这个需求是独立业务，所以搭建了独立集群，目前为止集群共17台机器，其中 CM 节点3台，角色包含 HDFS，YARN，Zookeeper，Hive，HBase，Kafka（主要是消费使用），Spark 2 等。其中 4 台机器上部署了 Kylin 服务，采用了 1 个 “all“ 节点，1 个 “job“ 节点，2个 “query“ 节点的模式，确保了查询节点和任务节点都互有备份，满足服务的高可用。</p>
+<p>斗鱼客户端收集到的 APM 数据会先暂存于 Kafka 消息队列中，Kylin 支持直接从 Kafka topic 中摄入数据而不用先落 Hive，于是我们选择了这种直连 Kafka 的方式来构建实时 Cube。 </p>
+<h5 id="构建实时Cube的问题"><a href="#构建实时Cube的问题" class="headerlink" title="构建实时Cube的问题"></a>构建实时Cube的问题</h5><p>斗鱼客户端收集到的 APM 数据会先暂存于 Kafka 消息队列中，Kylin 支持直接从 Kafka topic 中摄入数据而不用先落 Hive，于是我们选择了这种直连 Kafka 的方式来构建实时 Cube。 </p>
+<p>1) Kafka数据格式要求：</p>
+<p> Kylin 的实时 Cube 需要配置基于 Kafka topic 的 Streaming Table (将 Kafka topic 映射成一张普通表）。这一步不同于基于 Hive 的数据表（Kylin 可以直接从 Hive metastore 获取表的字段信息），需要管理员进行一定的手工配置，才能将 Kafka 中的 JSON 消息映射成表格中的行。这一步对 Kafka 中的数据格式和字段有一定的要求，起初因为不了解这些要求，配置的 Cube 在构建时经常失败，只有少数 Cube 构建成功。也有的 Cube 很多次都构建成功，但偶尔会有失败。针对这些问题我们进行了一系列的排查和改进。现总结如下：</p>
+<p> a. 由于我们原始数据在 kafka 中的存放格式为数组格式（JSON 字符串），所以在创建 Streaming Table 的时候会遇到下面的问题： </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xktgl70sj20sg0bjn0p.jpg" alt="undefined"></p>
+<p>Kylin 会将数组中识别的字段默认加上数组下标，例如图中的 0_a，0_b 等，与我们的预期不符，所以需要对数组数据进行拆分。也就是说，Kylin 期望一条消息就是一个 JSON 对象（而非数组）。</p>
+<p>b. 我们原始数据中还有嵌套的对象类型的字段，这种类型在 Kylin Streaming Table 识别的时候也可能会有问题，同样需要规整。如 Kylin 会把嵌套格式如 “{A: {B: value}}” 识别为 A_B 的字段，如下图，所以使用起来同样也可以，这个根据业务的不同可以自由选择，可以采用将嵌套字段铺平来规避后面可能出现的问题。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xl9j5qrcj20sg06ywfg.jpg" alt="undefined"></p>
+<p>c. 这个是比较难发现的一个问题，就是在设计好 Cube 之后，有时会有 Cube 构建失败的情况，经过排查之后发现，是由于公司业务数据来源的特殊性（来自于客户端上报），所以可能会出现 Kafka 中字段不一致的情况。一旦出现极少数字段不一样的数据混在 Kafka 中，便极有可能让这一次的 Cube 构建失败。 </p>
+<p>基于以上几点，我们总结，<strong>Kylin 在接入 Kafka 实时数据构建之前，一定要做好数据清洗和规整</strong>，这也是我们前期耗费大量时间踩坑的代价。数据的清洗和规整我们采用的是流处理（Storm/Flink）对 Kafka 中的数据进行对应的处理，再写入一个新的 Kafka topic 中供 Kylin 消费。 </p>
+<p>2) 任务的定时调度</p>
+<p>Cube 的构建任务需要调用 API，如何定时消费 kafka 的数据进行构建，以及消费 kafka 的机制究竟如何。由于对 Kylin 理解的不够，一开始建出来的 Cube 消耗性能十分严重，需要对所建的 Cube 配合业务进行剪枝和优化。</p>
+<p>构建实时 Cube 和构建基于 Hive 的离线 Cube 有很多不一样的地方，我们在使用和摸索的过程中踩了很多坑，也有了一定的经验。</p>
+<p>由于是近实时 Cube 构建，需要每隔一小段时间就要构建一次，采用服务器中 Kylin 主节点上部署 Crontab-job 的模式来实现。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlqat61cj20jf05qt8z.jpg" alt="undefined"></p>
+<p> 调度的时间间隔也经过了多次试验，调度的时间短了，上一个任务还没有执行完，下一个就开始了，容易产生堆积，在高峰时期容易造成滚雪球式的崩塌；调度的时间长了，一次处理的数据量就会特别大，导致任务执行的时间和消耗的资源也随之增长（Kylin 取 Kafka的数据，是比较简单粗暴的从上一次调度记录的 offset 直接取到当前最新的 offset，所以间隔时间越长，数据量越多），这是一个需要平衡的事情。经过反复测试使用，以及官方相应的介绍下，我们发现任务执行时间在 10~20 分钟为最优解，当然根据数据量的不同会有不同的调整。 </p>
+<p> 3）Kylin 的剪枝与优化 </p>
+<p>由于业务比较复杂，每个 Cube 的维度可能特别的多，随着维度数目的增加 Cuboid 的数量会爆炸式的增长。例如 WEB 端网络性能分析的 Cube 维度可能达到 47 个，如果采用全量构建，每一个可能情况都需要的话，最多可能构建 2 的 47 次方，也就是1.4 * 10^14 种组合，这肯定是不能接受的。所以在 Cube 设计的时候一定要结合业务进行优化和剪枝。</p>
+<p>首先是筛选，将原始数据中根据不同的业务，选择不同的字段进行设计，以Ajax性能分析为例，选择出需要使用的 25 种维度。<strong>（2^47 -&gt; 2^25）</strong></p>
+<p>接下来是分组，将 25 种维度按照不同的场景进行分组，例如，地域相关的可以放在一起，浏览器相关的也能分为一组。我们将场景分为了 4 组，将指数增长拆分为多个维度组之和。<strong>好的分组可以有效的减少计算复杂度，但是没有设计好的分组，很可能会由于设计问题没有覆盖好各种场景，导致查询的时候需要二次聚合，导致查询的性能很差，这里需要重点注意。（2^25 -&gt; 2^12 + 2^13 + 2^14 + 2^13）</strong></p>
+<p> 然后是层级维度（Hierarchy Dimensions）、联合维度（Joint Dimensions）和必要维度（Mandatory Dimensions）的设置。这三个官网和网上都有大量的说明，这里不加赘述。最终实现 Kylin 的剪枝，来减少计算的成本。 </p>
+<p>最后是 Kylin 本身一系列的配置上的优化，这些针对各自业务和集群可以参照官方文档进行调参优化。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlrfg7plj20sg0b6ahm.jpg" alt="undefined"></p>
+<h5 id="Kylin集群优化"><a href="#Kylin集群优化" class="headerlink" title="Kylin集群优化"></a>Kylin集群优化</h5><p>起初我们为 Kylin 集群申请的机器类型是计算密集型，没有足够的本地存储空间。Kylin 在运行的过程中磁盘经常满了，常常需要手动清理机器。同时在前期运行的过程中时不时会出现「Kylin 服务挂了（或者管理端登不上）」，「HBase 挂了」等等情况，针对遇到的这几个问题，我们有一些解决的措施。</p>
+<p>1）<strong>磁盘不足。</strong>因为 Kylin 在构建 Cube 的时候，会产生大量的临时文件，而且其中有部分临时文件 Kylin 是不会主动删除的，所以机器经常会出现磁盘空间不足的问题（也跟我们计算型机器磁盘空间小有关）。</p>
+<p>解决办法：采用定时自动清除，和手动调动 API 清除临时文件，扩容 2 台大容量机器调整 Reblance 比例（这才彻底解决这个问题）。</p>
+<p>2）<strong>服务不稳定。</strong>刚开始的时候集群部分角色总是挂起（例如 HDFS、HBase 和 Kylin 等），排查发现是由于每台机器存在多个角色，角色分配的内存之和大于机器的可用内存，当构建任务多时，可能导致角色由于内存问题挂掉。</p>
+<p>解决办法：对集群中各个角色重新分配，通过扩容可以解决一切资源问题。添加及时的监控，由于 Kylin 不在 CM 中管理，需要添加单独的监控来判断 Kylin 进程是否挂掉或者卡住，一旦发现需要重启 Kylin。要注意有 job 的节点重启时需要设置好 kafka 安装路径。</p>
+<h5 id="HBase超时优化"><a href="#HBase超时优化" class="headerlink" title="HBase超时优化"></a>HBase超时优化</h5><p> Kylin 在后期维护中，经常会有任务由于 operationTimeout 导致任务失败。如图： </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8xlxz8a4ej20sg06taf5.jpg" alt="undefined"></p>
+<p> 这个报错让 Cube 构建常常失败，且一旦构建失败超过一定的次数，该 Cube 就不会继续构建了，影响到了业务的使用，针对此问题也进行了相应的排查，发现是构建的时候，可能会由于 HBase 连接超时或者是连接数不够造成任务失败。需要在 CM 中调整 HBase 相关参数。包括调整 hbase.rpc.timeout 和 hbase.client.operation.timeout 到 50000 等（之前是 30000，可以根据业务不不同自行调整，如果还有超时可以优化或者继续调整）。 </p>
+<h5 id="已有-Cube-的修改"><a href="#已有-Cube-的修改" class="headerlink" title="已有 Cube 的修改"></a>已有 Cube 的修改</h5><p>由于业务的迭代，新增了几个维度和指标需要增加在已存在的Cube上，又例如原先 Cube 设计上有一些不足需要修改。在这方面例如 DataSource 没有修改功能，新旧 Cube 如何切换，修改经常没有响应等等问题让我们十分为难。</p>
+<p>已有 Cube 的修改是目前使用 Kylin 最为头疼的地方。虽然 Kylin 支持 Hybrid model 来支持一定程度的修改，但是在使用的过程中因为</p>
+<p>各种各样的原因，例如 Streaming Table 无法修改来新增字段等，还是未能修改成功。</p>
+<p>目前采用的修改模式为，重新设计一整套从 DataSource 到 Model 再到 Cube，停止之前 Cube 的构建任务，开始新 Cube 的构建调度。使用修改我们 Java 代码的方式动态的选择查询新 Cube 还是旧 Cube，等到一定的时间周期之后再废弃旧 Cube。目前这种方式的弊端在于查询时间段包含新旧时，需要在程序中拼接数据，十分麻烦且会造成统计数据不准。所以在设计之初就要多考虑一下后面的扩展，可以先预留几个扩展字段。</p>
+<p>用SPA如今稳进死                                                                                                                                                                                                                                           </p>
+<h4 id="三、效果对比"><a href="#三、效果对比" class="headerlink" title="三、效果对比"></a>三、效果对比</h4><h5 id="对比表格"><a href="#对比表格" class="headerlink" title="对比表格"></a>对比表格</h5><table>
+<thead>
+<tr>
+<th>条件</th>
+<th>Apache Kylin</th>
+<th>ES实时聚合</th>
+<th><strong>Hive</strong> 离线任务再入  MySQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查询速度</td>
+<td>较快，一般在亚秒级别。从HBase中选择适合的纬度，Cube设计的好的话不存在二次聚合，也不会有速度方面的问题。</td>
+<td><strong>慢，可能有几分钟。</strong>实时聚合，在复杂的情况下有严重的性能问题，查询的时间可能到几分钟。</td>
+<td><strong>快，一般在毫秒级。</strong>计算好的数据基于  MySQL 查询，一般不会有性能问题。</td>
+</tr>
+<tr>
+<td>时效性</td>
+<td>近实时，一般在30分钟以内。延迟主要取决于任务调度的时间，但是一般都会在10~30分钟左右。</td>
+<td><strong>实时，一般延迟在秒级。</strong>ES的延迟是取决于上游数据的写入延迟和数据刷新的时间，一般可以控制在秒级。</td>
+<td><strong>离线，一般是T+1延迟。</strong>离线数据由于同步和计算的关系，一般都是+1小时延迟或者是+1天延迟。</td>
+</tr>
+<tr>
+<td>开发难度</td>
+<td>较简单。实时数据需要先进行一系列的清洗和规整，后面只需要配置即可，不过 Cube 设计有一定的难度。</td>
+<td><strong>简单。</strong>只需要写入数据即可，配合已有的EST框架可以任意组合满足业务需要。</td>
+<td><strong>工作量极大。</strong>针对每一种维度组合，都需要手动开发任务来进行计算和存储。</td>
+</tr>
+<tr>
+<td>资源消耗</td>
+<td>一般。单独搭建的集群，不会对其他业务造成影响，但是集群资源需求还是比较大。</td>
+<td><strong>一般。</strong>查询和写入一旦量大复杂后对集群上其他的查询会带来影响。</td>
+<td><strong>一般。</strong>在大集群上跑  YARN 任务，对集群整体影响不大。</td>
+</tr>
+<tr>
+<td>可拓展性</td>
+<td><strong>不太好扩展。</strong>针对已经建好的  DataSource、Model 和 Cube 的修改比较不友好，但是有解决的办法。</td>
+<td><strong>可扩展性较强。</strong>所有的修改只需修改Index模板，下一周期生效即可。</td>
+<td><strong>基本无法扩展。</strong>每次有新的业务需求需要重新开发任务。</td>
+</tr>
+<tr>
+<td>容错性</td>
+<td><strong>较差。</strong>对数据的格式和类型要求较为严格，容易导致构建失败。</td>
+<td><strong>较差。</strong>字段不一致会带来冲突，导致字段无法聚合，且冲突一旦在索引中生成，该索引将无法解决，只有等待下一周期或删除索引。</td>
+<td><strong>较好。</strong>对字段类型和数据字段有一定的容错性。</td>
+</tr>
+<tr>
+<td>数据查询复杂度</td>
+<td><strong>十分简单。</strong>Kylin 会根据条件自动识别就是在哪一个 Cuboid 中查询数据，只需要使用 SQL 即可，跨 Cuboid 的查询也可以自动二次聚合，SQL 也可以直接配合 EST 框架。</td>
+<td><strong>较为容易。</strong>配合 EST 框架查询十分容易，但是由于索引有小时和天后缀，需要在程序中进行判断，才能有效降低查询量。</td>
+<td><strong>十分困难。</strong>由于每个维度存储组合存储的表都不一样，导致存储结构十分复杂，查询的时候需要自己判断在那张表里面，难度很大。</td>
+</tr>
+</tbody>
+</table>
+<h5 id="Tips-Impala速度快的原因"><a href="#Tips-Impala速度快的原因" class="headerlink" title="Tips: Impala速度快的原因"></a>Tips: Impala速度快的原因</h5><p>impala采用了MPP查询引擎(Massively Parallel Processor)， 在数据库非共享集群中，每个节点都有独立的磁盘存储系统和内存系统，业务数据根据数据库模型和应用特点划分到各个节点上，每台数据节点通过专用网络或者商业通用网络互相连接，彼此协同计算，作为整体提供数据 库服务。非共享数据库集群有完全的可伸缩性、高可用、高性能、优秀的性价比、资源共享等优势。 </p>
+<p>Elasticsearch也是一种MPP架构的数据库，Presto、Impala等都是MPP engine，各节点不共享资源，每个executor可以独自完成数据的读取和计算，缺点在于怕stragglers，遇到后整个engine的性能下降到该straggler的能力，所谓木桶的短板，这也是为什么MPP架构不适合异构的机器，要求各节点配置一样。 </p>
+<h4 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h4><p>之前ES需要90s完成的查询，使用Kylin只需要2-3s，原来需要加载几分钟的仪表盘，现在只需要几秒钟就能加载完成，速度提升30多倍。</p>
+<p>在开发效率上，切换至 Kylin 在前期不熟悉的情况下的确走了一些弯路，踩了不少坑（跟数据质量、对 Kylin 原理的掌握等都有关）。但是后面在熟悉之后便可以有不逊色于 ES 的开发效率，用起来非常不错。</p>
+<p>目前版本的 Kylin 也有一些不足，例如数据的时效性，因为 Kylin 2.x 的流数据源只能达到准实时（Near Real-time），准实时延迟通常在十几到几十分钟的，对 APM 系统中的实时告警模块还不能满足业务要求。所以目前实时告警这一块走的还是ES，由于告警只需要对上个短暂周期（1~5 分钟）内的数据做聚合，数据量较小，ES 对此没有性能问题倒能承受。对于海量历史数据，通过 Kylin 来查询的效果更好。</p>
+<p>新系统于 2018 年 11 月正式上线，目前已经稳定运行近一年。我们也注意到 Kylin 3.0 已经在实时统计上开始发力，能够做到 ES 这样的秒级延迟，我们会持续关注，希望 Kylin 可以发展的越来越好。</p>
+<h2 id="第五章-Kylin在腾讯的平台化及Flink引擎实践"><a href="#第五章-Kylin在腾讯的平台化及Flink引擎实践" class="headerlink" title="第五章 Kylin在腾讯的平台化及Flink引擎实践"></a>第五章 Kylin在腾讯的平台化及Flink引擎实践</h2><p>Kylin 现有的用户管理、资源隔离机制并不能满足我们需求，基于此，腾讯对 Kylin 进行了平台化改造。希望平台化改造完成后，在下面这些层面，能够有一些改进：</p>
+<ul>
+<li>用户管理</li>
+<li>资源隔离</li>
+<li>易用性提升</li>
+<li>方便运维</li>
+</ul>
+<h3 id="用户管理："><a href="#用户管理：" class="headerlink" title="用户管理："></a>用户管理：</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92byqbpinj20sg0enq3v.jpg" alt="undefined"></p>
+<p>为了便于系统的管理及安全，公司内部有一套自己的认证系统，而且需要用个人账号去验证，所以 Kylin 作为一个平台对外提供服务的话，也需要接入到该系统。所以，我们新增了一个用户管理界面，该界面展示了 Kylin 平台内的所有用户。管理员可以新增任一用户到 Kylin 平台，新增用户时会填写企业微信名、用户角色以及是否激活用户。当用户登录系统时，会自动检测用户账号以及该账号是否在平台内注册，如果没有注册则无权限，反之自动登录系统。 </p>
+<h3 id="内部Hive兼容"><a href="#内部Hive兼容" class="headerlink" title="内部Hive兼容"></a>内部Hive兼容</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92bzc39h9j20g60ajmxc.jpg" alt="undefined"></p>
+<p>由于历史原因，我们部门内的 Hive 版本（THive）与 Kylin 不兼容，这就导致 Kylin 无法正常访问 Kylin 集群，所以我们采用了上图所示的兼容方案。首先，我们使用社区 Hive 版本搭建一个全新的 Hive，并作为 Kylin 的默认 Hive；其次，当 kylin 加载源表时，我们是通过内部的 UPS 系统读取 THive 的元数据信息；最后，在 Load 源表到 Kylin 时，我们根据表的元数据信息在 Kylin 的 Hive 上创建一张相同的表，但该表的存储路径依旧指向 THive 的路径，而用户在构建 cube 时，则访问新创建的表，至此就解决了 Kylin 访问 THive 的问题。 </p>
+<h3 id="计算资源可配置化"><a href="#计算资源可配置化" class="headerlink" title="计算资源可配置化"></a>计算资源可配置化</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92bzqjxlmj20sg0b00td.jpg" alt="undefined"></p>
+<p> 目前，Kylin 配置计算资源信息有两种方式：一是在 Kylin 配置文件中配置一个全局的计算集群及队列；二是在创建工程或者 Cube 时，在扩展参数中指定集群配置。这两种配置方式在灵活性及便捷性方面都比较差，而在我们内部是有接口可以获取到某一个用户有计算资源的计算集群及计算队列的，所以，在创建工程或者 Cube 时，我们使用了下拉框选择式的方式，让用户选择提交任务的计算资源及队列，从而大大简化了用户的使用流程。 </p>
+<h3 id="通知机制"><a href="#通知机制" class="headerlink" title="通知机制"></a>通知机制</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c01zg2dj20sg0cijs8.jpg" alt="undefined"></p>
+<p>Kylin 只提供了发邮件通知的功能，而作为目前使用最广泛的工具，微信、企业微信在实时性及便捷性方面都远远胜于邮件，所以，我们提供了邮件、微信、企业微信三种方式，供用户选择。 </p>
+<h3 id="定时调度"><a href="#定时调度" class="headerlink" title="定时调度"></a>定时调度</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c0ds7dij20sg0augmf.jpg" alt="undefined"></p>
+<p>Kylin 系统自身并没有提供定时调度功能，但基本上每家公司都有自己的统一调度平台，我们也不例外。我们通过 Kylin 提供的API接口，将 Cube 定时构建的功能作为一个插件集成到了公司内部的统一调度平台上。 </p>
+<h3 id="业务接入"><a href="#业务接入" class="headerlink" title="业务接入"></a>业务接入</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92c0z1koyj20sg0bjjs2.jpg" alt="undefined"></p>
+<p>做完以上平台化改造后，Kylin 平台基本具备了接入不同类型业务的能力，用户申请接入流程如上图所示。</p>
+<p>业务使用情况：</p>
+<p>我们团队是在今年初才开始引入 Kylin，目前已经在使用的业务主要有 QQ 音乐、腾讯视频、广点通、财付通等，Cube 的数量有 10 个，单份数据存储总量是 5 T，数据规模在 30 亿条左右。</p>
+<h3 id="Flink-Cube-Engion："><a href="#Flink-Cube-Engion：" class="headerlink" title="Flink Cube Engion："></a>Flink Cube Engion：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">目前，Kylin 已经支持使用 MapReduce 和 Spark 作为构建引擎，而作为目前比较火的流批一体的大数据计算引擎怎能缺席？所以我使用 Flink 开发了一个高性能的构建引擎：Flink Cube Engine。</span><br><span class="line"></span><br><span class="line">Flink Cube Engine 是腾讯基于 Kylin 插件化的 Cube Engine 架构开发的一个高性能构建引擎，目前已具备了上线使用的能力，感兴趣的同学可以体验一下，目前该引擎已经在腾讯生产环境上线 1 个月+，非常稳定而且效果不错。</span><br><span class="line"></span><br><span class="line">Umbrella issue: </span><br><span class="line"></span><br><span class="line">Umbrella issue: </span><br><span class="line"></span><br><span class="line">https://issues.apache.org/jira/browse/KYLIN-3758</span><br><span class="line"></span><br><span class="line">分支：</span><br><span class="line"></span><br><span class="line">https://github.com/apache/kylin/tree/engine-flink</span><br></pre></td></tr></table></figure>
+<p>上面</p>
+<p>第一个链接可以看到flink cube的完成情况</p>
+<p>第二个链接可以看到flink cube在github的代码</p>
+<p>使用：<img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cvbklxij20sg0bf0t6.jpg" alt="undefined"></p>
+<p>Kylin 的一次 Cube 构建任务，包含了很多个子任务，而最重要的莫过于 Cube 构建这一步骤，所以，我们在 build 和 merge Cube 这两种任务中，优先实现了Cube 构建这一步骤，其他计算步骤依旧通过使用 MapReduce 来实现。 </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cwad8r9j20m50f1aaq.jpg" alt="undefined"></p>
+<p>选择使用 Flink Cube Engine 的方式也和选择 Map Reduce 和 Spark 任务类似，我们提供了前台可视化的界面，供用户选择。 </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92cwti90pj20sg0bygmq.jpg" alt="undefined"></p>
+<p>上图是我们内部业务上线 Flink Cube Engine 之后的性能对比，从图中可见，该步骤的构建耗时从 49 分钟降到了 13 分钟，优化效果比较明显。两种情况的资源配置如下：</p>
+<p>Flink 配置为：</p>
+<p>-ytm 4G -yjm 2G -ys 1 -p 100 -yn 100</p>
+<p>Spark 采用的动态分配资源如下：</p>
+<p>kylin.engine.spark-conf.spark.dynamicAllocation.enabled=true</p>
+<p>kylin.engine.spark-conf.spark.dynamicAllocation.minExecutors=2</p>
+<p>kylin.engine.spark-conf.spark.dynamicAllocation.maxExecutors=1000</p>
+<p>kylin.engine.spark-conf.spark.dynamicAllocation.executorIdleTimeout=300</p>
+<p>kylin.engine.spark-conf.spark.shuffle.service.enabled=true</p>
+<p>kylin.engine.spark-conf.spark.shuffle.service.port=7337</p>
+<p>虽然，Spark 采用的是动态分配资源，但在任务执行过程中，我们观察到 Spark实际分配的资源远比 Flink 要多的多。</p>
+<p>那为什么性能提升会那么明显呢？</p>
+<ol start="4">
+<li>Flink Cube Engine 的优化</li>
+</ol>
+<p>性能的提升，无非有两方面的原因，一是参数的优化，二是代码的优化。</p>
+<p>1) 调参</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d1xm7dbj20sg04qt9j.jpg" alt="undefined"></p>
+<p>影响 Flink 任务性能主要有几个核心参数：并行度、单个 TM slot 数目、TM container 数目，其中单个 TM container 数目=并行度/单个 TM slot 数目。</p>
+<p>我们调优的过程采用了控制变量法，即：固定并行度不变、固定 Job 总内存数不变。通过不断的调整单个 TM 的 slot 数目，我们发现如果单个 TM 的 slot 数目减少，拉起更多的 TM container 性能会更好。</p>
+<p>此外，我们还使用了对象复用、内存预分配等方法，发现没有对性能提升起到太大的效果。</p>
+<p>2) 代码优化(合并计算)</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d2ii64cj20sg0bimyh.jpg" alt="undefined"></p>
+<p> 在实现 Flink Cube Engine 的时候，一开始我们使用了 Map/Reduce 两个算子，发现性能很差，比 Spark 的性能还要差很多，后来我们通过调整使用了 Flink 的 mapPartition/reduceGroup 两个算子，性能就有了明显的提升。 </p>
+<p>Flink Cube Engine 下一步的计划：</p>
+<ol>
+<li>全链路 Flink</li>
+</ol>
+<p>如上所述，目前 Cube 构建过程中，只有最关键的 cube 构建这一子任务使用了 Flink，而其他子任务仍然使用的是 MapReduce，我们下一步会继续完善 Flink Cube Engine，将所有的子任务都使用 Flink 来构建。</p>
+<ol start="2">
+<li>Flink 升级到 1.9</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g92d55mrpgj20sg09bdgg.jpg" alt="undefined"></p>
+<p>Flink 最近发布了 1.9.0，该版本包含了很多重要特性且性能也有了一定提升，所以，我们会把 Flink Cube Engine 使用的 Flink 版本升级到1.9.0。 </p>
+<h2 id="第六章-Kylin实操"><a href="#第六章-Kylin实操" class="headerlink" title="第六章 Kylin实操"></a>第六章 Kylin实操</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Kylin的安装相对简单，我们使用的Kylin是2.6.3版本的，安装并没有多少复杂的步骤，按照官网的步骤安装即可：</p>
+<p><a href="http://kylin.apache.org/docs/install/index.html" target="_blank" rel="noopener">官方文档安装步骤</a></p>
+<p>安装完成后，在bin目录下面执行check-env.sh，这个脚本会执行检查，如果仅仅显示KYLIN_HOME is set to… 说明一切配置正常，就可以启动了。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>回到Kylin的bin目录下执行sample.sh，成功执行后会有如下提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Retrieving hadoop conf dir...</span><br><span class="line">KYLIN_HOME is set to /data1/CM/kylin-2.6.3</span><br></pre></td></tr></table></figure>
+<p>出现这个提示，就说明已经成功了。</p>
+<p>根据日志提示信息，重新加载元数据，使kylin能读取到创建好的project “learn_kylin”.跳转至system ,点击reload metadata</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g94igifi2xj20zk0gxtc3.jpg" alt="undefined"></p>
+<p> 然后buil cube</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g94ih39tw6j20zk0gxq4q.jpg" alt="undefined"></p>
+<p>此时cube正在创建，可以在Monitor中监控到整个cube构造的过程以及可以查看到每一步构建的过程和日志。 </p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g94ihodonej20zk0gx0un.jpg" alt="undefined"></p>
+<p>然后就可以在SQL输入框输入相关的SQL，就可以做简单的可视化。</p>
+<h2 id="第七章-Kylin的优化"><a href="#第七章-Kylin的优化" class="headerlink" title="第七章 Kylin的优化"></a>第七章 Kylin的优化</h2><h3 id="查询时间优化"><a href="#查询时间优化" class="headerlink" title="查询时间优化"></a>查询时间优化</h3><p>Kylin 的查询过程主要包含四个步骤：解析 SQL，从 HBase 获取数据，二次聚合运算，返回结果。显然优化的重点就落在如何加快 HBase 获取数据的速度和减少二次聚合预算。</p>
+<ul>
+<li>提高 HBase 响应时间：修改配置，修改 Cache 的策略，增加 Block Cache 的容量</li>
+<li>减少二次聚合运算：合理设计纬度，使查询时尽量能精确命中 Cuboid。去重值使用有损算法。</li>
+</ul>
+<h3 id="预计算优化"><a href="#预计算优化" class="headerlink" title="预计算优化"></a>预计算优化</h3><p>预计算的优化，主要考虑有何缩短构建花费的时间，以及中间结果和最终结果占用的空间。每个业务单独一个 Cube，避免每个 Cube 大而全，减少不必要的计算。</p>
+<h4 id="Cube优化"><a href="#Cube优化" class="headerlink" title="Cube优化"></a>Cube优化</h4><p>随着维度数目的增加，Cuboid 的数量成指数级增长。为了缓解 Cube 的构建压力，Kylin 提供了 Cube 的高级设置。这些高级设置包括聚合组（Aggregation Group）、联合维度（Joint Dimension）、层级维度（Hierarchy Dimension）和必要维度（Mandatory Dimension）等。</p>
+<p>合理调整纬度配置，对需构建的 Cuboid 进行剪枝，刷选出真正需要的 Cuboid，优化构建性能，降低构建时间，大大提高了集群资源的利用效率。</p>
+<p>如果Cube优化的好，效果可以非常明显。</p>
+<h5 id="优化方法："><a href="#优化方法：" class="headerlink" title="优化方法："></a>优化方法：</h5><p>1.必须维度</p>
+<p>查询时，经常使用的维度，以及低基数纬度。如该维度基数&lt;10，可以考虑作为必须维度。 </p>
+<p>2.层级维度</p>
+<p> 维度关系有一定层级性、基数有小到大情况可以使用层级维度。 </p>
+<p>3.Joint维度</p>
+<p>维度之间是同时出现的关系，及查询时，绝大部分情况都是同时出现的。可以使用 joint 维。 </p>
+<p>4.维度组合组</p>
+<p>将为维度进行分组，查询时组与组之间的维度不会同时出现。 </p>
+<h5 id="配置优化："><a href="#配置优化：" class="headerlink" title="配置优化："></a>配置优化：</h5><p> 配置优化，包括 Kylin 资源的配置以及 Hadoop 集群配置相关修改。 </p>
+<ol>
+<li>构建资源</li>
+</ol>
+<p>每个 Cube 构建时，所需的资源不太一样，需要进行相应的资源调整。</p>
+<ol start="2">
+<li>调整副本</li>
+</ol>
+<p>集群默认的文件副本数为 3，Cube 构建时，将副本数调为 2，个别中间任务还可以调整为 1，这样可以降低构建任务时集群 IO。为了保证查询的稳定性，HBase 副本数依然为 3。</p>
+<ol start="3">
+<li>压缩格式</li>
+</ol>
+<p>在实验中发现，如果Hive和Hbase都设置了snappy格式，那么集群IO交互会小很多。</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>Kylin在复杂业务的查询中可以用预计算的方式提前计算好预期结果存在Hive临时表中，然后写入Hbase，优点显而易见：</p>
+<p>1.可以合理配置集群资源，预计算的时间可以提前设定。</p>
+<p>2.对海量数据的提前预计算意味着用户查询时不用重复计算，直接从Hbase中获取结果即可。</p>
+<p>缺点：</p>
+<p>Kylin仅支持星型模型的数据集，对原数据提出了要求。</p>
+<p>并且作为空间换时间的OLAP应用，需要占用HBase集群大量的空间。</p>
+<p>维度的膨胀需要结合业务控制，不同的业务还需要研究不同Cube的优化，使用成本会比IMPALA 这种使用SQL语言的高不少。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kylin/" rel="tag"># Kylin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/09/WaterMark原理以及验证/" rel="next" title="WaterMark原理以及验证">
+                <i class="fa fa-chevron-left"></i> WaterMark原理以及验证
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/09/Pulsar与Kafka对比/" rel="prev" title="Pulsar与Kafka对比">
+                Pulsar与Kafka对比 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
+            
+              <p class="site-author-name" itemprop="name">Fly Hugh</p>
+              <p class="site-description motion-element" itemprop="description">TRUST THE PROCESS</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/FlyMeToTheMars" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3200892914" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/Fly__HoBo" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kylin"><span class="nav-number">1.</span> <span class="nav-text">Kylin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-概述"><span class="nav-number">1.1.</span> <span class="nav-text">第一章 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Kylin定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Kylin定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Kylin特点"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 Kylin特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Kylin架构"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 Kylin架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Kylin工作原理"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 Kylin工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-纬度和度量"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">1.4.1 纬度和度量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-Cube和Cuboid"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">1.4.2 Cube和Cuboid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-核心算法"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">1.4.3 核心算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-1-逐层构建算法"><span class="nav-number">1.1.4.3.1.</span> <span class="nav-text">1.4.3.1 逐层构建算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-2-快速构建算法（inmem）"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">1.4.3.2 快速构建算法（inmem）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章：Kylin安装指南"><span class="nav-number">1.2.</span> <span class="nav-text">第二章：Kylin安装指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1安装地址"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1安装地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-软件要求"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 软件要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-硬件要求："><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 硬件要求：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Hadoop环境"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 Hadoop环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Kylin安装"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 Kylin安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kylin-tarball-目录"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">Kylin tarball 目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查运行环境"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">检查运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动-Kylin"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">启动 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-Kylin"><span class="nav-number">1.2.5.4.</span> <span class="nav-text">使用 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#停止-Kylin"><span class="nav-number">1.2.5.5.</span> <span class="nav-text">停止 Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS-目录结构"><span class="nav-number">1.2.5.6.</span> <span class="nav-text">HDFS 目录结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-集群模式部署"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 集群模式部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#任务引擎高可用"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">任务引擎高可用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装负载均衡器"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">安装负载均衡器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-快速入门"><span class="nav-number">1.3.</span> <span class="nav-text">第三章 快速入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-Kylin实例调研"><span class="nav-number">1.4.</span> <span class="nav-text">第四章 Kylin实例调研</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#美团大规模使用Kylin的例子："><span class="nav-number">1.4.1.</span> <span class="nav-text">美团大规模使用Kylin的例子：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斗鱼大规模使用Kylin的例子"><span class="nav-number">1.4.2.</span> <span class="nav-text">斗鱼大规模使用Kylin的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、背景"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">一、背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、使用Kylin的挑战和解决方案"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">二、使用Kylin的挑战和解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Kylin集群的搭建"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text">Kylin集群的搭建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构建实时Cube的问题"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text">构建实时Cube的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Kylin集群优化"><span class="nav-number">1.4.2.2.3.</span> <span class="nav-text">Kylin集群优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HBase超时优化"><span class="nav-number">1.4.2.2.4.</span> <span class="nav-text">HBase超时优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#已有-Cube-的修改"><span class="nav-number">1.4.2.2.5.</span> <span class="nav-text">已有 Cube 的修改</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、效果对比"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">三、效果对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对比表格"><span class="nav-number">1.4.2.3.1.</span> <span class="nav-text">对比表格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips-Impala速度快的原因"><span class="nav-number">1.4.2.3.2.</span> <span class="nav-text">Tips: Impala速度快的原因</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、总结"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">四、总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-Kylin在腾讯的平台化及Flink引擎实践"><span class="nav-number">1.5.</span> <span class="nav-text">第五章 Kylin在腾讯的平台化及Flink引擎实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理："><span class="nav-number">1.5.1.</span> <span class="nav-text">用户管理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部Hive兼容"><span class="nav-number">1.5.2.</span> <span class="nav-text">内部Hive兼容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算资源可配置化"><span class="nav-number">1.5.3.</span> <span class="nav-text">计算资源可配置化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通知机制"><span class="nav-number">1.5.4.</span> <span class="nav-text">通知机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定时调度"><span class="nav-number">1.5.5.</span> <span class="nav-text">定时调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务接入"><span class="nav-number">1.5.6.</span> <span class="nav-text">业务接入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Cube-Engion："><span class="nav-number">1.5.7.</span> <span class="nav-text">Flink Cube Engion：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-Kylin实操"><span class="nav-number">1.6.</span> <span class="nav-text">第六章 Kylin实操</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.6.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七章-Kylin的优化"><span class="nav-number">1.7.</span> <span class="nav-text">第七章 Kylin的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询时间优化"><span class="nav-number">1.7.1.</span> <span class="nav-text">查询时间优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预计算优化"><span class="nav-number">1.7.2.</span> <span class="nav-text">预计算优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cube优化"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">Cube优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优化方法："><span class="nav-number">1.7.2.1.1.</span> <span class="nav-text">优化方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置优化："><span class="nav-number">1.7.2.1.2.</span> <span class="nav-text">配置优化：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">1.8.</span> <span class="nav-text">总结：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">237.8k</span>
+  
+</div>
+
+
+<!-- 
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+       <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/src/src/clicklove.js"></script>
+
+    
+  </div>
+
+
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("72l8G3xFxrAReJk0PBs8jCeC-gzGzoHsz", "r0TXzhifsg8y5LTKokFte6fz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+
+
+</html>
+
