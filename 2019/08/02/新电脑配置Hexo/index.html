@@ -106,7 +106,7 @@
 <meta property="og:description" content="跨平台win/mac更新博文">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g5l74xxdnaj20o308umxm.jpg">
-<meta property="og:updated_time" content="2020-04-10T17:04:15.809Z">
+<meta property="og:updated_time" content="2020-04-22T13:19:08.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo Conf">
 <meta name="twitter:description" content="跨平台win/mac更新博文">
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  114
+                  231
                 </span>
               
 
@@ -483,6 +483,17 @@
 <hr>
 <p>更新于2020/4/11</p>
 <p>macOS亲测 相同方法可用，自此Hexo在全平台OneDrive上同步，全平台可以实时更新日志</p>
+<hr>
+<p>第三次更新与2020/4/22</p>
+<p>配置多个git源的办法</p>
+<p>ssh-keygen -t rsa -f ~/.ssh/id_rsa_gitlab -C <a href="mailto:flyhobo@live.com" target="_blank" rel="noopener">flyhobo@live.com</a></p>
+<p>ssh-keygen -t rsa -f ~/.ssh/id_rsa_github -C <a href="mailto:flyhobo@live.com" target="_blank" rel="noopener">flyhobo@live.com</a></p>
+<p>给不同的公钥配置起不同的标志性id</p>
+<p>在网站上配置完成之后</p>
+<p>在 ~/.ssh目录下新建config文件</p>
+<p>Host github.com<br>    HostName ssh.github.com<br>    User <a href="mailto:flyhobo@live.com" target="_blank" rel="noopener">flyhobo@live.com</a><br>    PreferredAuthentications publickey<br>    IdentityFile ~/.ssh/id_rsa_github</p>
+<p>Host git.lug.ustc.edu.cn<br>    HostName git.lug.ustc.edu.cn<br>    User <a href="mailto:flyhobo@live.com" target="_blank" rel="noopener">flyhobo@live.com</a><br>    IdentityFile ~/.ssh/id_rsa_gitlab</p>
+<p>内容如上就ok了</p>
 
       
     </div>
@@ -708,7 +719,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">237.9k</span>
+    <span title="Site words total count">238k</span>
   
 </div>
 
