@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gdnjra9kkrj20sk0c6myf.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gdnkbsp9sij20pp0gy75i.jpg">
-<meta property="og:updated_time" content="2020-04-20T14:03:54.000Z">
+<meta property="og:updated_time" content="2020-04-26T05:40:06.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="朝花夕拾">
 <meta name="twitter:description" content="资质低下 三心二意 昨日知识 朝花夕拾">
@@ -415,7 +415,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  1.5k
                 </span>
               
 
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  5
                 </span>
               
             </div>
@@ -490,6 +490,8 @@
 <h3 id="mac-清理maven仓库的脚本"><a href="#mac-清理maven仓库的脚本" class="headerlink" title="mac 清理maven仓库的脚本"></a>mac 清理maven仓库的脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 这里写你的仓库路径</span><br><span class="line">REPOSITORY_PATH=~/Documents/tools/apache-maven-3.0.3/repository</span><br><span class="line">echo 正在搜索...</span><br><span class="line">find $REPOSITORY_PATH -name &quot;*lastUpdated*&quot; | xargs rm -fr</span><br><span class="line">echo 删除完毕</span><br><span class="line"></span><br><span class="line">mac（linux）系统-创建.sh文件脚本执行（mac用.command终端也可以）</span><br></pre></td></tr></table></figure>
 <h3 id="idea目录较多，文件名较长产生的错误"><a href="#idea目录较多，文件名较长产生的错误" class="headerlink" title="idea目录较多，文件名较长产生的错误"></a>idea目录较多，文件名较长产生的错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error running &apos;ServiceStarter&apos;: Command line is too long. Shorten command line for ServiceStarter or also for Application default configuration.</span><br><span class="line"></span><br><span class="line">修改项目下 .idea\workspace.xml，找到标签 &lt;component name=&quot;PropertiesComponent&quot;&gt; ， 在标签里加一行 &lt;property name=&quot;dynamic.classpath&quot; value=&quot;true&quot; /&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="Log4J-指定屏蔽某些特定报警信息"><a href="#Log4J-指定屏蔽某些特定报警信息" class="headerlink" title="Log4J 指定屏蔽某些特定报警信息"></a>Log4J 指定屏蔽某些特定报警信息</h3><p>Logger.getLogger(“org.apache.library”).setLevel(Level.OFF)</p>
+<h3 id="Flink-Source并行度为1的意义"><a href="#Flink-Source并行度为1的意义" class="headerlink" title="Flink Source并行度为1的意义"></a>Flink Source并行度为1的意义</h3><p>对于需要设置EventTime的流来说，我们的TimestampAssigner应该在Source之后立即调用，原因是时间戳分配器看到的元素的顺序应该和source操作符产生数据的顺序是一样的，否则就乱了，也就是说，任何分区操作都会将元素的顺序打乱，例如：改变并行度 keyBy操作等等。，所以最佳实践是：</p>
+<p>在尽量接近数据源source操作符的地方分配时间戳和产生水位线，甚至最好在SourceFunction中分配时间戳和产生水位线。当然在分配时间戳和产生水位线之前可以对流进行map和filter操作是没问题的，也就是说必须是窄依赖。</p>
 
       
     </div>
@@ -706,7 +708,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-清理maven仓库的脚本"><span class="nav-number">7.</span> <span class="nav-text">mac 清理maven仓库的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea目录较多，文件名较长产生的错误"><span class="nav-number">8.</span> <span class="nav-text">idea目录较多，文件名较长产生的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-指定屏蔽某些特定报警信息"><span class="nav-number">9.</span> <span class="nav-text">Log4J 指定屏蔽某些特定报警信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-清理maven仓库的脚本"><span class="nav-number">7.</span> <span class="nav-text">mac 清理maven仓库的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea目录较多，文件名较长产生的错误"><span class="nav-number">8.</span> <span class="nav-text">idea目录较多，文件名较长产生的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-指定屏蔽某些特定报警信息"><span class="nav-number">9.</span> <span class="nav-text">Log4J 指定屏蔽某些特定报警信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Source并行度为1的意义"><span class="nav-number">10.</span> <span class="nav-text">Flink Source并行度为1的意义</span></a></li></ol></div>
             
 
           </div>
@@ -740,7 +742,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">239.8k</span>
+    <span title="Site words total count">240k</span>
   
 </div>
 
