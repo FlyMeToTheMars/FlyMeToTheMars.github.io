@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据质量,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "bfb40164"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+<meta name="description" content="数据质量干货中的干货   DataMan-美团旅行数据质量监管平台实践">
+<meta name="keywords" content="数据质量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="美团数据质量监管平台实践">
+<meta property="og:url" content="http://yoursite.com/2020/05/07/美团数据质量/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="数据质量干货中的干货   DataMan-美团旅行数据质量监管平台实践">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek26x62b7j20ao0ar74e.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek27gduukj219k10sgpi.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek27y11kbj21eq0loacq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek287x6r7j21j00sagoa.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek28hn1nlj20yc0tm77v.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek28rlex5j227o0zidkb.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek297pe8qj212k0pa0z1.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek29h0s2vj222i0s6q5e.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek29q9kb8j213e0aaq3z.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek2aduwn6j20zq0pk0ug.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek2apc2nvj20uu10mtc8.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek2b855vuj21zk0wgdkz.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek2bkc9p3j21iy11o43f.jpg">
+<meta property="og:updated_time" content="2020-05-07T10:29:23.888Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="美团数据质量监管平台实践">
+<meta name="twitter:description" content="数据质量干货中的干货   DataMan-美团旅行数据质量监管平台实践">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gek26x62b7j20ao0ar74e.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/07/美团数据质量/">
+
+
+
+
+
+  <title>美团数据质量监管平台实践 | Mars</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'f6a8160e9467bb9adc80f36030e1c37b', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mars</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/07/美团数据质量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">美团数据质量监管平台实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-07T18:20:59+08:00">
+                2020-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Reading Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/05/07/美团数据质量/" class="leancloud_visitors" data-flag-title="美团数据质量监管平台实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  5.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>数据质量干货中的干货</p>
+</blockquote>
+<p> <a href="https://tech.meituan.com/2018/03/21/mtdp-dataman.html" target="_blank" rel="noopener">DataMan-美团旅行数据质量监管平台实践</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek26x62b7j20ao0ar74e.jpg" alt="undefined"></p>
+<a id="more"></a> 
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>数据，已经成为互联网企业非常依赖的新型重要资产。数据质量的好坏直接关系到信息的精准度，也影响到企业的生存和竞争力。Michael Hammer（《Reengineering the Corporation》一书的作者）曾说过，看起来不起眼的数据质量问题，实际上是拆散业务流程的重要标志。 数据质量管理是测度、提高和验证质量，以及整合组织数据的方法等一套处理准则，而体量大、速度快和多样性的特点，决定了大数据质量所需的处理，有别于传统信息治理计划的质量管理方式。</p>
+<p>本文将基于美团点评大数据平台，通过对数据流转过程中各阶段数据质量检测结果的采集分析、规则引擎、评估反馈和再监测的闭环管理过程出发，从面临挑战、建设思路、技术方案、呈现效果及总结等方面，介绍美团平台酒旅事业群（以下简称美旅）数据质量监管平台DataMan的搭建思路和建设实践。</p>
+<h2 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h2><p>美旅数据中心日均处理的离线和实时作业高达数万量级， 如何更加合理、高效的监控每类作业的运行状态，并将原本分散、孤岛式的监控日志信息通过规则引擎集中共享、关联、处理；洞察关键信息，形成事前预判、事中监控、事后跟踪的质量管理闭环流程；沉淀故障问题，搭建解决方案的知识库体系。在数据质量监管平台的规划建设中，面临如下挑战：</p>
+<ul>
+<li>缺乏统一监控视图，离线和实时作业监控分散，影响性、关联性不足。</li>
+<li>数据质量的衡量标准缺失，数据校验滞后，数据口径不统一。</li>
+<li>问题故障处理流程未闭环，“点”式解决现象常在；缺乏统一归档，没有形成体系的知识库。</li>
+<li>数据模型质量监控缺失，模型重复，基础模型与应用模型的关联度不足，形成信息孤岛。</li>
+<li>数据存储资源增长过快，不能监控细粒度资源内容。</li>
+</ul>
+<p>DataMan质量监管平台研发正基于此，以下为具体建设方案。</p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><h3 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h3><p>构建美旅大数据质量监控平台，从可实践运用的视角出发，整合平台资源、技术流程核心要点，重点着力平台支持、技术控制、流程制度、知识体系形成等方向建设，确保质量监控平台敏捷推进落地的可行性。数据质量监控平台整体框架如图1所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek27gduukj219k10sgpi.jpg" alt="undefined"></p>
+<h3 id="建设方法"><a href="#建设方法" class="headerlink" title="建设方法"></a>建设方法</h3><p>以数据质量检核管理PDCA方法论，基于美团大数据平台，对数据质量需求和问题进行全质量生命周期的管理，包括质量问题的定义、检核监控、发现分析、跟踪反馈及知识库沉淀。数据质量PDCA流程图如图2所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek27y11kbj21eq0loacq.jpg" alt="undefined"></p>
+<p><strong>关键流程：</strong></p>
+<p>质量监管平台建设实践应用及价值体现，离不开管理流程、技术实现和组织人员的紧密结合，主要包含如下8大流程步骤：</p>
+<ol>
+<li>质量需求：发现数据问题；信息提报、收集需求；检核规则的需求等。</li>
+<li>提炼规则：梳理规则指标、确定有效指标、检核指标准确度和衡量标准。</li>
+<li>规则库构建：检核对象配置、调度配置、规则配置、检核范围确认、检核标准确定等。</li>
+<li>执行检核：调度配置、调度执行、检核代码。</li>
+<li>问题检核：检核问题展示、分类、质量分析、质量严重等级分类等。</li>
+<li>分析报告：数据质量报告、质量问题趋势分析，影响度分析，解决方案达成共识。</li>
+<li>落实处理：方案落实执行、跟踪管理、解决方案Review及标准化提炼。</li>
+<li>知识库体系形成：知识经验总结、标准方案沉淀、知识库体系建设。</li>
+</ol>
+<h3 id="质量检核标准"><a href="#质量检核标准" class="headerlink" title="质量检核标准"></a>质量检核标准</h3><ul>
+<li>完整性：主要包括实体缺失、属性缺失、记录缺失和字段值缺失四个方面；</li>
+<li>准确性：一个数据值与设定为准确的值之间的一致程度，或与可接受程度之间的差异；</li>
+<li>合理性：主要包括格式、类型、值域和业务规则的合理有效；</li>
+<li>一致性：系统之间的数据差异和相互矛盾的一致性，业务指标统一定义，数据逻辑加工结果一致性；</li>
+<li>及时性：数据仓库ETL、应用展现的及时和快速性，Jobs运行耗时、运行质量、依赖运行及时性。</li>
+</ul>
+<p>大数据平台下的质量检核标准更需考虑到大数据的快变化、多维度、定制化及资源量大等特性，如数仓及应用BI系统的质量故障等级分类、数据模型热度标准定义、作业运行耗时标准分类等和数仓模型逻辑分层及主题划分组合如下图3所示。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek287x6r7j21j00sagoa.jpg" alt="undefined"></p>
+<p>美旅数仓划分为客服、流量、运营、订单、门店、产品、参与人、风控、结算和公用等十大主题，按Base、Fact、Topic、App逻辑分层，形成体系化的物理模型。从数据价值量化、存储资源优化等指标评估，划分物理模型为热、温、冷、冰等四类标准，结合应用自定义其具体标准范围，实现其灵活性配置；作业运行耗时分为：优、良、一般、关注、耗时等，每类耗时定义的标准范围既符合大数据的特性又可满足具体分析需要，且作业耗时与数仓主题和逻辑分层深度整合，实现多角度质量洞察评估；针对数万的作业信息从数据时效性、作业运行等级、服务对象范围等视角，将其故障等级分为：</p>
+<ul>
+<li>S1：严重度极高；</li>
+<li>S2：严重度高；</li>
+<li>S3：严重度中；</li>
+<li>S4：严重度低等四项标准。</li>
+</ul>
+<p>各项均对应具体的实施策略。整体数据质量的检核对象包括离线数仓和实时数据。</p>
+<h3 id="监管核心点"><a href="#监管核心点" class="headerlink" title="监管核心点"></a>监管核心点</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek28hn1nlj20yc0tm77v.jpg" alt="undefined"></p>
+<p>数据质量功能模块设计的主要功能如上图4所示，包括：监控对象管理、检核指标管理、数据质量过程监控、问题跟踪管理、推荐优化管理、知识库管理及系统管理等。其中过程监控包括离线数据监控、实时数据监控；问题跟踪处理由问题发现（支持自动检核、人工录入）、问题提报、任务推送、故障定级、故障处理、知识库沉淀等形成闭环流程。</p>
+<h3 id="管理流程"><a href="#管理流程" class="headerlink" title="管理流程"></a>管理流程</h3><p>流程化管理是推进数据问题从发现、跟踪、解决到总结提炼的合理有效工具。质量管理流程包括：数据质量问题提报、数据质量问题分析、故障跟踪、解决验证、数据质量评估分析等主要环节步骤；从干系人员的角度分析包括数据质量管理人员、数据质量检查人员、数据平台开发人员、业务及BI商分人员等，从流程步骤到管理人员形成职责和角色的矩阵图。如图5所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek28rlex5j227o0zidkb.jpg" alt="undefined"></p>
+<p><strong>问题汇总</strong>：数据质量提报、ETL处理及监控过程上报、数据质量检查点等多方来源，其中ETL处理部分为程序自动化上报，减少人为干预。 <strong>问题分析</strong>：通过规定的角色和岗位的人员对汇总问题分析和评估，由统一公共账号自动推送提醒消息至责任人。 <strong>问题工单</strong>：对采集的问题经过分析归类，主要划为信息提示和故障问题两大类，信息提示无需工单生成，故障问题将产生对应的工单，后推送至工单处理人。 <strong>故障定级</strong>： 针对生成的问题工单判断其故障级别，其级别分为：S1、S2、S3、S4等四类（如图3所述），针对尤为严重的故障问题需Review机制并持续跟踪CaseStudy总结。 <strong>知识库体系</strong>：从由数据问题、解决方案、典型案例等内容中，提炼总结形成标准化、完备知识库体系，以质量问题中提炼价值，形成标准，更加有效的指导业务、规范业务，提高源头数据质量，提升业务服务水平。</p>
+<p><strong>质量流程管理：</strong></p>
+<ul>
+<li><strong>流程原则</strong>：统一流程、步骤稳定。</li>
+<li><strong>权限控制</strong>：流程节点与人员账户号绑定，若节点未设置人员账户即面向所有人员，否则为规定范围的人员。</li>
+<li><strong>权限管理</strong>：可结合美团平台的UPM系统权限管理机制。</li>
+</ul>
+<h2 id="技术方案"><a href="#技术方案" class="headerlink" title="技术方案"></a>技术方案</h2><h3 id="总体架构"><a href="#总体架构" class="headerlink" title="总体架构"></a>总体架构</h3><p>DataMan系统建设总体方案基于美团的大数据技术平台。自底向上包括：检测数据采集、质量集市处理层；质量规则引擎模型存储层；系统功能层及系统应用展示层等。整个数据质量检核点基于技术性、业务性检测，形成完整的数据质量报告与问题跟踪机制，创建质量知识库，确保数据质量的完整性（Completeness）、正确性（Correctness）、当前性（Currency）、一致性（Consistency）。</p>
+<p><strong>总体架构图如图6所示：</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek297pe8qj212k0pa0z1.jpg" alt="undefined"></p>
+<ul>
+<li><strong>数据源及集市层</strong>：首先采集数据平台质量相关的元数据信息、监控日志信息、实时日志、检测配置中心日志、作业日志及调度平台日志等关键的质量元数据；经数据质量集市的模型设计、监控对象的分类，加工形成完整、紧关联、多维度、易分析的数据质量基础数据模型，为上层质量应用分析奠定数据基础。数据来源自大数据平台、实时数仓、调度平台等，涉及到Hive、 Spark、Storm、 Kafka、MySQL及BI应用等相关平台数据源；</li>
+<li><strong>存储模型层</strong>：主要功能包括规则引擎数据配置、质量模型结果存储；以数据质量监控、影响关联、全方位监控等目标规则引擎的推动方式，将加工结果数据存储至关系型数据库中，构成精简高质数据层；</li>
+<li><strong>系统功能层</strong>：包括配置管理、过程监控、问题跟踪、故障流程管理、实时数据监控、知识库体系的创建等；处理的对象包括日志运行作业、物理监控模型、业务监控模型等主要实体；</li>
+<li><strong>系统展示层</strong>：通过界面化方式管理、展示数据质量状态，包括质量监控界面、推荐优化模块、质量分析、信息展示、问题提报、故障跟踪及测量定级、系统权限管理等功能。</li>
+</ul>
+<h3 id="技术框架"><a href="#技术框架" class="headerlink" title="技术框架"></a>技术框架</h3><h4 id="前后端技术"><a href="#前后端技术" class="headerlink" title="前后端技术"></a>前后端技术</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek29h0s2vj222i0s6q5e.jpg" alt="undefined"></p>
+<p>DataMan应用系统其前端框架（如上图7）基于Bootstrap开发，模板引擎为FreeMarker，Tomcat（开发环境）作为默认Web容器，通过MVC的方式实现与应用服务层对接。Bootstrap的优势基于jQuery，丰富的CSS、JS组件，兼容多种浏览器，界面风格统一等；FreeMarker为基于模板用来生成输出文本的引擎。后台基于开源框架Spring4，Spring Boot，Hibernate搭建，其集成了Druid，Apache系列和Zebra等数据库访问中间件等，为系统的功能开发带来更多选择和便利。</p>
+<h4 id="Zebra中间件"><a href="#Zebra中间件" class="headerlink" title="Zebra中间件"></a>Zebra中间件</h4><p>系统数据库连接采用中间件Zebra，这是美团点评DBA团队推荐的官方数据源组件，基于JDBC、API协议上开发出的高可用、高性能的数据库访问层解决方案；提供如动态配置、监控、读写分离、分库分表等功能。Zebra整体架构如图8所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek29q9kb8j213e0aaq3z.jpg" alt="undefined"></p>
+<p>Zebra客户端会据路由配置直连到MySQL数据库进行读写分离和负载均衡。RDS是一站式的数据库管理平台，提供Zebra的路由配置信息的维护；MHA组件和从库监控服务分别负责主库和从库的高可用。Zebra支持丰富的底层连接池；统一源数据配置管理；读写分离和分库分表；数据库的高可用。</p>
+<h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><p>整个质量监管平台数据流向为数据质量元数据信息采集于美团平台，包括数据仓库元数据信息、质量检测元数据、调度平台日志信息、监控日志及实时元数据信息等，加工形成独立数据质量的集市模型，以此支撑应用层系统的数据需求。应用层系统数据库采用关系型数据库存储的方式，主要包含了规则配置管理信息、数据质量结果库等信息内容。数据流向层级关系图如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek2aduwn6j20zq0pk0ug.jpg" alt="undefined"></p>
+<p><strong>数据平台层</strong>：基于美团大数据平台的数据质量元数据是质量分析和监管的来源，是整个系统最基础重要资源信息，此数据主要包括：数仓元数据信息，如数仓模型表基本信息、表存储空间资源信息、表分区信息、节点信息、数据库meta信息、数据库资源信息等；运行作业调度日志信息，如作业基本信息、作业运行资源信息、作业调度状态信息、作业依赖关系信息及作业调度日志监控信息等；质量检测元数据信息主要来源于SLA、DQC（美团内部系统）检测结果的信息。实时元数据采集于调度平台实时作业运行的API接口调用分析。</p>
+<p><strong>质量集市层</strong>：DM数据质量集市的独立创建是依托基础元数据信息，根据质量监管平台配置的引擎规则ETL加工形成。规则库引擎如数仓应用主题的划分规则、数仓逻辑分层约束、数据库引擎分类、模型使用热度等级、模型存储空间分类、资源增长等级、历史周期分类、作业重要级别、作业运行耗时等级、作业故障分类、及数据质量标准化定义等；在管理方向上，如模型或作业所属的业务条线、组织架构、开发人员等；在时效上分为离线监控数据、实时数据集市等。从多个维度交叉组合分析形成模型类、作业类、监控日志类、实时类等主题的等易理解、简单、快捷的数据质量集市层，强有力的支撑上层应用层功能的数据需求。数据质量集市DM主要模型如图10所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek2apc2nvj20uu10mtc8.jpg" alt="undefined"></p>
+<ul>
+<li>模型设计：“统一规范、简单快捷、快速迭代、保障质量”，基于美团平台元数据、平台日志、实时数据接口等来源，通过制定的规则、标准，形成可衡量、可评估的数据质量集市层，主要包含公共维度类、模型分析类、作业监控类、平台监控类等主要内容；</li>
+<li>实时数据：针对实时作业的监控通过API接口调用，后落地数据，实时监控作业运行日志状态；</li>
+<li>数据加工：基于美团平台离线Hive、Spark引擎执行调度，以数仓模型分层、数仓十大主题规则和数据质量规则库等为约束条件，加工形成独立的数据集市层。</li>
+</ul>
+<p><strong>应用分析层</strong>：应用层系统数据采用关系型数据库（MySQL）存储的方式，主要包含了规则配置管理信息、数据质量分析结果、实时API落地数据、故障问题数据、知识库信息、流程管理及系统管理类等信息内容，直接面对前端界面的展示和管理。</p>
+<h2 id="系统展示"><a href="#系统展示" class="headerlink" title="系统展示"></a>系统展示</h2><p>数据质量DataMan监控系统一期建设主要实现的功能包括：个人工作台、信息监控、推荐信息、信息提报、故障管理、配置管理及权限系统管理等。系统效果如图11所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek2b855vuj21zk0wgdkz.jpg" alt="undefined"></p>
+<h3 id="个人工作台"><a href="#个人工作台" class="headerlink" title="个人工作台"></a>个人工作台</h3><p>在系统中将个人待关注、待处理、待优化、待总结等与个人相关的问题和任务形成统一的工作平台入口，通过公共账号推送的方式，第一时间提醒个人，通知反馈问题的提出者，保障问题可跟踪，进度可查询，责任到人的工作流程机制。</p>
+<h3 id="离线监控"><a href="#离线监控" class="headerlink" title="离线监控"></a>离线监控</h3><p>系统可定时执行模型监控、作业监控、平台日志监控等元数据质量规则引擎，开展数据仓库主题模型、逻辑层级作业、存储资源空间、作业耗时、CPU及内存资源等细化深度分析和洞察；按照质量分析模型，以时间、增长趋势、同环比、历史基线点等多维度、全面整合打造统一监控平台。</p>
+<h3 id="实时监控"><a href="#实时监控" class="headerlink" title="实时监控"></a>实时监控</h3><p>从应用角度将作业按照业务条线、数仓分层、数仓主题、组织结构和人员等维度划分，结合作业基线信息，实时监控正在运行的作业质量，并与作业基线形成对比参照，预警不符合标准的指标信息，第一时间通知责任人。实时作业运行与基线对比监控效果如图12所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gek2bkc9p3j21iy11o43f.jpg" alt="undefined"></p>
+<h3 id="推荐信息"><a href="#推荐信息" class="headerlink" title="推荐信息"></a>推荐信息</h3><p>系统通过规则引擎的设置和自动调度的执行，从存储资源配置、数据模型优化、作业优化、日志错误超时、预警通知等方面考虑，以制定的质量标准为评估依据，自动检测评估，汇总问题，形成可靠的推荐优化内容，并在达到阈值条件后主动推送消息，触发后续任务开展。</p>
+<h3 id="公共账号"><a href="#公共账号" class="headerlink" title="公共账号"></a>公共账号</h3><p>通过“数据治理公共账号”机器人发送消息模式，将预判触发的预警通知、任务分配、任务提醒和风险评估等信息第一时间通知相应的负责人员，开启工作流程。</p>
+<h3 id="故障处理"><a href="#故障处理" class="headerlink" title="故障处理"></a>故障处理</h3><p>支持自动提报和人工填报两种模式，以闭环工作流方式开展工作，确保问题故障可跟踪、可查询、可定级、可考核、可量化，以责任到人、落地可行的处理模式，严控数据质量，从根本上提高数据质量，提升业务服务水平。</p>
+<p>DataMan质量监管系统的投入运营，优化数据存储资源、提高作业性能、降低任务耗时、推进了管理工作的规范化和精细化。信息推荐功能以推送通知的形式将待优化、存风险和超时故障信息第一时间发送个人工作台，以工作流机制推动开展；模型监控、作业监控功能在数据存储、模型建设、作业耗时等场景合理的控制资源，节省了投资成本。 问题提报和故障管理功能的有效结合，将问题发现、提报、任务分配、处理完成及Review总结沉淀等形成了责任到人、问题可询的闭环流程。随着系统的深入运行，将在实时数据监控、质量故障统计管理、数据质量考核机制、数据资产质量权威报告、知识库体系标准化及流程深化管理等功能方面持续推进和发挥价值。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>数据质量是数据治理建设的重要一环，与元数据管理、数据标准化及数据服务管理等共同构建了数据治理的体系框架。建设一个完整DataMan质量监管平台，将从监控、标准、流程制度等方面提升信息管理能力，优先解决所面临的数据质量和数据服务问题，其效果体现以下几个方面：</p>
+<ul>
+<li>监控数据资产质量状态，为优化数据平台和数据仓库性能、合理配置数据存储资源提供决策支持；</li>
+<li>持续推动数据质量监控优化预警、实时监控的机制；</li>
+<li>重点优先监控关键核心数据资产，管控优化20%核心资源，可提升80%需求应用性能；</li>
+<li>规范了问题故障的跟踪、Review、优化方案。从数据中提炼价值，从方案中形成标准化的知识体系；</li>
+<li>由技术检测到业务监督，形成闭环工作流机制，提高整体数据质量，全面提升服务业务水平。</li>
+</ul>
+<p>数据质量是数据仓库建设、数据应用建设和决策支持的关键因素，可通过完善组织架构和管理流程，加强部门间衔接和协调，严格按照标准或考核指标执行落地，确保数据质量方能将数据的商业价值最大化，进而提升企业的核心竞争力和保持企业的可持续发展。</p>
+<h2 id="招聘"><a href="#招聘" class="headerlink" title="招聘"></a>招聘</h2><p>最后插播一个招聘广告，我们是一群擅长大数据领域数据建设、数仓建设、数据治理及数据BI应用建设的工程师，期待更多能手加入，有兴趣的同学可以发邮件给yangguang09#meituan.com，zhangdexiao#meituan.com。</p>
+<h2 id="作者简介"><a href="#作者简介" class="headerlink" title="作者简介"></a>作者简介</h2><ul>
+<li>德晓，美团点评数仓专家、大数据高级工程师，长期从事数据仓库、数据建模、数据治理、大数据方向系统实践建设等，现为美团点评大交通数据仓库建设负责人。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据质量/" rel="tag"># 数据质量</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/07/Flink Table & SQL 概览/" rel="next" title="Flink Table & SQL">
+                <i class="fa fa-chevron-left"></i> Flink Table & SQL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
+            
+              <p class="site-author-name" itemprop="name">Fly Hugh</p>
+              <p class="site-description motion-element" itemprop="description">TRUST THE PROCESS</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/FlyMeToTheMars" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3200892914" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/Fly__HoBo" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挑战"><span class="nav-number">2.</span> <span class="nav-text">挑战</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决思路"><span class="nav-number">3.</span> <span class="nav-text">解决思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整体框架"><span class="nav-number">3.1.</span> <span class="nav-text">整体框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建设方法"><span class="nav-number">3.2.</span> <span class="nav-text">建设方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#质量检核标准"><span class="nav-number">3.3.</span> <span class="nav-text">质量检核标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监管核心点"><span class="nav-number">3.4.</span> <span class="nav-text">监管核心点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理流程"><span class="nav-number">3.5.</span> <span class="nav-text">管理流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术方案"><span class="nav-number">4.</span> <span class="nav-text">技术方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体架构"><span class="nav-number">4.1.</span> <span class="nav-text">总体架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技术框架"><span class="nav-number">4.2.</span> <span class="nav-text">技术框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前后端技术"><span class="nav-number">4.2.1.</span> <span class="nav-text">前后端技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zebra中间件"><span class="nav-number">4.2.2.</span> <span class="nav-text">Zebra中间件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据模型"><span class="nav-number">4.3.</span> <span class="nav-text">数据模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统展示"><span class="nav-number">5.</span> <span class="nav-text">系统展示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#个人工作台"><span class="nav-number">5.1.</span> <span class="nav-text">个人工作台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线监控"><span class="nav-number">5.2.</span> <span class="nav-text">离线监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时监控"><span class="nav-number">5.3.</span> <span class="nav-text">实时监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐信息"><span class="nav-number">5.4.</span> <span class="nav-text">推荐信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#公共账号"><span class="nav-number">5.5.</span> <span class="nav-text">公共账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#故障处理"><span class="nav-number">5.6.</span> <span class="nav-text">故障处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#招聘"><span class="nav-number">7.</span> <span class="nav-text">招聘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者简介"><span class="nav-number">8.</span> <span class="nav-text">作者简介</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">256.8k</span>
+  
+</div>
+
+
+<!-- 
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+       <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/src/src/clicklove.js"></script>
+
+    
+  </div>
+
+
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("72l8G3xFxrAReJk0PBs8jCeC-gzGzoHsz", "r0TXzhifsg8y5LTKokFte6fz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+
+
+</html>
+
