@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gdnjra9kkrj20sk0c6myf.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gdnkbsp9sij20pp0gy75i.jpg">
-<meta property="og:updated_time" content="2020-05-06T12:17:39.000Z">
+<meta property="og:updated_time" content="2020-05-09T09:35:58.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="朝花夕拾">
 <meta name="twitter:description" content="资质低下 三心二意 昨日知识 朝花夕拾">
@@ -415,7 +415,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2.3k
+                  3.6k
                 </span>
               
 
@@ -431,7 +431,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  9
+                  13
                 </span>
               
             </div>
@@ -507,8 +507,47 @@
 <h3 id="Flink-Source并行度为1的意义"><a href="#Flink-Source并行度为1的意义" class="headerlink" title="Flink Source并行度为1的意义"></a>Flink Source并行度为1的意义</h3><p>对于需要设置EventTime的流来说，我们的TimestampAssigner应该在Source之后立即调用，原因是时间戳分配器看到的元素的顺序应该和source操作符产生数据的顺序是一样的，否则就乱了，也就是说，任何分区操作都会将元素的顺序打乱，例如：改变并行度 keyBy操作等等。，所以最佳实践是：</p>
 <p>在尽量接近数据源source操作符的地方分配时间戳和产生水位线，甚至最好在SourceFunction中分配时间戳和产生水位线。当然在分配时间戳和产生水位线之前可以对流进行map和filter操作是没问题的，也就是说必须是窄依赖。</p>
 <h3 id="JB套件的一个实用功能"><a href="#JB套件的一个实用功能" class="headerlink" title="JB套件的一个实用功能"></a>JB套件的一个实用功能</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">之前没注意，更改变量名字的时候直接使用refactor就可以了，真的实用</span><br></pre></td></tr></table></figure>
-<h3 id="zk使用的分布式协议并不是paxos"><a href="#zk使用的分布式协议并不是paxos" class="headerlink" title="zk使用的分布式协议并不是paxos"></a>zk使用的分布式协议并不是paxos</h3><p>而是zab协议</p>
-
+<h3 id="zk使用的分布式协议并不是paxos"><a href="#zk使用的分布式协议并不是paxos" class="headerlink" title="zk使用的分布式协议并不是paxos"></a>zk使用的分布式协议并不是paxos</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">而是zab协议</span><br></pre></td></tr></table></figure>
+<h3 id="为什么说NULL是计算机科学中最大的错误，至少值十亿美金"><a href="#为什么说NULL是计算机科学中最大的错误，至少值十亿美金" class="headerlink" title="为什么说NULL是计算机科学中最大的错误，至少值十亿美金"></a>为什么说NULL是计算机科学中最大的错误，至少值十亿美金</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.覆类型</span><br><span class="line">2.是凌乱的</span><br><span class="line">3.是一个特例</span><br><span class="line">4.使 API 变得糟糕</span><br><span class="line">5.使错误的语言决策更加恶化</span><br><span class="line">6.难以调试</span><br><span class="line">7.是不可组合的</span><br></pre></td></tr></table></figure>
+<h4 id="1-NULL-颠覆类型"><a href="#1-NULL-颠覆类型" class="headerlink" title="1. NULL 颠覆类型"></a>1. NULL 颠覆类型</h4><p>静态类型语言不需要实际去执行程序，就可以检查程序中类型的使用，并且提供一定的程序行为保证。</p>
+<p>例如，在 Java 中，如果我编写 <code>x.toUppercase()</code>，编译器会检查 <code>x</code> 的类型。如果 <code>x</code> 是一个 <code>String</code>，那么类型检查成功；如果 <code>x</code> 是一个 <code>Socket</code>，那么类型检查失败。</p>
+<p>在编写庞大的、复杂的软件时，静态类型检查是一个强大的工具。但是对于 Java，这些很棒的编译时检查存在一个致命缺陷：任何引用都可以是 null，而调用一个 null 对象的方法会产生一个 <code>NullPointerException</code>。所以，</p>
+<ul>
+<li><code>toUppercase()</code> 可以被任意 <code>String</code> 对象调用。除非 <code>String</code> 是 null。</li>
+<li><code>read()</code> 可以被任意 <code>InputStream</code> 对象调用。除非 <code>InputStream</code> 是 null。</li>
+<li><code>toString()</code> 可以被任意 <code>Object</code> 对象调用。除非 <code>Object</code> 是 null。</li>
+</ul>
+<p>Java 不是唯一引起这个问题的语言；很多其它的类型系统也有同样的缺点，当然包括 AGOL W 语言。</p>
+<p>在这些语言中，NULL 超出了类型检查的范围。它悄悄地越过类型检查，等待运行时，最后一下子释放出一大批错误。NULL 什么也不是，同时又什么都是。</p>
+<h4 id="2-NULL-是凌乱的"><a href="#2-NULL-是凌乱的" class="headerlink" title="2. NULL 是凌乱的"></a>2. NULL 是凌乱的</h4><p>在很多情况下 null 是没有意义的。不幸的是，如果一种语言允许任何东西为 null，好吧，那么任何东西都可以是 null。</p>
+<p>Java 程序员冒着患腕管综合症的风险写下</p>
+<p>Java</p>
+<p> <code>if (str == null 丨丨 str.equals(&quot;&quot;)) {}</code> </p>
+<p>而在 C# 中添加 <code>String.IsNullOrEmpty</code> 是一个常见的语法</p>
+<p>C#</p>
+<p> <code>if (string.IsNullOrEmpty(str)) {}</code> </p>
+<p>真可恶！</p>
+<p>每次你写代码，将 null 字符串和空字符串混为一谈时，Guava 团队都要哭了。– <a href="https://code.google.com/p/guava-libraries/wiki/UsingAndAvoidingNullExplained" target="_blank" rel="noopener">Google Guava</a></p>
+<p>说得好。但是当你的类型系统（例如，Java 或者 C#）到处都允许 NULL 时，你就不能可靠地排除 NULL 的可能性，并且不可避免的会在某个地方混淆。</p>
+<p>null 无处不在的可能性造成了这样一个问题，Java 8 添加了 <code>@NonNull</code> 标注，尝试着在它的类型系统中以追溯方式解决这个缺陷。</p>
+<h4 id="3-NULL-是一个特例"><a href="#3-NULL-是一个特例" class="headerlink" title="3. NULL 是一个特例"></a>3. NULL 是一个特例</h4><p>考虑到 NULL 不是一个值却又起到一个值的作用，NULL 自然地成为各种特别处理方法的课题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char c = &apos;A&apos;;</span><br><span class="line">char *myChar = &amp;c;</span><br><span class="line">std::cout &lt;&lt; *myChar &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+<p>单个 NUL 字符的例外已经导致无数的错误：API 的怪异行为、安全漏洞和缓冲区溢出。</p>
+<p>NULL 是 C 字符串中最糟糕的错误；更确切地说，以 NUL 结尾的字符串是<a href="http://queue.acm.org/detail.cfm?id=2010365" target="_blank" rel="noopener">最昂贵的<strong>一字节</strong>错误</a>。</p>
+<h4 id="4-NULL-使-API-变得糟糕"><a href="#4-NULL-使-API-变得糟糕" class="headerlink" title="4.NULL 使 API 变得糟糕"></a>4.NULL 使 API 变得糟糕</h4><p>我们可以想象在很多语言中类似的类（Python、JavaScript、Java、C# 等）。</p>
+<p>现在假设我们的程序有一个慢的或者占用大量资源的方法，来找到某个人的电话号码——可能通过连通一个网络服务。</p>
+<p>为了提高性能，我们将会使用本地存储作为缓存，将一个人名映射到他的电话号码上。</p>
+<p>然而，一些人没有电话号码（即他们的电话号码是 nil）。我们仍然会缓存那些信息，所以我们不需要在后面重新填充那些信息。</p>
+<p>但是现在意味着我们的结果模棱两可！它可能表示：</p>
+<ol>
+<li>这个人不存在于缓存中（Alice）</li>
+<li>这个人存在于缓存中，但是没有电话号码（Tom）</li>
+</ol>
+<p>一种情形要求昂贵的重新计算，另一种需要即时的答复。但是我们的代码不够精密来区分这两种情况。</p>
+<p>在实际的代码中，像这样的情况经常会以复杂且不易察觉的方式出现。因此，简单通用的 API 可以马上变成特例，迷惑了 null 凌乱行为的来源。</p>
+<p>用一个 <code>contains()</code> 方法来修补 <code>Store</code> 类可能会有帮助。但是这引入重复的查找，导致降低性能和竞争条件。</p>
+<h4 id="5-NULL-使错误的语言决策更加恶化"><a href="#5-NULL-使错误的语言决策更加恶化" class="headerlink" title="5.NULL 使错误的语言决策更加恶化"></a>5.NULL 使错误的语言决策更加恶化</h4><h4 id="6-NULL-难以调试"><a href="#6-NULL-难以调试" class="headerlink" title="6.NULL 难以调试"></a>6.NULL 难以调试</h4><p>来解释 NULL 是多么的麻烦，C++ 是一个很好的例子。调用成员函数指向一个 NULL 指针不一定会导致程序崩溃。更糟糕的是：它可能会导致程序崩溃。</p>
+<h4 id="7-NULL不可组合"><a href="#7-NULL不可组合" class="headerlink" title="7.NULL不可组合"></a>7.NULL不可组合</h4><h3 id="IDEA-maven修改pom文件，导致jdk版本重置问题"><a href="#IDEA-maven修改pom文件，导致jdk版本重置问题" class="headerlink" title="IDEA maven修改pom文件，导致jdk版本重置问题"></a>IDEA maven修改pom文件，导致jdk版本重置问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;maven.compiler.source&gt;8&lt;/maven.compiler.source&gt;</span><br><span class="line">    &lt;maven.compiler.target&gt;8&lt;/maven.compiler.target&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -724,7 +763,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阿里开发手册上不推荐（禁止）使用Double的根本原因"><span class="nav-number">7.</span> <span class="nav-text">阿里开发手册上不推荐（禁止）使用Double的根本原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-清理maven仓库的脚本"><span class="nav-number">8.</span> <span class="nav-text">mac 清理maven仓库的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea目录较多，文件名较长产生的错误"><span class="nav-number">9.</span> <span class="nav-text">idea目录较多，文件名较长产生的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-指定屏蔽某些特定报警信息"><span class="nav-number">10.</span> <span class="nav-text">Log4J 指定屏蔽某些特定报警信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Source并行度为1的意义"><span class="nav-number">11.</span> <span class="nav-text">Flink Source并行度为1的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JB套件的一个实用功能"><span class="nav-number">12.</span> <span class="nav-text">JB套件的一个实用功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zk使用的分布式协议并不是paxos"><span class="nav-number">13.</span> <span class="nav-text">zk使用的分布式协议并不是paxos</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阿里开发手册上不推荐（禁止）使用Double的根本原因"><span class="nav-number">7.</span> <span class="nav-text">阿里开发手册上不推荐（禁止）使用Double的根本原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-清理maven仓库的脚本"><span class="nav-number">8.</span> <span class="nav-text">mac 清理maven仓库的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea目录较多，文件名较长产生的错误"><span class="nav-number">9.</span> <span class="nav-text">idea目录较多，文件名较长产生的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-指定屏蔽某些特定报警信息"><span class="nav-number">10.</span> <span class="nav-text">Log4J 指定屏蔽某些特定报警信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Source并行度为1的意义"><span class="nav-number">11.</span> <span class="nav-text">Flink Source并行度为1的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JB套件的一个实用功能"><span class="nav-number">12.</span> <span class="nav-text">JB套件的一个实用功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zk使用的分布式协议并不是paxos"><span class="nav-number">13.</span> <span class="nav-text">zk使用的分布式协议并不是paxos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么说NULL是计算机科学中最大的错误，至少值十亿美金"><span class="nav-number">14.</span> <span class="nav-text">为什么说NULL是计算机科学中最大的错误，至少值十亿美金</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-NULL-颠覆类型"><span class="nav-number">14.1.</span> <span class="nav-text">1. NULL 颠覆类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-NULL-是凌乱的"><span class="nav-number">14.2.</span> <span class="nav-text">2. NULL 是凌乱的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-NULL-是一个特例"><span class="nav-number">14.3.</span> <span class="nav-text">3. NULL 是一个特例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-NULL-使-API-变得糟糕"><span class="nav-number">14.4.</span> <span class="nav-text">4.NULL 使 API 变得糟糕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-NULL-使错误的语言决策更加恶化"><span class="nav-number">14.5.</span> <span class="nav-text">5.NULL 使错误的语言决策更加恶化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-NULL-难以调试"><span class="nav-number">14.6.</span> <span class="nav-text">6.NULL 难以调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-NULL不可组合"><span class="nav-number">14.7.</span> <span class="nav-text">7.NULL不可组合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA-maven修改pom文件，导致jdk版本重置问题"><span class="nav-number">15.</span> <span class="nav-text">IDEA maven修改pom文件，导致jdk版本重置问题</span></a></li></ol></div>
             
 
           </div>
@@ -758,7 +797,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">256.8k</span>
+    <span title="Site words total count">258k</span>
   
 </div>
 
