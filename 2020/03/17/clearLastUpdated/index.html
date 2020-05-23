@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="Mars">
 <meta property="og:description" content="mvn库 windows清理脚本需要把mvn的位置改成自己的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-10T17:05:42.000Z">
+<meta property="og:updated_time" content="2020-05-23T12:10:51.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="clearLastUpdated">
 <meta name="twitter:description" content="mvn库 windows清理脚本需要把mvn的位置改成自己的">
@@ -412,7 +412,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  122
+                  73
                 </span>
               
 
@@ -449,7 +449,8 @@
       
 
       
-        <p>mvn库 windows清理脚本<br>需要把mvn的位置改成自己的<br><a id="more"></a><br>cls<br>@ECHO OFF<br>SET CLEAR_PATH=C:<br>SET CLEAR_DIR=C:\Users\Administrator.m2\repository<br>color 0a<br>TITLE ClearLastUpdated For Windows<br>GOTO MENU<br>:MENU<br>CLS<br>ECHO.<br>ECHO. <em> </em> <em> </em>  ClearLastUpdated For Windows  <em> </em> <em> </em><br>ECHO. <em> </em><br>ECHO. <em> 1 清理</em>.lastUpdated <em><br>ECHO. </em> <em><br>ECHO. </em> 2 查看<em>.lastUpdated </em><br>ECHO. <em> </em><br>ECHO. <em> 3 退 出 </em><br>ECHO. <em> </em><br>ECHO. <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em><br>ECHO.<br>ECHO.请输入选择项目的序号：<br>set /p ID=<br>IF “%id%”==”1” GOTO cmd1<br>IF “%id%”==”2” GOTO cmd2<br>IF “%id%”==”3” EXIT<br>PAUSE<br>:cmd1<br>ECHO. 开始清理<br>%CLEAR_PATH%<br>cd %CLEAR_DIR%<br>for /r %%i in (<em>.lastUpdated) do del %%i<br>ECHO.OK<br>PAUSE<br>GOTO MENU<br>:cmd2<br>ECHO. 查看</em>.lastUpdated文件<br>%CLEAR_PATH%<br>cd %CLEAR_DIR%<br>for /r %%i in (*.lastUpdated) do echo %%i<br>ECHO.OK<br>PAUSE<br>GOTO MENU </p>
+        <p>mvn库 windows清理脚本<br>需要把mvn的位置改成自己的<br><a id="more"></a> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">  </span><br><span class="line">rem 这里写你的仓库路径</span><br><span class="line">set REPOSITORY_PATH=C:\Users\flyho\.m2\repository</span><br><span class="line">rem 正在搜索...</span><br><span class="line">for /f &quot;delims=&quot; %%i in (&apos;dir /b /s &quot;%REPOSITORY_PATH%\*lastUpdated*&quot;&apos;) do (</span><br><span class="line">    echo %%i</span><br><span class="line">    del /s /q &quot;%%i&quot;</span><br><span class="line">)</span><br><span class="line">rem 搜索完毕</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -675,7 +676,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">264.5k</span>
+    <span title="Site words total count">264.7k</span>
   
 </div>
 
