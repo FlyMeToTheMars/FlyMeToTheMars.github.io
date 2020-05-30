@@ -107,8 +107,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gdnjra9kkrj20sk0c6myf.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gdnkbsp9sij20pp0gy75i.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/bec9bff2gy1gf2cc5b8byj20l80cbta6.jpg">
-<meta property="og:updated_time" content="2020-05-23T05:56:30.000Z">
+<meta property="og:updated_time" content="2020-05-30T01:41:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="朝花夕拾">
 <meta name="twitter:description" content="资质低下 三心二意 昨日知识 朝花夕拾">
@@ -351,7 +350,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-09T15:29:23+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-09T21:54:15+08:00">
                 2020-04-09
               </time>
             
@@ -416,7 +415,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  5.4k
+                  5.5k
                 </span>
               
 
@@ -432,7 +431,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  20
+                  21
                 </span>
               
             </div>
@@ -567,10 +566,12 @@
 <p>简单说明：vpn一般都是走的1080端口，通过这个端口转发git的流量，跳过本地运营商。</p>
 <h3 id="给win10商店设置代理"><a href="#给win10商店设置代理" class="headerlink" title="给win10商店设置代理"></a>给win10商店设置代理</h3><p>最近发现。。。只要有一个好的代理服务器，win10的商店原来也是能随便打开的，这里介绍一下win10的商店的流量怎么走代理</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">首先通过 Win + R 快捷键打开「运行」窗口，输入「Regedit」打开注册表编辑器，然后定位到 HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Mappings，接着在左边的注册表项中找到你想解除网络隔离的应用，右边的 DisplayName 就是应用名称，而左边那一大串字符就是应用的 SID 值了。</span><br></pre></td></tr></table></figure>
-<p><img src="https://ws1.sinaimg.cn/large/bec9bff2gy1gf2cc5b8byj20l80cbta6.jpg" alt="undefined"></p>
 <p>找到这个值之后，然后在cmd命令行中输入：</p>
 <p><code>CheckNetIsolation.exe loopbackexempt -a -p=SID</code></p>
 <p>这ID就是上面搜索到的，这样就行</p>
+<h3 id="Maven代理配置"><a href="#Maven代理配置" class="headerlink" title="Maven代理配置"></a>Maven代理配置</h3><p>不需要配置什么https或者http模式，在有代理的前提下，只要配置一个代理即可</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">proxy</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>ss<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">active</span>&gt;</span>true<span class="tag">&lt;/<span class="name">active</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">protocol</span>&gt;</span>socks5<span class="tag">&lt;/<span class="name">protocol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">username</span>&gt;</span><span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">password</span>&gt;</span><span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">host</span>&gt;</span>127.0.0.1<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span>&gt;</span>1080<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">nonProxyHosts</span>&gt;</span>127.0.0.1<span class="tag">&lt;/<span class="name">nonProxyHosts</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">proxy</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>要注意的是监控一下端口，如果代理没开的话那肯定是无法连接上的，mirror就不用设置了，直接从中央仓库拉去数据。</p>
 
       
     </div>
@@ -697,7 +698,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -708,7 +709,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -719,7 +720,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -787,7 +788,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阿里开发手册上不推荐（禁止）使用Double的根本原因"><span class="nav-number">7.</span> <span class="nav-text">阿里开发手册上不推荐（禁止）使用Double的根本原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-清理maven仓库的脚本"><span class="nav-number">8.</span> <span class="nav-text">mac 清理maven仓库的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea目录较多，文件名较长产生的错误"><span class="nav-number">9.</span> <span class="nav-text">idea目录较多，文件名较长产生的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-指定屏蔽某些特定报警信息"><span class="nav-number">10.</span> <span class="nav-text">Log4J 指定屏蔽某些特定报警信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Source并行度为1的意义"><span class="nav-number">11.</span> <span class="nav-text">Flink Source并行度为1的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JB套件的一个实用功能"><span class="nav-number">12.</span> <span class="nav-text">JB套件的一个实用功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zk使用的分布式协议并不是paxos"><span class="nav-number">13.</span> <span class="nav-text">zk使用的分布式协议并不是paxos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么说NULL是计算机科学中最大的错误，至少值十亿美金"><span class="nav-number">14.</span> <span class="nav-text">为什么说NULL是计算机科学中最大的错误，至少值十亿美金</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-NULL-颠覆类型"><span class="nav-number">14.1.</span> <span class="nav-text">1. NULL 颠覆类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-NULL-是凌乱的"><span class="nav-number">14.2.</span> <span class="nav-text">2. NULL 是凌乱的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-NULL-是一个特例"><span class="nav-number">14.3.</span> <span class="nav-text">3. NULL 是一个特例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-NULL-使-API-变得糟糕"><span class="nav-number">14.4.</span> <span class="nav-text">4.NULL 使 API 变得糟糕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-NULL-使错误的语言决策更加恶化"><span class="nav-number">14.5.</span> <span class="nav-text">5.NULL 使错误的语言决策更加恶化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-NULL-难以调试"><span class="nav-number">14.6.</span> <span class="nav-text">6.NULL 难以调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-NULL不可组合"><span class="nav-number">14.7.</span> <span class="nav-text">7.NULL不可组合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA-maven修改pom文件，导致jdk版本重置问题"><span class="nav-number">15.</span> <span class="nav-text">IDEA maven修改pom文件，导致jdk版本重置问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXCEL一点小技巧"><span class="nav-number">16.</span> <span class="nav-text">EXCEL一点小技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-On-Zeppelin上传Jar包的位置"><span class="nav-number">17.</span> <span class="nav-text">Flink On Zeppelin上传Jar包的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink系列深度好文，等待细读"><span class="nav-number">18.</span> <span class="nav-text">Flink系列深度好文，等待细读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastJson直接解析"><span class="nav-number">19.</span> <span class="nav-text">FastJson直接解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastJson很多坑-准备放弃"><span class="nav-number">20.</span> <span class="nav-text">FastJson很多坑 准备放弃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置框架无法访问的问题"><span class="nav-number">21.</span> <span class="nav-text">配置框架无法访问的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决GitHub提交历史头像不显示问题-以及首页没有绿色方块的问题"><span class="nav-number">22.</span> <span class="nav-text">解决GitHub提交历史头像不显示问题,以及首页没有绿色方块的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决anaconda无法连接的问题"><span class="nav-number">23.</span> <span class="nav-text">解决anaconda无法连接的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排查挖矿程序中会用到的一些追踪某个进程的命令"><span class="nav-number">24.</span> <span class="nav-text">排查挖矿程序中会用到的一些追踪某个进程的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos缺点"><span class="nav-number">25.</span> <span class="nav-text">Kerberos缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac无法运行-sh文件的解决办法"><span class="nav-number">26.</span> <span class="nav-text">mac无法运行.sh文件的解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决git下载速度慢的终极方法"><span class="nav-number">27.</span> <span class="nav-text">解决git下载速度慢的终极方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给win10商店设置代理"><span class="nav-number">28.</span> <span class="nav-text">给win10商店设置代理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阿里开发手册上不推荐（禁止）使用Double的根本原因"><span class="nav-number">7.</span> <span class="nav-text">阿里开发手册上不推荐（禁止）使用Double的根本原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-清理maven仓库的脚本"><span class="nav-number">8.</span> <span class="nav-text">mac 清理maven仓库的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea目录较多，文件名较长产生的错误"><span class="nav-number">9.</span> <span class="nav-text">idea目录较多，文件名较长产生的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-指定屏蔽某些特定报警信息"><span class="nav-number">10.</span> <span class="nav-text">Log4J 指定屏蔽某些特定报警信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Source并行度为1的意义"><span class="nav-number">11.</span> <span class="nav-text">Flink Source并行度为1的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JB套件的一个实用功能"><span class="nav-number">12.</span> <span class="nav-text">JB套件的一个实用功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zk使用的分布式协议并不是paxos"><span class="nav-number">13.</span> <span class="nav-text">zk使用的分布式协议并不是paxos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么说NULL是计算机科学中最大的错误，至少值十亿美金"><span class="nav-number">14.</span> <span class="nav-text">为什么说NULL是计算机科学中最大的错误，至少值十亿美金</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-NULL-颠覆类型"><span class="nav-number">14.1.</span> <span class="nav-text">1. NULL 颠覆类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-NULL-是凌乱的"><span class="nav-number">14.2.</span> <span class="nav-text">2. NULL 是凌乱的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-NULL-是一个特例"><span class="nav-number">14.3.</span> <span class="nav-text">3. NULL 是一个特例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-NULL-使-API-变得糟糕"><span class="nav-number">14.4.</span> <span class="nav-text">4.NULL 使 API 变得糟糕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-NULL-使错误的语言决策更加恶化"><span class="nav-number">14.5.</span> <span class="nav-text">5.NULL 使错误的语言决策更加恶化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-NULL-难以调试"><span class="nav-number">14.6.</span> <span class="nav-text">6.NULL 难以调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-NULL不可组合"><span class="nav-number">14.7.</span> <span class="nav-text">7.NULL不可组合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA-maven修改pom文件，导致jdk版本重置问题"><span class="nav-number">15.</span> <span class="nav-text">IDEA maven修改pom文件，导致jdk版本重置问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXCEL一点小技巧"><span class="nav-number">16.</span> <span class="nav-text">EXCEL一点小技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-On-Zeppelin上传Jar包的位置"><span class="nav-number">17.</span> <span class="nav-text">Flink On Zeppelin上传Jar包的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink系列深度好文，等待细读"><span class="nav-number">18.</span> <span class="nav-text">Flink系列深度好文，等待细读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastJson直接解析"><span class="nav-number">19.</span> <span class="nav-text">FastJson直接解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastJson很多坑-准备放弃"><span class="nav-number">20.</span> <span class="nav-text">FastJson很多坑 准备放弃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置框架无法访问的问题"><span class="nav-number">21.</span> <span class="nav-text">配置框架无法访问的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决GitHub提交历史头像不显示问题-以及首页没有绿色方块的问题"><span class="nav-number">22.</span> <span class="nav-text">解决GitHub提交历史头像不显示问题,以及首页没有绿色方块的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决anaconda无法连接的问题"><span class="nav-number">23.</span> <span class="nav-text">解决anaconda无法连接的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排查挖矿程序中会用到的一些追踪某个进程的命令"><span class="nav-number">24.</span> <span class="nav-text">排查挖矿程序中会用到的一些追踪某个进程的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos缺点"><span class="nav-number">25.</span> <span class="nav-text">Kerberos缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac无法运行-sh文件的解决办法"><span class="nav-number">26.</span> <span class="nav-text">mac无法运行.sh文件的解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决git下载速度慢的终极方法"><span class="nav-number">27.</span> <span class="nav-text">解决git下载速度慢的终极方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给win10商店设置代理"><span class="nav-number">28.</span> <span class="nav-text">给win10商店设置代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven代理配置"><span class="nav-number">29.</span> <span class="nav-text">Maven代理配置</span></a></li></ol></div>
             
 
           </div>
@@ -821,7 +822,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">276.6k</span>
+    <span title="Site words total count">281.4k</span>
   
 </div>
 
