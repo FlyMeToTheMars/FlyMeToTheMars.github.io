@@ -106,7 +106,7 @@
 <meta property="og:description" content="简单复习一下Java的单例">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ggpuhjmlfbj20dm08djrh.jpg">
-<meta property="og:updated_time" content="2020-07-13T18:26:33.222Z">
+<meta property="og:updated_time" content="2020-07-14T08:19:33.501Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java单例">
 <meta name="twitter:description" content="简单复习一下Java的单例">
@@ -349,7 +349,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-14T02:08:51+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-14T02:26:33+08:00">
                 2020-07-14
               </time>
             
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  5.4k
+                  5.5k
                 </span>
               
 
@@ -468,11 +468,12 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Version 3 </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Single3</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Single3 instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Single3</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Single3 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Single3.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Single3();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个版本的代码看起来有点复杂，注意其中有两次<code>if (instance == null)</code>的判断，这个叫做『双重检查 Double-Check』。</p>
 <ul>
-<li>第一个null判断，是为了解决Version2中的效率问题，之哦于instance是null的时候，才进入下面的synchronized的代码段，大大减少了几率。</li>
-<li>第二个判断就是跟上面一个版本式样，是为了防止可能出现的实例情况。</li>
+<li>第一个null判断，是为了解决Version2中的效率问题，只有instance是null的时候，才进入下面的synchronized的代码段，大大减少了几率。</li>
+<li>第二个判断就是跟上面一个版本一样，是为了防止可能出现的实例情况。</li>
 </ul>
 <p>这么优化和同步锁的原理有关：如果有两个线程（T1、T2）同时执行到这个方法时，会有其中一个线程T1获得同步锁，得以继续执行，而另一个线程T2则需要等待，当第T1执行完毕getInstance之后（完成了null判断、对象创建、获得返回值之后）</p>
 <p>使用两个判断后，在第一次判断之后直接跳了出去。</p>
+<p>第二个判断的用处是，如果出现了两个线程一起访问第一个if的情况，然后到了锁，其中一个线程进去创建对象，如果没有这第二个if判断的话，</p>
 <hr>
 <h4 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h4><p>首先介绍概念 ：<code>原子操作</code>、<code>指令重排</code>。</p>
 <h5 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h5><p>比如，简单的赋值是一个原子操作：</p>
@@ -498,7 +499,7 @@
 </ol>
 </blockquote>
 <p>就是说，由于有一个<strong>『instance已经不为null但是仍没有完成初始化』</strong>的中间状态，而这个时候，如果有其他线程刚好运行到第一层<code>if (instance == null)</code>这里，这里读取到的instance已经不为null了，所以就直接把这个中间状态的instance拿去用了，就会产生问题。<br> 这里的关键在于——<strong>线程T1对instance的写操作没有完成，线程T2就执行了读操作</strong>。</p>
-<p>当然这种纪律是非常小的。</p>
+<p>当然这种几率是非常小的。</p>
 <h5 id="完全体："><a href="#完全体：" class="headerlink" title="完全体："></a>完全体：</h5><p>只需要给instance的声明加上<code>volatile</code>关键字即可，Version4版本：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Version 4 </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Single4</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Single4 instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Single4</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Single4 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Single4.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Single4();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>volatile</code>关键字的一个作用是禁止<code>指令重排</code>，把instance声明为<code>volatile</code>之后，对它的写操作就会有一个<code>内存屏障</code>，这样，在它的赋值完成之前，就不用会调用读操作。</p>
@@ -620,8 +621,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/04/WSL/" rel="next" title="WSL采坑">
-                <i class="fa fa-chevron-left"></i> WSL采坑
+              <a href="/2020/07/14/EffectiveJava/" rel="next" title="Effective Java">
+                <i class="fa fa-chevron-left"></i> Effective Java
               </a>
             
           </div>
