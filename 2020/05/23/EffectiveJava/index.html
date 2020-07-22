@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ggtmho6cacj20sv05o3yf.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ggtmie9b7aj20gg064jr9.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ggtmjva5v5j20hw064q2r.jpg">
-<meta property="og:updated_time" content="2020-07-20T13:39:57.381Z">
+<meta property="og:updated_time" content="2020-07-21T10:03:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Java">
 <meta name="twitter:description" content="拓展自《高效Java第四版》">
@@ -419,7 +419,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  6k
+                  9.9k
                 </span>
               
 
@@ -435,7 +435,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  23
+                  40
                 </span>
               
             </div>
@@ -582,7 +582,7 @@
 </blockquote>
 <h4 id="另一个常见的内存泄漏源是缓存。"><a href="#另一个常见的内存泄漏源是缓存。" class="headerlink" title="另一个常见的内存泄漏源是缓存。"></a>另一个常见的内存泄漏源是缓存。</h4><h4 id="内存泄漏的第三个常见来源是侦听器和其他回调。"><a href="#内存泄漏的第三个常见来源是侦听器和其他回调。" class="headerlink" title="内存泄漏的第三个常见来源是侦听器和其他回调。"></a>内存泄漏的第三个常见来源是侦听器和其他回调。</h4><p>如果你实现了一个 API，其中客户端注册回调，但不显式取消它们，除非你采取一些行动，否则它们将累积。</p>
 <h4 id="取消过期引用应该是例外而不是规范"><a href="#取消过期引用应该是例外而不是规范" class="headerlink" title="取消过期引用应该是例外而不是规范"></a>取消过期引用应该是例外而不是规范</h4><p>程序员不应该在程序结束后立即清空所有对象引用，这是不必要的,也是不可取的，消除过期引用的最好办法是包含引用的变量超出范围，简单来说就是最小化局部变量作用域的最强大的技术是在首次使用的地方声明它,我们应该在尽可能窄的范围内定义每个变量。</p>
-<h2 id="【08】避免使用终结器和清除器"><a href="#【08】避免使用终结器和清除器" class="headerlink" title="【08】避免使用终结器和清除器"></a>【08】避免使用终结器和清除器</h2><p>Avoid finalizers and cleaners</p>
+<h3 id="【08】避免使用终结器和清除器"><a href="#【08】避免使用终结器和清除器" class="headerlink" title="【08】避免使用终结器和清除器"></a>【08】避免使用终结器和清除器</h3><p>Avoid finalizers and cleaners</p>
 <blockquote>
 <p><strong>终结器是不可预测的，通常是危险的，也是不必要的。</strong> 它们的使用可能导致不稳定的行为、糟糕的性能和可移植性问题。终结器有一些有效的用途，我们将在后面的文章中介绍，但是作为规则，你应该避免使用它们。在 Java 9 中，终结器已经被弃用，但是 Java 库仍然在使用它们。Java 9 替代终结器的是清除器。<strong>清除器的危险比终结器小，但仍然不可预测、缓慢，而且通常是不必要的。</strong></p>
 </blockquote>
@@ -598,7 +598,7 @@
 <p><code>This well-behaved client demonstrates that behavior:</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adult</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (Room myRoom = <span class="keyword">new</span> Room(<span class="number">7</span>)) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Goodbye"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>In summary, don’t use cleaners, or in releases prior to Java 9, finalizers,except as a safety net or to terminate noncritical native resources. Even then,beware the indeterminacy and performance consequences.</p>
-<h2 id="【09】使用-try-with-resources-优于-try-finally"><a href="#【09】使用-try-with-resources-优于-try-finally" class="headerlink" title="【09】使用 try-with-resources 优于 try-finally"></a>【09】使用 try-with-resources 优于 try-finally</h2><blockquote>
+<h3 id="【09】使用-try-with-resources-优于-try-finally"><a href="#【09】使用-try-with-resources-优于-try-finally" class="headerlink" title="【09】使用 try-with-resources 优于 try-finally"></a>【09】使用 try-with-resources 优于 try-finally</h3><blockquote>
 <p>从历史上看，try-finally 语句是确保正确关闭资源的最佳方法，即使在出现异常或返回时也是如此：</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// try-finally - No longer the best way to close resources!</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> String <span class="title">firstLineOfFile</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(path));</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> br.readLine();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        br.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -614,6 +614,198 @@
 <p>和使用 try-finally 的原版代码相比，try-with-resources 为开发者提供了更好的诊断方式。考虑 firstLineOfFile 方法。如果异常是由 readLine 调用和不可见的 close 抛出的，则后一个异常将被抑制，以支持前一个异常。实际上，还可能会抑制多个异常，以保留实际希望看到的异常。这些被抑制的异常不会仅仅被抛弃；它们会被打印在堆栈跟踪中，并标记它们被抑制。可以通过编程方式使用 getSuppressed 方法访问到它们，该方法是在 Java 7 中添加到 Throwable 中的。</p>
 <blockquote>
 <p> <code>The lesson is clear:</code>在使用必须关闭的资源时，总是优先使用 try-with-resources，而不是 try-finally。前者的代码更短、更清晰，生成的异常更有用。使用 try-with-resources 语句可以很容易地为必须关闭的资源编写正确的代码，而使用 try-finally 几乎是不可能的。</p>
+</blockquote>
+<h2 id="对象的通用方法"><a href="#对象的通用方法" class="headerlink" title="对象的通用方法"></a><strong>对象的通用方法</strong></h2><h3 id="【10】覆盖-equals-方法时应遵守的约定"><a href="#【10】覆盖-equals-方法时应遵守的约定" class="headerlink" title="【10】覆盖 equals 方法时应遵守的约定"></a>【10】覆盖 equals 方法时应遵守的约定</h3><blockquote>
+<p>Obey the general contract when overriding equals</p>
+</blockquote>
+<h4 id="Equals本身的一些特点"><a href="#Equals本身的一些特点" class="headerlink" title="Equals本身的一些特点"></a>Equals本身的一些特点</h4><ul>
+<li><strong>Each instance of the class is inherently unique.</strong></li>
+<li><strong>There is no need for the class to provide a “logical equality” test.</strong></li>
+<li><strong>A superclass has already overridden equals, and the superclass behavior is appropriate for this class.</strong></li>
+<li><strong>The class is private or package-private, and you are certain that its equals method will never be invoked.</strong> If you are extremely risk-averse,you can override the equals method to ensure that it isn’t invoked accidentally:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(); <span class="comment">// Method is never called</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>So when is it appropriate to override equals? It is when a class has a notion of logical equality that differs from mere object identity and a superclass has not already overridden equals.</strong></li>
+</ul>
+<h4 id="The-equals-method-implements-an-equivalence-relation-It-has-these-properties"><a href="#The-equals-method-implements-an-equivalence-relation-It-has-these-properties" class="headerlink" title="The equals method implements an equivalence relation. It has these properties:"></a>The equals method implements an equivalence relation. It has these properties:</h4><ul>
+<li>Reflexive: <strong>For any non-null reference value x, x.equals(x) must return true.</strong></li>
+<li><p>Symmetric: <strong>For any non-null reference values x and y, x.equals(y) must return true if and only if y.equals(x) returns true.</strong></p>
+</li>
+<li><p>Transitive: <strong>For any non-null reference values x, y, z, if x.equals(y) returns true and y.equals(z) returns true, then x.equals(z) must return true.</strong></p>
+</li>
+<li>Consistent: <strong>For any non-null reference values x and y, multiple invocations of x.equals(y) must consistently return true or consistently return false, provided no information used in equals comparisons is modified.</strong></li>
+<li>For any non-null <strong>reference value x, x.equals(null) must return false.</strong></li>
+</ul>
+<blockquote>
+<p><strong>译注：里氏替换原则（Liskov Substitution Principle，LSP）面向对象设计的基本原则之一。里氏替换原则指出：任何父类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当衍生类可以替换掉父类，软件单位的功能不受到影响时，父类才能真正被复用，而衍生类也能够在父类的基础上增加新的行为。</strong></p>
+</blockquote>
+<blockquote>
+<p>Java 库中有一些类确实继承了一个可实例化的类并添加了一个值组件。例如，<code>java.sql.Timestamp</code> 继承 <code>java.util.Date</code> 并添加了纳秒字段。如果在同一个集合中使用时间戳和日期对象，或者以其他方式混合使用时间戳和日期对象，那么时间戳的 equals 实现确实违反了对称性，并且可能导致不稳定的行为。Timestamp 类有一个免责声明，警告程序员不要混合使用日期和时间戳。虽然只要将它们分开，就不会遇到麻烦，但是没有什么可以阻止你将它们混合在一起，因此产生的错误可能很难调试。时间戳类的这种行为是错误的，不应该效仿。</p>
+</blockquote>
+<p>高质量构建 equals 方法的总结：</p>
+<ol>
+<li><strong>Use the == operator to check if the argument is a reference to this object.</strong> If so, return true. This is just a performance optimization but one that is worth doing if the comparison is potentially expensive.</li>
+</ol>
+<blockquote>
+<p><strong>使用 == 运算符检查参数是否是对该对象的引用。</strong> </p>
+</blockquote>
+<ol start="2">
+<li><strong>Use the instanceof operator to check if the argument has the correct type.</strong> If not, return false. Typically, the correct type is the class in which the method occurs. Occasionally, it is some interface implemented by this class. Use an interface if the class implements an interface that refines the equals contract to permit comparisons across classes that implement the interface. Collection interfaces such as Set, List, Map, and Map.Entry have this property.</li>
+</ol>
+<blockquote>
+<p><strong>使用 instanceof 运算符检查参数是否具有正确的类型。</strong></p>
+</blockquote>
+<ol start="3">
+<li><strong>Cast the argument to the correct type.</strong> Because this cast was preceded by an instanceof test, it is guaranteed to succeed.</li>
+</ol>
+<blockquote>
+<p><strong>将参数转换为正确的类型。</strong></p>
+</blockquote>
+<ol start="4">
+<li><strong>For each “significant” field in the class, check if that field of the argument matches the corresponding field of this object.</strong> If all these tests succeed, return true; otherwise, return false. If the type in Step 2 is an interface, you must access the argument’s fields via interface methods; if the type is a class, you may be able to access the fields directly, depending on their accessibility.</li>
+</ol>
+<blockquote>
+<p><strong>对于类中的每个「重要」字段，检查参数的字段是否与该对象的相应字段匹配。</strong></p>
+</blockquote>
+<ol>
+<li><strong>当你覆盖 equals 时，也覆盖 hashCode。</strong></li>
+<li><strong>不要自作聪明。</strong> 如果你只是为了判断相等性而测试字段，那么遵循 equals 约定并不困难。如果你在寻求对等方面过于激进，很容易陷入麻烦。一般来说，考虑到任何形式的混叠都不是一个好主意。例如，File 类不应该尝试将引用同一文件的符号链接等同起来。值得庆幸的是，它不是。</li>
+<li><strong>不要用另一种类型替换 equals 声明中的对象。</strong> 对于程序员来说，编写一个类似于这样的 equals 方法，然后花上几个小时思考为什么它不能正常工作是很常见的：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Broken - parameter type must be Object!</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(MyClass o)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里的问题是，这个方法没有覆盖其参数类型为 Object 的 Object.equals，而是重载了它（Item-52）。即使是普通的方法，提供这样一个「强类型的」equals 方法是不可接受的，因为它会导致子类中的重写注释产生误报并提供错误的安全性。</p>
+</blockquote>
+<blockquote>
+<p>总之，除非必须，否则不要覆盖 equals 方法：在许多情况下，从 Object 继承而来的实现正是你想要的。如果你确实覆盖了 equals，那么一定要比较类的所有重要字段，并以保留 equals 约定的所有 5 项规定的方式进行比较</p>
+</blockquote>
+<h3 id="【11】当覆盖-equals-时，始终覆盖-hashCode"><a href="#【11】当覆盖-equals-时，始终覆盖-hashCode" class="headerlink" title="【11】当覆盖 equals 时，始终覆盖 hashCode"></a>【11】当覆盖 equals 时，始终覆盖 hashCode</h3><blockquote>
+<p>Always override hashCode when you override equals</p>
+</blockquote>
+<p><strong>在覆盖 equals 的类中，必须覆盖 hashCode。</strong> 如果你没有这样做，你的类将违反 hashCode 的一般约定，这将阻止该类在 HashMap 和 HashSet 等集合中正常运行。以下是根据目标规范修改的约定：</p>
+<blockquote>
+<p>如果根据 <code>equals(Object)</code> 方法判断出两个对象是相等的，那么在两个对象上调用 hashCode 必须产生相同的整数结果。</p>
+</blockquote>
+<p>如果根据 <code>equals(Object)</code> 方法判断出两个对象不相等，则不需要在每个对象上调用 hashCode 时必须产生不同的结果。</p>
+<blockquote>
+<p>一个好的 hash 函数倾向于为不相等的实例生成不相等的 hash 代码。这正是 hashCode 约定的第三部分的含义。理想情况下， hash 函数应该在所有 int 值之间均匀分布所有不相等实例的合理集合。实现这个理想是很困难的。幸运的是，实现一个类似的并不太难。这里有一个简单的方式：</p>
+</blockquote>
+<p>1、Declare an int variable named result, and initialize it to the hash code c for the first significant field in your object, as computed in step 2.a. (Recall from Item 10 that a significant field is a field that affects equals comparisons.)</p>
+<blockquote>
+<p>声明一个名为 result 的 int 变量，并将其初始化为对象中第一个重要字段的 hash 代码 c，如步骤 2.a 中计算的那样。（回想一下 Item-10 中的重要字段是影响相等比较的字段。）</p>
+</blockquote>
+<p>2、For every remaining significant field f in your object, do the following:</p>
+<blockquote>
+<p>对象中剩余的重要字段 f，执行以下操作：</p>
+</blockquote>
+<p>a. Compute an int hash code c for the field:</p>
+<blockquote>
+<p>为字段计算一个整数 hash 码 c：</p>
+</blockquote>
+<p>i. If the field is of a primitive type, compute Type.hashCode(f),where Type is the boxed primitive class corresponding to f’s type.</p>
+<blockquote>
+<p>如果字段是基本数据类型，计算 <code>Type.hashCode(f)</code>，其中 type 是与 f 类型对应的包装类。</p>
+</blockquote>
+<p>ii. If the field is an object reference and this class’s equals method compares the field by recursively（adv.递归地） invoking equals, recursively invoke hashCode on the field. If a more complex comparison is required,compute a “canonical representation” for this field and invoke hashCode on the canonical representation. If the value of the field is null, use 0 (or some other constant, but 0 is traditional).</p>
+<blockquote>
+<p>如果字段是对象引用，并且该类的 equals 方法通过递归调用 equals 来比较字段，则递归调用字段上的 hashCode。如果需要更复杂的比较，则为该字段计算一个「规范表示」，并在规范表示上调用 hashCode。如果字段的值为空，则使用 0（或其他常数，但 0 是惯用的）。</p>
+</blockquote>
+<p>iii. If the field is an array, treat it as if each significant element were a separate field. That is, compute a hash code for each significant element by applying these rules recursively, and combine the values per step 2.b. If the array has no significant elements, use a constant, preferably not 0. If all elements are significant, use Arrays.hashCode.</p>
+<blockquote>
+<p>如果字段是一个数组，则将其视为每个重要元素都是一个单独的字段。也就是说，通过递归地应用这些规则计算每个重要元素的 hash 代码，并将每个步骤 2.b 的值组合起来。如果数组中没有重要元素，则使用常量，最好不是 0。如果所有元素都很重要，那么使用 <code>Arrays.hashCode</code>。</p>
+</blockquote>
+<p>b. Combine the hash code c computed in step 2.a into result as follows:</p>
+<blockquote>
+<p>将步骤 2.a 中计算的 hash 代码 c 合并到结果，如下所示：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = <span class="number">31</span> * result + c;</span><br></pre></td></tr></table></figure>
+<p>3、Return result.</p>
+<blockquote>
+<p>返回 result。</p>
+</blockquote>
+<blockquote>
+<p>当你完成了 hashCode 方法的编写之后，问问自己相同的实例是否具有相同的 hash 代码。编写单元测试来验证你的直觉（除非你使用 AutoValue 生成你的 equals 和 hashCode 方法，在这种情况下你可以安全地省略这些测试）。如果相同的实例有不相等的 hash 码，找出原因并修复问题。</p>
+</blockquote>
+<blockquote>
+<p>可以从 hash 代码计算中排除派生字段。换句话说，你可以忽略任何可以从计算中包含的字段计算其值的字段。你必须排除不用于对等比较的任何字段，否则你可能会违反 hashCode 约定的第二个条款。</p>
+</blockquote>
+<p>….</p>
+<p>省略了一大段如何写Hash的方法，看着头疼，先跳过</p>
+<blockquote>
+<p>总之，每次覆盖 equals 时都必须覆盖 hashCode，否则程序将无法正确运行。你的 hashCode 方法必须遵守 Object 中指定的通用约定，并且必须合理地将不相等的 hash 代码分配给不相等的实例。这很容易实现，如果有点乏味，可使用第 51 页的方法。如 Item-10 所述，AutoValue 框架提供了一种很好的替代手动编写 equals 和 hashCode 的方法，IDE 也提供了这种功能。</p>
+</blockquote>
+<h3 id="【12】始终覆盖-toString-方法"><a href="#【12】始终覆盖-toString-方法" class="headerlink" title="【12】始终覆盖 toString 方法"></a>【12】始终覆盖 toString 方法</h3><p><em>Always override toString</em></p>
+<blockquote>
+<p>指定 toString 返回值的格式的缺点是，一旦指定了它，就会终生使用它，假设你的类被广泛使用。程序员将编写代码来解析表示、生成表示并将其嵌入持久数据中。如果你在将来的版本中更改了表示形式，你将破坏它们的代码和数据，它们将发出大量的消息。通过选择不指定格式，你可以保留在后续版本中添加信息或改进格式的灵活性。</p>
+</blockquote>
+<p>在静态实用程序类中编写 toString 方法是没有意义的（Item-4），在大多数 enum 类型中也不应该编写 toString 方法（Item-34），因为 Java 为你提供了一个非常好的方法。但是，你应该在任何抽象类中编写 toString 方法，该类的子类共享公共的字符串表示形式。例如，大多数集合实现上的 toString 方法都继承自抽象集合类。</p>
+<h3 id="【13】明智地覆盖-clone-方法"><a href="#【13】明智地覆盖-clone-方法" class="headerlink" title="【13】明智地覆盖 clone 方法"></a>【13】明智地覆盖 clone 方法</h3><p><em>Override clone judiciously</em></p>
+<blockquote>
+<p>This item tells you how to implement a well-behaved clone method, discusses when it is appropriate to do so, and presents alternatives.</p>
+</blockquote>
+<p>本章将告诉你如何实现行为良好的 clone 方法，讨论什么时候应该这样做，并提供替代方法。</p>
+<blockquote>
+<p>如果 Cloneable 不包含任何方法，它会做什么呢？</p>
+</blockquote>
+<p>It throws CloneNotSupportedException</p>
+<blockquote>
+<p>in practice, a class implementing Cloneable is expected to provide a properly（adv. 适当地；正确地；恰当地） functioning public clone method. In order to achieve（vt. 取得；获得；实现；） this, the class and all of its superclasses must obey a complex（adj. 复杂的；合成的）, unenforceable, thinly documented protocol. The resulting mechanism is fragile, dangerous, and extralinguistic（adj. 语言以外的；语言学以外的）: it creates objects without calling a constructor.</p>
+</blockquote>
+<p>虽然规范没有说明，但是在实践中，一个实现 Cloneable 的类应该提供一个功能正常的公共 clone 方法。为了实现这一点，类及其所有超类必须遵守复杂的、不可强制执行的、文档很少的协议。产生的机制是脆弱的、危险的和非语言的：即它创建对象而不调用构造函数。</p>
+<blockquote>
+<p>clone 方法的一般约定很薄弱。这里是从 Object 规范复制过来的：</p>
+</blockquote>
+<blockquote>
+<p>创建并返回此对象的副本。「复制」的确切含义可能取决于对象的类别。一般的目的是，对于任何对象 x，表达式<code>x.clone() != x</code>值将为 true，并且这个表达式. <code>x.clone().getClass() == x.getClass()</code>值将为 true，但这些不是绝对的必要条件。通常情况下值将为 true，但这些不是绝对的必要条件。</p>
+</blockquote>
+<p><strong>在数组上调用 clone 将返回一个数组，该数组的运行时和编译时类型与被克隆的数组相同。这是复制数组的首选习惯用法。实际上，数组是 clone 工具唯一引人注目的用途。</strong></p>
+<p>更多的内容，我会在使用clone()的时候拓展。</p>
+<h3 id="【14】考虑实现-Comparable-接口"><a href="#【14】考虑实现-Comparable-接口" class="headerlink" title="【14】考虑实现 Comparable 接口"></a>【14】考虑实现 Comparable 接口</h3><p><em>Consider implementing Comparable</em></p>
+<blockquote>
+<p>compareTo 方法不是在 Object 中声明的。相反，它是 Comparable 接口中的唯一方法。它在性质上类似于 Object 的 equals 方法，除了简单的相等比较之外，它还允许顺序比较，而且它是通用的。一个类实现 Comparable，表明实例具有自然顺序。对实现 Comparable 的对象数组进行排序非常简单：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(a);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过让类实现 Comparable，就可与依赖于此接口的所有通用算法和集合实现进行互操作。你只需付出一点点努力就能获得强大的功能。实际上，Java 库中的所有值类以及所有枚举类型（Item-34）都实现了 Comparable。如果编写的值类具有明显的自然顺序，如字母顺序、数字顺序或时间顺序，则应实现 Comparable 接口：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>compareTo 方法的一般约定类似于 equals 方法：</p>
+<p>将一个对象与指定的对象进行顺序比较。当该对象小于、等于或大于指定对象时，对应返回一个负整数、零或正整数。如果指定对象的类型阻止它与该对象进行比较，则抛出 ClassCastException。</p>
+</blockquote>
+<blockquote>
+<p>在下面的描述中，<code>sgn(expression)</code> 表示数学中的符号函数，它被定义为：根据传入表达式的值是负数、零或正数，对应返回 -1、0 或 1。</p>
+</blockquote>
+<p>第三章看得很粗糙，主要目前用不到这些，先留个印象，如果有需要的话，再返回来翻一翻再补充。</p>
+<h2 id="第四章-类和接口"><a href="#第四章-类和接口" class="headerlink" title="第四章 类和接口"></a><strong>第四章 类和接口</strong></h2><h3 id="【15】尽量减少类和成员的可访问性"><a href="#【15】尽量减少类和成员的可访问性" class="headerlink" title="【15】尽量减少类和成员的可访问性"></a>【15】尽量减少类和成员的可访问性</h3><p><em>Minimize the accessibility of classes and members</em></p>
+<p>For members (fields, methods, nested classes, and nested interfaces), there are four possible access levels, listed here in order of increasing accessibility:</p>
+<blockquote>
+<p>对于成员（字段、方法、嵌套类和嵌套接口），有四个可能的访问级别，这里列出了增加可访问性的顺序：</p>
+</blockquote>
+<ul>
+<li><strong>private</strong> —The member is accessible only from the top-level class where it is declared.</li>
+</ul>
+<blockquote>
+<p>私有，成员只能从声明它的顶级类中访问。</p>
+</blockquote>
+<ul>
+<li><strong>package-private</strong> —The member is accessible from any class in the package where it is declared. Technically known as default access, this is the access level you get if no access modifier is specified (except for interface members,which are public by default).</li>
+</ul>
+<blockquote>
+<p>包级私有，成员可以从包中声明它的任何类访问。技术上称为默认访问，如果没有指定访问修饰符（接口成员除外，默认情况下，接口成员是公共的），就会得到这个访问级别。</p>
+</blockquote>
+<ul>
+<li><strong>protected</strong> —The member is accessible from subclasses of the class where it is declared (subject to a few restrictions [JLS, 6.6.2]) and from any class in the package where it is declared.</li>
+</ul>
+<blockquote>
+<p>保护，成员可以从声明它的类的子类（受一些限制 [JLS, 6.6.2])和包中声明它的任何类访问。</p>
+</blockquote>
+<ul>
+<li><strong>public</strong> —The member is accessible from anywhere.</li>
+</ul>
+<blockquote>
+<p>公共，该成员可以从任何地方访问。</p>
 </blockquote>
 
       
@@ -831,7 +1023,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Effective-Java"><span class="nav-number">1.</span> <span class="nav-text">Effective Java</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【01】考虑以静态工厂方法代替构造函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">【01】考虑以静态工厂方法代替构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态工厂方法与构造器不同的第一优势在于，它们有名字"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">静态工厂方法与构造器不同的第一优势在于，它们有名字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二个优势，不用每次被调用时都创建新对象"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">第二个优势，不用每次被调用时都创建新对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三个优势，可以返回原返回类型的子类"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">第三个优势，可以返回原返回类型的子类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四个优势，在创建带泛型的实例时，能使代码变得简洁"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">第四个优势，在创建带泛型的实例时，能使代码变得简洁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以减少对外暴露的属性"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">可以减少对外暴露的属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多了一层控制，方便统一修改"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">多了一层控制，方便统一修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【02】当构造函数有多个参数时，考虑改用Builder"><span class="nav-number">1.1.2.</span> <span class="nav-text">【02】当构造函数有多个参数时，考虑改用Builder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【03】使用私有构造函数或枚举类型实施单例属性"><span class="nav-number">1.1.3.</span> <span class="nav-text">【03】使用私有构造函数或枚举类型实施单例属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【04】用私有构造函数实施不可实例化"><span class="nav-number">1.1.4.</span> <span class="nav-text">【04】用私有构造函数实施不可实例化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【05】依赖注入优于硬连接资源"><span class="nav-number">1.1.5.</span> <span class="nav-text">【05】依赖注入优于硬连接资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是依赖注入模式"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">什么是依赖注入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖注入的中心思想"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">依赖注入的中心思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖注入的分类："><span class="nav-number">1.1.5.3.</span> <span class="nav-text">依赖注入的分类：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子"><span class="nav-number">1.1.5.4.</span> <span class="nav-text">举个栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【06】避免创建不必要的对象"><span class="nav-number">1.1.6.</span> <span class="nav-text">【06】避免创建不必要的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【07】排除过时的对象引用"><span class="nav-number">1.1.7.</span> <span class="nav-text">【07】排除过时的对象引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#另一个常见的内存泄漏源是缓存。"><span class="nav-number">1.1.7.1.</span> <span class="nav-text">另一个常见的内存泄漏源是缓存。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄漏的第三个常见来源是侦听器和其他回调。"><span class="nav-number">1.1.7.2.</span> <span class="nav-text">内存泄漏的第三个常见来源是侦听器和其他回调。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取消过期引用应该是例外而不是规范"><span class="nav-number">1.1.7.3.</span> <span class="nav-text">取消过期引用应该是例外而不是规范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【08】避免使用终结器和清除器"><span class="nav-number">1.2.</span> <span class="nav-text">【08】避免使用终结器和清除器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#那么，清除器和终结器有什么用呢？"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">那么，清除器和终结器有什么用呢？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【09】使用-try-with-resources-优于-try-finally"><span class="nav-number">1.3.</span> <span class="nav-text">【09】使用 try-with-resources 优于 try-finally</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Effective-Java"><span class="nav-number">1.</span> <span class="nav-text">Effective Java</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和销毁对象"><span class="nav-number">1.1.</span> <span class="nav-text">创建和销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【01】考虑以静态工厂方法代替构造函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">【01】考虑以静态工厂方法代替构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态工厂方法与构造器不同的第一优势在于，它们有名字"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">静态工厂方法与构造器不同的第一优势在于，它们有名字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二个优势，不用每次被调用时都创建新对象"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">第二个优势，不用每次被调用时都创建新对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三个优势，可以返回原返回类型的子类"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">第三个优势，可以返回原返回类型的子类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四个优势，在创建带泛型的实例时，能使代码变得简洁"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">第四个优势，在创建带泛型的实例时，能使代码变得简洁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以减少对外暴露的属性"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">可以减少对外暴露的属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多了一层控制，方便统一修改"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">多了一层控制，方便统一修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【02】当构造函数有多个参数时，考虑改用Builder"><span class="nav-number">1.1.2.</span> <span class="nav-text">【02】当构造函数有多个参数时，考虑改用Builder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【03】使用私有构造函数或枚举类型实施单例属性"><span class="nav-number">1.1.3.</span> <span class="nav-text">【03】使用私有构造函数或枚举类型实施单例属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【04】用私有构造函数实施不可实例化"><span class="nav-number">1.1.4.</span> <span class="nav-text">【04】用私有构造函数实施不可实例化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【05】依赖注入优于硬连接资源"><span class="nav-number">1.1.5.</span> <span class="nav-text">【05】依赖注入优于硬连接资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是依赖注入模式"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">什么是依赖注入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖注入的中心思想"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">依赖注入的中心思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖注入的分类："><span class="nav-number">1.1.5.3.</span> <span class="nav-text">依赖注入的分类：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子"><span class="nav-number">1.1.5.4.</span> <span class="nav-text">举个栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【06】避免创建不必要的对象"><span class="nav-number">1.1.6.</span> <span class="nav-text">【06】避免创建不必要的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【07】排除过时的对象引用"><span class="nav-number">1.1.7.</span> <span class="nav-text">【07】排除过时的对象引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#另一个常见的内存泄漏源是缓存。"><span class="nav-number">1.1.7.1.</span> <span class="nav-text">另一个常见的内存泄漏源是缓存。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄漏的第三个常见来源是侦听器和其他回调。"><span class="nav-number">1.1.7.2.</span> <span class="nav-text">内存泄漏的第三个常见来源是侦听器和其他回调。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取消过期引用应该是例外而不是规范"><span class="nav-number">1.1.7.3.</span> <span class="nav-text">取消过期引用应该是例外而不是规范</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【08】避免使用终结器和清除器"><span class="nav-number">1.1.8.</span> <span class="nav-text">【08】避免使用终结器和清除器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#那么，清除器和终结器有什么用呢？"><span class="nav-number">1.1.8.1.</span> <span class="nav-text">那么，清除器和终结器有什么用呢？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【09】使用-try-with-resources-优于-try-finally"><span class="nav-number">1.1.9.</span> <span class="nav-text">【09】使用 try-with-resources 优于 try-finally</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的通用方法"><span class="nav-number">1.2.</span> <span class="nav-text">对象的通用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【10】覆盖-equals-方法时应遵守的约定"><span class="nav-number">1.2.1.</span> <span class="nav-text">【10】覆盖 equals 方法时应遵守的约定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Equals本身的一些特点"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Equals本身的一些特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-equals-method-implements-an-equivalence-relation-It-has-these-properties"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">The equals method implements an equivalence relation. It has these properties:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【11】当覆盖-equals-时，始终覆盖-hashCode"><span class="nav-number">1.2.2.</span> <span class="nav-text">【11】当覆盖 equals 时，始终覆盖 hashCode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【12】始终覆盖-toString-方法"><span class="nav-number">1.2.3.</span> <span class="nav-text">【12】始终覆盖 toString 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【13】明智地覆盖-clone-方法"><span class="nav-number">1.2.4.</span> <span class="nav-text">【13】明智地覆盖 clone 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【14】考虑实现-Comparable-接口"><span class="nav-number">1.2.5.</span> <span class="nav-text">【14】考虑实现 Comparable 接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-类和接口"><span class="nav-number">1.3.</span> <span class="nav-text">第四章 类和接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【15】尽量减少类和成员的可访问性"><span class="nav-number">1.3.1.</span> <span class="nav-text">【15】尽量减少类和成员的可访问性</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -865,7 +1057,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">307.8k</span>
+    <span title="Site words total count">311.9k</span>
   
 </div>
 
