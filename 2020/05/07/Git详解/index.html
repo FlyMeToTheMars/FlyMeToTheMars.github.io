@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "bfb40164"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+<meta name="description" content="讨论了许多种git的情况，非常详细的git报告">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git详解">
+<meta property="og:url" content="http://yoursite.com/2020/05/07/Git详解/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="讨论了许多种git的情况，非常详细的git报告">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gds54g3odrj206402kmwz.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyr2rpcnj20en025mx9.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyr1x3lzj20h004tgm1.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyr0wkxbj20ch028dfu.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyqz56axj20dp03djrr.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqrg067j20d102zwen.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqq7ts6j20h504r74x.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqnrvxgj20ds05maal.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqmcupsj20h609i402.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyql1473j20cp03vdga.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyqd9m1dj20gt08ggn8.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqc3ziwj20gs02paai.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqavyf7j20ch04laap.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyqa5xjfj20ct02xaad.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq9fck2j20c402d74c.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq6bhrlj20dc063dgk.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyq5dtfrj20e603e0t5.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq4m3oqj20e104974t.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyq3ykzsj20hv06pwfi.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq2gn7sj20d206p0t8.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq1gpk0j20h704mdgm.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq0rzrcj20ax03vaaa.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq034qhj20hs04oaam.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypz44y5j20eh03w0t4.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloypybh8pj20h40deq52.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypxcttej20hr0awmzc.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypvtweyj20jj05cwf4.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyput1l8j20fh06s0tr.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypq7esij20kx04pt9c.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyppfdu3j20vh0nwdl0.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloypnrj0cj20l60ad75p.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypmocbsj20u40gttbc.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypm6o2gj20si0idwh4.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypk8b34j20hk070764.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypjhn5ij20t40i7mzp.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyphv15sj20t10gs775.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypexzvuj20ss0dgabs.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypec5t0j20hp03jwf6.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypdbpwnj20jt05hmxr.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypab36sj20bc04nweu.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyp9es90j20at0awjsq.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyp8mng3j20hm05qaav.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp83uksj20es073gmi.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp4jq8yj20ft0cu40a.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp3w0l1j20g80dwmz7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp1wo2ij20hm0gddi9.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp11x4zj20g107e3zd.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp0aj6uj20dt0o5gph.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoz5m31j20gr0lon0y.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoy0x5yj20he04m74v.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoxn4t8j20i3058dgo.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyowmdooj20gp0etq55.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyou5898j20bq03s0t6.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyot6ny2j20c202lmxg.jpg">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/762349/201610/762349-20161026134059296-2019917854.png">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyor8ayjj20h704pt9e.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyoolky9j20n00crt9x.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoljbdoj20bp05p74u.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoklccxj20f105nmy8.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyojp2l7j20mi0dgdh4.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoilae8j20dz047jrw.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyofwtkzj20e404qdgn.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoerppxj20jy07475a.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyodj3j4j20gq0katc9.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyocm8nlj20hz0l3jvp.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoblpvij20gi07ugmx.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyoab9gfj20hy05j0tu.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyo7l3o6j20ef07p74y.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyo5em1aj20gt0dcwgv.jpg">
+<meta property="og:updated_time" content="2020-05-07T06:16:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git详解">
+<meta name="twitter:description" content="讨论了许多种git的情况，非常详细的git报告">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gds54g3odrj206402kmwz.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/07/Git详解/">
+
+
+
+
+
+  <title>Git详解 | Mars</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'f6a8160e9467bb9adc80f36030e1c37b', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mars</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/07/Git详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-07T14:16:46+08:00">
+                2020-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/05/07/Git详解/" class="leancloud_visitors" data-flag-title="Git详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  6.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  22
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>讨论了许多种git的情况，非常详细的git报告</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gds54g3odrj206402kmwz.jpg" alt="undefined"><br><a id="more"></a> </p>
+<h1 id="Git超详细"><a href="#Git超详细" class="headerlink" title="Git超详细"></a>Git超详细</h1><h4 id="Git是什么"><a href="#Git是什么" class="headerlink" title="Git是什么"></a>Git是什么</h4><p>Git是目前世界上最先进的分布式版本控制系统。</p>
+<h4 id="SVN与Git的最主要的区别"><a href="#SVN与Git的最主要的区别" class="headerlink" title="SVN与Git的最主要的区别"></a><strong>SVN与Git的最主要的区别</strong></h4><p>SVN是集中式版本控制系统，版本库是集中放在中央服务器的，而干活的时候，用的都是自己的电脑，所以首先要从中央服务器哪里得到最新的版本，然后干活，干完后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是必须联网才能工作，如果在局域网还可以，带宽够大，速度够快，如果在互联网下，如果网速慢的话，就纳闷了。</p>
+<p>   Git是分布式版本控制系统，那么它就没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本都是在自己的电脑上。既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
+<h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>   什么是版本库？版本库又名仓库，英文名repository,你可以简单的理解一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改，删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻还可以将文件”还原”。</p>
+<p>  所以创建一个版本库也非常简单，如下我是D盘 –&gt; www下 目录下新建一个testgit版本库。</p>
+<p>pwd 命令是用于显示当前的目录。</p>
+<p>   \1. 通过命令 git init 把这个目录变成git可以管理的仓库，如下：</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyr2rpcnj20en025mx9.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyr2rpcnj20en025mx9.jpg" alt="img"></a></p>
+<p>   这时候你当前testgit目录下会多了一个.git的目录，这个目录是Git来跟踪管理版本的，没事千万不要手动乱改这个目录里面的文件，否则，会把git仓库给破坏了。如下：</p>
+<p>  <a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyr1x3lzj20h004tgm1.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyr1x3lzj20h004tgm1.jpg" alt="img"></a></p>
+<h4 id="把文件添加到版本库中"><a href="#把文件添加到版本库中" class="headerlink" title="把文件添加到版本库中"></a>把文件添加到版本库中</h4><p>​     首先要明确下，所有的版本控制系统，只能跟踪文本文件的改动，比如txt文件，网页，所有程序的代码等，Git也不列外，版本控制系统可以告诉你每次的改动，但是图片，视频这些二进制文件，虽能也能由版本控制系统管理，但没法跟踪文件的变化，只能把二进制文件每次改动串起来，也就是知道图片从1kb变成2kb，但是到底改了啥，版本控制也不知道。</p>
+<p>  <strong>下面先看下**</strong>demo<strong>**如下演示：</strong></p>
+<p>   我在版本库testgit目录下新建一个记事本文件 readme.txt 内容如下：11111111</p>
+<p>   第一步：使用命令 git add readme.txt添加到暂存区里面去。如下：</p>
+<p>  <a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyr0wkxbj20ch028dfu.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyr0wkxbj20ch028dfu.jpg" alt="img"></a></p>
+<p>  如果和上面一样，没有任何提示，说明已经添加成功了。</p>
+<p>  第二步：用命令 git commit告诉Git，把文件提交到仓库。</p>
+<p>  <a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyqz56axj20dp03djrr.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyqz56axj20dp03djrr.jpg" alt="img"></a></p>
+<p> 现在我们已经提交了一个readme.txt文件了，我们下面可以通过命令git status来查看是否还有文件未提交，如下：</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqrg067j20d102zwen.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqrg067j20d102zwen.jpg" alt="img"></a></p>
+<p> 说明没有任何文件未提交，但是我现在继续来改下readme.txt内容，比如我在下面添加一行2222222222内容，继续使用git status来查看下结果，如下：</p>
+<p> <a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqq7ts6j20h504r74x.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqq7ts6j20h504r74x.jpg" alt="img"></a></p>
+<p>上面的命令告诉我们 readme.txt文件已被修改，但是未被提交的修改。</p>
+<p>接下来我想看下readme.txt文件到底改了什么内容，如何查看呢？可以使用如下命令：</p>
+<p>git diff readme.txt 如下：</p>
+<p> <a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqnrvxgj20ds05maal.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqnrvxgj20ds05maal.jpg" alt="img"></a></p>
+<p>如上可以看到，readme.txt文件内容从一行11111111改成 二行 添加了一行22222222内容。</p>
+<p>知道了对readme.txt文件做了什么修改后，我们可以放心的提交到仓库了，提交修改和提交文件是一样的2步(第一步是git add 第二步是：git commit)。</p>
+<p>如下：</p>
+<p> <a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqmcupsj20h609i402.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqmcupsj20h609i402.jpg" alt="img"></a></p>
+<h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><p>   如上，我们已经学会了修改文件，现在我继续对readme.txt文件进行修改，再增加一行</p>
+<p>内容为33333333333333.继续执行命令如下：</p>
+<p>  <a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyql1473j20cp03vdga.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyql1473j20cp03vdga.jpg" alt="img"></a></p>
+<p>现在我已经对readme.txt文件做了三次修改了，那么我现在想查看下历史记录，如何查呢？我们现在可以使用命令 git log 演示如下所示：</p>
+<p> <a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyqd9m1dj20gt08ggn8.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyqd9m1dj20gt08ggn8.jpg" alt="img"></a></p>
+<p>  git log命令显示从最近到最远的显示日志，我们可以看到最近三次提交，最近的一次是,增加内容为333333.上一次是添加内容222222，第一次默认是 111111.如果嫌上面显示的信息太多的话，我们可以使用命令 git log –pretty=oneline 演示如下：</p>
+<p> <a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqc3ziwj20gs02paai.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyqc3ziwj20gs02paai.jpg" alt="img"></a></p>
+<p>  现在我想使用版本回退操作，我想把当前的版本回退到上一个版本，要使用什么命令呢？可以使用如下2种命令，第一种是：git reset –hard HEAD^ 那么如果要回退到上上个版本只需把HEAD^ 改成 HEAD^^ 以此类推。那如果要回退到前100个版本的话，使用上面的方法肯定不方便，我们可以使用下面的简便命令操作：git reset –hard HEAD~100 即可。未回退之前的readme.txt内容如下：</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqavyf7j20ch04laap.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyqavyf7j20ch04laap.jpg" alt="img"></a></p>
+<p>如果想回退到上一个版本的命令如下操作：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyqa5xjfj20ct02xaad.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyqa5xjfj20ct02xaad.jpg" alt="img"></a></p>
+<p>再来查看下 readme.txt内容如下：通过命令cat readme.txt查看</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq9fck2j20c402d74c.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq9fck2j20c402d74c.jpg" alt="img"></a></p>
+<p>可以看到，内容已经回退到上一个版本了。我们可以继续使用git log 来查看下历史记录信息，如下：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq6bhrlj20dc063dgk.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq6bhrlj20dc063dgk.jpg" alt="img"></a></p>
+<p>我们看到 增加333333 内容我们没有看到了，但是现在我想回退到最新的版本，如：有333333的内容要如何恢复呢？我们可以通过版本号回退，使用命令方法如下：</p>
+<p>git reset –hard 版本号 ，但是现在的问题假如我已经关掉过一次命令行或者333内容的版本号我并不知道呢？要如何知道增加3333内容的版本号呢？可以通过如下命令即可获取到版本号：git reflog 演示如下：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyq5dtfrj20e603e0t5.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyq5dtfrj20e603e0t5.jpg" alt="img"></a></p>
+<p>通过上面的显示我们可以知道，增加内容3333的版本号是 6fcfc89.我们现在可以命令</p>
+<p>git reset –hard 6fcfc89来恢复了。演示如下：</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq4m3oqj20e104974t.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq4m3oqj20e104974t.jpg" alt="img"></a></p>
+<p>可以看到 目前已经是最新的版本了。</p>
+<h4 id="理解工作区与暂存区的区别"><a href="#理解工作区与暂存区的区别" class="headerlink" title="理解工作区与暂存区的区别"></a>理解工作区与暂存区的区别</h4><p><strong>工作区：</strong>就是你在电脑上看到的目录，比如目录下testgit里的文件(.git隐藏目录版本库除外)。或者以后需要再新建的目录文件等等都属于工作区范畴。</p>
+<p>   <strong>版本库**</strong>(Repository)<strong>**：</strong>工作区有一个隐藏目录.git,这个不属于工作区，这是版本库。其中版本库里面存了很多东西，其中最重要的就是stage(暂存区)，还有Git为我们自动创建了第一个分支master,以及指向master的一个指针HEAD。</p>
+<p>我们前面说过使用Git提交文件到版本库有两步：</p>
+<p> 第一步：是使用 git add 把文件添加进去，实际上就是把文件添加到暂存区。</p>
+<p> 第二步：使用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支上。</p>
+<p>我们继续使用demo来演示下：</p>
+<p>我们在readme.txt再添加一行内容为4444444，接着在目录下新建一个文件为test.txt 内容为test，我们先用命令 git status来查看下状态，如下：</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyq3ykzsj20hv06pwfi.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyq3ykzsj20hv06pwfi.jpg" alt="img"></a></p>
+<p>现在我们先使用git add 命令把2个文件都添加到暂存区中，再使用git status来查看下状态，如下：</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq2gn7sj20d206p0t8.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq2gn7sj20d206p0t8.jpg" alt="img"></a></p>
+<p>接着我们可以使用git commit一次性提交到分支上，如下：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq1gpk0j20h704mdgm.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq1gpk0j20h704mdgm.jpg" alt="img"></a></p>
+<h4 id="Git撤销修改和删除文件操作"><a href="#Git撤销修改和删除文件操作" class="headerlink" title="Git撤销修改和删除文件操作"></a>Git撤销修改和删除文件操作</h4><h4 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a><strong>撤销修改</strong></h4><p>  比如我现在在readme.txt文件里面增加一行 内容为555555555555，我们先通过命令查看如下：</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq0rzrcj20ax03vaaa.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyq0rzrcj20ax03vaaa.jpg" alt="img"></a></p>
+<p>在我未提交之前，我发现添加5555555555555内容有误，所以我得马上恢复以前的版本，现在我可以有如下几种方法可以做修改：</p>
+<p>第一：如果我知道要删掉那些内容的话，直接手动更改去掉那些需要的文件，然后add添加到暂存区，最后commit掉。</p>
+<p>第二：我可以按以前的方法直接恢复到上一个版本。使用 git reset –hard HEAD^</p>
+<p>但是现在我不想使用上面的2种方法，我想直接想使用撤销命令该如何操作呢？首先在做撤销之前，我们可以先用 git status 查看下当前的状态。如下所示：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq034qhj20hs04oaam.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyq034qhj20hs04oaam.jpg" alt="img"></a></p>
+<p>可以发现，Git会告诉你，git checkout — file 可以丢弃工作区的修改，如下命令：</p>
+<p>git checkout — readme.txt,如下所示：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypz44y5j20eh03w0t4.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypz44y5j20eh03w0t4.jpg" alt="img"></a></p>
+<p>命令 git checkout –readme.txt 意思就是，把readme.txt文件在工作区做的修改全部撤销，这里有2种情况，如下：</p>
+<ol>
+<li>readme.txt自动修改后，还没有放到暂存区，使用 撤销修改就回到和版本库一模一样的状态。</li>
+<li>另外一种是readme.txt已经放入暂存区了，接着又作了修改，撤销修改就回到添加暂存区后的状态。</li>
+</ol>
+<p>对于第二种情况，我想我们继续做demo来看下，假如现在我对readme.txt添加一行 内容为6666666666666，我git add 增加到暂存区后，接着添加内容7777777，我想通过撤销命令让其回到暂存区后的状态。如下所示：</p>
+<p> <a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloypybh8pj20h40deq52.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloypybh8pj20h40deq52.jpg" alt="img"></a></p>
+<p><strong>注意：</strong>命令git checkout — readme.txt 中的 — 很重要，如果没有 — 的话，那么命令变成创建分支了。</p>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a><strong>删除文件</strong></h4><p> 假如我现在版本库testgit目录添加一个文件b.txt,然后提交。如下：</p>
+<p> <a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypxcttej20hr0awmzc.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypxcttej20hr0awmzc.jpg" alt="img"></a></p>
+<p>如上：一般情况下，可以直接在文件目录中把文件删了，或者使用如上rm命令：rm b.txt ，如果我想彻底从版本库中删掉了此文件的话，可以再执行commit命令 提交掉，现在目录是这样的，</p>
+<p> <a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypvtweyj20jj05cwf4.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypvtweyj20jj05cwf4.jpg" alt="img"></a></p>
+<p>只要没有commit之前，如果我想在版本库中恢复此文件如何操作呢？</p>
+<p>可以使用如下命令 git checkout — b.txt，如下所示：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyput1l8j20fh06s0tr.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyput1l8j20fh06s0tr.jpg" alt="img"></a></p>
+<p>再来看看我们testgit目录，添加了3个文件了。如下所示：</p>
+<h4 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h4><p> 在了解之前，先注册github账号，由于你的本地Git仓库和github仓库之间的传输是通过SSH加密的，所以需要一点设置：</p>
+<p>   第一步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果有的话，直接跳过此如下命令，如果没有的话，打开命令行，输入如下命令：</p>
+<p>ssh-keygen -t rsa –C “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>”, 由于我本地此前运行过一次，所以本地有，如下所示：</p>
+<p> <a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypq7esij20kx04pt9c.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypq7esij20kx04pt9c.jpg" alt="img"></a></p>
+<p>id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。</p>
+<p>第二步：登录github,打开” settings”中的SSH Keys页面，然后点击“Add SSH Key”,填上任意title，在Key文本框里黏贴id_rsa.pub文件的内容。</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyppfdu3j20vh0nwdl0.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyppfdu3j20vh0nwdl0.jpg" alt="img"></a></p>
+<p>点击 Add Key，你就应该可以看到已经添加的key。</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloypnrj0cj20l60ad75p.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloypnrj0cj20l60ad75p.jpg" alt="img"></a></p>
+<ol>
+<li>如何添加远程库？</li>
+</ol>
+<p>​     现在的情景是：我们已经在本地创建了一个Git仓库后，又想在github创建一个Git仓库，并且希望这两个仓库进行远程同步，这样github的仓库可以作为备份，又可以其他人通过该仓库来协作。</p>
+<p>  首先，登录github上，然后在右上角找到“create a new repo”创建一个新的仓库。如下：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypmocbsj20u40gttbc.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypmocbsj20u40gttbc.jpg" alt="img"></a></p>
+<p>在Repository name填入<code>testgit</code>，其他保持默认设置，点击“Create repository”按钮，就成功地创建了一个新的Git仓库：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypm6o2gj20si0idwh4.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypm6o2gj20si0idwh4.jpg" alt="img"></a></p>
+<p>  目前，在GitHub上的这个<code>testgit</code>仓库还是空的，GitHub告诉我们，可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库。</p>
+<p>现在，我们根据GitHub的提示，在本地的<code>testgit</code>仓库下运行命令：</p>
+<p>git remote add origin <a href="https://github.com/tugenhua0707/testgit.git" target="_blank" rel="noopener">https://github.com/tugenhua0707/testgit.git</a></p>
+<p>所有的如下：</p>
+<p> <a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypk8b34j20hk070764.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypk8b34j20hk070764.jpg" alt="img"></a></p>
+<p>把本地库的内容推送到远程，使用 git push命令，实际上是把当前分支master推送到远程。</p>
+<p>由于远程库是空的，我们第一次推送master分支时，加上了 –u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。推送成功后，可以立刻在github页面中看到远程库的内容已经和本地一模一样了，上面的要输入github的用户名和密码如下所示：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypjhn5ij20t40i7mzp.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypjhn5ij20t40i7mzp.jpg" alt="img"></a></p>
+<p>从现在起，只要本地作了提交，就可以通过如下命令：</p>
+<p>git push origin master</p>
+<p>把本地master分支的最新修改推送到github上了，现在你就拥有了真正的分布式版本库了。</p>
+<p>\2. 如何从远程库克隆？</p>
+<p>上面我们了解了先有本地库，后有远程库时候，如何关联远程库。</p>
+<p>现在我们想，假如远程库有新的内容了，我想克隆到本地来 如何克隆呢？</p>
+<p>首先，登录github，创建一个新的仓库，名字叫testgit2.如下：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyphv15sj20t10gs775.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyphv15sj20t10gs775.jpg" alt="img"></a></p>
+<p>如下，我们看到：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypexzvuj20ss0dgabs.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypexzvuj20ss0dgabs.jpg" alt="img"></a></p>
+<p>现在，远程库已经准备好了，下一步是使用命令git clone克隆一个本地库了。如下所示：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypec5t0j20hp03jwf6.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypec5t0j20hp03jwf6.jpg" alt="img"></a></p>
+<p>接着在我本地目录下 生成testgit2目录了，如下所示：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypdbpwnj20jt05hmxr.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypdbpwnj20jt05hmxr.jpg" alt="img"></a></p>
+<p>六：创建与合并分支。</p>
+<p>在  版本回填退里，你已经知道，每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即master分支。HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。</p>
+<p>首先，我们来创建dev分支，然后切换到dev分支上。如下操作：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypab36sj20bc04nweu.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloypab36sj20bc04nweu.jpg" alt="img"></a></p>
+<p>git checkout 命令加上 –b参数表示创建并切换，相当于如下2条命令</p>
+<p>git branch dev</p>
+<p>git checkout dev</p>
+<p>git branch查看分支，会列出所有的分支，当前分支前面会添加一个星号。然后我们在dev分支上继续做demo，比如我们现在在readme.txt再增加一行 7777777777777</p>
+<p>首先我们先来查看下readme.txt内容，接着添加内容77777777，如下：</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyp9es90j20at0awjsq.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyp9es90j20at0awjsq.jpg" alt="img"></a></p>
+<p>现在dev分支工作已完成，现在我们切换到主分支master上，继续查看readme.txt内容如下：</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyp8mng3j20hm05qaav.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyp8mng3j20hm05qaav.jpg" alt="img"></a></p>
+<p>现在我们可以把dev分支上的内容合并到分支master上了，可以在master分支上，使用如下命令 git merge dev 如下所示：</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp83uksj20es073gmi.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp83uksj20es073gmi.jpg" alt="img"></a></p>
+<p>git merge命令用于合并指定分支到当前分支上，合并后，再查看readme.txt内容，可以看到，和dev分支最新提交的是完全一样的。</p>
+<p>注意到上面的<em>Fast-forward</em>信息，Git告诉我们，这次合并是“快进模式”，也就是直接把master指向dev的当前提交，所以合并速度非常快。</p>
+<p>合并完成后，我们可以接着删除dev分支了，操作如下：</p>
+<p>总结创建与合并分支命令如下：</p>
+<p>  查看分支：git branch</p>
+<p>  创建分支：git branch name</p>
+<p>  切换分支：git checkout name</p>
+<p>创建+切换分支：git checkout –b name</p>
+<p>合并某分支到当前分支：git merge name</p>
+<p>删除分支：git branch –d name</p>
+<h4 id="如何解决冲突"><a href="#如何解决冲突" class="headerlink" title="如何解决冲突"></a>如何解决冲突</h4><p>下面我们还是一步一步来，先新建一个新分支，比如名字叫fenzhi1，在readme.txt添加一行内容8888888，然后提交，如下所示：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp4jq8yj20ft0cu40a.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp4jq8yj20ft0cu40a.jpg" alt="img"></a></p>
+<p>同样，我们现在切换到master分支上来，也在最后一行添加内容，内容为99999999，如下所示：</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp3w0l1j20g80dwmz7.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp3w0l1j20g80dwmz7.jpg" alt="img"></a></p>
+<p>现在我们需要在master分支上来合并fenzhi1，如下操作：</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp1wo2ij20hm0gddi9.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyp1wo2ij20hm0gddi9.jpg" alt="img"></a></p>
+<p>Git用&lt;&lt;&lt;&lt;&lt;&lt;&lt;，=======，&gt;&gt;&gt;&gt;&gt;&gt;&gt;标记出不同分支的内容，其中&lt;&lt;&lt;HEAD是指主分支修改的内容，&gt;&gt;&gt;&gt;&gt;fenzhi1 是指fenzhi1上修改的内容，我们可以修改下如下后保存：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp11x4zj20g107e3zd.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp11x4zj20g107e3zd.jpg" alt="img"></a></p>
+<p>如果我想查看分支合并的情况的话，需要使用命令 git log.命令行演示如下：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp0aj6uj20dt0o5gph.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyp0aj6uj20dt0o5gph.jpg" alt="img"></a></p>
+<h4 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h4><p>通常合并分支时，git一般使用”Fast forward”模式，在这种模式下，删除分支后，会丢掉分支信息，现在我们来使用带参数 –no-ff来禁用”Fast forward”模式。首先我们来做demo演示下：</p>
+<ol>
+<li>创建一个dev分支。</li>
+<li>修改readme.txt内容。</li>
+<li>添加到暂存区。</li>
+<li>切换回主分支(master)。</li>
+<li>合并dev分支，使用命令 git merge –no-ff -m “注释” dev</li>
+<li>查看历史记录</li>
+</ol>
+<p>截图如下：</p>
+<p> <a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoz5m31j20gr0lon0y.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoz5m31j20gr0lon0y.jpg" alt="img"></a></p>
+<p><strong>分支策略：</strong>首先master主分支应该是非常稳定的，也就是用来发布新版本，一般情况下不允许在上面干活，干活一般情况下在新建的dev分支上干活，干完后，比如上要发布，或者说dev分支代码稳定后可以合并到主分支master上来。</p>
+<p>七：bug分支：</p>
+<p>   在开发中，会经常碰到bug问题，那么有了bug就需要修复，在Git中，分支是很强大的，每个bug都可以通过一个临时分支来修复，修复完成后，合并分支，然后将临时的分支删除掉。</p>
+<p>比如我在开发中接到一个404 bug时候，我们可以创建一个404分支来修复它，但是，当前的dev分支上的工作还没有提交。比如如下：</p>
+<p> <a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoy0x5yj20he04m74v.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoy0x5yj20he04m74v.jpg" alt="img"></a></p>
+<p>  并不是我不想提交，而是工作进行到一半时候，我们还无法提交，比如我这个分支bug要2天完成，但是我issue-404 bug需要5个小时内完成。怎么办呢？还好，Git还提供了一个stash功能，可以把当前工作现场 ”隐藏起来”，等以后恢复现场后继续工作。如下：</p>
+<p> <a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoxn4t8j20i3058dgo.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoxn4t8j20i3058dgo.jpg" alt="img"></a></p>
+<p>  所以现在我可以通过创建issue-404分支来修复bug了。</p>
+<p>首先我们要确定在那个分支上修复bug，比如我现在是在主分支master上来修复的，现在我要在master分支上创建一个临时分支，演示如下：</p>
+<p> <a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyowmdooj20gp0etq55.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyowmdooj20gp0etq55.jpg" alt="img"></a></p>
+<p>修复完成后，切换到master分支上，并完成合并，最后删除issue-404分支。演示如下：</p>
+<p>现在，我们回到dev分支上干活了。</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyou5898j20bq03s0t6.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyou5898j20bq03s0t6.jpg" alt="img"></a></p>
+<p>工作区是干净的，那么我们工作现场去哪里呢？我们可以使用命令 git stash list来查看下。如下：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyot6ny2j20c202lmxg.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyot6ny2j20c202lmxg.jpg" alt="img"></a></p>
+<p>工作现场还在，Git把stash内容存在某个地方了，但是需要恢复一下，可以使用如下2个方法：</p>
+<ol>
+<li>git stash apply恢复，恢复后，stash内容并不删除，你需要使用命令git stash drop来删除。</li>
+<li>另一种方式是使用git stash pop,恢复的同时把stash内容也删除了。</li>
+</ol>
+<p>​     演示如下</p>
+<p> <a href="https://images2015.cnblogs.com/blog/762349/201610/762349-20161026134059296-2019917854.png" target="_blank" rel="noopener"><img src="https://images2015.cnblogs.com/blog/762349/201610/762349-20161026134059296-2019917854.png" alt="img"></a></p>
+<h4 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h4><p>当你从远程库克隆时候，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且远程库的默认名称是origin。</p>
+<ol>
+<li>要查看远程库的信息 使用 git remote</li>
+<li>要查看远程库的详细信息 使用 git remote –v</li>
+</ol>
+<p>如下演示：</p>
+<p> <a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyor8ayjj20h704pt9e.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyor8ayjj20h704pt9e.jpg" alt="img"></a></p>
+<p><strong>一：推送分支：</strong></p>
+<p>   推送分支就是把该分支上所有本地提交到远程库中，推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上：</p>
+<p>   使用命令 git push origin master</p>
+<p>比如我现在的github上的readme.txt代码如下：</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyoolky9j20n00crt9x.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyoolky9j20n00crt9x.jpg" alt="img"></a></p>
+<p>本地的readme.txt代码如下：</p>
+<p> <a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoljbdoj20bp05p74u.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoljbdoj20bp05p74u.jpg" alt="img"></a></p>
+<p>现在我想把本地更新的readme.txt代码推送到远程库中，使用命令如下：</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoklccxj20f105nmy8.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoklccxj20f105nmy8.jpg" alt="img"></a></p>
+<p>我们可以看到如上，推送成功，我们可以继续来截图github上的readme.txt内容 如下：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyojp2l7j20mi0dgdh4.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyojp2l7j20mi0dgdh4.jpg" alt="img"></a></p>
+<p>可以看到 推送成功了，如果我们现在要推送到其他分支，比如dev分支上，我们还是那个命令 git push origin dev</p>
+<p>那么一般情况下，那些分支要推送呢？</p>
+<ol>
+<li><p>master分支是主分支，因此要时刻与远程同步。</p>
+</li>
+<li><p>一些修复bug分支不需要推送到远程去，可以先合并到主分支上，然后把主分支master推送到远程去。</p>
+</li>
+<li><h4 id="抓取分支"><a href="#抓取分支" class="headerlink" title="抓取分支"></a>抓取分支</h4></li>
+<li><p>多人协作时，大家都会往master分支上推送各自的修改。现在我们可以模拟另外一个同事，可以在另一台电脑上（注意要把SSH key添加到github上）或者同一台电脑上另外一个目录克隆，新建一个目录名字叫testgit2</p>
+<p>但是我首先要把dev分支也要推送到远程去，如下</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoilae8j20dz047jrw.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoilae8j20dz047jrw.jpg" alt="img"></a></p>
+<p>接着进入testgit2目录，进行克隆远程的库到本地来，如下：</p>
+<p> <a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyofwtkzj20e404qdgn.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyofwtkzj20e404qdgn.jpg" alt="img"></a></p>
+<p>现在目录下生成有如下所示：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoerppxj20jy07475a.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyoerppxj20jy07475a.jpg" alt="img"></a></p>
+<p>现在我们的小伙伴要在dev分支上做开发，就必须把远程的origin的dev分支到本地来，于是可以使用命令创建本地dev分支：git checkout –b dev origin/dev</p>
+<p>现在小伙伴们就可以在dev分支上做开发了，开发完成后把dev分支推送到远程库时。</p>
+<p>如下：</p>
+<p><a href="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyodj3j4j20gq0katc9.jpg" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/mw690/6941baebgw1eloyodj3j4j20gq0katc9.jpg" alt="img"></a></p>
+<p>小伙伴们已经向origin/dev分支上推送了提交，而我在我的目录文件下也对同样的文件同个地方作了修改，也试图推送到远程库时，如下：</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyocm8nlj20hz0l3jvp.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyocm8nlj20hz0l3jvp.jpg" alt="img"></a></p>
+<p>由上面可知：推送失败，因为我的小伙伴最新提交的和我试图推送的有冲突，解决的办法也很简单，上面已经提示我们，先用git pull把最新的提交从origin/dev抓下来，然后在本地合并，解决冲突，再推送。</p>
+<p><a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoblpvij20gi07ugmx.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloyoblpvij20gi07ugmx.jpg" alt="img"></a></p>
+<p><em>git pull</em>也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接：如下：</p>
+<p><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyoab9gfj20hy05j0tu.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyoab9gfj20hy05j0tu.jpg" alt="img"></a></p>
+<p>这回<em>git pull</em>成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的 解决冲突完全一样。解决后，提交，再push：</p>
+<p>我们可以先来看看readme.txt内容了。</p>
+<p><a href="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyo7l3o6j20ef07p74y.jpg" target="_blank" rel="noopener"><img src="http://ww4.sinaimg.cn/mw690/6941baebgw1eloyo7l3o6j20ef07p74y.jpg" alt="img"></a></p>
+<p>现在手动已经解决完了，我接在需要再提交，再push到远程库里面去。如下所示：<br><a href="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyo5em1aj20gt0dcwgv.jpg" target="_blank" rel="noopener"><img src="http://ww3.sinaimg.cn/mw690/6941baebgw1eloyo5em1aj20gt0dcwgv.jpg" alt="img"></a></p>
+<p>因此：多人协作工作模式一般是这样的：</p>
+<ol>
+<li><p>首先，可以试图用git push origin branch-name推送自己的修改.</p>
+</li>
+<li><p>如果推送失败，则因为远程分支比你的本地更新早，需要先用git pull试图合并。</p>
+</li>
+<li><p>如果合并有冲突，则需要解决冲突，并在本地提交。再用git push origin branch-name推送。</p>
+</li>
+<li><p>Git基本常用命令如下</p>
+</li>
+<li><p>mkdir：     XX (创建一个空目录 XX指目录名)</p>
+<p>pwd：     显示当前目录的路径。</p>
+<p>git init     把当前的目录变成可以管理的git仓库，生成隐藏.git文件。</p>
+<p>git add XX    把xx文件添加到暂存区去。</p>
+<p>git commit –m “XX” 提交文件 –m 后面的是注释。</p>
+<p>git status    查看仓库状态</p>
+<p>git diff XX   查看XX文件修改了那些内容</p>
+<p>git log     查看历史记录</p>
+<p>git reset –hard HEAD^ 或者 git reset –hard HEAD~ 回退到上一个版本</p>
+<p>​            (如果想回退到100个版本，使用git reset –hard HEAD~100 )</p>
+<p>cat XX     查看XX文件内容</p>
+<p>git reflog    查看历史记录的版本号id</p>
+<p>git checkout — XX 把XX文件在工作区的修改全部撤销。</p>
+<p>git rm XX     删除XX文件</p>
+<p>git remote add origin <a href="https://github.com/ev-power/XiaoYong" target="_blank" rel="noopener">https://github.com/ev-power/XiaoYong</a> 关联一个远程库</p>
+<p>git push –u(第一次要用-u 以后不需要) origin master 把当前master分支推送到远程库</p>
+<p>git clone <a href="https://github.com/ev-power/XiaoYong" target="_blank" rel="noopener">https://github.com/ev-power/XiaoYong</a> 从远程库中克隆</p>
+<p>git checkout –b dev 创建dev分支 并切换到dev分支上</p>
+<p>git branch 查看当前所有的分支</p>
+<p>git checkout master 切换回master分支</p>
+<p>git merge dev  在当前的分支上合并dev分支</p>
+<p>git branch –d dev 删除dev分支</p>
+<p>git branch name 创建分支</p>
+<p>git stash 把当前的工作隐藏起来 等以后恢复现场后继续工作</p>
+<p>git stash list 查看所有被隐藏的文件列表</p>
+<p>git stash apply 恢复被隐藏的文件，但是内容不删除</p>
+<p>git stash drop 删除文件</p>
+<p>git stash pop 恢复文件的同时 也删除文件</p>
+<p>git remote 查看远程库的信息</p>
+<p>git remote –v 查看远程库的详细信息</p>
+<p>git push origin master Git会把master分支推送到远程库对应的远程分支上   </p>
+</li>
+<li><p>本文非原创博客，部分内容有所更改，原文出自：<a href="http://www.cnblogs.com/tugenhua0707/p/4050072.html" target="_blank" rel="noopener">http://www.cnblogs.com/tugenhua0707/p/4050072.html</a></p>
+</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/26/Flink State/" rel="next" title="Flink State">
+                <i class="fa fa-chevron-left"></i> Flink State
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/07/Flink Table & SQL 概览/" rel="prev" title="Flink Table & SQL">
+                Flink Table & SQL <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
+            
+              <p class="site-author-name" itemprop="name">Fly Hugh</p>
+              <p class="site-description motion-element" itemprop="description">WE CHOOSE TO  GO TO THE MARS</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/FlyMeToTheMars" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3200892914" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/Fly__HoBo" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git超详细"><span class="nav-number">1.</span> <span class="nav-text">Git超详细</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git是什么"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Git是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVN与Git的最主要的区别"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">SVN与Git的最主要的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建版本库"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把文件添加到版本库中"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">把文件添加到版本库中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#版本回退"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">版本回退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理解工作区与暂存区的区别"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">理解工作区与暂存区的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git撤销修改和删除文件操作"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">Git撤销修改和删除文件操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#撤销修改"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">撤销修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除文件"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程仓库"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">远程仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决冲突"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">如何解决冲突</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分支管理策略"><span class="nav-number">1.0.0.12.</span> <span class="nav-text">分支管理策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多人协作"><span class="nav-number">1.0.0.13.</span> <span class="nav-text">多人协作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抓取分支"><span class="nav-number">1.0.0.14.</span> <span class="nav-text">抓取分支</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">336k</span>
+  
+</div>
+
+
+<!-- 
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+       <!-- 页面点击小红心 -->
+    <script type="text/javascript" src="/js/src/src/clicklove.js"></script>
+
+    
+  </div>
+
+
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("72l8G3xFxrAReJk0PBs8jCeC-gzGzoHsz", "r0TXzhifsg8y5LTKokFte6fz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+
+
+</html>
+
