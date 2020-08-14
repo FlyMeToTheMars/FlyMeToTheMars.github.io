@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29 第二次更新：2019-5-10">
@@ -746,7 +746,7 @@
 <p>启动zookeeper：</p>
 <p>Zookeeper-client -server master:2181</p>
 <p>创建一个 znode 节点：</p>
-<p>create /znode1 sasl:<a href="mailto:&#x6d;&#97;&#115;&#x74;&#x65;&#114;&#64;&#x4a;&#73;&#77;&#73;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#x6d;&#97;&#115;&#x74;&#x65;&#114;&#64;&#x4a;&#73;&#77;&#73;&#x2e;&#x63;&#111;&#x6d;</a>:cdwra</p>
+<p>create /znode1 sasl:<a href="mailto:&#x6d;&#97;&#x73;&#x74;&#x65;&#114;&#64;&#x4a;&#x49;&#77;&#x49;&#46;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#x6d;&#97;&#x73;&#x74;&#x65;&#114;&#64;&#x4a;&#x49;&#77;&#x49;&#46;&#x63;&#x6f;&#109;</a>:cdwra</p>
 <p>在另外的节点上执行 </p>
 <p>getAcl /znode1</p>
 <p>如果能够获取在另外一个节点上输入的输入就证明没有问题</p>
