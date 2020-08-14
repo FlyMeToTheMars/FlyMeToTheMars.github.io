@@ -1,103 +1,26 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="小米大数据,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
-
-
-
-  <script>
-  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
-  daovoice('init', {
-      app_id: "bfb40164"
-    });
-  daovoice('update');
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-
-
-
-
-<meta name="description" content="本文资料主要来自小米的小米商业产品部技术的总监接受媒体采访时的内容，内容主要是广告大数据技术在小米的实践梗概和自己的一些想法。  宋强是时任小米商业产品部技术的总监，在采访中他喜欢将小米看成是一家大数据公司，因为小米强大的生态链，小米的大数据和其他公司相比，最大的特点和优势是“全生态、多样性”。">
+  <meta name="description" content="本文资料主要来自小米的小米商业产品部技术的总监接受媒体采访时的内容，内容主要是广告大数据技术在小米的实践梗概和自己的一些想法。  宋强是时任小米商业产品部技术的总监，在采访中他喜欢将小米看成是一家大数据公司，因为小米强大的生态链，小米的大数据和其他公司相比，最大的特点和优势是“全生态、多样性”。">
 <meta name="keywords" content="小米大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="广告大数据在小米的实践">
@@ -119,39 +42,18 @@
 <meta name="twitter:description" content="本文资料主要来自小米的小米商业产品部技术的总监接受媒体采访时的内容，内容主要是广告大数据技术在小米的实践梗概和自己的一些想法。  宋强是时任小米商业产品部技术的总监，在采访中他喜欢将小米看成是一家大数据公司，因为小米强大的生态链，小米的大数据和其他公司相比，最大的特点和优势是“全生态、多样性”。">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2q8s2r5qdj20k008oabd.jpg">
 
+<link rel="canonical" href="http://yoursite.com/2019/04/22/大数据在小米的实践/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/2019/04/22/大数据在小米的实践/">
-
-
-
-
 
   <title>广告大数据在小米的实践 | Mars</title>
   
@@ -159,295 +61,152 @@
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'f6a8160e9467bb9adc80f36030e1c37b', 'auto');
-  ga('send', 'pageview');
-</script>
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Mars</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            Categories
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/大数据在小米的实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fly Hugh">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Mars">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">广告大数据在小米的实践</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          广告大数据在小米的实践
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-22T21:45:12+08:00">
-                2019-04-22
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PPT/" itemprop="url" rel="index">
-                    <span itemprop="name">PPT</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2019-04-22 21:45:12" itemprop="dateCreated datePublished" datetime="2019-04-22T21:45:12+08:00">2019-04-22</time>
             </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/22/大数据在小米的实践/" class="leancloud_visitors" data-flag-title="广告大数据在小米的实践">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  3.9k
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 01:03:43" itemprop="dateModified" datetime="2020-04-11T01:03:43+08:00">2020-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PPT/" itemprop="url" rel="index"><span itemprop="name">PPT</span></a>
                 </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  13
-                </span>
-              
-            </div>
-          
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -455,27 +214,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <blockquote>
 <p>本文资料主要来自小米的小米商业产品部技术的总监接受媒体采访时的内容，内容主要是广告大数据技术在小米的实践梗概和自己的一些想法。</p>
 </blockquote>
 <p>宋强是时任小米商业产品部技术的总监，在采访中他喜欢将小米看成是一家大数据公司，因为小米强大的生态链，小米的大数据和其他公司相比，最大的特点和优势是“全生态、多样性”。</p>
 <a id="more"></a> 
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2q8s2r5qdj20k008oabd.jpg" alt></p>
+
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2q8s2r5qdj20k008oabd.jpg"></p>
 <h4 id="1-小米的实践经验"><a href="#1-小米的实践经验" class="headerlink" title="1.小米的实践经验"></a>1.小米的实践经验</h4><p>首先是<strong>广告营销</strong>，通过点击预估算法提升广告收入，通过营销DMP帮助广告主进行精准营销等等。其次，大数据在小米金融业务中也广泛应用，包括<strong>风控</strong>和<strong>征信分析</strong>、<strong>反欺诈</strong>等。在搜索和推荐业务中，大数据对各种算法的提升也起到了至关重要的作用，包括<strong>查询理解</strong>、<strong>相关性模型</strong>和<strong>点击预估</strong>等。</p>
 <h4 id="2-发展趋势"><a href="#2-发展趋势" class="headerlink" title="2.发展趋势"></a>2.发展趋势</h4><p>智能化：算法智能化，随着ML和AI的进一步发展，大数据的价值将更加充分挖掘，其次是营销的智能化，通过<strong>多维立体的用户标签数据</strong>，从<strong>性别</strong>、<strong>年龄</strong>等基础数据，到<strong>APP使用频次</strong>和<strong>时长</strong>、<strong>运动轨迹</strong>、<strong>手机信号</strong>等数据形成的<strong>兴趣标签</strong>，再到精准的<strong>时间</strong>、<strong>位置</strong>、<strong>场景化</strong>标签，帮助广告主进行更加智能化的广告营销。</p>
 <h4 id="3-广告大数据的应用场景"><a href="#3-广告大数据的应用场景" class="headerlink" title="3.广告大数据的应用场景"></a>3.广告大数据的应用场景</h4><p>首先是<strong>广告算法优化</strong>，包括<strong>点击率预估</strong>、<strong>反作弊</strong>、<strong>用户体验优化</strong>、<strong>广告主ROI优化</strong>等多个方向。其次是营销DMP，小米的营销DMP通过整合媒体、投放平台以及广告主的各方数据，使用大数据技术对用户的特征进行挖掘，为广告主提供了20多个维度、上百个标签的<strong>实时</strong>用户画像管理。</p>
 <h4 id="4-广告平台架构"><a href="#4-广告平台架构" class="headerlink" title="4.广告平台架构"></a>4.广告平台架构</h4><p>整个系统架构包括接入层、服务层、算法层和存储层。接入层负责流量的接入、管理、配置和运营。服务层是广告检索的核心，包含广告选取、过滤、排序等核心逻辑，主要的服务有广告交易平台、效果和排期广告服务等。算法层负责点击率预估、预算平滑、精准定向等算法，存储层则是各种广告和用户数据访问层。</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2q91453odj20k0094taz.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2q91453odj20k0094taz.jpg"></p>
 <p>广告平台架构在演化过程中，主要思路：</p>
 <p>架构为业务服务，每一次架构的迭代都是业务驱动的。我们的团队也是按照业务进行划分的，每个业务团队有明确的目标，通过目标驱动架构的微调和迭代，也许架构并不是完美的但却是最有效的。</p>
 <p>其次，业务逻辑配置化+公共逻辑服务化，不同广告业务在产品形态、素材规格、竞价方式方面会有所不同，并且会随着时间不断变化，架构必须灵活来支持业务的变化和差异，通过资源管理平台对广告位进行的自动化管理，使得业务逻辑配置化。同时不同业务总是有一些共性需求，通过对公共逻辑的模块化和服务化， 减少耦合和重复建设，提高系统的稳定性和可靠性。</p>
 <h4 id="5-小米的点击预估实践"><a href="#5-小米的点击预估实践" class="headerlink" title="5.小米的点击预估实践"></a>5.小米的点击预估实践</h4><p>点击预估是广告算法核心，大部分工作时间都在做做特征挖掘和模型优化。</p>
 <p>特征挖掘更像是一门艺术，需要熟悉业务，更需要灵感。算法工程师每天的工作就是搜肠刮肚找出跟用户点击广告相关的信号。大部分可能是弱信号，组合起来才能发挥威力。模型则是兵器库，过去两年我们尝试了离线LR，在线FTRL，非线性模型FM和GBDT，以及正在实验中的深度模型等。</p>
 <p>这里分别介绍应用分发、搜索和信息流广告的点击预估工作。</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2q9eh2yfrj20js0br792.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2q9eh2yfrj20js0br792.jpg"></p>
 <h5 id="应用分发"><a href="#应用分发" class="headerlink" title="应用分发"></a>应用分发</h5><p>移动互联网发展到今天，应用推广仍然是效果广告主的首要诉求。依托于小米应用商店、浏览器和小米视频等app，应用分发成为了小米广告平台收入的重要组成部分，算法优化则是不断提升收入的利器。</p>
 <p>特征工程方面，我们尝试了以下几大类的特征：用户特征（人口属性、系统信息等）、广告特征（id、类别、位置等）、用户行为特征（app历史安装、近期下载、近期使用等）、用户广告行为特征（广告的曝光、点击、下载等）、组合特征（用户特征X广告特征等）。其中，用户行为特征被证明为最有效，这也是和业务/产品形态最最密切相关的特征。模型方面，从最开始的LR到天级的FTRL，再到小时级的FTRL，效果逐步提升。</p>
 <h5 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h5><p>这里的搜索指的也是应用搜索，主要依托于应用商店和浏览器庞大的搜索流量进行变现。在模型优化方面，最初的模型是一个纯文本相关性的模型，主要考虑搜索关键词和广告文本（包括app的名称、描述等）的相关性。接着我们尝试了行为相关性模型，主要是基于协同过滤的思想来计算两个app的相似性（item-based）。今年开始正式采用了点击率模型，收入也是取得了大幅度的增长。</p>
@@ -484,7 +241,8 @@
 <p>信息流广告的算法优化和应用分发类似，也有一些不同的地方。信息流广告的素材更新频繁，广告数量也比较多。反应到模型方面，<strong>小时级的FTRL模型比天级模型有大幅度的提升</strong>。</p>
 <h4 id="6-小米是如何应用机器学习反作弊功能的"><a href="#6-小米是如何应用机器学习反作弊功能的" class="headerlink" title="6.小米是如何应用机器学习反作弊功能的"></a>6.小米是如何应用机器学习反作弊功能的</h4><p>首先，移动端的作弊和刷量现象非常严重。据统计，70%的推广渠道存在刷量作弊行为。移动端的作弊手段也是多种多样，主要表现在：</p>
 <ul>
-<li>刷机：通过特殊的刷机软件，篡改手机的环境参数，如IMEI/MAC等，模拟多用户下载、激活和使用。</li>
+<li><p>刷机：通过特殊的刷机软件，篡改手机的环境参数，如IMEI/MAC等，模拟多用户下载、激活和使用。</p>
+</li>
 <li><p>模拟器：通过虚拟机软件（bluestacks，Virtual Box等）自动运行脚本，模拟用户点击、下载、激活、留存等数据。</p>
 </li>
 <li><p>程序化点击：通过雇佣或者劫持的方式，利用大量真实设备进行程序化的点击、下载、激活等。</p>
@@ -493,20 +251,20 @@
 <h5 id="反作弊技术的关键"><a href="#反作弊技术的关键" class="headerlink" title="反作弊技术的关键"></a>反作弊技术的关键</h5><p>设备真伪识别：</p>
 <p>一般是通过SDK的方式采集硬件信息，为每台设备生成唯一的设备id，后续即使刷量者对设备的硬件信息进行修改，唯一的设备id也不会变。市场上有多家公司提供了类似的解决方案。比如数盟、量江湖、maxent等。小米与其中几家公司有紧密的合作，并且自己也开发了一套基于硬件标识的设备真伪识别方案。<br>用户行为分析：</p>
 <p>不管是哪种作弊手段，都是有规律可循的，通过大数据分析和机器学习一定能找到蛛丝马迹（正所谓“魔高一尺，道高一丈”，“天网恢恢，疏而不漏”……）。比如用户IP分布异常、机型分布异常、点击率异常、下载激活时间间隔异常、留存率和使用时长异常等等。作弊的仿真度越高，异常特征就越不明显，对应的反作弊技术和代价也就越高。</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qb20unmyj20is0c1gp0.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qb20unmyj20is0c1gp0.jpg"></p>
 <p>客户端：核心模块是反作弊SDK，通过采集系统信息生成设备唯一id，用于机器真伪识别。另外采集其他必要的信息用于服务端的反作弊模型分析。服务端：有两套反作弊系统，实时和离线反作弊。实时反作弊系统收集实时上报的日志，通过实时流计算框架，快速分析作弊情况，一般用于捕捉短期的作弊行为。离线反作弊则是通过收集多维度的数据，经过离线计算和反作弊模型，最大限度发现各种长期和短期的作弊行为。不管是实时还是离线反作弊，都牵涉三个模块：数据收集：设备id，IP，广告点击/下载/激活时间戳等信息特征计算：多维度（如IP、UserAgent等）、多粒度（周、天、小时、分钟）、多指标（CTR、下载数、时间间隔等）的实时/离线计算反作弊模型：分为实时和离线模型实时模型：主要是基于规则的模型离线模型：目前主要也是基于规则的模型，未来会尝试用机器学习模型（比如LR，DNN等）前端：主要提供数据报表、异常监控、智能分析等功能，不展开讲。</p>
 <h4 id="7-广告大数据如何为用户优化体验"><a href="#7-广告大数据如何为用户优化体验" class="headerlink" title="7.广告大数据如何为用户优化体验"></a>7.广告大数据如何为用户优化体验</h4><p>用户体验优化的目标是减少广告展示来提升用户体验，这里有两个问题需要解决：用户体验的指标是什么？如何平衡广告收入和用户体验？对于用户体验，不同的产品有不同的定义：下滑率，搜索次数，页面点击率等等。为了简化优化目标，我们挑选了几个对大部分产品都饲用的指标：主要指标是留存率和日货率，次要致表示使用次数和时长。</p>
 <p>用户体验模型综合考虑了几个方面的因素来决定广告最终是否展现给用户：首先是广告质量分模型。最简单的质量分模型只考虑广告效果，比如CTR，RankScore（综合考虑CTR/CVR和出价的广告排序分数）等。基于这些数据可以做简单的“断尾计划”（也就是对于CTR或者RankScore做一个阈值控制）。这种方案实现简单，但效果一般。目前我们正在实验用户容忍度模型和用户影响力模型，以后有机会再展开来讲。</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qeo7rlnjj20ms08v0tr.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qeo7rlnjj20ms08v0tr.jpg"></p>
 <p>分桶测试把流量切分成3大块，用来收集不同的用户体验方案对于收入和用户体验的影响。先来看一下某app“无广告”vs“有广告”的A/B测试结果，结论：广告对用户体验有一定影响的（~3%）。</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qewqrtpsj20i506bq46.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qewqrtpsj20i506bq46.jpg"></p>
 <p>用户体验模型综合考虑了几个方面的因素来决定广告最终是否展现给用户：广告质量分模型：最简单的质量分模型只考虑广告效果，比如CTR，RankScore（综合考虑CTR/CVR和出价的广告排序分数）等。基于这些数据可以做简单的“断尾计划”（也就是对于CTR或者RankScore做一个阈值控制）。这种方案实现简单，但效果一般。下图是基于RankScore的“断尾”实验结果，对收入影响比较大：</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qex347d4j20ih0cadhg.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qex347d4j20ih0cadhg.jpg"></p>
 <p>用户容忍度模型和用户影响力模型：目前还处于实验阶段，先不细讲了。</p>
 <h4 id="8-为了获取真实可用的数据从而提升收益，小米提出了广告主ROI算法模型。对此模型的简单介绍。"><a href="#8-为了获取真实可用的数据从而提升收益，小米提出了广告主ROI算法模型。对此模型的简单介绍。" class="headerlink" title="8.为了获取真实可用的数据从而提升收益，小米提出了广告主ROI算法模型。对此模型的简单介绍。"></a>8.为了获取真实可用的数据从而提升收益，小米提出了广告主ROI算法模型。对此模型的简单介绍。</h4><p>点击预估模型的优化目标是eCPM和收入，但是广告主的投放目标是ROI，两个目标是不完全一致的。另外，不同的广告主对于R的定义也不一样，有的是激活/留存（新闻资讯），有的是用户注册（金融理财），有的是下单/消费（电商购物）。</p>
 <p>广告主ROI优化牵涉两方面的工作：<strong>数据收集和模型优化</strong>。</p>
 <p>数据收集：广告数据的完整生命周期包括曝光、点击、下载、激活、留存、注册、消费等。其中曝光/点击/下载是发生在流量方的数据，可以很容易获取并用于点击预估模型，提升广告收入。激活和留存是广告主app的使用数据，通过MIUI系统可以获取。注册和消费则是广告主app内部使用数据，很难通过系统的方式获取，需要和广告主进行数据合作。</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qeqtblfyj20kl0530tv.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qeqtblfyj20kl0530tv.jpg"></p>
 <p>模型优化：以激活率模型为例，可以结合CTR模型进行，通过激活数据修改CTR模型的正样本来调整点击预估结果。也可以单独训练激活率模型，然后在广告排序中同时考虑CTR和CVR。</p>
 <p>曝光、点击、下载：发生在流量方的数据，可以很容易获取并用于点击预估模型，提升广告收入。<br>激活和留存：广告主app的使用数据，通过MIUI系统可以获取。<br>注册和消费：广告主app内部使用数据，很难通过系统的方式获取，需要和广告主进行数据合作。</p>
 <p>广告主ROI算法模型（以激活数据为例）<br>样本修正：修改CTR模型正样本，下载得分1，激活得分k(k&gt;1)，然后按得分复制正样本个数<br>阈值控制：单独训练激活率模型，设定阈值p，当激活率低于阈值时，不参与竞价<br>组合模型：单独训练激活率模型，然后修正CTR，CTR<em>Price=&gt;CTR</em>(1+AR^λ)*Price  </p>
@@ -518,315 +276,147 @@
 <hr>
 <p>这边依旧留下一个偶然看到的问题，是关于网站的幂等问题</p>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/小米大数据/" rel="tag"># 小米大数据</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/29/Kudu-Note/" rel="prev" title="Apache Kudu">
-                Apache Kudu <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
     </div>
 
-  
+    
+    
+    
 
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/小米大数据/" rel="tag"># 小米大数据</a>
+          </div>
 
-
-        </div>
         
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/29/Kudu-Note/" rel="next" title="Apache Kudu">
+      Apache Kudu <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
-            
-              <p class="site-author-name" itemprop="name">Fly Hugh</p>
-              <p class="site-description motion-element" itemprop="description">WE CHOOSE TO  GO TO THE MARS</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">54</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">38</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/FlyMeToTheMars" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://weibo.com/u/3200892914" target="_blank" title="Weibo">
-                      
-                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/Fly__HoBo" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-小米的实践经验"><span class="nav-number">1.</span> <span class="nav-text">1.小米的实践经验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-发展趋势"><span class="nav-number">2.</span> <span class="nav-text">2.发展趋势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-广告大数据的应用场景"><span class="nav-number">3.</span> <span class="nav-text">3.广告大数据的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-广告平台架构"><span class="nav-number">4.</span> <span class="nav-text">4.广告平台架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-小米的点击预估实践"><span class="nav-number">5.</span> <span class="nav-text">5.小米的点击预估实践</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用分发"><span class="nav-number">5.1.</span> <span class="nav-text">应用分发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#搜索"><span class="nav-number">5.2.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#信息流"><span class="nav-number">5.3.</span> <span class="nav-text">信息流</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-小米是如何应用机器学习反作弊功能的"><span class="nav-number">6.</span> <span class="nav-text">6.小米是如何应用机器学习反作弊功能的</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#反作弊技术的关键"><span class="nav-number">6.1.</span> <span class="nav-text">反作弊技术的关键</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-广告大数据如何为用户优化体验"><span class="nav-number">7.</span> <span class="nav-text">7.广告大数据如何为用户优化体验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-为了获取真实可用的数据从而提升收益，小米提出了广告主ROI算法模型。对此模型的简单介绍。"><span class="nav-number">8.</span> <span class="nav-text">8.为了获取真实可用的数据从而提升收益，小米提出了广告主ROI算法模型。对此模型的简单介绍。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-总结"><span class="nav-number">9.</span> <span class="nav-text">9.总结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-小米的实践经验"><span class="nav-number">1.</span> <span class="nav-text">1.小米的实践经验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-发展趋势"><span class="nav-number">2.</span> <span class="nav-text">2.发展趋势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-广告大数据的应用场景"><span class="nav-number">3.</span> <span class="nav-text">3.广告大数据的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-广告平台架构"><span class="nav-number">4.</span> <span class="nav-text">4.广告平台架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-小米的点击预估实践"><span class="nav-number">5.</span> <span class="nav-text">5.小米的点击预估实践</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用分发"><span class="nav-number">5.1.</span> <span class="nav-text">应用分发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#搜索"><span class="nav-number">5.2.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#信息流"><span class="nav-number">5.3.</span> <span class="nav-text">信息流</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-小米是如何应用机器学习反作弊功能的"><span class="nav-number">6.</span> <span class="nav-text">6.小米是如何应用机器学习反作弊功能的</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#反作弊技术的关键"><span class="nav-number">6.1.</span> <span class="nav-text">反作弊技术的关键</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-广告大数据如何为用户优化体验"><span class="nav-number">7.</span> <span class="nav-text">7.广告大数据如何为用户优化体验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-为了获取真实可用的数据从而提升收益，小米提出了广告主ROI算法模型。对此模型的简单介绍。"><span class="nav-number">8.</span> <span class="nav-text">8.为了获取真实可用的数据从而提升收益，小米提出了广告主ROI算法模型。对此模型的简单介绍。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-总结"><span class="nav-number">9.</span> <span class="nav-text">9.总结</span></a></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">341.3k</span>
-  
 </div>
-
-
-<!-- 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
--->
-
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-       <!-- 页面点击小红心 -->
-    <script type="text/javascript" src="/js/src/src/clicklove.js"></script>
-
-    
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
-
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+        
 
 
 
@@ -835,101 +425,17 @@
 
 
 
+      </div>
+    </footer>
+  </div>
 
   
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -937,20 +443,6 @@
 
 
 
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
 
 
 
@@ -965,468 +457,7 @@
 
   
 
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
   
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("72l8G3xFxrAReJk0PBs8jCeC-gzGzoHsz", "r0TXzhifsg8y5LTKokFte6fz");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-
-
-
 
 </body>
-
-
 </html>
-

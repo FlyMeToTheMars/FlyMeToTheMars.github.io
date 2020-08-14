@@ -1,103 +1,26 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Flink CEP,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
-
-
-
-  <script>
-  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
-  daovoice('init', {
-      app_id: "bfb40164"
-    });
-  daovoice('update');
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-
-
-
-
-<meta name="description" content="1.5版本">
+  <meta name="description" content="1.5版本">
 <meta name="keywords" content="Flink CEP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flink CEP 文档">
@@ -113,39 +36,18 @@
 <meta name="twitter:description" content="1.5版本">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf7530gz4bj20oq0gktcy.jpg">
 
+<link rel="canonical" href="http://yoursite.com/2020/05/27/Flink CEP文档/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/2020/05/27/Flink CEP文档/">
-
-
-
-
 
   <title>Flink CEP 文档 | Mars</title>
   
@@ -153,295 +55,146 @@
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'f6a8160e9467bb9adc80f36030e1c37b', 'auto');
-  ga('send', 'pageview');
-</script>
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Mars</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            Categories
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/27/Flink CEP文档/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fly Hugh">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Mars">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Flink CEP 文档</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Flink CEP 文档
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-27T19:20:36+08:00">
-                2020-05-27
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Flink-CEP/" itemprop="url" rel="index">
-                    <span itemprop="name">Flink CEP</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-05-27 19:20:36 / 修改时间：17:39:24" itemprop="dateCreated datePublished" datetime="2020-05-27T19:20:36+08:00">2020-05-27</time>
             </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2020/05/27/Flink CEP文档/" class="leancloud_visitors" data-flag-title="Flink CEP 文档">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flink-CEP/" itemprop="url" rel="index"><span itemprop="name">Flink CEP</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  6k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  25
-                </span>
-              
-            </div>
-          
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -449,20 +202,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <blockquote>
 <p>1.5版本</p>
 </blockquote>
 <a id="more"></a> 
+
 <h1 id="Flink-CEP"><a href="#Flink-CEP" class="headerlink" title="Flink CEP"></a>Flink CEP</h1><h2 id="0-本文概述简介"><a href="#0-本文概述简介" class="headerlink" title="0. 本文概述简介"></a>0. 本文概述简介</h2><p>FlinkCEP是在Flink之上实现的复杂事件处理（CEP）库。 它允许你在无界的事件流中检测事件模式，让你有机会掌握数据中重要的事项。</p>
 <p>本文描述了Flink CEP中可用的API调用。 首先介绍Pattern API，它允许你指定要在流中检测的模式，然后介绍如何检测匹配事件序列并对其进行操作。 然后，我们将介绍CEP库在处理事件时间延迟时所做的假设。</p>
 <h2 id="1-入门"><a href="#1-入门" class="headerlink" title="1.入门"></a>1.入门</h2><p>首先是要在你的pom.xml文件中，引入CEP库。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-cep_2.11<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>注意要应用模式匹配的DataStream中的事件必须实现正确的equals（）和hashCode（）方法，因为FlinkCEP使用它们来比较和匹配事件。</p>
 <p>第一个demo如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">DataStream&lt;Event&gt; input = ...</span><br><span class="line"></span><br><span class="line">Pattern&lt;Event, ?&gt; pattern = Pattern.&lt;Event&gt;begin(<span class="string">"start"</span>).where(</span><br><span class="line">        <span class="keyword">new</span> SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(Event event)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> event.getId() == <span class="number">42</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ).next(<span class="string">"middle"</span>).subtype(SubEvent.class).where(</span><br><span class="line">        <span class="keyword">new</span> SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(SubEvent subEvent)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> subEvent.getVolume() &gt;= <span class="number">10.0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ).followedBy(<span class="string">"end"</span>).where(</span><br><span class="line">         <span class="keyword">new</span> SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(Event event)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> event.getName().equals(<span class="string">"end"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">PatternStream&lt;Event&gt; patternStream = CEP.pattern(input, pattern);</span><br><span class="line"></span><br><span class="line">DataStream&lt;Alert&gt; result = patternStream.select(</span><br><span class="line">    <span class="keyword">new</span> PatternSelectFunction&lt;Event, Alert&gt; &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Alert <span class="title">select</span><span class="params">(Map&lt;String, List&lt;Event&gt;&gt; pattern)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> createAlertFrom(pattern);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <h2 id="2-Pattern-API"><a href="#2-Pattern-API" class="headerlink" title="2.Pattern API"></a>2.Pattern API</h2><p>Pattern API允许你定义要从输入流中提取的复杂模式序列。</p>
 <p>每个复杂模式序列都是由多个简单模式组成，即寻找具有相同属性的单个事件的模式。我们可以先定义一些简单的模式，然后组合成复杂的模式序列。 可以将模式序列视为此类模式的结构图，基于用户指定的条件从一个模式转换到下一个模式，例如， event.getName().equals(“start”)。 匹配是一系列输入事件，通过一系列有效的模式转换访问复杂模式图中的所有模式。</p>
 <p>注意每个模式必须具有唯一的名称，以便后续可以使用该名称来标识匹配的事件。</p>
@@ -473,6 +226,7 @@
 <p>您可以使用pattern.greedy（）方法使循环模式变得贪婪，但是还不能使组模式变得贪婪。您可以使用pattern.optional（）方法使得所有模式，循环与否，变为可选。</p>
 <p>对于名为start的模式，以下是有效的Quantifiers：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// expecting 4 occurrences</span></span><br><span class="line">start.times(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 0 or 4 occurrences</span></span><br><span class="line">start.times(<span class="number">4</span>).optional();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 2, 3 or 4 occurrences</span></span><br><span class="line">start.times(<span class="number">2</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 2, 3 or 4 occurrences and repeating as many as possible</span></span><br><span class="line">start.times(<span class="number">2</span>, <span class="number">4</span>).greedy();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 0, 2, 3 or 4 occurrences</span></span><br><span class="line">start.times(<span class="number">2</span>, <span class="number">4</span>).optional();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 0, 2, 3 or 4 occurrences and repeating as many as possible</span></span><br><span class="line">start.times(<span class="number">2</span>, <span class="number">4</span>).optional().greedy();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 1 or more occurrences</span></span><br><span class="line">start.oneOrMore();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 1 or more occurrences and repeating as many as possible</span></span><br><span class="line">start.oneOrMore().greedy();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 0 or more occurrences</span></span><br><span class="line">start.oneOrMore().optional();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 0 or more occurrences and repeating as many as possible</span></span><br><span class="line">start.oneOrMore().optional().greedy();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 2 or more occurrences</span></span><br><span class="line">start.timesOrMore(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 2 or more occurrences and repeating as many as possible</span></span><br><span class="line">start.timesOrMore(<span class="number">2</span>).greedy();</span><br><span class="line"></span><br><span class="line"><span class="comment">// expecting 0, 2 or more occurrences and repeating as many as possible</span></span><br><span class="line">start.timesOrMore(<span class="number">2</span>).optional().greedy();</span><br></pre></td></tr></table></figure>
+
 <h4 id="2-1-2-Conditions-条件"><a href="#2-1-2-Conditions-条件" class="headerlink" title="2.1.2 Conditions-条件"></a>2.1.2 Conditions-条件</h4><p>在每个模式中，从一个模式转到下一个模式，可以指定其他条件。您可以将使用下面这些条件：</p>
 <ol>
 <li>传入事件的属性，例如其值应大于5，或大于先前接受的事件的平均值。</li>
@@ -485,19 +239,23 @@
 <p>这是最常见的条件类型。 你可以指定一个条件，该条件基于先前接受的事件的属性或其子集的统计信息来接受后续事件。</p>
 <p>下面代码说的是：如果名称以“foo”开头同时如果该模式的先前接受的事件的价格总和加上当前事件的价格不超过该值 5.0，则迭代条件接受名为“middle”的模式的下一个事件，。 迭代条件可以很强大的，尤其是与循环模式相结合，例如， oneOrMore()。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">middle.oneOrMore().where(<span class="keyword">new</span> IterativeCondition&lt;SubEvent&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(SubEvent value, Context&lt;SubEvent&gt; ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!value.getName().startsWith(<span class="string">"foo"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> sum = value.getPrice();</span><br><span class="line">        <span class="keyword">for</span> (Event event : ctx.getEventsForPattern(<span class="string">"middle"</span>)) &#123;</span><br><span class="line">            sum += event.getPrice();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Double.compare(sum, <span class="number">5.0</span>) &lt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>注意对context.getEventsForPattern（…）的调用,将为给定潜在匹配项查找所有先前接受的事件。 此操作的代价可能会变化巨大，因此在使用条件时，请尽量减少其使用。</p>
 <ol start="2">
 <li><strong>简单条件：</strong></li>
 </ol>
 <p>这种类型的条件扩展了前面提到的IterativeCondition类，并且仅根据事件本身的属性决定是否接受事件。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">start.where(<span class="keyword">new</span> SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(Event value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value.getName().startsWith(<span class="string">"foo"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>最后，还可以通过pattern.subtype（subClass）方法将接受事件的类型限制为初始事件类型的子类型。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">start.subtype(SubEvent.class).where(<span class="keyword">new</span> SimpleCondition&lt;SubEvent&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(SubEvent value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ... <span class="comment">// some condition</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <ol start="3">
 <li><strong>组合条件：</strong></li>
 </ol>
 <p>如上所示，可以将子类型条件与其他条件组合使用。 这适用于所有条件。 您可以通过顺序调用where（）来任意组合条件。 最终结果将是各个条件的结果的逻辑AND。 要使用OR组合条件，可以使用or（）方法，如下所示。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pattern.where(<span class="keyword">new</span> SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(Event value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ... <span class="comment">// some condition</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).or(<span class="keyword">new</span> SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(Event value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ... <span class="comment">// or condition</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <ol start="4">
 <li><strong>停止条件：</strong></li>
 </ol>
@@ -524,11 +282,13 @@
 </ol>
 <p>定义当前模式的条件。 为了匹配模式，事件必须满足条件。 多个连续的where()，其条件为AND：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern.where(new IterativeCondition&lt;Event&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean filter(Event value, Context ctx) throws Exception &#123;</span><br><span class="line">        return ... // some condition</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>or(condition)</li>
 </ol>
 <p>添加与现有条件进行OR运算的新条件。 只有在至少通过其中一个条件时，事件才能匹配该模式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pattern.where(new IterativeCondition&lt;Event&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean filter(Event value, Context ctx) throws Exception &#123;</span><br><span class="line">        return ... // some condition</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).or(new IterativeCondition&lt;Event&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean filter(Event value, Context ctx) throws Exception &#123;</span><br><span class="line">        return ... // alternative condition</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <ol start="3">
 <li>until(condition)</li>
 </ol>
@@ -536,11 +296,13 @@
 <p>仅适用于oneOrMore（）</p>
 <p>注意：它允许在基于事件的条件下清除相应模式的状态。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern.oneOrMore().until(new IterativeCondition&lt;Event&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean filter(Event value, Context ctx) throws Exception &#123;</span><br><span class="line">        return ... // alternative condition</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <ol start="4">
 <li>subtype(subClass)</li>
 </ol>
 <p>定义当前模式的子类型条件。 如果事件属于此子类型，则事件只能匹配该模式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern.subtype(SubEvent.class);</span><br></pre></td></tr></table></figure>
+
 <ol start="5">
 <li>oneOrMore()</li>
 </ol>
@@ -548,34 +310,40 @@
 <p>默认情况下，使用宽松的内部连续性。</p>
 <p>注意：建议使用until（）或within（）来启用状态清除</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern.oneOrMore().until(new IterativeCondition&lt;Event&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean filter(Event value, Context ctx) throws Exception &#123;</span><br><span class="line">        return ... // alternative condition</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <ol start="6">
 <li>timesOrMore(#times)</li>
 </ol>
 <p>指定此模式至少需要#times次出现匹配事件。</p>
 <p>默认情况下，使用宽松的内部连续性（在后续事件之间）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern.timesOrMore(2);</span><br></pre></td></tr></table></figure>
+
 <ol start="7">
 <li>times(#ofTimes)</li>
 </ol>
 <p>指定此模式需要匹配事件的确切出现次数。</p>
 <p>默认情况下，使用宽松的内部连续性（在后续事件之间）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern.times(2);</span><br></pre></td></tr></table></figure>
+
 <ol start="8">
 <li>times(#fromTimes, #toTimes)</li>
 </ol>
 <p>指定此模式期望在匹配事件的#fromTimes次和#toTimes次之间出现。</p>
 <p>默认情况下，使用宽松的内部连续性。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern.times(2, 4);</span><br></pre></td></tr></table></figure>
+
 <ol start="9">
 <li>optional()</li>
 </ol>
 <p>指定此模式是可选的，即有可能根本不会发生。 这适用于所有上述量词。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern.oneOrMore().optional();</span><br></pre></td></tr></table></figure>
+
 <ol start="10">
 <li>greedy()</li>
 </ol>
 <p>指定此模式是贪婪的，即它将尽可能多地重复。 这仅适用于quantifiers，目前不支持组模式。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern.oneOrMore().greedy();</span><br></pre></td></tr></table></figure>
+
 <ol start="11">
 <li>consecutive()</li>
 </ol>
@@ -583,6 +351,7 @@
 <p>如果不使用，则使用宽松的连续性（如followBy（））。</p>
 <p>例如，这样的模式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Pattern.&lt;Event&gt;begin(&quot;start&quot;).where(new SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean filter(Event value) throws Exception &#123;</span><br><span class="line">    return value.getName().equals(&quot;c&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.followedBy(&quot;middle&quot;).where(new SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean filter(Event value) throws Exception &#123;</span><br><span class="line">    return value.getName().equals(&quot;a&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).oneOrMore().consecutive()</span><br><span class="line">.followedBy(&quot;end1&quot;).where(new SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean filter(Event value) throws Exception &#123;</span><br><span class="line">    return value.getName().equals(&quot;b&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>针对上面的模式，我们假如输入序列如：C D A1 A2 A3 D A4 B</p>
 <p>使用consecutive：{C A1 B}, {C A1 A2 B}, {C A1 A2 A3 B}</p>
 <p>不使用:{C A1 B}, {C A1 A2 B}, {C A1 A2 A3 B}, {C A1 A2 A3 A4 B}</p>
@@ -593,12 +362,14 @@
 <p>如果不应用，则使用宽松的连续性（如followBy()）。</p>
 <p>例如,这样的模式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Pattern.&lt;Event&gt;begin(&quot;start&quot;).where(new SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean filter(Event value) throws Exception &#123;</span><br><span class="line">    return value.getName().equals(&quot;c&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.followedBy(&quot;middle&quot;).where(new SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean filter(Event value) throws Exception &#123;</span><br><span class="line">    return value.getName().equals(&quot;a&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).oneOrMore().allowCombinations()</span><br><span class="line">.followedBy(&quot;end1&quot;).where(new SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public boolean filter(Event value) throws Exception &#123;</span><br><span class="line">    return value.getName().equals(&quot;b&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <p>针对上面的模式，我们假如输入序列如：C D A1 A2 A3 D A4 B</p>
 <p>使用allowCombinations：{C A1 B}, {C A1 A2 B}, {C A1 A3 B}, {C A1 A4 B}, {C A1 A2 A3 B}, {C A1 A2 A4 B}, {C A1 A3 A4 B}, {C A1 A2 A3 A4 B}</p>
 <p>不使用:{C A1 B}, {C A1 A2 B}, {C A1 A2 A3 B}, {C A1 A2 A3 A4 B}</p>
 <h3 id="2-2-组合模式"><a href="#2-2-组合模式" class="headerlink" title="2.2 组合模式"></a>2.2 组合模式</h3><h4 id="2-2-1-简介"><a href="#2-2-1-简介" class="headerlink" title="2.2.1 简介"></a>2.2.1 简介</h4><p>已经了解了单个模式的样子，现在是时候看看如何将它们组合成一个完整的模式序列。</p>
 <p>模式序列必须以初始模式开始，如下所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; start = Pattern.&lt;Event&gt;begin(&quot;start&quot;);</span><br></pre></td></tr></table></figure>
+
 <p>接下来，您可以通过指定它们之间所需的连续条件，为模式序列添加更多模式。 在上一节中，我们描述了Flink支持的不同邻接模式，即严格，宽松和非确定性宽松，以及如何在循环模式中应用它们。 要在连续模式之间应用它们，可以使用：</p>
 <blockquote>
 <p>next() 对应 严格, followedBy() 对应 宽松连续性 followedByAny() 对应 非确定性宽松连续性</p>
@@ -614,6 +385,7 @@
 <p>注意 NOT模式前面不能有可选模式。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// strict contiguity</span><br><span class="line">Pattern&lt;Event, ?&gt; strict = start.next(&quot;middle&quot;).where(...);</span><br><span class="line"></span><br><span class="line">// relaxed contiguity</span><br><span class="line">Pattern&lt;Event, ?&gt; relaxed = start.followedBy(&quot;middle&quot;).where(...);</span><br><span class="line"></span><br><span class="line">// non-deterministic relaxed contiguity</span><br><span class="line">Pattern&lt;Event, ?&gt; nonDetermin = start.followedByAny(&quot;middle&quot;).where(...);</span><br><span class="line"></span><br><span class="line">// NOT pattern with strict contiguity</span><br><span class="line">Pattern&lt;Event, ?&gt; strictNot = start.notNext(&quot;not&quot;).where(...);</span><br><span class="line"></span><br><span class="line">// NOT pattern with relaxed contiguity</span><br><span class="line">Pattern&lt;Event, ?&gt; relaxedNot = start.notFollowedBy(&quot;not&quot;).where(...);</span><br></pre></td></tr></table></figure>
+
 <p>宽松连续性指的是仅第一个成功匹配的事件会被匹配到，然而非确定性宽松连续性，相同的开始会有多个匹配结果发出。距离，如果一个模式是”a b”，给定输入序列是”a c b1 b2”。对于不同连续性会有不同输出。</p>
 <ol>
 <li>a和b之间严格连续性，将会返回{},也即是没有匹配。因为c的出现导致a，抛弃了。</li>
@@ -622,63 +394,76 @@
 </ol>
 <p>也可以为模式定义时间约束。 例如，可以通过pattern.within（）方法定义模式应在10秒内发生。 时间模式支持处理和事件时间。 注意模式序列只能有一个时间约束。 如果在不同的单独模式上定义了多个这样的约束，则应用最小的约束。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">next.within(Time.seconds(10));</span><br></pre></td></tr></table></figure>
+
 <p>可以为begin，followBy，followByAny和next定义一个模式序列作为条件。模式序列将被逻辑地视为匹配条件，而且将返回GroupPattern并且 可对GroupPattern使用oneOrMore（），times（#ofTimes），times（＃fromTimes，＃toTimes），optional（），consecutive（）， allowCombinations（）等方法。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">PatternPatte &lt;Event, ?&gt; start = Pattern.begin(</span><br><span class="line">    Pattern.&lt;Event&gt;begin(&quot;start&quot;).where(...).followedBy(&quot;start_middle&quot;).where(...)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// strict contiguity</span><br><span class="line">Pattern&lt;Event, ?&gt; strict = start.next(</span><br><span class="line">    Pattern.&lt;Event&gt;begin(&quot;next_start&quot;).where(...).followedBy(&quot;next_middle&quot;).where(...)</span><br><span class="line">).times(3);</span><br><span class="line"></span><br><span class="line">// relaxed contiguity</span><br><span class="line">Pattern&lt;Event, ?&gt; relaxed = start.followedBy(</span><br><span class="line">    Pattern.&lt;Event&gt;begin(&quot;followedby_start&quot;).where(...).followedBy(&quot;followedby_middle&quot;).where(...)</span><br><span class="line">).oneOrMore();</span><br><span class="line"></span><br><span class="line">// non-deterministic relaxed contiguity</span><br><span class="line">Pattern&lt;Event, ?&gt; nonDetermin = start.followedByAny(</span><br><span class="line">    Pattern.&lt;Event&gt;begin(&quot;followedbyany_start&quot;).where(...).followedBy(&quot;followedbyany_middle&quot;).where(...)</span><br><span class="line">).optional();</span><br></pre></td></tr></table></figure>
+
 <h4 id="2-2-2-API"><a href="#2-2-2-API" class="headerlink" title="2.2.2 API"></a>2.2.2 API</h4><ol>
 <li>begin(#name)</li>
 </ol>
 <p>定义一个开始模式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; start = Pattern.&lt;Event&gt;begin(&quot;start&quot;);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>begin(#pattern_sequence)</li>
 </ol>
 <p>定义一个开始模式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; start = Pattern.&lt;Event&gt;begin(</span><br><span class="line">    Pattern.&lt;Event&gt;begin(&quot;start&quot;).where(...).followedBy(&quot;middle&quot;).where(...)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>next(#name)</li>
 </ol>
 <p>追加一个新的模式。匹配事件必须直接跟着先前的匹配事件（严格连续性）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; next = start.next(&quot;middle&quot;);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>next(#pattern_sequence)</li>
 </ol>
 <p>追加一个新的模式。匹配事件必须直接接着先前的匹配事件（严格连续性）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; next = start.next(</span><br><span class="line">    Pattern.&lt;Event&gt;begin(&quot;start&quot;).where(...).followedBy(&quot;middle&quot;).where(...)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>followedBy(#name)</li>
 </ol>
 <p>追加加新模式。 匹配事件和先前匹配事件（宽松连续）之间可能发生其他非匹配事件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; followedBy = start.followedBy(&quot;middle&quot;);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>followedBy(#pattern_sequence)</li>
 </ol>
 <p>追加新模式。 匹配事件和先前匹配事件（宽松连续）之间可能发生其他非匹配事件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; followedBy = start.followedBy(</span><br><span class="line">    Pattern.&lt;Event&gt;begin(&quot;start&quot;).where(...).followedBy(&quot;middle&quot;).where(...)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>followedByAny(#name)</li>
 </ol>
 <p>添加新模式。 匹配事件和先前匹配事件之间可能发生其他事件，并且将针对每个备选匹配事件（非确定性放松连续性）呈现替代匹配：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; followedByAny = start.followedByAny(&quot;middle&quot;);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>followedByAny(#pattern_sequence)</li>
 </ol>
 <p>添加新模式。 匹配事件和先前匹配事件之间可能发生其他事件，并且将针对每个备选匹配事件（非确定性放松连续性）呈现替代匹配：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; followedByAny = start.followedByAny(</span><br><span class="line">    Pattern.&lt;Event&gt;begin(&quot;start&quot;).where(...).followedBy(&quot;middle&quot;).where(...)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>notNext()</li>
 </ol>
 <p>添加新的否定模式。 匹配（否定）事件必须直接跟着先前的匹配事件（严格连续性）才能丢弃部分匹配：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; notNext = start.notNext(&quot;not&quot;);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>notFollowedBy()</li>
 </ol>
 <p>追加一个新的否定模式匹配。即使在匹配（否定）事件和先前匹配事件（宽松连续性）之间发生其他事件，也将丢弃部分匹配事件序列：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern&lt;Event, ?&gt; notFollowedBy = start.notFollowedBy(&quot;not&quot;);</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>within(time)</li>
 </ol>
 <p>定义事件序列进行模式匹配的最大时间间隔。 如果未完成的事件序列超过此时间，则将其丢弃：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern.within(Time.seconds(10));</span><br></pre></td></tr></table></figure>
+
 <h3 id="2-3-匹配后的跳过策略"><a href="#2-3-匹配后的跳过策略" class="headerlink" title="2.3 匹配后的跳过策略"></a>2.3 匹配后的跳过策略</h3><p>对于给定模式，可以将同一事件分配给多个成功匹配。 要控制将分配事件的匹配数，需要指定名为AfterMatchSkipStrategy的跳过策略。 跳过策略有四种类型，如下所示：</p>
 <ul>
 <li>NO_SKIP：将发出每个可能的匹配。</li>
@@ -693,15 +478,19 @@
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf754c9zi6j20oi06uabd.jpg" alt="undefined"></p>
 <p>使用方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AfterMatchSkipStrategy skipStrategy = ...</span><br><span class="line">Pattern.begin(&quot;patternName&quot;, skipStrategy);</span><br></pre></td></tr></table></figure>
+
 <h3 id="2-4-检测模式-Detecting-Patterns"><a href="#2-4-检测模式-Detecting-Patterns" class="headerlink" title="2.4 检测模式-Detecting Patterns"></a>2.4 检测模式-Detecting Patterns</h3><p>指定要查找的模式序列后，就可以将其应用于输入流以检测潜在匹配。 要针对模式序列运行事件流，必须创建PatternStream。 给定输入流 input，模式 pattern 和可选的比较器 comparator，用于在EventTime的情况下对具有相同时间戳的事件进行排序或在同一时刻到达，通过调用以下命令创建PatternStream：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DataStream&lt;Event&gt; input = ...</span><br><span class="line">Pattern&lt;Event, ?&gt; pattern = ...</span><br><span class="line">EventComparator&lt;Event&gt; comparator = ... // optional</span><br><span class="line"></span><br><span class="line">PatternStream&lt;Event&gt; patternStream = CEP.pattern(input, pattern, comparator);</span><br></pre></td></tr></table></figure>
+
 <p>根据实际情况，创建的流可以是有key，也可以是无key的。</p>
 <p>请注意，在无key的流上使用模式，将导致job的并行度为1。</p>
 <h3 id="2-5-Selecting-from-Patterns"><a href="#2-5-Selecting-from-Patterns" class="headerlink" title="2.5 Selecting from Patterns"></a>2.5 Selecting from Patterns</h3><p>获得PatternStream后，您可以通过select或flatSelect方法从检测到的事件序列中进行查询。</p>
 <p>select（）方法需要PatternSelectFunction的实现。 PatternSelectFunction具有为每个匹配事件序列调用的select方法。 它以Map &lt;String，List &gt;的形式接收匹配，其中key是模式序列中每个模式的名称，值是该模式的所有已接受事件的列表（IN是输入元素的类型）。 给定模式的事件按时间戳排序。 返回每个模式的接受事件列表的原因是当使用循环模式（例如oneToMany（）和times（））时，对于给定模式可以接受多个事件。 选择函数只返回一个结果。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class MyPatternSelectFunction&lt;IN, OUT&gt; implements PatternSelectFunction&lt;IN, OUT&gt; &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public OUT select(Map&lt;String, List&lt;IN&gt;&gt; pattern) &#123;</span><br><span class="line">        IN startEvent = pattern.get(&quot;start&quot;).get(0);</span><br><span class="line">        IN endEvent = pattern.get(&quot;end&quot;).get(0);</span><br><span class="line">        return new OUT(startEvent, endEvent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>PatternFlatSelectFunction类似于PatternSelectFunction，唯一的区别是它可以返回任意数量的结果。 为此，select方法有一个额外的Collector参数，用于将输出元素向下游转发。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class MyPatternFlatSelectFunction&lt;IN, OUT&gt; implements PatternFlatSelectFunction&lt;IN, OUT&gt; &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void flatSelect(Map&lt;String, List&lt;IN&gt;&gt; pattern, Collector&lt;OUT&gt; collector) &#123;</span><br><span class="line">        IN startEvent = pattern.get(&quot;start&quot;).get(0);</span><br><span class="line">        IN endEvent = pattern.get(&quot;end&quot;).get(0);</span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; startEvent.getValue(); i++ ) &#123;</span><br><span class="line">            collector.collect(new OUT(startEvent, endEvent));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="2-6-处理超时部分模式"><a href="#2-6-处理超时部分模式" class="headerlink" title="2.6 处理超时部分模式"></a>2.6 处理超时部分模式</h3><p>每当模式具有通过within关键字附加的时间窗口长度时，部分事件序列可能因为超出时间窗口长度而被丢弃。 为了对这些超时的部分匹配作出相应的处理，select和flatSelect API调用允许指定超时处理程序。 为每个超时的部分事件序列调用此超时处理程序。 超时处理程序接收到目前为止由模式匹配的所有事件，以及检测到超时时的时间戳。</p>
 <p>为了处理部分模式，select和flatSelect API提供了一个带参数的重载版本</p>
 <ul>
@@ -710,324 +499,156 @@
 <li>PatternSelectFunction / PatternFlatSelectFunction。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PatternStreamPatte &lt;Event&gt; patternStream = CEP.pattern(input, pattern);</span><br><span class="line"></span><br><span class="line">OutputTag&lt;String&gt; outputTag = new OutputTag&lt;String&gt;(&quot;side-output&quot;)&#123;&#125;;</span><br><span class="line"></span><br><span class="line">SingleOutputStreamOperator&lt;ComplexEvent&gt; result = patternStream.select(</span><br><span class="line">    new PatternTimeoutFunction&lt;Event, TimeoutEvent&gt;() &#123;...&#125;,</span><br><span class="line">    outputTag,</span><br><span class="line">    new PatternSelectFunction&lt;Event, ComplexEvent&gt;() &#123;...&#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">DataStream&lt;TimeoutEvent&gt; timeoutResult = result.getSideOutput(outputTag);</span><br><span class="line"></span><br><span class="line">SingleOutputStreamOperator&lt;ComplexEvent&gt; flatResult = patternStream.flatSelect(</span><br><span class="line">    new PatternFlatTimeoutFunction&lt;Event, TimeoutEvent&gt;() &#123;...&#125;,</span><br><span class="line">    outputTag,</span><br><span class="line">    new PatternFlatSelectFunction&lt;Event, ComplexEvent&gt;() &#123;...&#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">DataStream&lt;TimeoutEvent&gt; timeoutFlatResult = flatResult.getSideOutput(outputTag);</span><br></pre></td></tr></table></figure>
+
 <h3 id="2-7-事件事件模式下处理滞后数据"><a href="#2-7-事件事件模式下处理滞后数据" class="headerlink" title="2.7 事件事件模式下处理滞后数据"></a>2.7 事件事件模式下处理滞后数据</h3><p>在CEP中，元素处理的顺序很重要。为了保证在采用事件事件时以正确的顺序处理事件，最初将传入的事件放入缓冲区，其中事件基于它们的时间戳以升序排序， 并且当watermark到达时，处理该缓冲区中时间戳小于watermark时间的所有元素。这意味着watermark之间的事件按事件时间顺序处理。</p>
 <p>请注意，在采用事件时间时，CEP library会假设watermark是正确的。</p>
 <p>为了保证跨watermark的记录按照事件事件顺序处理，Flink的CEP库假定watermark是正确的，并将时间戳小于上次可见watermark的时间视为滞后事件。滞后事件不会被进一步处理。</p>
 <h3 id="2-8-栗子"><a href="#2-8-栗子" class="headerlink" title="2.8 栗子"></a>2.8 栗子</h3><p>以下示例检测事件的带key数据流上的模式start，middle（name =“error”） - &gt; end（name =“critical”）。 事件的key是其id，并且有效模式必须在10秒内发生。 整个处理是用事件时间完成的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">StreamExecutionEnvironment env = ...</span><br><span class="line">env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);</span><br><span class="line"></span><br><span class="line">DataStream&lt;Event&gt; input = ...</span><br><span class="line"></span><br><span class="line">DataStream&lt;Event&gt; partitionedInput = input.keyBy(new KeySelector&lt;Event, Integer&gt;() &#123;</span><br><span class="line">	@Override</span><br><span class="line">	public Integer getKey(Event value) throws Exception &#123;</span><br><span class="line">		return value.getId();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Pattern&lt;Event, ?&gt; pattern = Pattern.&lt;Event&gt;begin(&quot;start&quot;)</span><br><span class="line">	.next(&quot;middle&quot;).where(new SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">		@Override</span><br><span class="line">		public boolean filter(Event value) throws Exception &#123;</span><br><span class="line">			return value.getName().equals(&quot;error&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;).followedBy(&quot;end&quot;).where(new SimpleCondition&lt;Event&gt;() &#123;</span><br><span class="line">		@Override</span><br><span class="line">		public boolean filter(Event value) throws Exception &#123;</span><br><span class="line">			return value.getName().equals(&quot;critical&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;).within(Time.seconds(10));</span><br><span class="line"></span><br><span class="line">PatternStream&lt;Event&gt; patternStream = CEP.pattern(partitionedInput, pattern);</span><br><span class="line"></span><br><span class="line">DataStream&lt;Alert&gt; alerts = patternStream.select(new PatternSelectFunction&lt;Event, Alert&gt;() &#123;</span><br><span class="line">	@Override</span><br><span class="line">	public Alert select(Map&lt;String, List&lt;Event&gt;&gt; pattern) throws Exception &#123;</span><br><span class="line">		return createAlert(pattern);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Flink-CEP/" rel="tag"># Flink CEP</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/05/27/Flink Sabre/" rel="next" title="Flink Sabre">
-                <i class="fa fa-chevron-left"></i> Flink Sabre
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/05/28/HiveSQL行列转换/" rel="prev" title="HiveSQL 行列转换">
-                HiveSQL 行列转换 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
     </div>
 
-  
+    
+    
+    
 
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flink-CEP/" rel="tag"># Flink CEP</a>
+          </div>
 
-
-        </div>
         
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/27/Flink Sabre/" rel="prev" title="Flink Sabre">
+      <i class="fa fa-chevron-left"></i> Flink Sabre
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/28/HiveSQL行列转换/" rel="next" title="HiveSQL 行列转换">
+      HiveSQL 行列转换 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
-            
-              <p class="site-author-name" itemprop="name">Fly Hugh</p>
-              <p class="site-description motion-element" itemprop="description">WE CHOOSE TO  GO TO THE MARS</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">54</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">38</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/FlyMeToTheMars" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://weibo.com/u/3200892914" target="_blank" title="Weibo">
-                      
-                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/Fly__HoBo" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-CEP"><span class="nav-number">1.</span> <span class="nav-text">Flink CEP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-本文概述简介"><span class="nav-number">1.1.</span> <span class="nav-text">0. 本文概述简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-入门"><span class="nav-number">1.2.</span> <span class="nav-text">1.入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Pattern-API"><span class="nav-number">1.3.</span> <span class="nav-text">2.Pattern API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-单个模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1 单个模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-Quantifiers"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">2.1.1 Quantifiers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-Conditions-条件"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2.1.2 Conditions-条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-Conditions-on-Properties关于属性的条件"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">2.1.3 Conditions on Properties关于属性的条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-API简介"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">2.1.4 API简介</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-组合模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2 组合模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-简介"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">2.2.1 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-API"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2.2.2 API</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-匹配后的跳过策略"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3 匹配后的跳过策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-检测模式-Detecting-Patterns"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.4 检测模式-Detecting Patterns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Selecting-from-Patterns"><span class="nav-number">1.3.5.</span> <span class="nav-text">2.5 Selecting from Patterns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-处理超时部分模式"><span class="nav-number">1.3.6.</span> <span class="nav-text">2.6 处理超时部分模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-事件事件模式下处理滞后数据"><span class="nav-number">1.3.7.</span> <span class="nav-text">2.7 事件事件模式下处理滞后数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-栗子"><span class="nav-number">1.3.8.</span> <span class="nav-text">2.8 栗子</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-CEP"><span class="nav-number">1.</span> <span class="nav-text">Flink CEP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-本文概述简介"><span class="nav-number">1.1.</span> <span class="nav-text">0. 本文概述简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-入门"><span class="nav-number">1.2.</span> <span class="nav-text">1.入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Pattern-API"><span class="nav-number">1.3.</span> <span class="nav-text">2.Pattern API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-单个模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1 单个模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-Quantifiers"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">2.1.1 Quantifiers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-Conditions-条件"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2.1.2 Conditions-条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-Conditions-on-Properties关于属性的条件"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">2.1.3 Conditions on Properties关于属性的条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-API简介"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">2.1.4 API简介</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-组合模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2 组合模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-简介"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">2.2.1 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-API"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2.2.2 API</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-匹配后的跳过策略"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3 匹配后的跳过策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-检测模式-Detecting-Patterns"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.4 检测模式-Detecting Patterns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Selecting-from-Patterns"><span class="nav-number">1.3.5.</span> <span class="nav-text">2.5 Selecting from Patterns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-处理超时部分模式"><span class="nav-number">1.3.6.</span> <span class="nav-text">2.6 处理超时部分模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-事件事件模式下处理滞后数据"><span class="nav-number">1.3.7.</span> <span class="nav-text">2.7 事件事件模式下处理滞后数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-栗子"><span class="nav-number">1.3.8.</span> <span class="nav-text">2.8 栗子</span></a></li></ol></li></ol></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">341.3k</span>
-  
 </div>
-
-
-<!-- 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
--->
-
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-       <!-- 页面点击小红心 -->
-    <script type="text/javascript" src="/js/src/src/clicklove.js"></script>
-
-    
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
-
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+        
 
 
 
@@ -1036,101 +657,17 @@
 
 
 
+      </div>
+    </footer>
+  </div>
 
   
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -1138,20 +675,6 @@
 
 
 
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
 
 
 
@@ -1166,468 +689,7 @@
 
   
 
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
   
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("72l8G3xFxrAReJk0PBs8jCeC-gzGzoHsz", "r0TXzhifsg8y5LTKokFte6fz");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-
-
-
 
 </body>
-
-
 </html>
-

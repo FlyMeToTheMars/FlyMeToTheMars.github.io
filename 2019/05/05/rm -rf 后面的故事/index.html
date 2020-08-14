@@ -1,103 +1,26 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Picks,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
-
-
-
-  <script>
-  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
-  daovoice('init', {
-      app_id: "bfb40164"
-    });
-  daovoice('update');
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-
-
-
-
-<meta name="description" content="最近两年老是听到有程序员跑路之前删库的笑话小公司对数据库的权限管理缺失不太严谨我在为CDH集群实现Kerberos的时候还是挺有感触的权限控制应该是属于运维的相对高级的内容 权限控制姑且按下不表，这边记录一下rm -rf 失误之后的数据恢复">
+  <meta name="description" content="最近两年老是听到有程序员跑路之前删库的笑话小公司对数据库的权限管理缺失不太严谨我在为CDH集群实现Kerberos的时候还是挺有感触的权限控制应该是属于运维的相对高级的内容 权限控制姑且按下不表，这边记录一下rm -rf 失误之后的数据恢复">
 <meta name="keywords" content="Picks">
 <meta property="og:type" content="article">
 <meta property="og:title" content="删库跑路之前该做的事情">
@@ -114,39 +37,18 @@
 <meta name="twitter:description" content="最近两年老是听到有程序员跑路之前删库的笑话小公司对数据库的权限管理缺失不太严谨我在为CDH集群实现Kerberos的时候还是挺有感触的权限控制应该是属于运维的相对高级的内容 权限控制姑且按下不表，这边记录一下rm -rf 失误之后的数据恢复">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lvv55c9j20f105n0tp.jpg">
 
+<link rel="canonical" href="http://yoursite.com/2019/05/05/rm -rf 后面的故事/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/2019/05/05/rm -rf 后面的故事/">
-
-
-
-
 
   <title>删库跑路之前该做的事情 | Mars</title>
   
@@ -154,295 +56,152 @@
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'f6a8160e9467bb9adc80f36030e1c37b', 'auto');
-  ga('send', 'pageview');
-</script>
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Mars</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            Categories
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/rm -rf 后面的故事/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fly Hugh">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Mars">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">删库跑路之前该做的事情</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          删库跑路之前该做的事情
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-05T21:45:12+08:00">
-                2019-05-05
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Reading-Note/" itemprop="url" rel="index">
-                    <span itemprop="name">Reading Note</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2019-05-05 21:45:12" itemprop="dateCreated datePublished" datetime="2019-05-05T21:45:12+08:00">2019-05-05</time>
             </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/05/rm -rf 后面的故事/" class="leancloud_visitors" data-flag-title="删库跑路之前该做的事情">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  2.2k
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 01:11:17" itemprop="dateModified" datetime="2020-04-11T01:11:17+08:00">2020-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Note/" itemprop="url" rel="index"><span itemprop="name">Reading Note</span></a>
                 </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  10
-                </span>
-              
-            </div>
-          
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -450,61 +209,76 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>最近两年老是听到有程序员跑路之前删库的笑话<br>小公司对数据库的权限管理缺失不太严谨<br>我在为CDH集群实现Kerberos的时候还是挺有感触的<br>权限控制应该是属于运维的相对高级的内容</p>
 <p>权限控制姑且按下不表，这边记录一下rm -rf 失误之后的数据恢复</p>
 <a id="more"></a> 
+
+
+
 <h3 id="1-救命稻草–ext3grep"><a href="#1-救命稻草–ext3grep" class="headerlink" title="1.救命稻草–ext3grep"></a>1.救命稻草–ext3grep</h3><p>下载ext3grep，安装（编译安装过程艰辛暂且不表）。</p>
 <p>先执行扫描文件名命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --dump-names</span><br></pre></td></tr></table></figure>
+
 <p>这款软件不能按目录恢复文件，只能执行恢复全部命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --restore-all</span><br></pre></td></tr></table></figure>
+
 <p>结果当前盘空间不足，没办法只能恢复文件，尝试了几个文件，居然部分成功部分失败</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --restore-file var/lib/mysql/aqsh/tb_b_attench.MYD</span><br></pre></td></tr></table></figure>
+
 <p>将所有文件名重定向到一个文件文件中</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --dump-names &gt;/usr/allnames.txt</span><br></pre></td></tr></table></figure>
+
 <p>编写脚本恢复文件：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">while read LINE</span><br><span class="line">do</span><br><span class="line">    echo "begin to restore file " $LINE</span><br><span class="line">    ext3grep /dev/vgdata/LogVol00 --restore-file $LINE</span><br><span class="line">    if [ $? != 0 ]</span><br><span class="line">    then</span><br><span class="line">        echo "restore failed, exit"</span><br><span class="line">       # exit 1</span><br><span class="line">    fi</span><br><span class="line">done &lt; ./mysqltbname.txt</span><br></pre></td></tr></table></figure>
+
 <p><strong>数据没有被完全恢复！</strong></p>
 <h3 id="2-换一款软件试试-extundelete"><a href="#2-换一款软件试试-extundelete" class="headerlink" title="2.换一款软件试试  extundelete"></a>2.换一款软件试试  extundelete</h3><p>这款软甲您可以按照目录恢复</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extundelete /dev/vgdata/LogVol00 --restore-directory var/lib/mysql/aqsh</span><br></pre></td></tr></table></figure>
+
 <p>还是不行</p>
 <h3 id="3-换个思路-binlog"><a href="#3-换个思路-binlog" class="headerlink" title="3.换个思路 binlog"></a>3.换个思路 binlog</h3><p>服务器开启binlog的情况下，可以通过binlong恢复</p>
 <p>于是从dump出来的文件名里找到binlog的文件，一共三个，mysql-binlog0001,mysql-bin.000009,mysql-bin.000010，恢复一下0001</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --restore-file var/lib/mysql/mysql-bin.000001</span><br></pre></td></tr></table></figure>
+
 <p>恢复失败</p>
 <p>换一个文件</p>
 <p>mysql-bin.000010大概几百MB，应该靠谱一点，恢复成功！</p>
 <p>恢复命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog /usr/mysql-bin.000010 | mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
 <p>数据回来了</p>
 <p>恢复失败的两款软件：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">本文所用到的工具链接：</span><br><span class="line"></span><br><span class="line">1.ext3grep:https://code.google.com/p/ext3grep/</span><br><span class="line"></span><br><span class="line">编译安装依赖包比较多，可以到网上搜索如何安装。可惜的是作者给出的howto被墙了，我FQ将how to 的pdf文档下载下来了，读完后你将会对linux的文件系统有进一步的认识。下载howto。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">这个工具有一个bug，出错后不会向下执行ext3grep: init_directories.cc:534: void init_directories(): Assertion `lost_plus_found_directory_iter != all_directories.end()' failed.，从而造成恢复失败，作者放出了一个补丁，下载地址：补丁下载。不明白为什么作者新版没有把这个补丁加进去。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2.extundelete：http://extundelete.sourceforge.net/</span><br><span class="line"></span><br><span class="line">功能跟ext3grep差不多，原理应该也差不多。只是号称可以还原目录，我这里没有试验成功。</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-如果数据库被rm命令删除了，主进程还没有退出的恢复办法"><a href="#4-如果数据库被rm命令删除了，主进程还没有退出的恢复办法" class="headerlink" title="4.如果数据库被rm命令删除了，主进程还没有退出的恢复办法"></a>4.如果数据库被rm命令删除了，主进程还没有退出的恢复办法</h3><p>1.模拟删库(包含数据文件，控制文件，联机日志文件)</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">sys@GLOBAL&gt;</span>col NAME for a100;</span><br><span class="line"><span class="meta">sys@GLOBAL&gt;</span>select FILE#,NAME from v$datafile;</span><br><span class="line">     FILE# NAME</span><br><span class="line">---------- ----------------------------------------------------------------------------------------------------</span><br><span class="line">         1 /home/oracle/app/oradata/global/system01.dbf</span><br><span class="line">         2 /home/oracle/app/oradata/global/sysaux01.dbf</span><br><span class="line">         3 /home/oracle/app/oradata/global/undotbs01.dbf</span><br><span class="line">         4 /home/oracle/app/oradata/global/users01.dbf</span><br><span class="line">         5 /home/oracle/app/oradata/global/GLOBAL_ORDER01.dbf</span><br><span class="line">         6 /home/oracle/app/oradata/global/TS_DCIS_WMS01.dbf</span><br><span class="line">         7 /home/oracle/app/oradata/global/TS_DCIS_WMS02.dbf</span><br><span class="line">7 rows selected.</span><br><span class="line"><span class="meta">sys@GLOBAL&gt;</span>!rm -f /home/oracle/app/oradata/global/*</span><br><span class="line"><span class="meta">sys@GLOBAL&gt;</span>create table t tablespace users as select * from dual;</span><br><span class="line">create table t tablespace users as select * from dual</span><br><span class="line">                                                 *</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-01116: error in opening database file 4</span><br><span class="line">ORA-01110: data file 4: '/home/oracle/app/oradata/global/users01.dbf'</span><br><span class="line">ORA-27041: unable to open file</span><br><span class="line">Linux-x86_64 Error: 2: No such file or directory</span><br><span class="line">Additional information: 3</span><br></pre></td></tr></table></figure>
+
 <p>数据库文件和控制文件以及联机日志文件都已经被删了，尝试创建一个表时oracle报打不开数据文件异常。</p>
 <p>2.检查 lgwr 的进程 PID</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ol6-a ~]$ ps -ef | grep lgwr | grep -v grep</span><br><span class="line">oracle     3804      1  0 Dec02 ?        00:01:40 ora_lgwr_global</span><br></pre></td></tr></table></figure>
+
 <p>3.lgwr 会打开所有数据文件、联机日志文件、控制文件的句柄。在 proc 目录中可以查到，目录名是进程 PID，fd 表示文件描述符。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ol6-a ~]$ cd /proc/3804/fd</span><br><span class="line">[oracle@ol6-a fd]$ ls -l</span><br><span class="line">total 0</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 0 -&gt; /dev/null</span><br><span class="line">l-wx------. 1 oracle oinstall 64 Dec  7 03:49 1 -&gt; /dev/null</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 10 -&gt; /home/oracle/app/product/11.2.0/db_1/dbs/lkGLOBAL</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 13 -&gt; /home/oracle/app/product/11.2.0/db_1/rdbms/mesg/oraus.msb</span><br><span class="line">l-wx------. 1 oracle oinstall 64 Dec  7 03:49 2 -&gt; /dev/null</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 256 -&gt; /home/oracle/app/oradata/global/control01.ctl (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 257 -&gt; /home/oracle/app/fast_recovery_area/global/control02.ctl</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 258 -&gt; /home/oracle/app/oradata/global/redo01.log (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 259 -&gt; /home/oracle/app/oradata/global/redo02.log (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 260 -&gt; /home/oracle/app/oradata/global/redo03.log (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 261 -&gt; /home/oracle/app/oradata/global/system01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 262 -&gt; /home/oracle/app/oradata/global/sysaux01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 263 -&gt; /home/oracle/app/oradata/global/undotbs01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 264 -&gt; /home/oracle/app/oradata/global/users01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 265 -&gt; /home/oracle/app/oradata/global/GLOBAL_ORDER01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 266 -&gt; /home/oracle/app/oradata/global/TS_DCIS_WMS01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 267 -&gt; /home/oracle/app/oradata/global/TS_DCIS_WMS02.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 268 -&gt; /home/oracle/app/oradata/global/temp01.dbf (deleted)</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 3 -&gt; /dev/null</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 4 -&gt; /dev/null</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 5 -&gt; /dev/null</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 6 -&gt; /home/oracle/app/product/11.2.0/db_1/rdbms/mesg/oraus.msb</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 7 -&gt; /proc/3804/fd</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 8 -&gt; /dev/zero</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 9 -&gt; /home/oracle/app/product/11.2.0/db_1/dbs/hc_global.dat</span><br></pre></td></tr></table></figure>
+
 <p>4.直接 cp 这些句柄文件名回原位置。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ol6-a fd]$ cp 256 /home/oracle/app/oradata/global/control01.ctl</span><br><span class="line">[oracle@ol6-a fd]$ cp 258 /home/oracle/app/oradata/global/redo01.log</span><br><span class="line">[oracle@ol6-a fd]$ cp 259 /home/oracle/app/oradata/global/redo02.log</span><br><span class="line">[oracle@ol6-a fd]$ cp 260 /home/oracle/app/oradata/global/redo03.log</span><br><span class="line">[oracle@ol6-a fd]$ cp 261 /home/oracle/app/oradata/global/system01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 262 /home/oracle/app/oradata/global/sysaux01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 263 /home/oracle/app/oradata/global/undotbs01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 264 /home/oracle/app/oradata/global/users01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 265 /home/oracle/app/oradata/global/GLOBAL_ORDER01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 266 /home/oracle/app/oradata/global/TS_DCIS_WMS01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 267 /home/oracle/app/oradata/global/TS_DCIS_WMS02.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 268 /home/oracle/app/oradata/global/temp01.dbf</span><br></pre></td></tr></table></figure>
+
 <p>5.检查数据库是否可用：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ol6-a fd]$ sqlplus / as sysdba</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 11.2.0.4.0 Production on Wed Dec 7 03:47:39 2016</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2013, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, Oracle Label Security, OLAP, Data Mining</span><br><span class="line">and Real Application Testing options</span><br><span class="line"></span><br><span class="line"><span class="meta">sys@GLOBAL&gt;</span>create table t tablespace users as select * from dual;</span><br><span class="line"></span><br><span class="line">Table created.</span><br></pre></td></tr></table></figure>
+
 <p>完成数据文件恢复。</p>
 <p>6.如果数据库不可用，可能还会涉及到数据文件等的恢复过程，使用以下命令恢复数据文件：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter database datafile 1 offline;</span><br><span class="line">recover datafile 1;</span><br><span class="line">alter database datafile 1 online;</span><br></pre></td></tr></table></figure>
+
 <p>恢复的原理：在 Linux 操作系统中，如果文件从操作系统级别被rm掉，之前打开该文件的进程仍然持有相应的文件句柄，所指向的文件仍然可以读写，并且该文件的文件描述符可以从 /proc 目录中获得。但是要注意的是，此时如果关闭数据库，则此句柄会消失，那么除了扫描磁盘进行文件恢复之外就没有其它方法了，因此在数据库出现问题的时候，如果不确认情况的复杂程度，千万不要随便关闭数据库。重启数据库往往是没有意义的，甚至是致命的。</p>
 <p>如果不慎关闭数据库，句柄丢失，还可以通过恢复工具来恢复数据库文件（只要数据在磁盘上还没有被覆盖，且有足够的磁盘空间存放待恢复的文件）,可以使用的工具有testdisk和extundelete。</p>
 <p>以testdisk恢复文件为例，使用testdisk的Filesystem Utils工具将被误删的文件恢复到指定目录：</p>
 <p>1.选择误删文件所在介质</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lvv55c9j20f105n0tp.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lvv55c9j20f105n0tp.jpg"></p>
 <p>2.使用Filesystem Utils工具</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lw5avl2j20f6099ab3.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lw5avl2j20f6099ab3.jpg"></p>
 <p>3.选择需要恢复的文件并恢复到指定目录：</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lwga6olj20b303y0tu.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lwga6olj20b303y0tu.jpg"></p>
 <hr>
 <p>这边顺便记录一下今天遇到的Bayes问题,很奇怪的问题</p>
 <p>三个盒子，每个盒子两个球，一个全是红球，一个全是蓝球，一个里面混杂。</p>
@@ -513,319 +287,150 @@
 <p>延伸开来还可以涉及到一个大数定理。</p>
 <p>看完之后感觉自己学的概率论是不是白学了。</p>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Picks/" rel="tag"># Picks</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/04/29/Cluster Error Record1/" rel="next" title="CDH集群代理状态问题">
-                <i class="fa fa-chevron-left"></i> CDH集群代理状态问题
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/14/新电脑配置Hexo/" rel="prev" title="Hexo Conf">
-                Hexo Conf <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
     </div>
 
-  
+    
+    
+    
 
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Picks/" rel="tag"># Picks</a>
+          </div>
 
-
-        </div>
         
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/29/Cluster Error Record1/" rel="prev" title="CDH集群代理状态问题">
+      <i class="fa fa-chevron-left"></i> CDH集群代理状态问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/14/新电脑配置Hexo/" rel="next" title="Hexo Conf">
+      Hexo Conf <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
-            
-              <p class="site-author-name" itemprop="name">Fly Hugh</p>
-              <p class="site-description motion-element" itemprop="description">WE CHOOSE TO  GO TO THE MARS</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">54</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">38</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/FlyMeToTheMars" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://weibo.com/u/3200892914" target="_blank" title="Weibo">
-                      
-                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/Fly__HoBo" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-救命稻草–ext3grep"><span class="nav-number">1.</span> <span class="nav-text">1.救命稻草–ext3grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-换一款软件试试-extundelete"><span class="nav-number">2.</span> <span class="nav-text">2.换一款软件试试  extundelete</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-换个思路-binlog"><span class="nav-number">3.</span> <span class="nav-text">3.换个思路 binlog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-如果数据库被rm命令删除了，主进程还没有退出的恢复办法"><span class="nav-number">4.</span> <span class="nav-text">4.如果数据库被rm命令删除了，主进程还没有退出的恢复办法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-救命稻草–ext3grep"><span class="nav-number">1.</span> <span class="nav-text">1.救命稻草–ext3grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-换一款软件试试-extundelete"><span class="nav-number">2.</span> <span class="nav-text">2.换一款软件试试  extundelete</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-换个思路-binlog"><span class="nav-number">3.</span> <span class="nav-text">3.换个思路 binlog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-如果数据库被rm命令删除了，主进程还没有退出的恢复办法"><span class="nav-number">4.</span> <span class="nav-text">4.如果数据库被rm命令删除了，主进程还没有退出的恢复办法</span></a></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">341.3k</span>
-  
 </div>
-
-
-<!-- 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
--->
-
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-       <!-- 页面点击小红心 -->
-    <script type="text/javascript" src="/js/src/src/clicklove.js"></script>
-
-    
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
-
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+        
 
 
 
@@ -834,101 +439,17 @@
 
 
 
+      </div>
+    </footer>
+  </div>
 
   
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -936,20 +457,6 @@
 
 
 
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
 
 
 
@@ -964,468 +471,7 @@
 
   
 
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
   
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("72l8G3xFxrAReJk0PBs8jCeC-gzGzoHsz", "r0TXzhifsg8y5LTKokFte6fz");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-
-
-
 
 </body>
-
-
 </html>
-

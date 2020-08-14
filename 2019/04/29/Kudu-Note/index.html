@@ -1,103 +1,26 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Kudu,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
-
-
-
-  <script>
-  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
-  daovoice('init', {
-      app_id: "bfb40164"
-    });
-  daovoice('update');
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-
-
-
-
-<meta name="description" content="Apache Kudu 一图以蔽之：">
+  <meta name="description" content="Apache Kudu 一图以蔽之：">
 <meta name="keywords" content="Kudu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Apache Kudu">
@@ -146,39 +69,18 @@
 <meta name="twitter:description" content="Apache Kudu 一图以蔽之：">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jmwis7z6j20cj0brgln.jpg">
 
+<link rel="canonical" href="http://yoursite.com/2019/04/29/Kudu-Note/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/2019/04/29/Kudu-Note/">
-
-
-
-
 
   <title>Apache Kudu | Mars</title>
   
@@ -186,306 +88,156 @@
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'f6a8160e9467bb9adc80f36030e1c37b', 'auto');
-  ga('send', 'pageview');
-</script>
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Mars</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            Categories
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/Kudu-Note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fly Hugh">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Mars">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Apache Kudu</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Apache Kudu
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-29T17:27:12+08:00">
-                2019-04-29
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Apache/" itemprop="url" rel="index">
-                    <span itemprop="name">Apache</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Apache/Kudu/" itemprop="url" rel="index">
-                    <span itemprop="name">Kudu</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2019-04-29 17:27:12" itemprop="dateCreated datePublished" datetime="2019-04-29T17:27:12+08:00">2019-04-29</time>
             </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/29/Kudu-Note/" class="leancloud_visitors" data-flag-title="Apache Kudu">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  5k
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 01:09:32" itemprop="dateModified" datetime="2020-04-11T01:09:32+08:00">2020-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/" itemprop="url" rel="index"><span itemprop="name">Apache</span></a>
                 </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/Kudu/" itemprop="url" rel="index"><span itemprop="name">Kudu</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  18
-                </span>
-              
-            </div>
-          
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -493,13 +245,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>Apache Kudu</p>
 <p>一图以蔽之：</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2jmwis7z6j20cj0brgln.jpg" alt="alt kudu"></p>
 <a id="more"></a> 
+
+
+
 <h3 id="1-Apache-Kudu介绍"><a href="#1-Apache-Kudu介绍" class="headerlink" title="1.Apache Kudu介绍"></a>1.Apache Kudu介绍</h3><blockquote>
 <p>部分内容翻译自Kudu 1.7.1文档</p>
 </blockquote>
@@ -526,25 +278,33 @@
 <p>配置完成之后简单测试：</p>
 <p>在HUE中调用impala的输入框中输入：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> my_first_table </span><br><span class="line">( </span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">BIGINT</span>, <span class="keyword">name</span> <span class="keyword">STRING</span>, PRIMARY <span class="keyword">KEY</span>(<span class="keyword">id</span>) </span><br><span class="line">) </span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">HASH</span> <span class="keyword">PARTITIONS</span> <span class="number">16</span> </span><br><span class="line"><span class="keyword">STORED</span> <span class="keyword">AS</span> KUDU</span><br></pre></td></tr></table></figure>
+
 <p>即可建立表格。</p>
 <hr>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> my_first_table <span class="keyword">values</span> (<span class="number">99</span>,<span class="string">"sarah"</span>);</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO  my_first_table VALUES (1, &quot;john&quot;), (2, &quot;jane&quot;), (3,  &quot;jim&quot;);</span><br></pre></td></tr></table></figure>
+
 <p>插入语句</p>
 <hr>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span>  my_first_table;</span><br></pre></td></tr></table></figure>
+
 <p>查表</p>
 <hr>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span>  my_first_table <span class="keyword">where</span> <span class="keyword">id</span> =<span class="number">99</span>;</span><br></pre></td></tr></table></figure>
+
 <p>删除语句</p>
 <hr>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> my_first_table  <span class="keyword">set</span> <span class="keyword">name</span>=<span class="string">'lilei'</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">99</span>;</span><br></pre></td></tr></table></figure>
+
 <p>改语句</p>
 <hr>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">upsert  into my_first_table <span class="keyword">values</span>(<span class="number">1</span>,  <span class="string">"john"</span>), (<span class="number">4</span>, <span class="string">"tom"</span>), (<span class="number">99</span>, <span class="string">"lilei1"</span>);</span><br></pre></td></tr></table></figure>
+
 <p>Kudu中的upsert是update和insert的结合体，有更新就更新，没有该条数据就插入。</p>
 <p>这边联想到mongo中的upsert，MongoDB 的update 方法的三个参数是upsert，这个参数是个布尔类型，默认是false。当它为true的时候，update方法会首先查找与第一个参数匹配的记录，在用第二个参数更新之。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.post.update(&#123;count:100&#125;,&#123;"$inc":&#123;count:10&#125;&#125;,true);</span><br></pre></td></tr></table></figure>
+
 <p>在找不到count=100这条记录的时候，自动插入一条count=100，然后再加10，最后得到一条 count=110的记录。</p>
 <h4 id="Kudu-Impala整合特征"><a href="#Kudu-Impala整合特征" class="headerlink" title="Kudu-Impala整合特征"></a>Kudu-Impala整合特征</h4><p>CREATE/ALTER/DROP TABLE</p>
 <p>Impala支持使用Kudu作为持久层创建、修改和删除表，这些表和Impala其他表使用同样的内部和外部方法，允许复杂的数据整合和查询。</p>
@@ -597,8 +357,8 @@
 <h3 id="4-Java访问CDH集群中的Kudu"><a href="#4-Java访问CDH集群中的Kudu" class="headerlink" title="4.Java访问CDH集群中的Kudu"></a>4.Java访问CDH集群中的Kudu</h3><p>如果使用的不是局域网，跨网段需要进行配置。</p>
 <p>需要在KuduMaster服务的高级配置“gflagfile 的 Master 高级配置代码段（安全阀）”增加配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个是受信人的子网名单，设置为0000代表允许所有IP没有经过验证/未加密的连接</span><br><span class="line"></span><br><span class="line">如果没有配置这个名单，会报错：</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">W1128 16:56:55.749083 93981 negotiation.cc:318] Unauthorized connection attempt: Server connection negotiation failed: server connection from 100.73.0.57:42533: unauthenticated connections from publicly routable IPs are prohibited. See --trusted_subnets flag for more information</span><br></pre></td></tr></table></figure>
-<p>## </p>
-<h3 id="5-架构概述"><a href="#5-架构概述" class="headerlink" title="5.架构概述"></a>5.架构概述</h3><p>下图显示了一个Kudu集群，三个Master和多个table servers，每一个Server服务多个tablets。</p>
+
+<h2 id><a href="#" class="headerlink" title></a></h2><h3 id="5-架构概述"><a href="#5-架构概述" class="headerlink" title="5.架构概述"></a>5.架构概述</h3><p>下图显示了一个Kudu集群，三个Master和多个table servers，每一个Server服务多个tablets。</p>
 <p>这个图表明了Raft共识算法是如何作用在master-tablet server的master和server上的。</p>
 <p>此外，一个 tablet server 既可以成为tablets的leader，也可以成为一个别的follower</p>
 <p><img src="https://kudu.apache.org/docs/images/kudu-architecture-2.png" alt="底层结构"></p>
@@ -647,7 +407,7 @@
 </ul>
 <p>最早提出External Consistency机制的，应该是在Google的Spanner论文中。传统关系型数据库中的两阶段提交机制，需要两回合通信，这过程中带来的代价是较高的，但同时这过程中的复杂的锁机制也可能会带来一些可用性问题。一个更好的实现分布式事务/一致性的思路，是基于一个全局发布的Timestamp机制。Spanner提出了Commit-wait的机制，来保障全局事务的有序性：如果一个事务T1的提交先于另外一个事务T2的开始，则T1的Timestamp要小于T2的TimeStamp。我们知道，在分布式系统中，是很难于做这样的承诺的。在HBase中，我们可以想象，如果所有RegionServer中的SequenceID发布自同一个数据源，那么，HBase的很多事务性问题就迎刃而解了，然后最大的问题在于这个全局的SequenceID数据源将会是整个系统的性能瓶颈点。回到External Consistency机制，Spanner是依赖于高精度与可预见误差的本地时钟(TrueTime API)实现的(即需要一个高可靠和高精度的时钟源，同时，这个时钟的误差是可预见的。感兴趣的同学可以阅读Spanner论文，这里不赘述)。Kudu中提供了另外一种思路来实现External Consistency,基于Timestamp扩散机制，即，多个客户端可相互通信来告知彼此所提交的Timestamp值，从而保障一个全局的顺序。这种机制也是相对较为复杂的。<br>与Spanner类似，Kudu不允许用户自定义用户数据的Timestamp，但在HBase中却是不同，用户可以发起一次基于某特定Timestamp的查询。</p>
 <h3 id="7-小米对Kudu的经验分享"><a href="#7-小米对Kudu的经验分享" class="headerlink" title="7.小米对Kudu的经验分享"></a>7.小米对Kudu的经验分享</h3><p>小米用了另一张图来表示kudu的特点，我觉的这张五芒星图能够更好的体现出Kudu的性能，不足之处和优点。</p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qhndvdjrj20oy0ck41k.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qhndvdjrj20oy0ck41k.jpg"></p>
 <p>Kudu这个项目是2012年10月 Kudu发起的，一直到2015年10月才对外发布Beta版本，小米是2014年9月加入的，所以算是加入非常早的。</p>
 <h4 id="Kudu的设计目标"><a href="#Kudu的设计目标" class="headerlink" title="Kudu的设计目标"></a>Kudu的设计目标</h4><p>高性能：</p>
 <ul>
@@ -672,34 +432,34 @@
 <ul>
 <li>Flume/Impala/Spark</li>
 </ul>
-<h4 id="数据模型和使用"><a href="#数据模型和使用" class="headerlink" title="数据模型和使用"></a>数据模型和使用</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qka9c4dmj20nm0bhtcf.jpg" alt></p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qhxw1fx7j20p50co0uu.jpg" alt></p>
-<h4 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qhyi674bj20ny0ddjtv.jpg" alt></p>
-<h4 id="副本"><a href="#副本" class="headerlink" title="副本"></a>副本</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qhzl1dj9j20no0dldiu.jpg" alt></p>
-<h4 id="容错"><a href="#容错" class="headerlink" title="容错"></a>容错</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi0jygqkj20mg0cqwhl.jpg" alt></p>
-<h4 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi1370yaj20ms0d6my5.jpg" alt></p>
-<h4 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi1ng9ycj20on0cdact.jpg" alt></p>
+<h4 id="数据模型和使用"><a href="#数据模型和使用" class="headerlink" title="数据模型和使用"></a>数据模型和使用</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qka9c4dmj20nm0bhtcf.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qhxw1fx7j20p50co0uu.jpg"></p>
+<h4 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qhyi674bj20ny0ddjtv.jpg"></p>
+<h4 id="副本"><a href="#副本" class="headerlink" title="副本"></a>副本</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qhzl1dj9j20no0dldiu.jpg"></p>
+<h4 id="容错"><a href="#容错" class="headerlink" title="容错"></a>容错</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi0jygqkj20mg0cqwhl.jpg"></p>
+<h4 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi1370yaj20ms0d6my5.jpg"></p>
+<h4 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi1ng9ycj20on0cdact.jpg"></p>
 <h4 id="Tablet存储设计"><a href="#Tablet存储设计" class="headerlink" title="Tablet存储设计"></a>Tablet存储设计</h4><ul>
 <li>类LSM：每个Tablet包含一个MemRowSet和多个DiskRowSet；新插入的数据存储在MemRowSet中，定期flush成DiskRowSet</li>
 <li>不同于LSM。每一个Row只存在于一个RowSet中</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi29qbxfj20os0ctac3.jpg" alt></p>
-<h4 id="DELTA-COMPACTION"><a href="#DELTA-COMPACTION" class="headerlink" title="DELTA COMPACTION"></a>DELTA COMPACTION</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi4uky12j20ly0bhq4e.jpg" alt></p>
-<h4 id="ROWSET-COMPACTION"><a href="#ROWSET-COMPACTION" class="headerlink" title="ROWSET COMPACTION"></a>ROWSET COMPACTION</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi68c5faj20nr0cqmzf.jpg" alt></p>
-<h4 id="传统数据流"><a href="#传统数据流" class="headerlink" title="传统数据流"></a>传统数据流</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi7qb8vkj20pd0cztbn.jpg" alt></p>
-<h4 id="Kudu数据流"><a href="#Kudu数据流" class="headerlink" title="Kudu数据流"></a>Kudu数据流</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi7ym4j4j20om0by409.jpg" alt></p>
-<h4 id="Kudu优势——统一数据存储"><a href="#Kudu优势——统一数据存储" class="headerlink" title="Kudu优势——统一数据存储"></a>Kudu优势——统一数据存储</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qiaozfqnj20od0chn09.jpg" alt></p>
-<h4 id="Kudu优势——事务和主键索引"><a href="#Kudu优势——事务和主键索引" class="headerlink" title="Kudu优势——事务和主键索引"></a>Kudu优势——事务和主键索引</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qib0c59vj20ol0b141c.jpg" alt></p>
-<h4 id="例子-wordCount"><a href="#例子-wordCount" class="headerlink" title="例子 wordCount"></a>例子 wordCount</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qifrqmq6j20of0d5jt4.jpg" alt></p>
-<h4 id="OLAP云服务"><a href="#OLAP云服务" class="headerlink" title="OLAP云服务"></a>OLAP云服务</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qigf3699j20n80bego6.jpg" alt></p>
-<h4 id="OLAP服务"><a href="#OLAP服务" class="headerlink" title="OLAP服务"></a>OLAP服务</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qigvjsvjj20pl0dq77t.jpg" alt></p>
-<h4 id="OLAP服务—NOSQL"><a href="#OLAP服务—NOSQL" class="headerlink" title="OLAP服务—NOSQL"></a>OLAP服务—NOSQL</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qihvopxaj20ma0cjmzg.jpg" alt></p>
-<h4 id="OLAP服务—SQL"><a href="#OLAP服务—SQL" class="headerlink" title="OLAP服务—SQL"></a>OLAP服务—SQL</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qijqen79j20n80cagov.jpg" alt></p>
-<h4 id="OLAP服务—容量规划和隔离"><a href="#OLAP服务—容量规划和隔离" class="headerlink" title="OLAP服务—容量规划和隔离"></a>OLAP服务—容量规划和隔离</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qik3tl83j20ph0d90uz.jpg" alt></p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qilsrw6zj20on0dfwhp.jpg" alt></p>
-<h4 id="性能：随机读写"><a href="#性能：随机读写" class="headerlink" title="性能：随机读写"></a>性能：随机读写</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qinqrt11j20pn0e0jw9.jpg" alt></p>
-<h4 id="性能：分析性查询"><a href="#性能：分析性查询" class="headerlink" title="性能：分析性查询"></a>性能：分析性查询</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qiolkh2nj20pm0ciwet.jpg" alt></p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qioulg90j20ne0d0mxn.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi29qbxfj20os0ctac3.jpg"></p>
+<h4 id="DELTA-COMPACTION"><a href="#DELTA-COMPACTION" class="headerlink" title="DELTA COMPACTION"></a>DELTA COMPACTION</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi4uky12j20ly0bhq4e.jpg"></p>
+<h4 id="ROWSET-COMPACTION"><a href="#ROWSET-COMPACTION" class="headerlink" title="ROWSET COMPACTION"></a>ROWSET COMPACTION</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi68c5faj20nr0cqmzf.jpg"></p>
+<h4 id="传统数据流"><a href="#传统数据流" class="headerlink" title="传统数据流"></a>传统数据流</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi7qb8vkj20pd0cztbn.jpg"></p>
+<h4 id="Kudu数据流"><a href="#Kudu数据流" class="headerlink" title="Kudu数据流"></a>Kudu数据流</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qi7ym4j4j20om0by409.jpg"></p>
+<h4 id="Kudu优势——统一数据存储"><a href="#Kudu优势——统一数据存储" class="headerlink" title="Kudu优势——统一数据存储"></a>Kudu优势——统一数据存储</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qiaozfqnj20od0chn09.jpg"></p>
+<h4 id="Kudu优势——事务和主键索引"><a href="#Kudu优势——事务和主键索引" class="headerlink" title="Kudu优势——事务和主键索引"></a>Kudu优势——事务和主键索引</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qib0c59vj20ol0b141c.jpg"></p>
+<h4 id="例子-wordCount"><a href="#例子-wordCount" class="headerlink" title="例子 wordCount"></a>例子 wordCount</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qifrqmq6j20of0d5jt4.jpg"></p>
+<h4 id="OLAP云服务"><a href="#OLAP云服务" class="headerlink" title="OLAP云服务"></a>OLAP云服务</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qigf3699j20n80bego6.jpg"></p>
+<h4 id="OLAP服务"><a href="#OLAP服务" class="headerlink" title="OLAP服务"></a>OLAP服务</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qigvjsvjj20pl0dq77t.jpg"></p>
+<h4 id="OLAP服务—NOSQL"><a href="#OLAP服务—NOSQL" class="headerlink" title="OLAP服务—NOSQL"></a>OLAP服务—NOSQL</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qihvopxaj20ma0cjmzg.jpg"></p>
+<h4 id="OLAP服务—SQL"><a href="#OLAP服务—SQL" class="headerlink" title="OLAP服务—SQL"></a>OLAP服务—SQL</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qijqen79j20n80cagov.jpg"></p>
+<h4 id="OLAP服务—容量规划和隔离"><a href="#OLAP服务—容量规划和隔离" class="headerlink" title="OLAP服务—容量规划和隔离"></a>OLAP服务—容量规划和隔离</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qik3tl83j20ph0d90uz.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qilsrw6zj20on0dfwhp.jpg"></p>
+<h4 id="性能：随机读写"><a href="#性能：随机读写" class="headerlink" title="性能：随机读写"></a>性能：随机读写</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qinqrt11j20pn0e0jw9.jpg"></p>
+<h4 id="性能：分析性查询"><a href="#性能：分析性查询" class="headerlink" title="性能：分析性查询"></a>性能：分析性查询</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qiolkh2nj20pm0ciwet.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qioulg90j20ne0d0mxn.jpg"></p>
 <h4 id="Kudu-vs-Druid"><a href="#Kudu-vs-Druid" class="headerlink" title="Kudu vs Druid"></a>Kudu vs Druid</h4><p>数据精度不同：</p>
 <ul>
 <li>Druid对数据进行预聚合，不保存原始数据</li>
@@ -738,329 +498,160 @@
 <li>真正对行数据做更改</li>
 <li>更改timestamp为committed，对外可见</li>
 </ul>
-<h4 id="Flush过程"><a href="#Flush过程" class="headerlink" title="Flush过程"></a>Flush过程</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmejsnxoj20ps0gyjvw.jpg" alt></p>
-<h4 id="NoSQL-API"><a href="#NoSQL-API" class="headerlink" title="NoSQL API"></a>NoSQL API</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmfkz0s5j20ka0g8n1g.jpg" alt></p>
-<h4 id="Spark-DataFrame"><a href="#Spark-DataFrame" class="headerlink" title="Spark DataFrame"></a>Spark DataFrame</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmfw0yk5j20mw0fy0xe.jpg" alt></p>
-<h4 id="Kudu-RDD"><a href="#Kudu-RDD" class="headerlink" title="Kudu RDD"></a>Kudu RDD</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmgt0qz2j20m80ggahx.jpg" alt></p>
-<h4 id="SparkSQL-on-Kudu"><a href="#SparkSQL-on-Kudu" class="headerlink" title="SparkSQL on Kudu"></a>SparkSQL on Kudu</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmi4uzcwj20jp0eftco.jpg" alt></p>
-<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmijj52wj20jk0fan0z.jpg" alt></p>
-<h4 id="实时数仓"><a href="#实时数仓" class="headerlink" title="实时数仓"></a>实时数仓</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmjsnt5qj20ov0fdn05.jpg" alt></p>
+<h4 id="Flush过程"><a href="#Flush过程" class="headerlink" title="Flush过程"></a>Flush过程</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmejsnxoj20ps0gyjvw.jpg"></p>
+<h4 id="NoSQL-API"><a href="#NoSQL-API" class="headerlink" title="NoSQL API"></a>NoSQL API</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmfkz0s5j20ka0g8n1g.jpg"></p>
+<h4 id="Spark-DataFrame"><a href="#Spark-DataFrame" class="headerlink" title="Spark DataFrame"></a>Spark DataFrame</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmfw0yk5j20mw0fy0xe.jpg"></p>
+<h4 id="Kudu-RDD"><a href="#Kudu-RDD" class="headerlink" title="Kudu RDD"></a>Kudu RDD</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmgt0qz2j20m80ggahx.jpg"></p>
+<h4 id="SparkSQL-on-Kudu"><a href="#SparkSQL-on-Kudu" class="headerlink" title="SparkSQL on Kudu"></a>SparkSQL on Kudu</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmi4uzcwj20jp0eftco.jpg"></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmijj52wj20jk0fan0z.jpg"></p>
+<h4 id="实时数仓"><a href="#实时数仓" class="headerlink" title="实时数仓"></a>实时数仓</h4><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2qmjsnt5qj20ov0fdn05.jpg"></p>
 <hr>
 <h3 id="8-专业团队对Kudu的测试报告"><a href="#8-专业团队对Kudu的测试报告" class="headerlink" title="8. 专业团队对Kudu的测试报告"></a>8. 专业团队对Kudu的测试报告</h3><p><a href="https://sq.163yun.com/blog/article/174995941069086720" target="_blank" rel="noopener">【大数据之数据仓库】选型流水记</a></p>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Kudu/" rel="tag"># Kudu</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/04/22/大数据在小米的实践/" rel="next" title="广告大数据在小米的实践">
-                <i class="fa fa-chevron-left"></i> 广告大数据在小米的实践
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/29/Cluster Error Record1/" rel="prev" title="CDH集群代理状态问题">
-                CDH集群代理状态问题 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
     </div>
 
-  
+    
+    
+    
 
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Kudu/" rel="tag"># Kudu</a>
+          </div>
 
-
-        </div>
         
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/22/大数据在小米的实践/" rel="prev" title="广告大数据在小米的实践">
+      <i class="fa fa-chevron-left"></i> 广告大数据在小米的实践
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/29/Cluster Error Record1/" rel="next" title="CDH集群代理状态问题">
+      CDH集群代理状态问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Fly Hugh">
-            
-              <p class="site-author-name" itemprop="name">Fly Hugh</p>
-              <p class="site-description motion-element" itemprop="description">WE CHOOSE TO  GO TO THE MARS</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">54</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">38</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/FlyMeToTheMars" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://weibo.com/u/3200892914" target="_blank" title="Weibo">
-                      
-                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/Fly__HoBo" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Apache-Kudu介绍"><span class="nav-number">1.</span> <span class="nav-text">1.Apache Kudu介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Kudu与Impala在CDH中的集成"><span class="nav-number">2.</span> <span class="nav-text">2.Kudu与Impala在CDH中的集成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-Impala整合特征"><span class="nav-number">2.1.</span> <span class="nav-text">Kudu-Impala整合特征</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-概念和术语"><span class="nav-number">3.</span> <span class="nav-text">3. 概念和术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Java访问CDH集群中的Kudu"><span class="nav-number">4.</span> <span class="nav-text">4.Java访问CDH集群中的Kudu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-架构概述"><span class="nav-number">5.</span> <span class="nav-text">5.架构概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-设计原理"><span class="nav-number">6.</span> <span class="nav-text">6.设计原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设计初衷"><span class="nav-number">6.1.</span> <span class="nav-text">设计初衷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务与一致性"><span class="nav-number">6.2.</span> <span class="nav-text">事务与一致性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-小米对Kudu的经验分享"><span class="nav-number">7.</span> <span class="nav-text">7.小米对Kudu的经验分享</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu的设计目标"><span class="nav-number">7.1.</span> <span class="nav-text">Kudu的设计目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据模型和使用"><span class="nav-number">7.2.</span> <span class="nav-text">数据模型和使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分区"><span class="nav-number">7.3.</span> <span class="nav-text">分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#副本"><span class="nav-number">7.4.</span> <span class="nav-text">副本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容错"><span class="nav-number">7.5.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群"><span class="nav-number">7.6.</span> <span class="nav-text">集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Master"><span class="nav-number">7.7.</span> <span class="nav-text">Master</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tablet存储设计"><span class="nav-number">7.8.</span> <span class="nav-text">Tablet存储设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DELTA-COMPACTION"><span class="nav-number">7.9.</span> <span class="nav-text">DELTA COMPACTION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ROWSET-COMPACTION"><span class="nav-number">7.10.</span> <span class="nav-text">ROWSET COMPACTION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传统数据流"><span class="nav-number">7.11.</span> <span class="nav-text">传统数据流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu数据流"><span class="nav-number">7.12.</span> <span class="nav-text">Kudu数据流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu优势——统一数据存储"><span class="nav-number">7.13.</span> <span class="nav-text">Kudu优势——统一数据存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu优势——事务和主键索引"><span class="nav-number">7.14.</span> <span class="nav-text">Kudu优势——事务和主键索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子-wordCount"><span class="nav-number">7.15.</span> <span class="nav-text">例子 wordCount</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP云服务"><span class="nav-number">7.16.</span> <span class="nav-text">OLAP云服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP服务"><span class="nav-number">7.17.</span> <span class="nav-text">OLAP服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP服务—NOSQL"><span class="nav-number">7.18.</span> <span class="nav-text">OLAP服务—NOSQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP服务—SQL"><span class="nav-number">7.19.</span> <span class="nav-text">OLAP服务—SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP服务—容量规划和隔离"><span class="nav-number">7.20.</span> <span class="nav-text">OLAP服务—容量规划和隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能：随机读写"><span class="nav-number">7.21.</span> <span class="nav-text">性能：随机读写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能：分析性查询"><span class="nav-number">7.22.</span> <span class="nav-text">性能：分析性查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-vs-Druid"><span class="nav-number">7.23.</span> <span class="nav-text">Kudu vs Druid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-vs-流式计算"><span class="nav-number">7.24.</span> <span class="nav-text">Kudu vs 流式计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVCC-多版本并发控制"><span class="nav-number">7.25.</span> <span class="nav-text">MVCC 多版本并发控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flush过程"><span class="nav-number">7.26.</span> <span class="nav-text">Flush过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NoSQL-API"><span class="nav-number">7.27.</span> <span class="nav-text">NoSQL API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spark-DataFrame"><span class="nav-number">7.28.</span> <span class="nav-text">Spark DataFrame</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-RDD"><span class="nav-number">7.29.</span> <span class="nav-text">Kudu RDD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SparkSQL-on-Kudu"><span class="nav-number">7.30.</span> <span class="nav-text">SparkSQL on Kudu</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实时数仓"><span class="nav-number">7.31.</span> <span class="nav-text">实时数仓</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-专业团队对Kudu的测试报告"><span class="nav-number">8.</span> <span class="nav-text">8. 专业团队对Kudu的测试报告</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Apache-Kudu介绍"><span class="nav-number">1.</span> <span class="nav-text">1.Apache Kudu介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Kudu与Impala在CDH中的集成"><span class="nav-number">2.</span> <span class="nav-text">2.Kudu与Impala在CDH中的集成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-Impala整合特征"><span class="nav-number">2.1.</span> <span class="nav-text">Kudu-Impala整合特征</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-概念和术语"><span class="nav-number">3.</span> <span class="nav-text">3. 概念和术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Java访问CDH集群中的Kudu"><span class="nav-number">4.</span> <span class="nav-text">4.Java访问CDH集群中的Kudu</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number"></span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-架构概述"><span class="nav-number">1.</span> <span class="nav-text">5.架构概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-设计原理"><span class="nav-number">2.</span> <span class="nav-text">6.设计原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设计初衷"><span class="nav-number">2.1.</span> <span class="nav-text">设计初衷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务与一致性"><span class="nav-number">2.2.</span> <span class="nav-text">事务与一致性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-小米对Kudu的经验分享"><span class="nav-number">3.</span> <span class="nav-text">7.小米对Kudu的经验分享</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu的设计目标"><span class="nav-number">3.1.</span> <span class="nav-text">Kudu的设计目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据模型和使用"><span class="nav-number">3.2.</span> <span class="nav-text">数据模型和使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分区"><span class="nav-number">3.3.</span> <span class="nav-text">分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#副本"><span class="nav-number">3.4.</span> <span class="nav-text">副本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容错"><span class="nav-number">3.5.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群"><span class="nav-number">3.6.</span> <span class="nav-text">集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Master"><span class="nav-number">3.7.</span> <span class="nav-text">Master</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tablet存储设计"><span class="nav-number">3.8.</span> <span class="nav-text">Tablet存储设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DELTA-COMPACTION"><span class="nav-number">3.9.</span> <span class="nav-text">DELTA COMPACTION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ROWSET-COMPACTION"><span class="nav-number">3.10.</span> <span class="nav-text">ROWSET COMPACTION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传统数据流"><span class="nav-number">3.11.</span> <span class="nav-text">传统数据流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu数据流"><span class="nav-number">3.12.</span> <span class="nav-text">Kudu数据流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu优势——统一数据存储"><span class="nav-number">3.13.</span> <span class="nav-text">Kudu优势——统一数据存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu优势——事务和主键索引"><span class="nav-number">3.14.</span> <span class="nav-text">Kudu优势——事务和主键索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子-wordCount"><span class="nav-number">3.15.</span> <span class="nav-text">例子 wordCount</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP云服务"><span class="nav-number">3.16.</span> <span class="nav-text">OLAP云服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP服务"><span class="nav-number">3.17.</span> <span class="nav-text">OLAP服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP服务—NOSQL"><span class="nav-number">3.18.</span> <span class="nav-text">OLAP服务—NOSQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP服务—SQL"><span class="nav-number">3.19.</span> <span class="nav-text">OLAP服务—SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OLAP服务—容量规划和隔离"><span class="nav-number">3.20.</span> <span class="nav-text">OLAP服务—容量规划和隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能：随机读写"><span class="nav-number">3.21.</span> <span class="nav-text">性能：随机读写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能：分析性查询"><span class="nav-number">3.22.</span> <span class="nav-text">性能：分析性查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-vs-Druid"><span class="nav-number">3.23.</span> <span class="nav-text">Kudu vs Druid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-vs-流式计算"><span class="nav-number">3.24.</span> <span class="nav-text">Kudu vs 流式计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVCC-多版本并发控制"><span class="nav-number">3.25.</span> <span class="nav-text">MVCC 多版本并发控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flush过程"><span class="nav-number">3.26.</span> <span class="nav-text">Flush过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NoSQL-API"><span class="nav-number">3.27.</span> <span class="nav-text">NoSQL API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spark-DataFrame"><span class="nav-number">3.28.</span> <span class="nav-text">Spark DataFrame</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kudu-RDD"><span class="nav-number">3.29.</span> <span class="nav-text">Kudu RDD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SparkSQL-on-Kudu"><span class="nav-number">3.30.</span> <span class="nav-text">SparkSQL on Kudu</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实时数仓"><span class="nav-number">3.31.</span> <span class="nav-text">实时数仓</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-专业团队对Kudu的测试报告"><span class="nav-number">4.</span> <span class="nav-text">8. 专业团队对Kudu的测试报告</span></a></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
-
-  
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">341.3k</span>
-  
 </div>
-
-
-<!-- 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
--->
-
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-       <!-- 页面点击小红心 -->
-    <script type="text/javascript" src="/js/src/src/clicklove.js"></script>
-
-    
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
-
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+        
 
 
 
@@ -1069,101 +660,17 @@
 
 
 
+      </div>
+    </footer>
+  </div>
 
   
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -1171,20 +678,6 @@
 
 
 
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
 
 
 
@@ -1199,468 +692,7 @@
 
   
 
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
   
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("72l8G3xFxrAReJk0PBs8jCeC-gzGzoHsz", "r0TXzhifsg8y5LTKokFte6fz");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-
-
-
 
 </body>
-
-
 </html>
-
