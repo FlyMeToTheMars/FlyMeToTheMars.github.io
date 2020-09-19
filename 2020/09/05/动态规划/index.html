@@ -37,7 +37,14 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gimhknub0vj20j009caba.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gimp0dfjubj20iy03jdfp.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gimp833eibj20iy03jdfp.jpg">
-<meta property="og:updated_time" content="2020-09-11T07:40:32.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ginx8ihf5uj20u00gw0sz.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ginxawe8scj20u00gwweq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gitobpusbtj20qz0nbaak.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gitofqqcxlj20dx05yaa4.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gitoiglg49j20ct0823yl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gitoo8q4nij20i603mq2z.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gitonjgxl9j20id037q2z.jpg">
+<meta property="og:updated_time" content="2020-09-18T01:17:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划">
 <meta name="twitter:description" content="终于到经典的动态规划问题，希望能顺利拿下。">
@@ -202,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-11 15:40:32" itemprop="dateModified" datetime="2020-09-11T15:40:32+08:00">2020-09-11</time>
+                <time title="修改时间：2020-09-18 09:17:45" itemprop="dateModified" datetime="2020-09-18T09:17:45+08:00">2020-09-18</time>
               </span>
 
           
@@ -333,6 +340,64 @@
 <p>列出动态转移方程，就是在解决“如何穷举”的问题。之所以说它难，一是因为很多穷举需要递归实现，二是因为有的问题本身的解空间复杂，不那么容易穷举完整。</p>
 <p>备忘录、DP table 就是在追求“如何聪明地穷举”。用空间换时间的思路，是降低时间复杂度的不二法门，除此之外，试问，还能玩出啥花活？</p>
 <p>之后我们会有一章专门讲解动态规划问题，如果有任何问题都可以随时回来重读本文，希望读者在阅读每个题目和解法时，多往「状态」和「选择」上靠，才能对这套框架产生自己的理解，运用自如。</p>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><p>下面主要讲两个常见问题：</p>
+<p>1、到底什么才叫「最优子结构」，和动态规划什么关系。</p>
+<p>2、为什么动态规划遍历<code>dp</code>数组的方式五花八门，有的正着遍历，有的倒着遍历，有的斜着遍历，有的无论咋遍历都是对的。</p>
+<h4 id="一、最优子结构详解"><a href="#一、最优子结构详解" class="headerlink" title="一、最优子结构详解"></a>一、最优子结构详解</h4><p>「最优子结构」是某些问题的一种特定性质，并不是动态规划问题专有的。也就是说，很多问题其实都具有最优子结构，只是其中大部分不具有<strong>重叠子</strong>问题，所以我们不把它们归为动态规划系列问题而已。</p>
+<p>我先举个很容易理解的例子：假设你们学校有 10 个班，你已经计算出了每个班的最高考试成绩。那么现在我要求你计算全校最高的成绩，你会不会算？当然会，而且你不用重新遍历全校学生的分数进行比较，而是只要在这 10 个最高成绩中取最大的就是全校的最高成绩。</p>
+<p>这个问题就<strong>符合最优子结构</strong>：可以从子问题的最优结果推出更大规模问题的最优结果。让你算<strong>每个班</strong>的最优成绩就是子问题，你知道所有子问题的答案后，就可以借此推出<strong>全校</strong>学生的最优成绩这个规模更大的问题的答案。</p>
+<p>你看，这么简单的问题都有最优子结构性质，只是因为显然没有重叠子问题，所以我们简单地求最值肯定用不出动态规划。</p>
+<p>再举个例子：假设你们学校有 10 个班，你已知每个班的最大分数差（最高分和最低分的差值）。那么现在我让你计算全校学生中的最大分数差，你会不会算？可以想办法算，但是肯定不能通过已知的这 10 个班的最大分数差推到出来。因为这 10 个班的最大分数差不一定就包含全校学生的最大分数差，比如全校的最大分数差可能是 3 班的最高分和 6 班的最低分之差。</p>
+<p>这次我给你提出的问题就<strong>不符合最优子结构</strong>，因为你没办通过每个班的最优值推出全校的最优值，没办法通过子问题的最优值推出规模更大的问题的最优值。</p>
+<p>想满足最优子结，子问题之间必须互相独立。全校的最大分数差可能出现在两个班之间，显然子问题不独立，所以这个问题本身不符合最优子结构。</p>
+<p><strong>那么遇到这种最优子结构失效情况，怎么办？策略是：改造问题</strong>。对于最大分数差这个问题，我们不是没办法利用已知的每个班的分数差吗，那我只能这样写一段暴力代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (Student a : school) &#123;</span><br><span class="line">    <span class="keyword">for</span> (Student b : school) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a is b) <span class="keyword">continue</span>;</span><br><span class="line">        result = max(result, |a.score - b.score|);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
+
+<p>改造问题，也就是把问题等价转化：最大分数差，不就等价于最高分数和最低分数的差么，那不就是要求最高和最低分数么，不就是我们讨论的第一个问题么，不就具有最优子结构了么？那现在改变思路，借助最优子结构解决最值问题，再回过头解决最大分数差问题，是不是就高效多了？</p>
+<p>当然，上面这个例子太简单了，不过请读者回顾一下，我们做动态规划问题，是不是一直在求各种最值，本质跟我们举的例子没啥区别，无非需要处理一下重叠子问题。</p>
+<p>再举个常见但也十分简单的例子，求一棵二叉树的最大值，不难吧（简单起见，假设节点中的值都是非负数）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxVal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> left = maxVal(root.left);</span><br><span class="line">    <span class="keyword">int</span> right = maxVal(root.right);</span><br><span class="line">    <span class="keyword">return</span> max(root.val, left, right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你看这个问题也符合最优子结构，以<code>root</code>为根的树的最大值，可以通过两边子树（子问题）的最大值推导出来，结合刚才学校和班级的例子，很容易理解吧。</p>
+<p>当然这也不是动态规划问题，旨在说明，最优子结构并不是动态规划独有的一种性质，能求最值的问题大部分都具有这个性质；</p>
+<p><strong>但反过来，最优子结构性质作为动态规划问题的必要条件，一定是让你求最值的</strong>，以后碰到那种恶心人的最值题，思路往动态规划想就对了，这就是套路。</p>
+<p>动态规划不就是从最简单的 base case 往后推导吗，可以想象成一个链式反应，不断以小博大。但只有符合最优子结构的问题，才有发生这种链式反应的性质。</p>
+<p>找最优子结构的过程，其实就是证明状态转移方程正确性的过程，方程符合最优子结构就可以写暴力解了，写出暴力解就可以看出有没有重叠子问题了，有则优化，无则 OK。这也是套路。</p>
+<h4 id="二、dp-数组的遍历方向"><a href="#二、dp-数组的遍历方向" class="headerlink" title="二、dp 数组的遍历方向"></a>二、dp 数组的遍历方向</h4><p>做动态规划问题时，肯定会对<code>dp</code>数组的遍历顺序有些头疼。我们拿二维<code>dp</code>数组来举例，有时候我们是正向遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int[][] dp = new int[m][n];</span><br><span class="line">for (int i = 0; i &lt; m; i++)</span><br><span class="line">    for (int j = 0; j &lt; n; j++)</span><br><span class="line">        // 计算 dp[i][j]</span><br></pre></td></tr></table></figure>
+
+<p>有时候我们反向遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (int i = m - 1; i &gt;= 0; i--)</span><br><span class="line">    for (int j = n - 1; j &gt;= 0; j--)</span><br><span class="line">        // 计算 dp[i][j]</span><br></pre></td></tr></table></figure>
+
+<p>有时候可能会斜向遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 斜着遍历数组</span><br><span class="line">for (int l = 2; l &lt;= n; l++) &#123;</span><br><span class="line">    for (int i = 0; i &lt;= n - l; i++) &#123;</span><br><span class="line">        int j = l + i - 1;</span><br><span class="line">        // 计算 dp[i][j]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>甚至更让人迷惑的是，有时候发现正向反向遍历都可以得到正确答案，比如我们在 <a href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484508&idx=1&sn=42cae6e7c5ccab1f156a83ea65b00b78&chksm=9bd7fa54aca07342d12ae149dac3dfa76dc42bcdd55df2c71e78f92dedbbcbdb36dec56ac13b&scene=21#wechat_redirect" target="_blank" rel="noopener">团灭 LeetCode 股票买卖问题</a> 中有的地方就正反皆可。</p>
+<p>如果仔细观察的话可以发现其中的原因的:</p>
+<p><strong>1、遍历的过程中，所需的状态必须是已经计算出来的</strong>。</p>
+<p><strong>2、遍历的终点必须是存储结果的那个位置</strong>。</p>
+<p>下面来具体解释上面两个原则是什么意思。</p>
+<p>比如编辑距离这个经典的问题，详解见前文 <a href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484484&idx=1&sn=74594297022c84952162a68b7f739133&chksm=9bd7fa4caca0735a1364dd13901311ecd6ec4913c8db05a1ff6cae8f069627eebe8d651bbeb1&scene=21#wechat_redirect" target="_blank" rel="noopener">经典动态规划：编辑距离</a>，我们通过对<code>dp</code>数组的定义，确定了 base case 是<code>dp[..][0]</code>和<code>dp[0][..]</code>，最终答案是<code>dp[m][n]</code>；而且我们通过状态转移方程知道<code>dp[i][j]</code>需要从<code>dp[i-1][j]</code>,<code>dp[i][j-1]</code>,<code>dp[i-1][j-1]</code>转移而来，如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1ginx8ihf5uj20u00gw0sz.jpg" alt="undefined"></p>
+<p>那么，参考刚才说的两条原则，你该怎么遍历<code>dp</code>数组？肯定是正向遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 1; i &lt; m; i++)</span><br><span class="line">    for (int j = 1; j &lt; n; j++)</span><br><span class="line">        // 通过 dp[i-1][j], dp[i][j - 1], dp[i-1][j-1]</span><br><span class="line">        // 计算 dp[i][j]</span><br></pre></td></tr></table></figure>
+
+<p><strong>因为，这样每一步迭代的左边、上边、左上边的位置都是 base case 或者之前计算过的，而且最终结束在我们想要的答案<code>dp[m][n]</code>。</strong></p>
+<p>再举一例，回文子序列问题，详见前文 <a href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484666&idx=1&sn=e3305be9513eaa16f7f1568c0892a468&chksm=9bd7faf2aca073e4f08332a706b7c10af877fee3993aac4dae86d05783d3d0df31844287104e&scene=21#wechat_redirect" target="_blank" rel="noopener">子序列解题模板：最长回文子序列</a>，我们通过过对<code>dp</code>数组的定义，确定了 base case 处在中间的对角线，<code>dp[i][j]</code>需要从<code>dp[i+1][j]</code>,<code>dp[i][j-1]</code>,<code>dp[i+1][j-1]</code>转移而来，想要求的最终答案是<code>dp[0][n-1]</code>，如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1ginxawe8scj20u00gwweq.jpg" alt="undefined"></p>
+<p>这种情况根据刚才的两个原则，就可以有两种正确的遍历方式：</p>
+<p><strong>要么从左至右斜着遍历，要么从下向上从左到右遍历，这样才能保证每次<code>dp[i][j]</code>的左边、下边、左下边已经计算完毕，最终得到正确结果。</strong></p>
+<p>现在，你应该理解了这两个原则，主要就是看 base case 和最终结果的存储位置，保证遍历过程中使用的数据都是计算完毕的就行，有时候确实存在多种方法可以得到正确答案，可根据个人口味自行选择。</p>
+<h2 id="动态规划设计：正则表达式"><a href="#动态规划设计：正则表达式" class="headerlink" title="动态规划设计：正则表达式"></a>动态规划设计：正则表达式</h2><p>正则表达式匹配是一个很精妙的算法，而且难度也不小。本文主要写两个正则符号的算法实现：点号「.」和星号「*」。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gitobpusbtj20qz0nbaak.jpg" alt="undefined"></p>
+<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p>如果是两个普通的字符串进行比较，如何进行匹配？</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gitofqqcxlj20dx05yaa4.jpg" alt="undefined"></p>
+<p>然后，我稍微改造一下上面的代码，略微复杂了一点，但意思还是一样的</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gitoiglg49j20ct0823yl.jpg" alt="undefined"></p>
+<p>如上改写，便于理解如何将这个算法改造成递归算法（伪码）：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gitoo8q4nij20i603mq2z.jpg" alt="undefined"></p>
+<h3 id="处理「-」通配符"><a href="#处理「-」通配符" class="headerlink" title="处理「.」通配符"></a>处理「.」通配符</h3><p>点号可以匹配任意一个字符，万金油嘛，其实是最简单的。将上述伪码改成 python 代码，再稍加改造即可：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gitonjgxl9j20id037q2z.jpg" alt="undefined"></p>
 
     </div>
 
@@ -421,7 +486,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">1.1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#斐波那契数列"><span class="nav-number">1.1.1.</span> <span class="nav-text">斐波那契数列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DP-数组的迭代解法"><span class="nav-number">1.1.2.</span> <span class="nav-text">DP 数组的迭代解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#凑零钱问题"><span class="nav-number">1.1.3.</span> <span class="nav-text">凑零钱问题</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">1.1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#斐波那契数列"><span class="nav-number">1.1.1.</span> <span class="nav-text">斐波那契数列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DP-数组的迭代解法"><span class="nav-number">1.1.2.</span> <span class="nav-text">DP 数组的迭代解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#凑零钱问题"><span class="nav-number">1.1.3.</span> <span class="nav-text">凑零钱问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-number">1.1.4.</span> <span class="nav-text">Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、最优子结构详解"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">一、最优子结构详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、dp-数组的遍历方向"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">二、dp 数组的遍历方向</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态规划设计：正则表达式"><span class="nav-number">1.2.</span> <span class="nav-text">动态规划设计：正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World"><span class="nav-number">1.2.1.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理「-」通配符"><span class="nav-number">1.2.2.</span> <span class="nav-text">处理「.」通配符</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -437,7 +502,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -450,7 +515,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
