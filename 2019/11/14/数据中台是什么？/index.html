@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数据中台是什么？能发挥什么作用？ 对最近很火的数据中台一些思考。">
+<meta name="keywords" content="中台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据中台是什么">
+<meta property="og:url" content="http://yoursite.com/2019/11/14/数据中台是什么？/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="数据中台是什么？能发挥什么作用？ 对最近很火的数据中台一些思考。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v3ih8b6lj22ii1qi7aa.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v7cv7jsfj21b50ka121.jpg">
+<meta property="og:updated_time" content="2020-04-10T17:04:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据中台是什么">
+<meta name="twitter:description" content="数据中台是什么？能发挥什么作用？ 对最近很火的数据中台一些思考。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v3ih8b6lj22ii1qi7aa.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2019/11/14/数据中台是什么？/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>数据中台是什么 | Mars</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/14/数据中台是什么？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据中台是什么
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-14 06:59:43" itemprop="dateCreated datePublished" datetime="2019-11-14T06:59:43+08:00">2019-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 01:04:03" itemprop="dateModified" datetime="2020-04-11T01:04:03+08:00">2020-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Note/" itemprop="url" rel="index"><span itemprop="name">Reading Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>数据中台是什么？能发挥什么作用？</p>
+<p>对最近很火的数据中台一些思考。</p>
+</blockquote>
+<a id="more"></a> 
+
+<h1 id="数据中台是什么？"><a href="#数据中台是什么？" class="headerlink" title="数据中台是什么？"></a>数据中台是什么？</h1><h2 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h2><p>2015年全年产生的数据量等于历史上所有人类产生数据的总和，人类的数据增长正式从乘法型增长变成了指数型增长，海量数据处理成为了全人类的挑战。</p>
+<p>阿里提出了DT时代已经到来：DataTech替代ITTech，强调数据驱动的重要性。</p>
+<p>阿里走在了前面，阿里用几百人的团队支撑了几万亿的GMV，其中60%-70%来源于数据支持的机器决策，机器智能赋能业务，用更低的成本，更高的效率去服务顾客，提供个性化推荐。</p>
+<p>阿里的数据处理经理了四个阶段，分别是：</p>
+<p>一、数据库阶段，主要是OLTP（联机事务处理）的需求；</p>
+<p>二、数据仓库阶段，OLAP（联机分析处理）成为主要需求；</p>
+<p>三、数据平台阶段，主要解决BI和报表需求的技术问题；</p>
+<p>四、数据中台阶段，通过系统来对接OLTP（事务处理）和OLAP（报表分析）的需求，强调数据业务化的能力。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v3ih8b6lj22ii1qi7aa.jpg" alt="undefined"></p>
+<p>第一个阶段到第二阶段很好理解，数据库阶段，简单的OLTP（OLTP强调高并发，单条数据简单提取和战士，后者对并发的要求并不高，后者是地并发，大批量，面向分析。）</p>
+<p>第一次转型就是从数据库阶段走到了数据仓库的阶段。互联网数据里面数据量最大的是网页日志，90%以上的数据是非结构化数据，数据量已经到了TB界别，针对分析需求，诞生了数据仓库（DW），阿里的第一个DW是Oracle RAC搭建了DW，这个阶段DW支持的主要久食BI和报表需求。数据库这是也在从传统CB转向分布式DB。</p>
+<p>第二次转型就是从数据仓库阶段到数据平台阶段，这个阶段解决的 还是BI和报表需求，但是主要是在解决底层的技术问题。也即是数据库架构设计问题。</p>
+<p>第二次转型是数据从TB阶段走向了PB级别， Oracle RAC是基于IOE架构的，所有数据用同一个EMC存储。在海量数据处理上，IOE架构有天然的限制，不适合未来的发展。阿里巴巴的第一个数据仓库就是建立在Oracle RAC上，由于数据量增长太快，所以很快就到达20个节点，当时是全亚洲最大的Oracle RAC集群，但阿里巴巴早年算过一笔账，如果仍然沿用IOE架构，那么几年后，阿里的预计营收还远远赶不上服务器的支出费用，就是说，如果不去IOE，阿里会破产。  Shared Nothing的代表就是Hadoop。Hadoop的各个处理单元都有自己私有的存储单元和处理单元， Shared Everything一般是针对单个主机，完全透明共享CPU/MEMORY/IO，并行处理能力是最差的，典型的代表SQLServer。</p>
+<p>所以第二次转型关键词就是去IOE，建立Shared Nothing的海量数据平台来解决数据存储成本增长过快的问题，在阿里巴巴，前期是Hadoop，后期转向自研的ODPS。</p>
+<p>第四阶段就是数据中台服务，这个阶段的特征是数据量的指数级增长，从PB级别到了EB级别，未来会到什么级别，还不好说。</p>
+<p>目前互联网是主力，15年之后，视图声数据指数级增长，未来90%的数据可能都是非结构化数据，这些数据需要CV等技术的解析，5G技术发展，可能会进一步方法数据的体量。</p>
+<p>另一方面，从业务来看，数据也好，数据分析也好，最终都是要为了业务服务，也就是说，要在系统层面能把OLAP和OLTP去做对接，这个对接不能靠人来完成，要靠智能算法。</p>
+<p>目前的数据中台，最底下的数据平台还是偏技术，是中台技术方案中的一个组件，主要解决数据存储和计算，上面是数据服务层，数据服务层通过服务化API能够把数据平台和前台的业务层对接；数据中台里面就没有人的事情，直接系统去做对接，通过智能算法，能把前台的分析需求和交易需求去做对接，最终赋能业务。 </p>
+<p>未来的数据中台，一定是「AI驱动的数据中台」，这个中台包括「计算平台+算法模型+智能硬件」，不仅要在端上具备视觉数据的收集和分析能力，而且还要能通过Face ID，帮助企业去打通业务数据，最终建立线上线下触达和服务消费者的能力。</p>
+<p>真正做到「一切业务数据化，一切数据业务化」。</p>
+<p>数据中台需要三种能力：</p>
+<p>数据模型能力，AI算法模型能力，行业的应用能力。</p>
+<h2 id="Ex"><a href="#Ex" class="headerlink" title="Ex."></a>Ex.</h2><p><strong>阿里中台全景图</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8v7cv7jsfj21b50ka121.jpg" alt="1.png"></p>
+<p><strong>基础设施服务</strong>，即IAAS层，提供硬件底层支持。</p>
+<p><strong>基础服务层</strong>，即PAAS层，包括分布式服务框架、分布式数据库、分布式消息、分布式存储、分布式事务、实时监控服务等等。</p>
+<p><strong>互联网业务中台</strong>，包括各服务中心的抽象出来的各种业务能力，包括交易中心、支付中心、营销中心、结算中心、用户中心、账户中心等等。也包括非业务类服务，如日志分析中心、配置中心、序列中心、基础中心。</p>
+<p><strong>业务应用</strong>，经过调取业务中台，组装形成独立业务服务能力的业务应用。</p>
+<p><strong>交易来源</strong>，就是前台用户使用的各个端，如淘宝App、PC站等。</p>
+<p>数据量超EB，表数量超过百万。</p>
+<p>PPT小结：</p>
+<p><strong>1、阿里业务中台架构图。</strong>阿里完整前后中台技术架构图。</p>
+<p><strong>2、业务中台化-产品形态。</strong>将商业基础形态和逻辑梳理出来，解构成业务“积木块”。</p>
+<p><strong>3、业务中台化-全局架构。</strong>建立中台的中心化控制单元，对中台有一个纵观全局的视图。</p>
+<p><strong>4、业务中台化 - 业务创新和智能化。</strong>业务中台化，汇集和沉淀业务逻辑和数据，对快速创新提供支持。</p>
+<p><strong>5、阿里核心业务架构。</strong>小前台、大中台、轻后台的相互支撑体系。</p>
+<p><strong>6、阿里数据中台架构。</strong>数据中台建设理论、方法和实践。</p>
+<p><strong>7、阿里技术全栈全景图。</strong>阿里的移动中台、业务中台、数据中台、技术中台。</p>
+<p><strong>8、阿里技术平台底座。</strong>阿里多年技术积累和沉淀，构建在阿里云之上。</p>
+<p><strong>9、阿里中台组织架构。</strong>阿里的中台战略，相匹配的组织架构升级。</p>
+<p><strong>10、业务中台建设路径。</strong>企业中台建设应遵循的3个步骤：决心变革、成功试点、持续融合。</p>
+<p><strong>11、企业中台战略4个升级。</strong>从战略、组织、流程、技术四个方面进行升级。</p>
+<p><strong>12、阿里中台的能力开放。</strong>基于阿里云、ET大脑、业务&amp;数据双中台的能力开放。</p>
+<p><strong>13、阿里业务中台建设方法论。</strong>中台建设和基础协议、中心化操控单元。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>中台这个概念被炒作的恨火，然而究竟什么是中台，似乎并没有人给出一个明确的定义。</p>
+<p>有的人把技术集成平台叫中台，都感觉很片面。</p>
+<p>我查阅了很多资料，中台像业务发展遇到某一瓶颈的时候，为了解决实际问题提出的解决方案。</p>
+<p>2018年9月，腾讯宣布组织架构调整，在原有七大事业部重新组织机构， 新成立了云与智慧产业事业群（CSIG）、平台与内容事业群（PCG），调整为新的6大事业群。而6大事业群紧紧围绕的，正是技术委员会充当“技术中台”角色。 </p>
+<p> 同年12月18日，百度集团进行了一次大的架构调整，由百度创始人、董事长李彦宏发信宣布：”百度将打造AI时代最领先的技术平台，实现前端业务和技术平台的资源高效统筹及组织全面协同。” </p>
+<p> 3天后的12月21日，京东集团人力资源部发布关于京东商城组织架构调整的公告，公告内容称：“在新的组织架构下，京东商城将围绕以客户为中心，划分为前中后台。中台为前台业务运营和创新提供专业能力的共享平台职能。” </p>
+<p>建设方法：</p>
+<p>阿里：业务数据双中台；移动中台；技术中台。</p>
+<p>腾讯：业务中台和数据中台。</p>
+<p>百度：搜索中台</p>
+<p>京东：数据中台</p>
+<p>阿里数据中台概念提出这么久了，我看了这么多资料，对中台的定义大多是一家之言，我个人观点：中台是阿里为了两个目的提出来的概念，第一个目标是大企业的尾大不掉，第二点是数据驱动价值。</p>
+<p>第二点在电商领域的价值已经不用多提，第一点可能是他觉得阿里必须要克服的问题。</p>
+<p>说实话，具体的落地可能都还在摸索之中，先把这个概念拿出来炒作挺离谱的。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/中台/" rel="tag"># 中台</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/14/Kylin/" rel="prev" title="Apache Kylin">
+      <i class="fa fa-chevron-left"></i> Apache Kylin
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/27/GitChat SQL课程/" rel="next" title="SQL 从入门到精通">
+      SQL 从入门到精通 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据中台是什么？"><span class="nav-number">1.</span> <span class="nav-text">数据中台是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Source"><span class="nav-number">1.1.</span> <span class="nav-text">Source</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ex"><span class="nav-number">1.2.</span> <span class="nav-text">Ex.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">1.3.</span> <span class="nav-text">思考</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fly Hugh"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/FlyMeToTheMars" title="GitHub → https://github.com/FlyMeToTheMars" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/flyhobo@live.com" title="E-Mail → flyhobo@live.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3200892914" title="Weibo → https://weibo.com/u/3200892914" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Fly__HoBo" title="Twitter → https://twitter.com/Fly__HoBo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
