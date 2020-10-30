@@ -35,7 +35,9 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gjwrvcz2rjj20pf0d70tf.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gjws4z21vij20jv0b2wev.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gjwsnd19ebj20li0bkaak.jpg">
-<meta property="og:updated_time" content="2020-10-22T06:05:18.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gk54bjvcx9j20ee0nkjvz.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gk54yygegpj20iw0yota9.jpg">
+<meta property="og:updated_time" content="2020-10-28T08:45:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flink Advanced">
 <meta name="twitter:description" content="Flink进阶的知识点和文章整理">
@@ -200,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-22 14:05:18" itemprop="dateModified" datetime="2020-10-22T14:05:18+08:00">2020-10-22</time>
+                <time title="修改时间：2020-10-28 16:45:34" itemprop="dateModified" datetime="2020-10-28T16:45:34+08:00">2020-10-28</time>
               </span>
 
           
@@ -346,6 +348,90 @@
 <li><a href="http://www.javamex.com/tutorials/memory/object_memory_usage.shtml" target="_blank" rel="noopener">Memory usage of Java objects: general guide</a></li>
 <li><a href="http://www.36dsj.com/archives/33650" target="_blank" rel="noopener">脱离JVM？ Hadoop生态圈的挣扎与演化</a></li>
 </ul>
+<h1 id="Flink-内存设置思路"><a href="#Flink-内存设置思路" class="headerlink" title="Flink 内存设置思路"></a>Flink 内存设置思路</h1><p>Flink内存设置思路分为两个版本</p>
+<p>分别是1.9之前和之后的</p>
+<h2 id="Flink-lt-1-9"><a href="#Flink-lt-1-9" class="headerlink" title="Flink &lt;= 1.9"></a>Flink &lt;= 1.9</h2><p>这里用Flink1.8为例，计算内存的代码位于<code>org.apache.flink.runtime.clusterframework.ContaineredTaskManagerParameters</code>类的<code>create</code>方法。</p>
+<p>按照计算步骤，以<code>taskmanager.heap.size=6g</code>为例子，其他参数保持不动，最终得到的参数如下：</p>
+<p>​                        -Xms4148m -Xmx4148m  -XX:MaxDirectMemorySize=1996m</p>
+<p>两块内存加起来是6144m = 6g jvm的设置符合参数。</p>
+<p>Flink Dashboard上面显示的是：</p>
+<p>​        JVM Heap Size：3.95 GB  Flink Managed Memory：2.74 GB</p>
+<p>​        JVM (Heap/Non-Heap) Commit： Heap：3.95 GB Non-Heap：141 MB Total：4.09 GB</p>
+<p>​        Outside JVM：Capacity：457 MB</p>
+<p>​        NetWork: count: xxxxx</p>
+<h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h3><p>设容器内存总大小是x</p>
+<p>详细看create方法：</p>
+<pre><code>1.  cutoff：容器超过3g, 简单可以记成 0.25x. flink为了防止内存溢出，计算的时候先切了一块内存下来不参与后续计算，这块就是cutoff</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cutoff = Math.max(containerized.heap-cutoff-min, taskmanager.heap.size * containerized.heap-cutoff-ratio)</span><br></pre></td></tr></table></figure>
+
+<p>默认值是600和0.25，所以6g的时候=Math.max(600, 6144*0.25) = 1536m</p>
+<p>剩余大小 0.75x6g = 4608m</p>
+<ol start="2">
+<li>networkBufMB：简单记成 0.75*0.1x，最大1g</li>
+</ol>
+<p>网络buffer使用内存分成新旧版，这里只关注新版，涉及参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">taskmanager.memory.segment-size：32kb</span><br><span class="line">taskmanager.network.memory.fraction：0.1</span><br><span class="line">taskmanager.network.memory.min：64mb</span><br><span class="line">taskmanager.network.memory.max：1g</span><br></pre></td></tr></table></figure>
+
+<p>计算参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.min(taskmanager.network.memory.max，Math.max(taskmanager.network.memory.min, taskmanager.network.memory.fraction * (x - cutoff))</span><br></pre></td></tr></table></figure>
+
+<p>这里的结果就是：Math.min(1g, Math.max(64mb, 0.1 * 4608m) = 460.8m</p>
+<ol start="3">
+<li>heapSizeMB：0.75 * 0.9x</li>
+</ol>
+<p>taskmanager.memory.off-heap默认为false，主要指的是Flink Managed Memory使用Heap还是Non-heap，默认使用Heap，如果开启使用Non-heap将再减少一部分资源。</p>
+<p>计算公式：<code>x - cutoff - networkBufMB</code></p>
+<p>这里就是：4147.2　　　　（注意：这个就是-xmx 4148m）</p>
+<p>​    4. offHeapSizeMB： x - heapSizeMB</p>
+<p>就是1996m　　　　　　　(注意：这个就是XX:MaxDirectMemorySize: 1996m)</p>
+<p>后续：上面只是一个jvm的参数预估设置，实际设置还与运行中环境有关，TaskManagerServices.fromConfiguration</p>
+<p>会计算一个 freeHeapMemoryWithDefrag，计算之前会手动触发gc，然后用Jvm最大内存 - 总内存 + 空闲内存。</p>
+<p>这个值可以认为是一个空运行的flink任务剩余的堆内存了。</p>
+<p>后面将计算Flink管理的内存，这个指的是Flink Managed Memory Segment: taskmanager.memory.fraction默认是0.7，</p>
+<p>被Flink管理的内存就是：freeHeapMemoryWithDefrag * 0.7</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gk54bjvcx9j20ee0nkjvz.jpg" alt="undefined"></p>
+<p>所以虽然6g内存计算出来后，heap是4148，但是在dashbord中显示不足4148, 为3.95G=4044.8, Flink managed内存小于 0.75<em>0.9</em>0.7 = 2903.04 , dashboard上显示2.74g = 2805.76m</p>
+<p>框架运行需要：4148 - 4044.8 = 103.2m，3.95 * 0.7 = 2.765 &gt; 2.74。没有相等，其他的内存使用暂时没有探究了。</p>
+<p>Flink Managed内存一般用于批处理作业，流处理作业可以调整 taskmanager.memory.fraction，使得这部分内存用于用户代码。</p>
+<p>Non - heap空间一般用于 JVM 的栈空间、方法区等堆外开销外，还包括网络 buffer、batch 缓存、RocksDB</p>
+<h2 id="Flink-gt-1-10"><a href="#Flink-gt-1-10" class="headerlink" title="Flink &gt;= 1.10"></a>Flink &gt;= 1.10</h2><p>Flink后面内存进行了较大的变动，也就是说之前上面云邪写的内存管理已经过时了</p>
+<p><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.10/zh/ops/memory/mem_migration.html" target="_blank" rel="noopener">https://ci.apache.org/projects/flink/flink-docs-release-1.10/zh/ops/memory/mem_migration.html</a></p>
+<p>这里设置单个taskmanager为14g，taskmanager.memory.managed.fraction为0.5，将会得到以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-Xmx5721030656  = 5456MB = 5.328g</span><br><span class="line">-=1207959552  = 1152MB = 1.125g</span><br><span class="line">-XX:MaxMetaspaceSize=100663296 = 96MB</span><br></pre></td></tr></table></figure>
+
+<p>可以发现，上面的加起来等于6704MB，远远不足14g，和1.8版本有很大的不同。</p>
+<p>再看dashboard：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JVM Heap Size：5.19 GB   Flink Managed Memory：6.45 GB</span><br><span class="line">JVM (Heap/Non-Heap) ： Heap：5.19 GB  Non-Heap：1.33 GB  Total：6.52 GB</span><br><span class="line">Outside JVM：Capacity：1.01GB</span><br><span class="line">NetWork: count:  xxxxx</span><br></pre></td></tr></table></figure>
+
+<p>可以计算得到6.45+6.52+1.01 = 13.98 等于14</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">taskmanager.memory.process.size 设置的是容器的内存大小，等于之前的 taskmanager.heap.size</span><br><span class="line"></span><br><span class="line">计算过程在org.apache.flink.runtime.clusterframework.TaskExecutorProcessUtils中processSpecFromConfig方法，TaskExecutorProcessSpec类展示了1.10版本整个内存的组成。</span><br><span class="line"></span><br><span class="line">计算方法分成3种：</span><br><span class="line">1.指定了taskmanager.memory.task.heap.size和taskmanager.memory.managed.size   </span><br><span class="line">见方法：deriveProcessSpecWithExplicitTaskAndManagedMemory</span><br><span class="line">2.指定了taskmanager.memory.flink.size  </span><br><span class="line">见方法：deriveProcessSpecWithTotalFlinkMemory</span><br><span class="line">3.指定了taskmanager.memory.process.size（容器环境一般指定这个，决定全局容量）</span><br><span class="line">totalProcessMemorySize = 设置的值 14g,   jvmMetaspaceSize = taskmanager.memory.jvm-metaspace.size,默认96m,这个对应参数-XX:MaxMetaspaceSize=100663296。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jvmOverheadSize：</span><br><span class="line"></span><br><span class="line">	taskmanager.memory.jvm-overhead.min  192m</span><br><span class="line">	taskmanager.memory.jvm-overhead.max 1g</span><br><span class="line">	taskmanager.memory.jvm-overhead.fraction 0.1</span><br></pre></td></tr></table></figure>
+
+<p>公式 14g * 0.1 = 1.4g 必须在[192m, 1g]之间，所以jvmOverheadSize的大小是1g</p>
+<p>totalFlinkMemorySize = 14g - 1g - 96m = 13216m</p>
+<p>frameworkHeapMemorySize：taskmanager.memory.framework.heap.size 默认128m</p>
+<p>frameworkOffHeapMemorySize：taskmanager.memory.framework.off-heap.size 默认128m</p>
+<p>taskOffHeapMemorySize：taskmanager.memory.task.off-heap.size 默认0</p>
+<p>确定好上面这些参数后，就是最重要的三个指标的计算了：</p>
+<p>taskHeapMemorySize，networkMemorySize，managedMemorySize</p>
+<p>计算分成确定了：taskmanager.memory.task.heap.size还是没确定。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">确定了taskmanager.memory.task.heap.size</span><br><span class="line">	taskHeapMemorySize = 设置值</span><br><span class="line">	managedMemorySize = 设置了使用设置值，否则使用 0.4 * totalFlinkMemorySize</span><br><span class="line">	如果 taskHeapMemorySize + taskOffHeapMemorySize + frameworkHeapMemorySize + frameworkOffHeapMemorySize + managedMemorySize &gt; totalFlinkMemorySize异常</span><br><span class="line">	networkMemorySize 等于剩余的大小，之后还会check这块内存是否充足，可以自己查看对应代码</span><br><span class="line">未设置heap大小</span><br><span class="line">	先确定 managedMemorySize = 设置了使用设置值，否则使用 0.4 * totalFlinkMemorySize，这里就是 0.5 * 13216m = 6608 = 6.45g (这里就是dashboard的显示内容)</span><br><span class="line">	再确定network buffer大小，这个也是有两种情况，不细说。 [64mb, 1g] 0.1 * totalFlinkMemorySize = 1321.6, 所以是1g</span><br><span class="line">	最后剩余的就是taskHeapMemorySize,不能为负数，这里等于  13216 - 6608 - 1024 - 128 - 128 = 5328 = 5.2g (这里约等于dashboard的显示heap大小)</span><br><span class="line">	最后jvm的参数的计算过程：</span><br><span class="line">	jvmHeapSize = frameworkHeapSize + taskHeapSize = 5328 + 128 = 5456</span><br><span class="line">	jvmDirectSize = frameworkOffHeapMemorySize + taskOffHeapSize + networkMemSize = 128 + 1024 = 1152</span><br><span class="line">	jvmMetaspaceSize = 96m</span><br></pre></td></tr></table></figure>
+
+<h3 id="全新内存划分："><a href="#全新内存划分：" class="headerlink" title="全新内存划分："></a>全新内存划分：</h3><p><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.10/ops/memory/mem_detail.html" target="_blank" rel="noopener">https://ci.apache.org/projects/flink/flink-docs-release-1.10/ops/memory/mem_detail.html</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gk54yygegpj20iw0yota9.jpg" alt="undefined"></p>
+<p>从计算过程，结合上图可以看出Flink 1.10中的一个内存划分了。</p>
+<p>总内存 = Flink 内存 + JVM Metaspace （96m）+ JVM Overhead （计算为0.1 * 全局大小，结果必须在[192m, 1g]之间）</p>
+<p>Flink内存被划分成6部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">框架运行需要的Heap和Non Heap，默认都是128m</span><br><span class="line">任务需要的Heap和Non Heap(默认0), Heap是通过计算其他5部分内存，Flink内存剩余得到</span><br><span class="line">网络缓冲 (0.1 * Flink内存，结果必须在[64mb, 1g]之间）</span><br><span class="line">Flink管理内存：0.4 * Flink内存</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>Flink 1.10之前对内存的划分比较简单，主要就是Heap + Non-Heap，之后对内存做了更细致的切分。</p>
+<p>Flink 1.8可以调整taskmanager.memory.fraction 减少Heap中的管理的内存，增大用户代码的内存使用，调整containerized.heap-cutoff-ratio，控制Non-heap空间，这个影响rocksdb。</p>
+<p>Flink 1.10可以调整taskmanager.memory.managed.fraction 控制managed内存，这个影响rocksdb，也会影响taskHeap大小，需要衡量。</p>
+<p>也可以看到Flink内存模型的变化managed内存位置也发生了变化，作用也有了些许变化。</p>
+<p>JVM 主要划分 Heap 和 Non-Heap，Non-Heap又划分为Direct和Native等。</p>
+<p>1.8的Non-Heap都是通过XX:MaxDirectMemorySize设置的</p>
+<p>1.10的Network buffer在Direct里面，另一部分是Native(包括Managed Memory)，主要用于rocksdb，如果使用的是Heap状态后台，可以设置小点，也用于Batch。</p>
 
     </div>
 
@@ -434,7 +520,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-原理与实现：内存管理"><span class="nav-number">1.</span> <span class="nav-text">Flink 原理与实现：内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#积极的内存管理"><span class="nav-number">1.1.</span> <span class="nav-text">积极的内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为-Flink-量身定制的序列化框架"><span class="nav-number">1.2.</span> <span class="nav-text">为 Flink 量身定制的序列化框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flink-如何直接操作二进制数据"><span class="nav-number">1.3.</span> <span class="nav-text">Flink 如何直接操作二进制数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存友好的数据结构和算法"><span class="nav-number">1.4.</span> <span class="nav-text">缓存友好的数据结构和算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#走向堆外内存"><span class="nav-number">1.5.</span> <span class="nav-text">走向堆外内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.7.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-原理与实现：内存管理"><span class="nav-number">1.</span> <span class="nav-text">Flink 原理与实现：内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#积极的内存管理"><span class="nav-number">1.1.</span> <span class="nav-text">积极的内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为-Flink-量身定制的序列化框架"><span class="nav-number">1.2.</span> <span class="nav-text">为 Flink 量身定制的序列化框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flink-如何直接操作二进制数据"><span class="nav-number">1.3.</span> <span class="nav-text">Flink 如何直接操作二进制数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存友好的数据结构和算法"><span class="nav-number">1.4.</span> <span class="nav-text">缓存友好的数据结构和算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#走向堆外内存"><span class="nav-number">1.5.</span> <span class="nav-text">走向堆外内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.7.</span> <span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-内存设置思路"><span class="nav-number">2.</span> <span class="nav-text">Flink 内存设置思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flink-lt-1-9"><span class="nav-number">2.1.</span> <span class="nav-text">Flink &lt;= 1.9</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算过程"><span class="nav-number">2.1.1.</span> <span class="nav-text">计算过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flink-gt-1-10"><span class="nav-number">2.2.</span> <span class="nav-text">Flink &gt;= 1.10</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全新内存划分："><span class="nav-number">2.2.1.</span> <span class="nav-text">全新内存划分：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -450,7 +536,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
