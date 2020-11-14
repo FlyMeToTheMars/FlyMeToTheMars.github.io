@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ge6zvn0chzj20oz04odfx.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ge6zw28irmj20oz0e2aaq.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1ge6zwe0hczj20oz0e0aas.jpg">
-<meta property="og:updated_time" content="2020-04-26T03:42:22.000Z">
+<meta property="og:updated_time" content="2020-11-04T07:54:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flink State">
 <meta name="twitter:description" content="Flink State的使用经验和平时一些注意不到的属性">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 11:42:22" itemprop="dateModified" datetime="2020-04-26T11:42:22+08:00">2020-04-26</time>
+                <time title="修改时间：2020-11-04 15:54:51" itemprop="dateModified" datetime="2020-11-04T15:54:51+08:00">2020-11-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -298,6 +298,8 @@
 <p>虽然理论上 Flink 支持很短的 checkpoint 间隔，但是在实际生产中，过短的间隔对于底层分布式文件系统而言，会带来很大的压力。另一方面，由于检查点的语义，所以实际上 Flink 作业处理 record 与执行 checkpoint 存在互斥锁，过于频繁的 checkpoint，可能会影响整体的性能。当然，这个建议的出发点是底层分布式文件系统的压力考虑。</p>
 <p>■ <strong>合理设置超时时间</strong></p>
 <p>默认的超时时间是 10min，如果 state 规模大，则需要合理配置。最坏情况是分布式地创建速度大于单点（job master 端）的删除速度，导致整体存储集群可用空间压力较大。建议当检查点频繁因为超时而失败时，增大超时时间。</p>
+<p>■ <strong>keyed State需要继承Rich方法使用，在open之前声明，在open中初始化，在算子方法中使用和处理。不能继承非Rich方法，因为没有open方法， 无法初始化</strong></p>
+<p>■ <strong>open方法中只能初始化Keyed State，无法使用Keyed State（比如：获取值等操作），因为open方法不属于Keyed上下文，算子方法才属于Keyed上下文</strong></p>
 
     </div>
 

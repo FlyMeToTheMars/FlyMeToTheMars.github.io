@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g5j2aapan1j20sq0393yj.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g5j2bhs8m3j210s0n7wh5.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g5t5ry2zvmj20nb0d70u3.jpg">
-<meta property="og:updated_time" content="2020-04-10T17:07:43.000Z">
+<meta property="og:updated_time" content="2020-11-03T07:50:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flink集群搭建">
 <meta name="twitter:description" content="Flink集群搭建">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-11 01:07:43" itemprop="dateModified" datetime="2020-04-11T01:07:43+08:00">2020-04-11</time>
+                <time title="修改时间：2020-11-03 15:50:35" itemprop="dateModified" datetime="2020-11-03T15:50:35+08:00">2020-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,6 +293,15 @@
 <hr>
 <p>下图展示了 Flink 中目前支持的主要几种流的类型，以及它们之间的转换关系。</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g5t5ry2zvmj20nb0d70u3.jpg"></p>
+<h3 id="Flink-Yarn的Session模式和per-job模式"><a href="#Flink-Yarn的Session模式和per-job模式" class="headerlink" title="Flink Yarn的Session模式和per-job模式"></a>Flink Yarn的Session模式和per-job模式</h3><h4 id="Session："><a href="#Session：" class="headerlink" title="Session："></a>Session：</h4><p>在yarn中启动一个长久运行的flink集群，提交任务时都提交到这个flink-session集群中运行，适合小任务。</p>
+<p>做HA：保证YarnSessionClusterEntrypoint的高可用，需要在yarn里配置yarn.resourcemanager.am.max-<br> attempts，在flink-conf.yaml中添加high-availiability的配置</p>
+<p>提交任务命令：<br>  先启动yarn-session，<br>  然后直接flink run …</p>
+<h4 id="per-job"><a href="#per-job" class="headerlink" title="per-job:"></a>per-job:</h4><p>每次提交任务都单独启动一个flink集群，适合长久运行的大任务。</p>
+<p>HA：per-job的高可用是复用的 standalone HA 的，所以需要配置flink的standalone HA和yarn.application-attempts: 3</p>
+<p>提交任务命令：<br> flink run -m yarn-cluster -yqu root.myjob1 …</p>
+<p>问题：<strong>per-job方式在yarn上一直是accept状态，flink报错：deployment took more than 60 secoeds</strong></p>
+<p>我这里是，由于yarn调度器实际上是一个队列，在yarn-cluster选项中有**-yqu<strong>这个参数，表示指定一个队列，如果你已经提交了一个per-job任务，再次提交</strong>必须指定一个新的队列名称**，否则他会一直等待之前的任务结束后，新的job才能running，所以一直是accept。</p>
+<p><strong>解决</strong>：flink run -m yarn-cluster <strong>-yqu root.myjob1</strong> …</p>
 
     </div>
 
@@ -378,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink集群搭建"><span class="nav-number">1.</span> <span class="nav-text">Flink集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境"><span class="nav-number">1.0.1.</span> <span class="nav-text">环境:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本选择"><span class="nav-number">1.0.2.</span> <span class="nav-text">版本选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink安装模式"><span class="nav-number">1.0.3.</span> <span class="nav-text">Flink安装模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多种安装模式尝试"><span class="nav-number">1.0.4.</span> <span class="nav-text">多种安装模式尝试:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Yarn配置模式的选择"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">Yarn配置模式的选择:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">1.0.5.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.0.6.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wordcount"><span class="nav-number">1.0.7.</span> <span class="nav-text">wordcount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Standalone"><span class="nav-number">1.0.8.</span> <span class="nav-text">Standalone</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink集群搭建"><span class="nav-number">1.</span> <span class="nav-text">Flink集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境"><span class="nav-number">1.0.1.</span> <span class="nav-text">环境:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本选择"><span class="nav-number">1.0.2.</span> <span class="nav-text">版本选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink安装模式"><span class="nav-number">1.0.3.</span> <span class="nav-text">Flink安装模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多种安装模式尝试"><span class="nav-number">1.0.4.</span> <span class="nav-text">多种安装模式尝试:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Yarn配置模式的选择"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">Yarn配置模式的选择:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">1.0.5.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.0.6.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wordcount"><span class="nav-number">1.0.7.</span> <span class="nav-text">wordcount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Standalone"><span class="nav-number">1.0.8.</span> <span class="nav-text">Standalone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Yarn的Session模式和per-job模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">Flink Yarn的Session模式和per-job模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Session："><span class="nav-number">1.0.9.1.</span> <span class="nav-text">Session：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#per-job"><span class="nav-number">1.0.9.2.</span> <span class="nav-text">per-job:</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
