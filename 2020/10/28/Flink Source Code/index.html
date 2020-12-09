@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gk764ocwdcj20tr08xaah.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gk616mdhn7j20ix0roq4t.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gk61j80jj3j20bc0bggru.jpg">
-<meta property="og:updated_time" content="2020-10-30T06:28:37.000Z">
+<meta property="og:updated_time" content="2020-12-07T09:10:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flink Source Code">
 <meta name="twitter:description" content="菜逼的Apache源码阅读之路">
@@ -199,7 +199,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-30 14:28:37" itemprop="dateModified" datetime="2020-10-30T14:28:37+08:00">2020-10-30</time>
+                <time title="修改时间：2020-12-07 17:10:38" itemprop="dateModified" datetime="2020-12-07T17:10:38+08:00">2020-12-07</time>
               </span>
 
           
@@ -230,6 +230,54 @@
 <p>后来又刷了一波LeeCode，终于明白了人和人的差距，连LeeCode这么简单的算法，都有各种巧妙的实现方式，有时候配上注释都要看半天，更别说各种精妙的算法在工程里面的实现了，释然了，这事情只能慢慢去补，如果是梳理框架，使用的话，先从架构层面，理解源码，每个东西在代码中的作用先了然，再谈实现方式，我尝试着尽量不在细节上面纠结，这样阅读代码的收获和成就感会强得多，才能支持自己读下去，书和博客都是梳理架构的好途径</p>
 <p>只要能坚持，总能从优秀的Apache 代码里面学到越来越多的东西，理解应该也会越来越多，上面的是截止到目前为止，菜逼的一些简单感悟，后面如果有新的看法会过来更新<br>剩下需要的就是耐心和时间  :）</p>
 </blockquote>
+<h1 id="源码阅读入口"><a href="#源码阅读入口" class="headerlink" title="源码阅读入口"></a>源码阅读入口</h1><p>Flink提供了系列shell脚本用于flink集群管理、job提交等，通过分析这些脚本找到自己所关心的核心链路入口是比较合适的。</p>
+<p>Flink提供了两个启动脚本：<code>bin/start-local.sh</code> 用于启动单机模式的Flink；<code>bin/start-cluster.sh</code> 用于启动集群模式的Flink。</p>
+<p>（1）start-local.sh</p>
+<ul>
+<li>解析提取flink-yaml.xml中的配置项，各配置项的含义可参考<a href="https://ci.apache.org/projects/flink/flink-docs-master/ops/config.html%E3%80%82" target="_blank" rel="noopener">https://ci.apache.org/projects/flink/flink-docs-master/ops/config.html。</a></li>
+<li>以daemon模式启动jobmanager进程（并分出一个线程启动taskmanager）。</li>
+</ul>
+<p>（2）start-cluster.sh</p>
+<ul>
+<li>解析提取flink-yaml.xml中的配置项。</li>
+<li>通过ssh远程启动各master机器上的jobmaster进程（需要在conf/masters中配置master机器的ip地址，默认是localhost:8081）。</li>
+<li>启动taskmanager进程（需要在conf/slaves配置slave机器的ip地址，通常是localhost）。</li>
+</ul>
+<p>由flink-daemon.sh可知，Flink中各主要进程的入口对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th>jobmanager</th>
+<th>org.apache.flink.runtime.jobmanager.JobManager</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>taskmanager</td>
+<td>org.apache.flink.runtime.taskmanager.TaskManager</td>
+</tr>
+<tr>
+<td>内置zookeeper</td>
+<td>org.apache.flink.runtime.zookeeper.FlinkZooKeeperQuorumPeer</td>
+</tr>
+<tr>
+<td>historyserver</td>
+<td>org.apache.flink.runtime.webmonitor.history.HistoryServer</td>
+</tr>
+</tbody></table>
+<p>Flink提供的CLI脚本是bin/flink，可以通过该脚本提交Job、创建Savepoint等。</p>
+<p>脚本的主要流程：</p>
+<ul>
+<li>解析提取flink-yaml.xml中的配置项。</li>
+<li>通过Client入口org.apache.flink.client.CliFrontend连接到JobManager并发送消息。</li>
+</ul>
+<p>DUBUG主要流程：</p>
+<p>将源码导入到IDE中（如IDEA），本地debug基本方法如下：</p>
+<p>1、在jvm启动参数中添加远程调试参数</p>
+<p>（1）如果是调试Client，可以将上述参数加到bin/flink脚本的最后一行中，形如：<br>JVM_REMOTE_DEBUG_ARGS=’-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005’<br>exec $JAVA_RUN $JVM_ARGS $JVM_REMOTE_DEBUG_ARGS “${log_setting[@]}” -classpath “<code>manglePathList &quot;$CC_CLASSPATH:$INTERNAL_HADOOP_CLASSPATHS&quot;</code>“ org.apache.flink.client.CliFrontend “$@”<br>（2）如果是调试JobManager或TaskManager，可以在conf/flink-conf.yaml中添加：</p>
+<p>env.java.opts: -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006</p>
+<p>2、启动flink client或jobmanager或taskmanager，此时程序会suspend等待debuger连接（通过suspend=y来配置）。</p>
+<p>3、配置IDEA中的remote：host配置为localhost，配置port（参考1中的配置的address端口）。</p>
+<p>4、在Flink源码中设置断点，连接远程host，然后就可以开始debug跟踪了。</p>
 <h1 id="Flink-Annotations"><a href="#Flink-Annotations" class="headerlink" title="Flink Annotations"></a>Flink Annotations</h1><p>flink-annotations模块定义了一些flink项目中需要用到的注解。Java注解是附加在代码中的一些元信息，用于一些工具在编译、运行时进行解析和使用，起到说明、配置的功能。该模块主要包括的注解类型有：</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gk764ocwdcj20tr08xaah.jpg" alt="undefined"></p>
 <p>flink annotations下包含了docs相关的三种注解：ConfigGroup，ConfigGroups和Documentation。然后还有其他5种注解：Experimental，Internal， Public，PublicEnvolving和VisableForTesting。下面分别简单地介绍下这些注解的作用。</p>
@@ -370,7 +418,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-源码阅读"><span class="nav-number">1.</span> <span class="nav-text">Flink 源码阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-Annotations"><span class="nav-number">2.</span> <span class="nav-text">Flink Annotations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#docs相关的三个注解"><span class="nav-number">2.1.</span> <span class="nav-text">docs相关的三个注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigGroup"><span class="nav-number">2.1.1.</span> <span class="nav-text">ConfigGroup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigGroups"><span class="nav-number">2.1.2.</span> <span class="nav-text">ConfigGroups</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Documentation"><span class="nav-number">2.1.3.</span> <span class="nav-text">Documentation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Experimental"><span class="nav-number">2.2.</span> <span class="nav-text">Experimental</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Internal"><span class="nav-number">2.3.</span> <span class="nav-text">Internal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Public"><span class="nav-number">2.4.</span> <span class="nav-text">Public</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PublicEvolving"><span class="nav-number">2.5.</span> <span class="nav-text">PublicEvolving</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VisibleForTesting"><span class="nav-number">2.6.</span> <span class="nav-text">VisibleForTesting</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ParameterTool"><span class="nav-number">3.</span> <span class="nav-text">ParameterTool</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-源码阅读"><span class="nav-number">1.</span> <span class="nav-text">Flink 源码阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码阅读入口"><span class="nav-number">2.</span> <span class="nav-text">源码阅读入口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flink-Annotations"><span class="nav-number">3.</span> <span class="nav-text">Flink Annotations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#docs相关的三个注解"><span class="nav-number">3.1.</span> <span class="nav-text">docs相关的三个注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigGroup"><span class="nav-number">3.1.1.</span> <span class="nav-text">ConfigGroup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigGroups"><span class="nav-number">3.1.2.</span> <span class="nav-text">ConfigGroups</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Documentation"><span class="nav-number">3.1.3.</span> <span class="nav-text">Documentation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Experimental"><span class="nav-number">3.2.</span> <span class="nav-text">Experimental</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Internal"><span class="nav-number">3.3.</span> <span class="nav-text">Internal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Public"><span class="nav-number">3.4.</span> <span class="nav-text">Public</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PublicEvolving"><span class="nav-number">3.5.</span> <span class="nav-text">PublicEvolving</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VisibleForTesting"><span class="nav-number">3.6.</span> <span class="nav-text">VisibleForTesting</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ParameterTool"><span class="nav-number">4.</span> <span class="nav-text">ParameterTool</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -386,7 +434,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -399,7 +447,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
