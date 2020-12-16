@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="keywords" content="Tips4Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dawn Dew-light Collected at Dusk 4 Scala">
+<meta property="og:url" content="http://yoursite.com/2020/12/16/Dawn-Dew-light-Collected-at-Dusk-4-Scala/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1glptqgll6ej2098048a9w.jpg">
+<meta property="og:updated_time" content="2020-12-16T09:54:12.310Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dawn Dew-light Collected at Dusk 4 Scala">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1glptqgll6ej2098048a9w.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2020/12/16/Dawn-Dew-light-Collected-at-Dusk-4-Scala/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Dawn Dew-light Collected at Dusk 4 Scala | Mars</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/16/Dawn-Dew-light-Collected-at-Dusk-4-Scala/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dawn Dew-light Collected at Dusk 4 Scala
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-16 17:24:43 / 修改时间：17:54:12" itemprop="dateCreated datePublished" datetime="2020-12-16T17:24:43+08:00">2020-12-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1glptqgll6ej2098048a9w.jpg" alt="undefined"></p>
+<a id="more"></a> 
+
+<h1 id="Option-Some-None"><a href="#Option-Some-None" class="headerlink" title="Option Some None"></a>Option Some None</h1><p><strong>设计目的</strong>：避免使用null</p>
+<p>大多数语言都有一个特殊的关键字或者对象来表示一个对象引用的是“无”，在Java，它是null。在Java 里，null 是一个关键字，不是一个对象，所以对它调用任何方法都是非法的。但是这对语言设计者来说是一件令人疑惑的选择。为什么要在程序员希望返回一个对象的时候返回一个关键字呢？</p>
+<p><strong>Scala鼓励在变量和函数返回值可能不会引用任何值的时候使用Option类型。在没有值的时候，使用None，这是Option的一个子类。如果有值可以引用，就使用Some来包含这个值。Some也是Option的子类。</strong><br> None被声明为一个对象，而不是一个类，因为我们只需要它的一个实例。这样，它多少有点像null关键字，但它却是一个实实在在的，有方法的对象。</p>
+<p>Option类型的值通常作为Scala集合类型（List,Map等）操作的返回类型。比如Map的get方法：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> capitals = <span class="type">Map</span>(<span class="string">"France"</span>-&gt;<span class="string">"Paris"</span>, <span class="string">"Japan"</span>-&gt;<span class="string">"Tokyo"</span>, <span class="string">"China"</span>-&gt;<span class="string">"Beijing"</span>)</span><br><span class="line">capitals: scala.collection.immutable.<span class="type">Map</span>[<span class="type">String</span>,<span class="type">String</span>] = <span class="type">Map</span>(<span class="type">France</span> -&gt; <span class="type">Paris</span>, <span class="type">Japan</span> -&gt; <span class="type">Tokyo</span>, <span class="type">China</span> -&gt; <span class="type">Beijing</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; capitals get <span class="string">"France"</span></span><br><span class="line">res0: <span class="type">Option</span>[<span class="type">String</span>] = <span class="type">Some</span>(<span class="type">Paris</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; capitals get <span class="string">"North Pole"</span></span><br><span class="line">res1: <span class="type">Option</span>[<span class="type">String</span>] = <span class="type">None</span></span><br></pre></td></tr></table></figure>
+
+<p>Option有两个子类别，Some和None。当程序回传Some的时候，代表这个函式成功地给了你一个String，而你可以透过get()函数拿到那个String，如果程序返回的是None，则代表没有字符串可以给你。</p>
+<p>在返回None，也就是没有String给你的时候，如果你还硬要调用get()来取得 String 的话，Scala一样是会抛出一个<code>NoSuchElementException</code>异常给你的。</p>
+<p>我们也可以选用另外一个方法，<code>getOrElse</code>。这个方法在这个Option是Some的实例时返回对应的值，而在是None的实例时返回传入的参数。换句话说，传入<code>getOrElse</code>的参数实际上是默认返回值。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; capitals get <span class="string">"North Pole"</span> get</span><br><span class="line">warning: there was one feature warning; re-run <span class="keyword">with</span> -feature <span class="keyword">for</span> details</span><br><span class="line">java.util.<span class="type">NoSuchElementException</span>: <span class="type">None</span>.get</span><br><span class="line">  at scala.<span class="type">None</span>$.get(<span class="type">Option</span>.scala:<span class="number">347</span>)</span><br><span class="line">  at scala.<span class="type">None</span>$.get(<span class="type">Option</span>.scala:<span class="number">345</span>)</span><br><span class="line">  ... <span class="number">33</span> elided</span><br><span class="line"></span><br><span class="line">scala&gt; capitals get <span class="string">"France"</span> get</span><br><span class="line">warning: there was one feature warning; re-run <span class="keyword">with</span> -feature <span class="keyword">for</span> details</span><br><span class="line">res3: <span class="type">String</span> = <span class="type">Paris</span></span><br><span class="line"></span><br><span class="line">scala&gt; (capitals get <span class="string">"North Pole"</span>) getOrElse <span class="string">"Oops"</span></span><br><span class="line">res7: <span class="type">String</span> = <span class="type">Oops</span></span><br><span class="line"></span><br><span class="line">scala&gt; capitals get <span class="string">"France"</span> getOrElse <span class="string">"Oops"</span></span><br><span class="line">res8: <span class="type">String</span> = <span class="type">Paris</span></span><br></pre></td></tr></table></figure>
+
+<p>通过模式匹配分离可选值，如果匹配的值是Some的话，将Some里的值抽出赋给x变量：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">showCapital</span></span>(x: <span class="type">Option</span>[<span class="type">String</span>]) = x <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Some</span>(s) =&gt; s</span><br><span class="line">    <span class="keyword">case</span> <span class="type">None</span> =&gt; <span class="string">"?"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Scala里Option[T]实际上是一个容器，就像数组或是List一样，你可以把他看成是一个可能有零到一个元素的List。<br> 当你的Option里面有东西的时候，这个List的长度是1（也就是 Some），而当你的Option里没有东西的时候，它的长度是0（也就是 None）。</p>
+<h3 id="Tips4For-循环"><a href="#Tips4For-循环" class="headerlink" title="Tips4For 循环"></a>Tips4For 循环</h3><p>如果我们把Option当成一般的List来用，并且用一个for循环来走访这个Option的时候，如果Option是None，那这个for循环里的程序代码自然不会执行，于是我们就达到了<strong>不用检查Option是否为None这件事</strong>。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> map1 = <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="string">"value1"</span>)</span><br><span class="line">map1: scala.collection.immutable.<span class="type">Map</span>[<span class="type">String</span>,<span class="type">String</span>] = <span class="type">Map</span>(key1 -&gt; value1)</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> value1 = map1.get(<span class="string">"key1"</span>)</span><br><span class="line">value1: <span class="type">Option</span>[<span class="type">String</span>] = <span class="type">Some</span>(value1)</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> value2 = map1.get(<span class="string">"key2"</span>)</span><br><span class="line">value2: <span class="type">Option</span>[<span class="type">String</span>] = <span class="type">None</span></span><br><span class="line"></span><br><span class="line">scala&gt; <span class="function"><span class="keyword">def</span> <span class="title">printContentLength</span></span>(x: <span class="type">Option</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">     |   <span class="keyword">for</span> (c &lt;- x)&#123;</span><br><span class="line">     |     println(c.length)</span><br><span class="line">     |   &#125;</span><br><span class="line">     | &#125;</span><br><span class="line">printContentLength: (x: <span class="type">Option</span>[<span class="type">String</span>])<span class="type">Unit</span></span><br><span class="line"></span><br><span class="line">scala&gt; printContentLength(value1)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"></span><br><span class="line">scala&gt; printContentLength(value2)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tips4map操作"><a href="#Tips4map操作" class="headerlink" title="Tips4map操作"></a>Tips4map操作</h3><p>在函数式编程中有一个核心的概念之一是转换，所以大部份支持函数式编程语言，都支持一种叫map()的动作，这个动作是可以帮你把某个容器的内容，套上一些动作之后，变成另一个新的容器。<br> 现在我们考虑如何用Option的map方法实现<code>length: xxx</code>的输出形式：</p>
+<blockquote>
+<p>先算出 Option 容器内字符串的长度<br> 然后在长度前面加上 “length: “ 字样<br> 最后把容器走访一次，印出容器内的东西</p>
+</blockquote>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; value1.map(_.length).map(<span class="string">"length: "</span> + _).foreach(println)</span><br><span class="line">length: <span class="number">6</span></span><br><span class="line"></span><br><span class="line">scala&gt; value1.map(<span class="string">"length: "</span> + _.length).foreach(println)</span><br><span class="line">length: <span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<p>透过这样「转换」的方法，我们一样可以达成想要的效果，而且同样不用去做「是否为 None」的判断。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Tips4Scala/" rel="tag"># Tips4Scala</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/07/批处理更改IP/" rel="prev" title="win环境下更换IP的批处理">
+      <i class="fa fa-chevron-left"></i> win环境下更换IP的批处理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2050/10/14/朝花夕拾/" rel="next" title="朝花夕拾">
+      朝花夕拾 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Option-Some-None"><span class="nav-number">1.</span> <span class="nav-text">Option Some None</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips4For-循环"><span class="nav-number">1.0.1.</span> <span class="nav-text">Tips4For 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips4map操作"><span class="nav-number">1.0.2.</span> <span class="nav-text">Tips4map操作</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fly Hugh"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/FlyMeToTheMars" title="GitHub → https://github.com/FlyMeToTheMars" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/flyhobo@live.com" title="E-Mail → flyhobo@live.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3200892914" title="Weibo → https://weibo.com/u/3200892914" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Fly__HoBo" title="Twitter → https://twitter.com/Fly__HoBo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
