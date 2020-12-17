@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="Mars">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1glptqgll6ej2098048a9w.jpg">
-<meta property="og:updated_time" content="2020-12-17T04:11:23.177Z">
+<meta property="og:updated_time" content="2020-12-17T07:00:29.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dawn Dew-light Collected at Dusk 4 Scala">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1glptqgll6ej2098048a9w.jpg">
@@ -193,7 +193,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-17 12:11:23" itemprop="dateModified" datetime="2020-12-17T12:11:23+08:00">2020-12-17</time>
+                <time title="修改时间：2020-12-17 15:00:29" itemprop="dateModified" datetime="2020-12-17T15:00:29+08:00">2020-12-17</time>
               </span>
 
           
@@ -258,6 +258,9 @@
 <p>因为Java并未区分可变容器不可变容器类型，所以，虽然能将<code>scala.immutable.List</code>转换成<code>java.util.List</code>，但所有的修改操作都会抛出“UnsupportedOperationException”。参见下例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val jul = List(1, 2, 3).asJava</span><br><span class="line">jul: java.util.List[Int] = [1, 2, 3]</span><br><span class="line"></span><br><span class="line">scala&gt; jul.add(7)</span><br><span class="line">java.lang.UnsupportedOperationException</span><br><span class="line">  at java.util.AbstractList.add(AbstractList.java:148)</span><br></pre></td></tr></table></figure>
 
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>完整的Java Map =&gt; Scala mutbale Map =&gt; Scala Immutable Map =&gt; Option =&gt; 模式匹配得到结果</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// Java Map =&gt; mutable.Map =&gt; Scala Map</span></span><br><span class="line">  <span class="keyword">import</span> scala.collection.<span class="type">JavaConversions</span>._</span><br><span class="line">  <span class="keyword">val</span> javaMap: util.<span class="type">Map</span>[<span class="type">String</span>, <span class="type">String</span>] = <span class="keyword">new</span> util.<span class="type">HashMap</span>[<span class="type">String</span>, <span class="type">String</span>]()</span><br><span class="line">  javaMap.put(<span class="string">"1"</span>,<span class="string">"2"</span>)</span><br><span class="line">  <span class="keyword">for</span> (m &lt;- javaMap) &#123;</span><br><span class="line">    println(m)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> scalaMuMap: mutable.<span class="type">Map</span>[<span class="type">String</span>, <span class="type">String</span>] = javaMap.asScala</span><br><span class="line">  <span class="comment">// Predef里定义的map类型是一个类型别名，实际类型是immutable.Map</span></span><br><span class="line">  <span class="keyword">val</span> scalaImmuMap: <span class="type">Predef</span>.<span class="type">Map</span>[<span class="type">String</span>, <span class="type">String</span>] = scalaMuMap.toMap</span><br><span class="line">  <span class="keyword">val</span> maybeString: <span class="type">Option</span>[<span class="type">String</span>] = scalaImmuMap.get(<span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> show = (x: <span class="type">Option</span>[<span class="type">String</span>]) =&gt; x <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Some</span>(str) =&gt; str</span><br><span class="line">    <span class="keyword">case</span> <span class="type">None</span> =&gt; <span class="string">"?"</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> str: <span class="type">String</span> = show(maybeString)</span><br><span class="line"></span><br><span class="line">  println(str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="Scala-的-Seq"><a href="#Scala-的-Seq" class="headerlink" title="Scala 的 Seq"></a>Scala 的 Seq</h1><p>Scala的 Seq将是Java的List，Scala 的 List将是Java的 LinkedList。</p>
 <p>Seq是一个trait，它相当于Java的接口，但相当于即将到来的防御者方法。 </p>
 <p>Scala的List是一个抽象类，由Nil和::扩展，这是List的具体实现。</p>
@@ -285,8 +288,8 @@
       <i class="fa fa-chevron-left"></i> win环境下更换IP的批处理
     </a></div>
       <div class="post-nav-item">
-    <a href="/2050/10/14/朝花夕拾/" rel="next" title="朝花夕拾">
-      朝花夕拾 <i class="fa fa-chevron-right"></i>
+    <a href="/2050/10/14/碎碎念/" rel="next" title="碎碎念">
+      碎碎念 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -351,7 +354,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Option-Some-None"><span class="nav-number">1.</span> <span class="nav-text">Option Some None</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips4For-循环"><span class="nav-number">1.1.</span> <span class="nav-text">Tips4For 循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips4map操作"><span class="nav-number">1.2.</span> <span class="nav-text">Tips4map操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scala-Java-Map"><span class="nav-number">2.</span> <span class="nav-text">Scala Java Map</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scala内部Map转换："><span class="nav-number">2.1.</span> <span class="nav-text">Scala内部Map转换：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中-把Java-Map-转化成-Scala-Map"><span class="nav-number">2.2.</span> <span class="nav-text">Java中 把Java Map 转化成 Scala Map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scala中的双向转换"><span class="nav-number">2.3.</span> <span class="nav-text">Scala中的双向转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scala-的-Seq"><span class="nav-number">3.</span> <span class="nav-text">Scala 的 Seq</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Option-Some-None"><span class="nav-number">1.</span> <span class="nav-text">Option Some None</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips4For-循环"><span class="nav-number">1.1.</span> <span class="nav-text">Tips4For 循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips4map操作"><span class="nav-number">1.2.</span> <span class="nav-text">Tips4map操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scala-Java-Map"><span class="nav-number">2.</span> <span class="nav-text">Scala Java Map</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scala内部Map转换："><span class="nav-number">2.1.</span> <span class="nav-text">Scala内部Map转换：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中-把Java-Map-转化成-Scala-Map"><span class="nav-number">2.2.</span> <span class="nav-text">Java中 把Java Map 转化成 Scala Map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scala中的双向转换"><span class="nav-number">2.3.</span> <span class="nav-text">Scala中的双向转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">2.4.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scala-的-Seq"><span class="nav-number">3.</span> <span class="nav-text">Scala 的 Seq</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
