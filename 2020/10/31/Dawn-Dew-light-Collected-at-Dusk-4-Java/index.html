@@ -37,7 +37,8 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1glzaxp7o0aj20jt0f0gm1.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1glzars7sxoj20jk0mwt99.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1glzaw5h0vwj20le0byt8q.jpg">
-<meta property="og:updated_time" content="2020-12-25T14:58:54.240Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gm3xhm2bxaj21af0kd764.jpg">
+<meta property="og:updated_time" content="2020-12-28T14:16:09.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dawn Dew-light Collected at Dusk 4 Java">
 <meta name="twitter:description" content="JAVA 的随手PICK">
@@ -202,7 +203,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-25 22:58:54" itemprop="dateModified" datetime="2020-12-25T22:58:54+08:00">2020-12-25</time>
+                <time title="修改时间：2020-12-28 22:16:09" itemprop="dateModified" datetime="2020-12-28T22:16:09+08:00">2020-12-28</time>
               </span>
 
           
@@ -494,6 +495,10 @@
 <blockquote>
 <p>NEW，新建状态，线程被创建出来，但尚未启动时的线程状态；<br>RUNNABLE，就绪状态，表示可以运行的线程状态，它可能正在运行，或者是在排队等待操作系统给它分配 CPU 资源；<br>BLOCKED，阻塞等待锁的线程状态，表示处于阻塞状态的线程正在等待监视器锁，比如等待执行 synchronized 代码块或者使用 synchronized 标记的方法；<br>WAITING，等待状态，一个处于等待状态的线程正在等待另一个线程执行某个特定的动作，比如，一个线程调用了 Object.wait() 方法，那它就在等待另一个线程调用 Object.notify() 或 Object.notifyAll() 方法；<br>TIMED_WAITING，计时等待状态，和等待状态（WAITING）类似，它只是多了超时时间，比如调用了有超时时间设置的方法 Object.wait(long timeout) 和 Thread.join(long timeout) 等这些方法时，它才会进入此状态；<br>TERMINATED，终止状态，表示线程已经执行完成。</p>
 </blockquote>
+<p>线程的工作模式是，首先先要创建线程并指定线程需要执行的业务方法，然后再调用线程的 start() 方法，此时线程就从 NEW（新建）状态变成了 RUNNABLE（就绪）状态，此时线程会判断要执行的方法中有没有 synchronized 同步代码块，如果有并且其他线程也在使用此锁，那么线程就会变为 BLOCKED（阻塞等待）状态，当其他线程使用完此锁之后，线程会继续执行剩余的方法。</p>
+<p>当遇到 Object.wait() 或 Thread.join() 方法时，线程会变为 WAITING（等待状态）状态，如果是带了超时时间的等待方法，那么线程会进入 TIMED_WAITING（计时等待）状态，当有其他线程执行了 notify() 或 notifyAll() 方法之后，线程被唤醒继续执行剩余的业务方法，直到方法执行完成为止，此时整个线程的流程就执行完了，执行流程如下图所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gm3xhm2bxaj21af0kd764.jpg" alt="undefined"></p>
+<p>考点分析<br>线程一般会作为并发编程的起始问题，用于引出更多的关于并发编程的面试问题。当然对于线程的掌握程度也决定了你对并发编程的掌握程度，通常面试官还会问：</p>
 
     </div>
 
