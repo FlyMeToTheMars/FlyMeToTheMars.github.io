@@ -69,7 +69,28 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gkvo2jc2z0j20hb0d5q38.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gkvo3097w9j20ha0d3dfx.jpg">
 <meta property="og:image" content="c:/Users/liu.gaoming/AppData/Roaming/Typora/typora-user-images/image-20201120152806907.png">
-<meta property="og:updated_time" content="2020-12-18T17:04:24.340Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/640">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230094755.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095256.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095337.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095416.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095750.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095825.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230100453.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230100533.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230102906.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103446.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103618.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103652.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103754.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103843.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230104329.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230104612.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230104908.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230104939.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230105021.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230105309.png">
+<meta property="og:updated_time" content="2020-12-30T03:01:17.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="朝花夕拾">
 <meta name="twitter:description" content="笨猫不如烂笔头">
@@ -234,7 +255,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-19 01:04:24" itemprop="dateModified" datetime="2020-12-19T01:04:24+08:00">2020-12-19</time>
+                <time title="修改时间：2020-12-30 11:01:17" itemprop="dateModified" datetime="2020-12-30T11:01:17+08:00">2020-12-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -948,6 +969,313 @@
 <ul>
 <li>使用R-Tree的变种 R*-Tree，对数据结构进行了优化，并且同样存在成熟的常用项目 <code>RTee2</code> 可以使用。</li>
 </ul>
+<h3 id="Base4BigData-Version-1"><a href="#Base4BigData-Version-1" class="headerlink" title="Base4BigData(Version.1)"></a>Base4BigData(Version.1)</h3><h4 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h4><p>MapReduce产生的灵感来源于2004年Google发表的《MapReduce》论文中的大数据计算模型，用于大规模数据集（TB甚至PB级）的并行计算，利用分治策略，将计算过程分两个阶段，Map阶段和Reduce阶段，可谓是第一代大数据分布式计算引擎，为后来各类优秀的大数据计算引擎的出现提供了基础和可行性。</p>
+<h5 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h5><p>MapReduce 1.x架构如下：</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/640" alt="图片"></p>
+<ol>
+<li>客户端向<code>JobTracker</code>提交任务</li>
+<li><code>JobTraker</code>将任务拆解为多个子任务，分配给<code>TaskTracker</code>执行</li>
+<li><code>TaskTracker</code>定时与<code>JobTracker</code>保持心跳，汇报任务执行情况</li>
+</ol>
+<p>存在的问题：</p>
+<ul>
+<li>单点故障：一旦JobTracker出现故障，会导致任务无法提交和正常执行</li>
+<li>JobTracker负载高：所有的任务的提交和分配以及资源管理都是由JobTracker控制，压力过于集中</li>
+<li>场景有限制：只能运行MapReduce作业，可兼容性差</li>
+</ul>
+<p>为了解决MR v1的问题，MapReduce v2引入了资源管理器YARN (Yet Another Resource Negotiator)，即新一代的MapReduce 2.0。</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230094755.png"></p>
+<p>YARN中的重要角色及功能：</p>
+<ol>
+<li><p><strong>ResourceManager</strong>：资源管理节点（RM），对应MR v1的JobTracker</p>
+</li>
+<li><ol>
+<li>负责处理来自客户端的提交的Job</li>
+<li>启动Application Master管理任务</li>
+<li>监控Application Master状态</li>
+<li>为NodeManager分配资源（CPU、内存、磁盘、网络）</li>
+</ol>
+</li>
+<li><p><strong>NodeManager</strong>：工作节点（NM），对应MR v1的TaskTracker</p>
+</li>
+<li><ol>
+<li>管理节点container任务资源和运行情况</li>
+<li>与ResourceManager保持通信，汇报自身的状态</li>
+</ol>
+</li>
+<li><p><strong>Application Master</strong>：任务管理服务（AM），其实就是ResourceManager的小弟</p>
+</li>
+<li><ol>
+<li>负责检查集群资源，申请mr程序所需资源</li>
+<li>分配任务到相应的container容器执行</li>
+<li>监控任务执行状态并向ResourceManager汇报任务执行情况</li>
+</ol>
+</li>
+<li><p><strong>Container</strong>：YARN资源抽象，封装了节点上的资源，如内存、CPU、磁盘等</p>
+</li>
+</ol>
+<p>YARN的优势：</p>
+<ol>
+<li>ResourceManager支持HA，解决了JobTracker单点故障的问题，提高集群可用性</li>
+<li>实现资源管理和job管理分离，解决了JobTracker负载高的难题</li>
+<li>提供Application Master负责监控所有的任务，解决了JobTracker集中管理监控的压力</li>
+<li>高扩展性，不仅可以跑mr任务，还支持spark作业以及其他计算引擎任务</li>
+<li>提高了资源的利用率</li>
+</ol>
+<h5 id="MapReduce核心计算阶段"><a href="#MapReduce核心计算阶段" class="headerlink" title="MapReduce核心计算阶段"></a>MapReduce核心计算阶段</h5><p>Mapper阶段：负责数据 的载入、解析、转换和过滤，map任务的输出被称为中间键和中间值 </p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095256.png"></p>
+<p>Reducer阶段：负责处理map任务输出结果，对map任务处理完的结果集进行排序、局部聚合计算再汇总结果</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095337.png"></p>
+<h5 id="MapReduce为什么慢？"><a href="#MapReduce为什么慢？" class="headerlink" title="MapReduce为什么慢？"></a>MapReduce为什么慢？</h5><p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095416.png"></p>
+<ul>
+<li>MapReduce是基于磁盘数据进行计算的</li>
+<li>Shuffle过程进行一系列分区、排序，耗费大量时间</li>
+<li>map计算结果频繁落盘</li>
+<li>reduce任务通过磁盘获取数据，占用IO</li>
+<li>spill会会产生大量的小文件，极大占用集群的资源</li>
+<li>容错性差，错了就重头来过</li>
+<li>MapReduce抽象层次低，只有map和reduce两种，处理数据效率较低</li>
+</ul>
+<p>因此MapReduce只适用于处理大规模离线数据，延时高。MapReduce的局限性推动了计算引擎技术的革新，Spark的出现是为了解决MapReduce计算慢的问题，随着数据量的指数增长，对数据处理效率有了更高的要求，我们需要在更短的时间内得到正确的结果。</p>
+<h4 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h4><p>Apache Spark是用于大规模数据处理的统一分析计算引擎，最初诞生于加州大学伯克利分校的AMP Lab实验室。基于内存进行并行计算，通过使用最先进的DAG调度器、查询优化器和物理执行引擎，实现了批处理和流处理的高性能，与Hadoop MapReduce相比，运行在内存中的计算速度要快上100倍（实际上或许没有快这么多），但是可见spark是要比Hadoop MapReduce计算能力更强的计算引擎。</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095750.png"></p>
+<h5 id="组件角色"><a href="#组件角色" class="headerlink" title="组件角色"></a>组件角色</h5><p>Spark由Spark Core、Spark SQL、Spark Streaming、MLib和GraphX四大组件构成 .</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230095825.png"></p>
+<p>角色说明：</p>
+<ul>
+<li>Spark Core：spark的核心，将数据抽象为弹性分布式数据集（RDD），提供了分布式任务调度，RPC通信、序列化和压缩等特性，是内存计算的框架，用于离线计算</li>
+<li>Spark SQL：基于Spark Core之上用于结构化数据建模和数据处理组件，实现交互式查询</li>
+<li>Spark Streaming：利用Spark Core快速调度能力进行流式计算</li>
+<li>MLib：是Spark上分布式机器学习框架，提供了大量的算法</li>
+<li>GraphX：是Spark上的分布式图形处理框架，能进行高效的图计算</li>
+</ul>
+<h5 id="架构-1"><a href="#架构-1" class="headerlink" title="架构"></a>架构</h5><p>Spark是一个典型的master/slave主从架构，基于内存计算引擎，提供了多种缓存机制，将RDD 缓存到内存或者磁盘中，这种机制使得Spark可以进行迭代计算和数据共享，从而减少数据读取的IO开销，架构如下：</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230100453.png"></p>
+<ul>
+<li><strong>Driver</strong>：初始化Spark运行环境，创建SparkContext上下文环境，是用户程序的入口，即main() 方法</li>
+<li><strong>Cluster Manager</strong>：资源管理器，目前支持Standalone、YARN、Mesos和Kubernetes这几种模式，在Standalone模式中，Cluster Manager即为Master节点，控制整个集群</li>
+<li><strong>Worker</strong>：spark计算节点，负责计算任务的管理，为task分配并启动Executor，定时向Cluster Manager汇报任务执行情况</li>
+<li><strong>Executor</strong>：Spark Task工作的容器，是用户程序在worker节点上的一个进程，运行计算任务，负责数据的读取和写入，缓存中间数据</li>
+</ul>
+<h5 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h5><p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230100533.png"></p>
+<ol>
+<li>Driver驱动程序会初始化<code>SparkContext</code></li>
+<li>初始化过程中会启动<code>DAGScheduler</code>和<code>TaskScheduler</code></li>
+<li><code>TaskScheduler</code>通过后台进程向Master注册用户程序</li>
+<li>Master收到注册请求之后会通知Worker为用户程序启动多个Executor容器</li>
+<li>Executor反向<code>SparkContext</code>注册</li>
+<li><code>SparkContext</code>将应用程序发给Executor</li>
+<li><code>SparkContext</code>完成初始化，构建DAG，创建Job并且根据action操作划分Stage，形成<code>TaskSet</code>发送给<code>TaskScheduler</code>，最后发给Executor执行</li>
+<li>运行完释放资源</li>
+</ol>
+<h5 id="Spark-为什么比MapReduce快"><a href="#Spark-为什么比MapReduce快" class="headerlink" title="Spark 为什么比MapReduce快"></a>Spark 为什么比MapReduce快</h5><ul>
+<li>Spark相对于MapReduce减少了磁盘IO，没有太多中间结果落盘</li>
+<li>Spark采用了多线程模型，基于线程池复用降低task线程的开销</li>
+<li>spark提供了多种缓存策略，避免了重复计算</li>
+<li>灵活的内存管理策略</li>
+<li>Spark的DAG（有向无环图）算法</li>
+<li>提供丰富的抽象方法，MapReduce只有map和reduce两种抽象</li>
+<li>缓存和checkpoint，通过lineage实现高度容错性</li>
+</ul>
+<p>以上列举了spark比MapReduce快的部分特性，Spark的出现逐步取代了MapReduce成为新一代离线计算引擎的最佳选择，不仅如此，spark还提供了Spark Streaming组件作为流式计算引擎。</p>
+<h4 id="Spark-Streaming"><a href="#Spark-Streaming" class="headerlink" title="Spark Streaming"></a>Spark Streaming</h4><p>Spark Streaming是Spark Core API的扩展，支持实时数据流的可伸缩、高吞吐量、容错流处理。支持多种数据源，数据可以从Kafka、Flume、HDFS、S3、Kinesis或TCP套接字等许多来源获取，并可以使用复杂的算法处理，这些算法由map、reduce、join和window等高级函数表达。最后，可以将处理过的数据推送到文件系统、数据库和实时仪表板中。</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230102906.png"></p>
+<h5 id="工作模型"><a href="#工作模型" class="headerlink" title="工作模型"></a>工作模型</h5><p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103446.png" alt="image-20201230103445976"></p>
+<p>Spark Streaming基于micro batch方式的计算和处理流数据，提供了称为离散流或DStream的高级抽象，它表示连续的数据流。将接收到的数据流切分为多个独立的DStream，本质上也是一系列RDD，通过spark计算引擎进行计算。</p>
+<h5 id="DStreams（Discretized-Streams）"><a href="#DStreams（Discretized-Streams）" class="headerlink" title="DStreams（Discretized Streams）"></a>DStreams（Discretized Streams）</h5><p>离散数据流是Spark Streaming提供的基本抽象，将待处理数据转变为连续不断的数据流，可以是外部数据源转换而来，也可以通过内部流之间的转换生成，从DStream的内部流模型可以看到Dstream就是由一系列的RDD组成。</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103618.png" alt="image-20201230103618209"></p>
+<p>实际上，Dstream执行的操作都会转换为对底层RDD的操作。</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103652.png" alt="v"></p>
+<p>Spark Streaming是怎么实现数据实时计算的呢？</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103754.png" alt="image-20201230103754154"></p>
+<p>当spark Streaming接收到数据后，会将数据流切分成多个批次，形成有界的数据集，设置时间间隔，当不同批次的数据进入窗口后会触发计算机制，通过Spark Core进行一系列tranformation和action操作，因为划分批次之后的数据比较小，实时计算得出结果。</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230103843.png" alt="图片"></p>
+<h5 id="为什么要用Spark-Streaming呢？"><a href="#为什么要用Spark-Streaming呢？" class="headerlink" title="为什么要用Spark Streaming呢？"></a>为什么要用Spark Streaming呢？</h5><p>从数据的边界来说，我们可以把数据分为有界数据和无界数据。顾名思义，有界数据是有范围的，一般来说与时间是强关联的，以历史数据最为典型。而无界数据就是难以限定范围的数据，会持续不断发生变化，最常见的场景就是实时数据流，看不到数据的尽头，一直在发生。</p>
+<p>MapReduce和Spark SQL等框架只能进行离线计算，无法满足实时性要求高的业务场景，如购买商品后进行实时推荐、实时交易业务等等。而spark Streaming巧妙地将数据细分为多个微小的批次，依赖于spark计算引擎能做到准实时计算，不是真正意义上的实时计算，尽管如此，spark Streaming还是得到了业界的认可和广泛应用。</p>
+<p>Spark Streaming优势：</p>
+<ul>
+<li>实时性：Spark Streaming 是一个实时计算框架，微批处理数据，延迟可以控制到秒级</li>
+<li>高容错性：Spark Streaming底层依赖RDD lineage特性、缓存机制、checkpoint机制以及WAL预写日志，可以实现高度容错</li>
+<li>高吞吐：相对于实时计算框架Storm吞吐量更高</li>
+<li>一体化：依托spark生态，不仅能进行实时计算，还能应用于机器学习和Spark SQL场景</li>
+</ul>
+<p>对于大部分企业来说，秒级的延时是可以接受的，而且一个大数据项目通常会包含离线计算、交互式查询、数据分析、实时计算等模块，Spark Streaming毫无疑问是很好的选择。</p>
+<h4 id="Storm"><a href="#Storm" class="headerlink" title="Storm"></a>Storm</h4><p>storm是一个真正的实时流计算引擎，相对于Spark Streaming的微批处理，storm则是来一条数据计算一条数据，延时可以控制到毫秒级。</p>
+<h5 id="Storm架构"><a href="#Storm架构" class="headerlink" title="Storm架构"></a>Storm架构</h5><p>storm的架构与Hadoop相似，都是master/slave主从架构。</p>
+<table>
+<thead>
+<tr>
+<th>成员</th>
+<th>Storm</th>
+<th>Hadoop</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主节点</td>
+<td>Nimbus</td>
+<td>JobTracker</td>
+</tr>
+<tr>
+<td>从节点</td>
+<td>Supervisor</td>
+<td>TaskTracker</td>
+</tr>
+<tr>
+<td>计算模型</td>
+<td>Spout / Bolt</td>
+<td>Map / Reduce</td>
+</tr>
+<tr>
+<td>应用程序</td>
+<td>Topology</td>
+<td>Job</td>
+</tr>
+<tr>
+<td>工作进程</td>
+<td>Worker</td>
+<td>Child</td>
+</tr>
+</tbody></table>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230104329.png" alt="图片"></p>
+<p>Nimbus：master节点，负责提交任务，分配到supervisor的worker上，运行Topology上的Spout/Bolt任务</p>
+<p>Zookeeper：协调节点，负责管理storm集群的元数据信息，比如heartbeat信息、集群状态和配置信息以及Nimbus分配的任务信息等</p>
+<p>Supervisor：slave节点，负责管理运行在supervisor节点上的worker进程</p>
+<h5 id="Storm工作流程"><a href="#Storm工作流程" class="headerlink" title="Storm工作流程"></a>Storm工作流程</h5><p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230104612.png" alt="图片"></p>
+<ol>
+<li>客户端提交topology任务到Nimbus节点</li>
+<li>Nimbus主节点将任务提交到zookeeper集群管理</li>
+<li>Supervisor节点从Zookeeper集群获取任务信息</li>
+<li>启动worker进程开始执行任务</li>
+</ol>
+<h5 id="Storm-Vs-Spark-Streaming"><a href="#Storm-Vs-Spark-Streaming" class="headerlink" title="Storm Vs Spark Streaming"></a>Storm Vs Spark Streaming</h5><p>用一个生动形象的生活场景来比喻Storm和Spark Streaming，Storm好比是手扶电梯，一直在运行，来一个人都会将他带上/下楼，而Spark Streaming更像是升降电梯，要装满一批人才开始启动。</p>
+<ul>
+<li>storm可以实现毫米级计算响应 VS Spark Streaming只能做到秒级响应</li>
+<li>Storm吞吐量低 VS Spark Streaming吞吐量高</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Storm</th>
+<th>Spark Streaming</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Streaming Model</td>
+<td>Native</td>
+<td>Micro-Batch</td>
+</tr>
+<tr>
+<td>Guarantees</td>
+<td>At-Least-Once</td>
+<td>Exactly-Once</td>
+</tr>
+<tr>
+<td>Back Pressure</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>Very Low</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Fault Tolerance</td>
+<td>Record ACKs</td>
+<td>RDD Based CheckPoint</td>
+</tr>
+<tr>
+<td>Stateful</td>
+<td>No</td>
+<td>Yes（DStream）</td>
+</tr>
+</tbody></table>
+<h4 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h4><p>Apache Flink是一个分布式处理引擎，用于在<em>无边界和有边界</em>数据流上进行有状态的计算。Flink能在所有常见集群环境中运行，并能以内存速度和任意规模进行计算。现在Flink也是主流的实时流计算框架并且同时支持批处理，支持基于有状态的事件时间进行计算，成为大数据计算引擎的领头羊，大有盖过Spark风头之势。</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230104908.png" alt="图片"></p>
+<p>擅长处理有界（bounded）数据和无界（unbounded）数据，有界数据通常指的是离线历史数据，用于批处理，而无界数据指数据流有定义数据产生的开始，却无法定义数据何时结束，因此无界数据流通常说的就是实时流，用于实时计算。</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230104939.png" alt="图片"></p>
+<h5 id="架构-2"><a href="#架构-2" class="headerlink" title="架构"></a>架构</h5><p>Flink和Spark一样，也是主从架构，由JobManager和TaskManager组成</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230105021.png" alt="图片"></p>
+<p>JobManager：主节点，负责处理客户端提交的Job，管理Job状态信息，调度分配集群任务，对完成的 Task 或执行失败做出反应、协调 checkpoint、并且协调从失败中恢复</p>
+<p>TaskManager：从节点，负责管理节点上的资源，向JobManager汇报集群状态，执行计算JobManager分配的Task</p>
+<p>Flink工作调度</p>
+<p><img src="https://raw.githubusercontent.com/FlyMeToTheMars/PictureRepo/main/img/20201230105309.png" alt="img"></p>
+<ol>
+<li>用户提交Flink程序时，client会对程序进行预处理，构建Dataflow graph，封装成Job提交到JobManager</li>
+<li>JobManager接收到client提交的Job，获取并管理Job的基本信息，构建DAG执行计划，通过Scheduler调度任务并分配到对应的TaskManager节点</li>
+<li>TaskManager向JobManager注册，JobManager将Job分配到TaskManager执行，每个Task Slot代表着用来执行Task的资源，包括了内存、cpu等</li>
+<li>TaskManager与JobManager保持心跳，定时汇报节点资源情况以及任务执行情况</li>
+<li>JobManager将将任务执行的状态和结果反馈给客户端</li>
+</ol>
+<h5 id="Flink的优势"><a href="#Flink的优势" class="headerlink" title="Flink的优势"></a>Flink的优势</h5><ul>
+<li>Flink支持实时计算，且基于内存管理，性能优越</li>
+<li>具有高吞吐、低延迟、高性能的流处理特性</li>
+<li>Flink与Hadoop生态高度融合</li>
+<li>高度灵活的时间窗口语义</li>
+<li>流批一体化，同时支持批处理和流计算</li>
+<li>高容错，基于分布式快照（snapshot）和checkpoint检查点机制</li>
+<li>具有反压（Backpressure）功能</li>
+<li>支持有状态计算的Exactly-once语义</li>
+<li>可以进行机器学习处理（FlinkML）、图分析（Gelly）、关系数据处理（FLink SQL）以及复杂事件处理（CEP）</li>
+</ul>
+<h4 id="Flink-VS-Storm-VS-Spark-Streaming"><a href="#Flink-VS-Storm-VS-Spark-Streaming" class="headerlink" title="Flink VS Storm VS Spark Streaming"></a>Flink VS Storm VS Spark Streaming</h4><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Flink</th>
+<th>Storm</th>
+<th>Spark Streaming</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Streaming Model</td>
+<td>Native</td>
+<td>Native</td>
+<td>Micro-Batch</td>
+</tr>
+<tr>
+<td>Guarantees</td>
+<td>Exactly-Once</td>
+<td>At-Least-Once</td>
+<td>Exactly-Once</td>
+</tr>
+<tr>
+<td>Back Pressure</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>Medium</td>
+<td>Very Low</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td>High</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Fault Tolerance</td>
+<td>Checkouting</td>
+<td>Record ACKs</td>
+<td>RDD Based CheckPoint</td>
+</tr>
+<tr>
+<td>Stateful</td>
+<td>Yes（Operators）</td>
+<td>No</td>
+<td>Yes（DStream）</td>
+</tr>
+</tbody></table>
 
     </div>
 
@@ -966,10 +1294,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2050/10/14/碎碎念/" rel="prev" title="碎碎念">
-      <i class="fa fa-chevron-left"></i> 碎碎念
+    <a href="/2020/12/16/Dawn-Dew-light-Collected-at-Dusk-4-Scala/" rel="prev" title="Dawn Dew-light Collected at Dusk 4 Scala">
+      <i class="fa fa-chevron-left"></i> Dawn Dew-light Collected at Dusk 4 Scala
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2050/10/14/碎碎念/" rel="next" title="碎碎念">
+      碎碎念 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -1033,7 +1364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阿里开发手册上不推荐（禁止）使用Double的根本原因"><span class="nav-number">7.</span> <span class="nav-text">阿里开发手册上不推荐（禁止）使用Double的根本原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-清理maven仓库的脚本"><span class="nav-number">8.</span> <span class="nav-text">mac 清理maven仓库的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea目录较多，文件名较长产生的错误"><span class="nav-number">9.</span> <span class="nav-text">idea目录较多，文件名较长产生的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-指定屏蔽某些特定报警信息"><span class="nav-number">10.</span> <span class="nav-text">Log4J 指定屏蔽某些特定报警信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Source并行度为1的意义"><span class="nav-number">11.</span> <span class="nav-text">Flink Source并行度为1的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JB套件的一个实用功能"><span class="nav-number">12.</span> <span class="nav-text">JB套件的一个实用功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zk使用的分布式协议并不是paxos"><span class="nav-number">13.</span> <span class="nav-text">zk使用的分布式协议并不是paxos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么说NULL是计算机科学中最大的错误，至少值十亿美金"><span class="nav-number">14.</span> <span class="nav-text">为什么说NULL是计算机科学中最大的错误，至少值十亿美金</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-NULL-颠覆类型"><span class="nav-number">14.1.</span> <span class="nav-text">1. NULL 颠覆类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-NULL-是凌乱的"><span class="nav-number">14.2.</span> <span class="nav-text">2. NULL 是凌乱的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-NULL-是一个特例"><span class="nav-number">14.3.</span> <span class="nav-text">3. NULL 是一个特例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-NULL-使-API-变得糟糕"><span class="nav-number">14.4.</span> <span class="nav-text">4.NULL 使 API 变得糟糕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-NULL-使错误的语言决策更加恶化"><span class="nav-number">14.5.</span> <span class="nav-text">5.NULL 使错误的语言决策更加恶化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-NULL-难以调试"><span class="nav-number">14.6.</span> <span class="nav-text">6.NULL 难以调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-NULL不可组合"><span class="nav-number">14.7.</span> <span class="nav-text">7.NULL不可组合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA-maven修改pom文件，导致jdk版本重置问题"><span class="nav-number">15.</span> <span class="nav-text">IDEA maven修改pom文件，导致jdk版本重置问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MAVEN的scope"><span class="nav-number">16.</span> <span class="nav-text">MAVEN的scope</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXCEL一点小技巧"><span class="nav-number">17.</span> <span class="nav-text">EXCEL一点小技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-On-Zeppelin上传Jar包的位置"><span class="nav-number">18.</span> <span class="nav-text">Flink On Zeppelin上传Jar包的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink系列深度好文，等待细读"><span class="nav-number">19.</span> <span class="nav-text">Flink系列深度好文，等待细读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastJson直接解析"><span class="nav-number">20.</span> <span class="nav-text">FastJson直接解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastJson很多坑-准备放弃"><span class="nav-number">21.</span> <span class="nav-text">FastJson很多坑 准备放弃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置框架无法访问的问题"><span class="nav-number">22.</span> <span class="nav-text">配置框架无法访问的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决GitHub提交历史头像不显示问题-以及首页没有绿色方块的问题"><span class="nav-number">23.</span> <span class="nav-text">解决GitHub提交历史头像不显示问题,以及首页没有绿色方块的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决anaconda无法连接的问题"><span class="nav-number">24.</span> <span class="nav-text">解决anaconda无法连接的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排查挖矿程序中会用到的一些追踪某个进程的命令"><span class="nav-number">25.</span> <span class="nav-text">排查挖矿程序中会用到的一些追踪某个进程的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos缺点"><span class="nav-number">26.</span> <span class="nav-text">Kerberos缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac无法运行-sh文件的解决办法"><span class="nav-number">27.</span> <span class="nav-text">mac无法运行.sh文件的解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决git下载速度慢的终极方法"><span class="nav-number">28.</span> <span class="nav-text">解决git下载速度慢的终极方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven代理配置"><span class="nav-number">29.</span> <span class="nav-text">Maven代理配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm更换源"><span class="nav-number">30.</span> <span class="nav-text">npm更换源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS的某个错误"><span class="nav-number">31.</span> <span class="nav-text">HDFS的某个错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA-MAVEN停止加载"><span class="nav-number">32.</span> <span class="nav-text">IDEA MAVEN停止加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口触发的一些问题"><span class="nav-number">33.</span> <span class="nav-text">窗口触发的一些问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-SQL中的爆炸函数"><span class="nav-number">34.</span> <span class="nav-text">Flink SQL中的爆炸函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-UI在Yarn下"><span class="nav-number">35.</span> <span class="nav-text">Flink UI在Yarn下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink的时区问题"><span class="nav-number">36.</span> <span class="nav-text">Flink的时区问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink的心跳需求问题"><span class="nav-number">37.</span> <span class="nav-text">Flink的心跳需求问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink避免重复劳动的一些方法"><span class="nav-number">38.</span> <span class="nav-text">Flink避免重复劳动的一些方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink配置参数"><span class="nav-number">39.</span> <span class="nav-text">Flink配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-GlobalWindow"><span class="nav-number">40.</span> <span class="nav-text">Flink GlobalWindow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何排查Kafka消息的异常"><span class="nav-number">41.</span> <span class="nav-text">如何排查Kafka消息的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL的迁移"><span class="nav-number">42.</span> <span class="nav-text">MySQL的迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程调试Flink"><span class="nav-number">43.</span> <span class="nav-text">远程调试Flink</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-和-slf4j联合使用"><span class="nav-number">44.</span> <span class="nav-text">Log4J 和 slf4j联合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J2的使用"><span class="nav-number">45.</span> <span class="nav-text">Log4J2的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Log4J2和Log4J1的比较"><span class="nav-number">45.1.</span> <span class="nav-text">Log4J2和Log4J1的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#配置文件"><span class="nav-number">45.1.1.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#依赖"><span class="nav-number">45.1.2.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置文件-1"><span class="nav-number">45.1.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用"><span class="nav-number">45.2.</span> <span class="nav-text">调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark-On-Yarn-结束任务的方式"><span class="nav-number">46.</span> <span class="nav-text">Spark On Yarn 结束任务的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CharSequence"><span class="nav-number">47.</span> <span class="nav-text">CharSequence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程，创建多少个线程合适"><span class="nav-number">48.</span> <span class="nav-text">并发编程，创建多少个线程合适</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Google-AutoValue"><span class="nav-number">49.</span> <span class="nav-text">Google AutoValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Idea-注释模板设置"><span class="nav-number">50.</span> <span class="nav-text">Idea 注释模板设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python中使用-join-替代-处理字符串"><span class="nav-number">51.</span> <span class="nav-text">Python中使用.join()替代+处理字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储图片"><span class="nav-number">52.</span> <span class="nav-text">存储图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java的一些包的解释"><span class="nav-number">53.</span> <span class="nav-text">java的一些包的解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA2020-显示内存大小"><span class="nav-number">54.</span> <span class="nav-text">IDEA2020 显示内存大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java程序结束前运行的代码"><span class="nav-number">55.</span> <span class="nav-text">Java程序结束前运行的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java8-try-…catch"><span class="nav-number">56.</span> <span class="nav-text">Java8 try()…catch()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea中设置maven的jvm参数"><span class="nav-number">57.</span> <span class="nav-text">idea中设置maven的jvm参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行中设置maven的jvm参数"><span class="nav-number">58.</span> <span class="nav-text">命令行中设置maven的jvm参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-SubString"><span class="nav-number">59.</span> <span class="nav-text">String SubString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用的空间-地理空间ASL许可的开源Java库"><span class="nav-number">60.</span> <span class="nav-text">通用的空间/地理空间ASL许可的开源Java库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntegerCache"><span class="nav-number">61.</span> <span class="nav-text">IntegerCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书单推荐"><span class="nav-number">62.</span> <span class="nav-text">书单推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射API"><span class="nav-number">63.</span> <span class="nav-text">反射API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最详细的Anaconda安装步骤和注意点"><span class="nav-number">64.</span> <span class="nav-text">最详细的Anaconda安装步骤和注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDA-Driver版本选型"><span class="nav-number">65.</span> <span class="nav-text">CUDA Driver版本选型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CuDNN版本"><span class="nav-number">66.</span> <span class="nav-text">CuDNN版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven-阿里云插件仓库配置"><span class="nav-number">67.</span> <span class="nav-text">Maven 阿里云插件仓库配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA配置仓库最好用HTTPS"><span class="nav-number">68.</span> <span class="nav-text">IDEA配置仓库最好用HTTPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring"><span class="nav-number">69.</span> <span class="nav-text">Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-IOC"><span class="nav-number">69.1.</span> <span class="nav-text">1.IOC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-context上下文和bean"><span class="nav-number">69.2.</span> <span class="nav-text">2.context上下文和bean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-AOP"><span class="nav-number">69.3.</span> <span class="nav-text">3.AOP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java加载properties的六种方式"><span class="nav-number">70.</span> <span class="nav-text">Java加载properties的六种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPS第三方工具"><span class="nav-number">71.</span> <span class="nav-text">GPS第三方工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GIS基本概念"><span class="nav-number">71.1.</span> <span class="nav-text">GIS基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#几何对象"><span class="nav-number">71.1.1.</span> <span class="nav-text">几何对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WKB格式"><span class="nav-number">71.2.</span> <span class="nav-text">WKB格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JTS"><span class="nav-number">71.3.</span> <span class="nav-text">JTS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">71.3.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#操作"><span class="nav-number">71.3.2.</span> <span class="nav-text">操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#火星坐标系"><span class="nav-number">71.4.</span> <span class="nav-text">火星坐标系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PrototBuf"><span class="nav-number">72.</span> <span class="nav-text">PrototBuf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA莫名其妙每次自动生成变量都有final修饰符"><span class="nav-number">73.</span> <span class="nav-text">IDEA莫名其妙每次自动生成变量都有final修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlinkKafka兼容性"><span class="nav-number">74.</span> <span class="nav-text">FlinkKafka兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于数据仓库数据中台数据湖的一部分图片"><span class="nav-number">75.</span> <span class="nav-text">关于数据仓库数据中台数据湖的一部分图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac版本的终端要走Proxy除了梯子还需要一个设置"><span class="nav-number">76.</span> <span class="nav-text">Mac版本的终端要走Proxy除了梯子还需要一个设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无状态-和-有状态-的区别"><span class="nav-number">77.</span> <span class="nav-text">无状态 和 有状态 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Command"><span class="nav-number">78.</span> <span class="nav-text">Linux Command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#most-more-less"><span class="nav-number">78.1.</span> <span class="nav-text">most + more + less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux通过进程号查看运行文件目录"><span class="nav-number">78.2.</span> <span class="nav-text">linux通过进程号查看运行文件目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CentOS查看版本"><span class="nav-number">78.3.</span> <span class="nav-text">CentOS查看版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件目录大小常见的命令"><span class="nav-number">78.4.</span> <span class="nav-text">文件目录大小常见的命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Win10网络问题汇总"><span class="nav-number">79.</span> <span class="nav-text">Win10网络问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#win10图形化查看端口占用工具"><span class="nav-number">79.1.</span> <span class="nav-text">win10图形化查看端口占用工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重置win10网络命令"><span class="nav-number">79.2.</span> <span class="nav-text">重置win10网络命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#win10远程窗口大小不可调的问题"><span class="nav-number">79.3.</span> <span class="nav-text">win10远程窗口大小不可调的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#给win10商店设置代理"><span class="nav-number">79.4.</span> <span class="nav-text">给win10商店设置代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于SSTap转发UDP的问题"><span class="nav-number">79.5.</span> <span class="nav-text">关于SSTap转发UDP的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#win10-访问墙外世界的最终办法："><span class="nav-number">79.6.</span> <span class="nav-text">win10 访问墙外世界的最终办法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Win下Chrome无法访问新浪外链地址"><span class="nav-number">79.7.</span> <span class="nav-text">Win下Chrome无法访问新浪外链地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven问题汇总"><span class="nav-number">80.</span> <span class="nav-text">Maven问题汇总</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-使用遇到的坑"><span class="nav-number">81.</span> <span class="nav-text">Active 使用遇到的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis持久化"><span class="nav-number">82.</span> <span class="nav-text">Redis持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList等队列size"><span class="nav-number">83.</span> <span class="nav-text">LinkedList等队列size()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开源协议"><span class="nav-number">84.</span> <span class="nav-text">开源协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink问题汇总"><span class="nav-number">85.</span> <span class="nav-text">Flink问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Flink使用滑动窗口出现的一个问题"><span class="nav-number">85.1.</span> <span class="nav-text">Flink使用滑动窗口出现的一个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Flink数据写入了HDFS，Hive没有识别"><span class="nav-number">85.1.1.</span> <span class="nav-text">Flink数据写入了HDFS，Hive没有识别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flink-1-12-0编译密码："><span class="nav-number">85.1.2.</span> <span class="nav-text">Flink-1.12.0编译密码：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时空数据结构简介"><span class="nav-number">86.</span> <span class="nav-text">时空数据结构简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RTree"><span class="nav-number">86.1.</span> <span class="nav-text">RTree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Quad-Trees"><span class="nav-number">86.2.</span> <span class="nav-text">Quad-Trees</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#K-D-Trees"><span class="nav-number">86.3.</span> <span class="nav-text">K-D Trees</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Space-Filling-Curve"><span class="nav-number">86.4.</span> <span class="nav-text">Space Filling Curve</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#R树的操作"><span class="nav-number">86.4.1.</span> <span class="nav-text">R树的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#搜索"><span class="nav-number">86.4.1.1.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#插入"><span class="nav-number">86.4.1.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#删除"><span class="nav-number">86.4.1.3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#优化"><span class="nav-number">86.4.1.4.</span> <span class="nav-text">优化</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更友好的创建对象方式"><span class="nav-number">1.</span> <span class="nav-text">更友好的创建对象方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面代码是否线程安全"><span class="nav-number">2.</span> <span class="nav-text">下面代码是否线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile利用了什么协议来实现可见性"><span class="nav-number">3.</span> <span class="nav-text">volatile利用了什么协议来实现可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Trainsient-关键字"><span class="nav-number">4.</span> <span class="nav-text">Java Trainsient 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程中Random的使用"><span class="nav-number">5.</span> <span class="nav-text">多线程中Random的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么阿里禁止使用Executor创建线程池"><span class="nav-number">6.</span> <span class="nav-text">为什么阿里禁止使用Executor创建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阿里开发手册上不推荐（禁止）使用Double的根本原因"><span class="nav-number">7.</span> <span class="nav-text">阿里开发手册上不推荐（禁止）使用Double的根本原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-清理maven仓库的脚本"><span class="nav-number">8.</span> <span class="nav-text">mac 清理maven仓库的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea目录较多，文件名较长产生的错误"><span class="nav-number">9.</span> <span class="nav-text">idea目录较多，文件名较长产生的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-指定屏蔽某些特定报警信息"><span class="nav-number">10.</span> <span class="nav-text">Log4J 指定屏蔽某些特定报警信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-Source并行度为1的意义"><span class="nav-number">11.</span> <span class="nav-text">Flink Source并行度为1的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JB套件的一个实用功能"><span class="nav-number">12.</span> <span class="nav-text">JB套件的一个实用功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zk使用的分布式协议并不是paxos"><span class="nav-number">13.</span> <span class="nav-text">zk使用的分布式协议并不是paxos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么说NULL是计算机科学中最大的错误，至少值十亿美金"><span class="nav-number">14.</span> <span class="nav-text">为什么说NULL是计算机科学中最大的错误，至少值十亿美金</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-NULL-颠覆类型"><span class="nav-number">14.1.</span> <span class="nav-text">1. NULL 颠覆类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-NULL-是凌乱的"><span class="nav-number">14.2.</span> <span class="nav-text">2. NULL 是凌乱的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-NULL-是一个特例"><span class="nav-number">14.3.</span> <span class="nav-text">3. NULL 是一个特例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-NULL-使-API-变得糟糕"><span class="nav-number">14.4.</span> <span class="nav-text">4.NULL 使 API 变得糟糕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-NULL-使错误的语言决策更加恶化"><span class="nav-number">14.5.</span> <span class="nav-text">5.NULL 使错误的语言决策更加恶化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-NULL-难以调试"><span class="nav-number">14.6.</span> <span class="nav-text">6.NULL 难以调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-NULL不可组合"><span class="nav-number">14.7.</span> <span class="nav-text">7.NULL不可组合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA-maven修改pom文件，导致jdk版本重置问题"><span class="nav-number">15.</span> <span class="nav-text">IDEA maven修改pom文件，导致jdk版本重置问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MAVEN的scope"><span class="nav-number">16.</span> <span class="nav-text">MAVEN的scope</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXCEL一点小技巧"><span class="nav-number">17.</span> <span class="nav-text">EXCEL一点小技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-On-Zeppelin上传Jar包的位置"><span class="nav-number">18.</span> <span class="nav-text">Flink On Zeppelin上传Jar包的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink系列深度好文，等待细读"><span class="nav-number">19.</span> <span class="nav-text">Flink系列深度好文，等待细读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastJson直接解析"><span class="nav-number">20.</span> <span class="nav-text">FastJson直接解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastJson很多坑-准备放弃"><span class="nav-number">21.</span> <span class="nav-text">FastJson很多坑 准备放弃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置框架无法访问的问题"><span class="nav-number">22.</span> <span class="nav-text">配置框架无法访问的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决GitHub提交历史头像不显示问题-以及首页没有绿色方块的问题"><span class="nav-number">23.</span> <span class="nav-text">解决GitHub提交历史头像不显示问题,以及首页没有绿色方块的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决anaconda无法连接的问题"><span class="nav-number">24.</span> <span class="nav-text">解决anaconda无法连接的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排查挖矿程序中会用到的一些追踪某个进程的命令"><span class="nav-number">25.</span> <span class="nav-text">排查挖矿程序中会用到的一些追踪某个进程的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos缺点"><span class="nav-number">26.</span> <span class="nav-text">Kerberos缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac无法运行-sh文件的解决办法"><span class="nav-number">27.</span> <span class="nav-text">mac无法运行.sh文件的解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决git下载速度慢的终极方法"><span class="nav-number">28.</span> <span class="nav-text">解决git下载速度慢的终极方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven代理配置"><span class="nav-number">29.</span> <span class="nav-text">Maven代理配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm更换源"><span class="nav-number">30.</span> <span class="nav-text">npm更换源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS的某个错误"><span class="nav-number">31.</span> <span class="nav-text">HDFS的某个错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA-MAVEN停止加载"><span class="nav-number">32.</span> <span class="nav-text">IDEA MAVEN停止加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口触发的一些问题"><span class="nav-number">33.</span> <span class="nav-text">窗口触发的一些问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-SQL中的爆炸函数"><span class="nav-number">34.</span> <span class="nav-text">Flink SQL中的爆炸函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-UI在Yarn下"><span class="nav-number">35.</span> <span class="nav-text">Flink UI在Yarn下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink的时区问题"><span class="nav-number">36.</span> <span class="nav-text">Flink的时区问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink的心跳需求问题"><span class="nav-number">37.</span> <span class="nav-text">Flink的心跳需求问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink避免重复劳动的一些方法"><span class="nav-number">38.</span> <span class="nav-text">Flink避免重复劳动的一些方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink配置参数"><span class="nav-number">39.</span> <span class="nav-text">Flink配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-GlobalWindow"><span class="nav-number">40.</span> <span class="nav-text">Flink GlobalWindow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何排查Kafka消息的异常"><span class="nav-number">41.</span> <span class="nav-text">如何排查Kafka消息的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL的迁移"><span class="nav-number">42.</span> <span class="nav-text">MySQL的迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程调试Flink"><span class="nav-number">43.</span> <span class="nav-text">远程调试Flink</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J-和-slf4j联合使用"><span class="nav-number">44.</span> <span class="nav-text">Log4J 和 slf4j联合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4J2的使用"><span class="nav-number">45.</span> <span class="nav-text">Log4J2的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Log4J2和Log4J1的比较"><span class="nav-number">45.1.</span> <span class="nav-text">Log4J2和Log4J1的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#配置文件"><span class="nav-number">45.1.1.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#依赖"><span class="nav-number">45.1.2.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置文件-1"><span class="nav-number">45.1.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用"><span class="nav-number">45.2.</span> <span class="nav-text">调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark-On-Yarn-结束任务的方式"><span class="nav-number">46.</span> <span class="nav-text">Spark On Yarn 结束任务的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CharSequence"><span class="nav-number">47.</span> <span class="nav-text">CharSequence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程，创建多少个线程合适"><span class="nav-number">48.</span> <span class="nav-text">并发编程，创建多少个线程合适</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Google-AutoValue"><span class="nav-number">49.</span> <span class="nav-text">Google AutoValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Idea-注释模板设置"><span class="nav-number">50.</span> <span class="nav-text">Idea 注释模板设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python中使用-join-替代-处理字符串"><span class="nav-number">51.</span> <span class="nav-text">Python中使用.join()替代+处理字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储图片"><span class="nav-number">52.</span> <span class="nav-text">存储图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java的一些包的解释"><span class="nav-number">53.</span> <span class="nav-text">java的一些包的解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA2020-显示内存大小"><span class="nav-number">54.</span> <span class="nav-text">IDEA2020 显示内存大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java程序结束前运行的代码"><span class="nav-number">55.</span> <span class="nav-text">Java程序结束前运行的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java8-try-…catch"><span class="nav-number">56.</span> <span class="nav-text">Java8 try()…catch()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea中设置maven的jvm参数"><span class="nav-number">57.</span> <span class="nav-text">idea中设置maven的jvm参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行中设置maven的jvm参数"><span class="nav-number">58.</span> <span class="nav-text">命令行中设置maven的jvm参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-SubString"><span class="nav-number">59.</span> <span class="nav-text">String SubString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用的空间-地理空间ASL许可的开源Java库"><span class="nav-number">60.</span> <span class="nav-text">通用的空间/地理空间ASL许可的开源Java库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntegerCache"><span class="nav-number">61.</span> <span class="nav-text">IntegerCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书单推荐"><span class="nav-number">62.</span> <span class="nav-text">书单推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射API"><span class="nav-number">63.</span> <span class="nav-text">反射API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最详细的Anaconda安装步骤和注意点"><span class="nav-number">64.</span> <span class="nav-text">最详细的Anaconda安装步骤和注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDA-Driver版本选型"><span class="nav-number">65.</span> <span class="nav-text">CUDA Driver版本选型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CuDNN版本"><span class="nav-number">66.</span> <span class="nav-text">CuDNN版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven-阿里云插件仓库配置"><span class="nav-number">67.</span> <span class="nav-text">Maven 阿里云插件仓库配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA配置仓库最好用HTTPS"><span class="nav-number">68.</span> <span class="nav-text">IDEA配置仓库最好用HTTPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring"><span class="nav-number">69.</span> <span class="nav-text">Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-IOC"><span class="nav-number">69.1.</span> <span class="nav-text">1.IOC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-context上下文和bean"><span class="nav-number">69.2.</span> <span class="nav-text">2.context上下文和bean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-AOP"><span class="nav-number">69.3.</span> <span class="nav-text">3.AOP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java加载properties的六种方式"><span class="nav-number">70.</span> <span class="nav-text">Java加载properties的六种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPS第三方工具"><span class="nav-number">71.</span> <span class="nav-text">GPS第三方工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GIS基本概念"><span class="nav-number">71.1.</span> <span class="nav-text">GIS基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#几何对象"><span class="nav-number">71.1.1.</span> <span class="nav-text">几何对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WKB格式"><span class="nav-number">71.2.</span> <span class="nav-text">WKB格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JTS"><span class="nav-number">71.3.</span> <span class="nav-text">JTS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">71.3.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#操作"><span class="nav-number">71.3.2.</span> <span class="nav-text">操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#火星坐标系"><span class="nav-number">71.4.</span> <span class="nav-text">火星坐标系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PrototBuf"><span class="nav-number">72.</span> <span class="nav-text">PrototBuf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA莫名其妙每次自动生成变量都有final修饰符"><span class="nav-number">73.</span> <span class="nav-text">IDEA莫名其妙每次自动生成变量都有final修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FlinkKafka兼容性"><span class="nav-number">74.</span> <span class="nav-text">FlinkKafka兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于数据仓库数据中台数据湖的一部分图片"><span class="nav-number">75.</span> <span class="nav-text">关于数据仓库数据中台数据湖的一部分图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac版本的终端要走Proxy除了梯子还需要一个设置"><span class="nav-number">76.</span> <span class="nav-text">Mac版本的终端要走Proxy除了梯子还需要一个设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无状态-和-有状态-的区别"><span class="nav-number">77.</span> <span class="nav-text">无状态 和 有状态 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Command"><span class="nav-number">78.</span> <span class="nav-text">Linux Command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#most-more-less"><span class="nav-number">78.1.</span> <span class="nav-text">most + more + less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux通过进程号查看运行文件目录"><span class="nav-number">78.2.</span> <span class="nav-text">linux通过进程号查看运行文件目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CentOS查看版本"><span class="nav-number">78.3.</span> <span class="nav-text">CentOS查看版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件目录大小常见的命令"><span class="nav-number">78.4.</span> <span class="nav-text">文件目录大小常见的命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Win10网络问题汇总"><span class="nav-number">79.</span> <span class="nav-text">Win10网络问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#win10图形化查看端口占用工具"><span class="nav-number">79.1.</span> <span class="nav-text">win10图形化查看端口占用工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重置win10网络命令"><span class="nav-number">79.2.</span> <span class="nav-text">重置win10网络命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#win10远程窗口大小不可调的问题"><span class="nav-number">79.3.</span> <span class="nav-text">win10远程窗口大小不可调的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#给win10商店设置代理"><span class="nav-number">79.4.</span> <span class="nav-text">给win10商店设置代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于SSTap转发UDP的问题"><span class="nav-number">79.5.</span> <span class="nav-text">关于SSTap转发UDP的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#win10-访问墙外世界的最终办法："><span class="nav-number">79.6.</span> <span class="nav-text">win10 访问墙外世界的最终办法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Win下Chrome无法访问新浪外链地址"><span class="nav-number">79.7.</span> <span class="nav-text">Win下Chrome无法访问新浪外链地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven问题汇总"><span class="nav-number">80.</span> <span class="nav-text">Maven问题汇总</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-使用遇到的坑"><span class="nav-number">81.</span> <span class="nav-text">Active 使用遇到的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis持久化"><span class="nav-number">82.</span> <span class="nav-text">Redis持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList等队列size"><span class="nav-number">83.</span> <span class="nav-text">LinkedList等队列size()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开源协议"><span class="nav-number">84.</span> <span class="nav-text">开源协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink问题汇总"><span class="nav-number">85.</span> <span class="nav-text">Flink问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Flink使用滑动窗口出现的一个问题"><span class="nav-number">85.1.</span> <span class="nav-text">Flink使用滑动窗口出现的一个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Flink数据写入了HDFS，Hive没有识别"><span class="nav-number">85.1.1.</span> <span class="nav-text">Flink数据写入了HDFS，Hive没有识别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flink-1-12-0编译密码："><span class="nav-number">85.1.2.</span> <span class="nav-text">Flink-1.12.0编译密码：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时空数据结构简介"><span class="nav-number">86.</span> <span class="nav-text">时空数据结构简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RTree"><span class="nav-number">86.1.</span> <span class="nav-text">RTree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Quad-Trees"><span class="nav-number">86.2.</span> <span class="nav-text">Quad-Trees</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#K-D-Trees"><span class="nav-number">86.3.</span> <span class="nav-text">K-D Trees</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Space-Filling-Curve"><span class="nav-number">86.4.</span> <span class="nav-text">Space Filling Curve</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#R树的操作"><span class="nav-number">86.4.1.</span> <span class="nav-text">R树的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#搜索"><span class="nav-number">86.4.1.1.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#插入"><span class="nav-number">86.4.1.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#删除"><span class="nav-number">86.4.1.3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#优化"><span class="nav-number">86.4.1.4.</span> <span class="nav-text">优化</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Base4BigData-Version-1"><span class="nav-number">87.</span> <span class="nav-text">Base4BigData(Version.1)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MapReduce"><span class="nav-number">87.1.</span> <span class="nav-text">MapReduce</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#架构"><span class="nav-number">87.1.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MapReduce核心计算阶段"><span class="nav-number">87.1.2.</span> <span class="nav-text">MapReduce核心计算阶段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MapReduce为什么慢？"><span class="nav-number">87.1.3.</span> <span class="nav-text">MapReduce为什么慢？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spark"><span class="nav-number">87.2.</span> <span class="nav-text">Spark</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#组件角色"><span class="nav-number">87.2.1.</span> <span class="nav-text">组件角色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#架构-1"><span class="nav-number">87.2.2.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#工作原理"><span class="nav-number">87.2.3.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Spark-为什么比MapReduce快"><span class="nav-number">87.2.4.</span> <span class="nav-text">Spark 为什么比MapReduce快</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spark-Streaming"><span class="nav-number">87.3.</span> <span class="nav-text">Spark Streaming</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#工作模型"><span class="nav-number">87.3.1.</span> <span class="nav-text">工作模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DStreams（Discretized-Streams）"><span class="nav-number">87.3.2.</span> <span class="nav-text">DStreams（Discretized Streams）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要用Spark-Streaming呢？"><span class="nav-number">87.3.3.</span> <span class="nav-text">为什么要用Spark Streaming呢？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Storm"><span class="nav-number">87.4.</span> <span class="nav-text">Storm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Storm架构"><span class="nav-number">87.4.1.</span> <span class="nav-text">Storm架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Storm工作流程"><span class="nav-number">87.4.2.</span> <span class="nav-text">Storm工作流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Storm-Vs-Spark-Streaming"><span class="nav-number">87.4.3.</span> <span class="nav-text">Storm Vs Spark Streaming</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flink"><span class="nav-number">87.5.</span> <span class="nav-text">Flink</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#架构-2"><span class="nav-number">87.5.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flink的优势"><span class="nav-number">87.5.2.</span> <span class="nav-text">Flink的优势</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flink-VS-Storm-VS-Spark-Streaming"><span class="nav-number">87.6.</span> <span class="nav-text">Flink VS Storm VS Spark Streaming</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
