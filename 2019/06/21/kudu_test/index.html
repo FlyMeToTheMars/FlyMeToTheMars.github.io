@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数据模拟完成后的 Kudu 对比性能测试">
+<meta name="keywords" content="Kudu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kudu测试报告">
+<meta property="og:url" content="http://yoursite.com/2019/06/21/kudu_test/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="数据模拟完成后的 Kudu 对比性能测试">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://o59mpa.by.files.1drv.com/y4mA8w9Pf83M66l791AicbzEiuNzwVX4g4cBec-VP___6-UAnjPtWMl-GL4worC01W_SVpnXxhqIib-CTLsjnNi0DAjav_B5FpF9JVfWq1dgF0YZwb8SPSGgZl88X96ZhvR9-AysqpK3a6Wbt5L_oFf1L-JabZic5epZcecBgL_Hs937A5vMe_Y9HnWoepnsnctIat0QIijPkQsXI8aulx7yg?width=574&height=258&cropmode=none">
+<meta property="og:image" content="https://oj9gpa.by.files.1drv.com/y4mMCX7UM5aW2Q-AcVklQJrf5ZZ72ypNIIrCkO1UakfnMLQ7gfq3KudD80TWG0CpUUJ2zR_aAEiMTPKznwaIcKpLDxRnoYpgnnuyQ-uMGT0zuVrrOvpG3zyPP2CZKVXcS-v1bPxU3xZ1etv2t_9e-lDnftN2cYqM29n_OIZPWOx6NF7jo5EPXx9FOLyipipqNZdR2eVhoHutBQSIMrW9xyXVw?width=1443&height=691&cropmode=none">
+<meta property="og:image" content="https://o59lpa.by.files.1drv.com/y4mTSkFgZzq__Ts2m5ZTdUr9MBUPBEGXJnEzp3ss_3cDbmVjyxh3gMkQnD0ZBVa5AGdeACWzycw83MmAoszRmiMgdFZgFrbviTB7gckxqw0fTDGuohEWxSo2npNc90L6oRZA1b7l5EizbDLEjJTlpTnWmLtu6dPnJeNxOwdKdPgYziqEisqyfE7rLS0Ekk3yEOgii45aCJ_hfZ2QU99_71yOw?width=476&height=286&cropmode=none">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g47cbzp1cuj20d407vdfp.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lubfzqyj20r80hzacf.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lu7zq04j20qy0hbq3l.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/large/bec9bff2gy1g47m9zhf2dj20p20h6gm3.jpg">
+<meta property="og:image" content="https://arbgdq.by.files.1drv.com/y4mcprp_tVDZU3zFzgcmpoJtNJKwwr5PEVDcLXL_K-4D9X9ST4Vru8dYseDZ8sUPMTd7LwyKYe7MQI1fkaeXZGZG6ZyHTMGE1OvqLVCIJOBpK1NFAbatJZ6fmTTlvZjc6fFYT_8cCFOLjYhbWKeqbalRJ70sWjBHvRgqcnyyKKvhFltneMaGeQx4iunOQC-yk5_p-KmD3H_8tko7WCCj45ZDw?width=451&height=289&cropmode=none">
+<meta property="og:updated_time" content="2020-04-10T17:09:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kudu测试报告">
+<meta name="twitter:description" content="数据模拟完成后的 Kudu 对比性能测试">
+<meta name="twitter:image" content="https://o59mpa.by.files.1drv.com/y4mA8w9Pf83M66l791AicbzEiuNzwVX4g4cBec-VP___6-UAnjPtWMl-GL4worC01W_SVpnXxhqIib-CTLsjnNi0DAjav_B5FpF9JVfWq1dgF0YZwb8SPSGgZl88X96ZhvR9-AysqpK3a6Wbt5L_oFf1L-JabZic5epZcecBgL_Hs937A5vMe_Y9HnWoepnsnctIat0QIijPkQsXI8aulx7yg?width=574&height=258&cropmode=none">
+
+<link rel="canonical" href="http://yoursite.com/2019/06/21/kudu_test/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Kudu测试报告 | Mars</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/kudu_test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kudu测试报告
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-21 16:46:25" itemprop="dateCreated datePublished" datetime="2019-06-21T16:46:25+08:00">2019-06-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 01:09:21" itemprop="dateModified" datetime="2020-04-11T01:09:21+08:00">2020-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/" itemprop="url" rel="index"><span itemprop="name">Apache</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/Kudu/" itemprop="url" rel="index"><span itemprop="name">Kudu</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>数据模拟完成后的 Kudu 对比性能测试</p>
+</blockquote>
+<a id="more"></a> 
+
+<h3 id="测试介绍"><a href="#测试介绍" class="headerlink" title="测试介绍"></a>测试介绍</h3><p>TPCDS 和 TPCH 是专门为超大数据量设置的测试项目，下面的是Kudu官网上官方用TPCH测试的结果：</p>
+<p><img src="https://o59mpa.by.files.1drv.com/y4mA8w9Pf83M66l791AicbzEiuNzwVX4g4cBec-VP___6-UAnjPtWMl-GL4worC01W_SVpnXxhqIib-CTLsjnNi0DAjav_B5FpF9JVfWq1dgF0YZwb8SPSGgZl88X96ZhvR9-AysqpK3a6Wbt5L_oFf1L-JabZic5epZcecBgL_Hs937A5vMe_Y9HnWoepnsnctIat0QIijPkQsXI8aulx7yg?width=574&height=258&cropmode=none"></p>
+<p>我自己做的表格也是模仿的<a href="https://kudu.apache.org/overview.html" target="_blank" rel="noopener">官方的图表</a>格式。</p>
+<p>介绍一下这个图表的含义，TPCH测试中含有很多超复杂SQL，用不同的数据库在相同数据下运行了这些语句之后，然后对比运行时间，图表横坐标是SQL的序号，纵坐标是运行时间，官方的运行环境是75节点的，单位是毫秒。</p>
+<h3 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h3><p>下面是我做的测试，三节点下的kudu，机器配置都是64G内存，16核心，系统是Centos 7.4，Kudu版本是1.5，SQL是用impala+Kudu的形式运行的，测试数据量是用TPCDS生成的100G数据。</p>
+<p><img src="https://oj9gpa.by.files.1drv.com/y4mMCX7UM5aW2Q-AcVklQJrf5ZZ72ypNIIrCkO1UakfnMLQ7gfq3KudD80TWG0CpUUJ2zR_aAEiMTPKznwaIcKpLDxRnoYpgnnuyQ-uMGT0zuVrrOvpG3zyPP2CZKVXcS-v1bPxU3xZ1etv2t_9e-lDnftN2cYqM29n_OIZPWOx6NF7jo5EPXx9FOLyipipqNZdR2eVhoHutBQSIMrW9xyXVw?width=1443&height=691&cropmode=none"></p>
+<p>我的测试相比官方的添加了文本格式的HiveSQL测试，测试下来确实是速度最慢的。</p>
+<p>Kudu和parquet各有千秋，和官方的测试结果相差不大。</p>
+<h3 id="写入性能"><a href="#写入性能" class="headerlink" title="写入性能"></a>写入性能</h3><p>Kudu的写入性能测试的时候没有能够完全发挥出来，短板不在kudu的写入，这边的写入测试是我用脚本统计5分钟内表多出来的行数然后除以600s得到的，这边截取一段（因为是5分钟统计一次，图表的表述可能不够准确）</p>
+<p><img src="https://o59lpa.by.files.1drv.com/y4mTSkFgZzq__Ts2m5ZTdUr9MBUPBEGXJnEzp3ss_3cDbmVjyxh3gMkQnD0ZBVa5AGdeACWzycw83MmAoszRmiMgdFZgFrbviTB7gckxqw0fTDGuohEWxSo2npNc90L6oRZA1b7l5EizbDLEjJTlpTnWmLtu6dPnJeNxOwdKdPgYziqEisqyfE7rLS0Ekk3yEOgii45aCJ_hfZ2QU99_71yOw?width=476&height=286&cropmode=none"></p>
+<p>监测过程中得到的最大写入速度在9.5w/s左右，大部分时候速度在3.5w条到5w条之间。</p>
+<p>后来在开启多线程写入kudu的时候，kudu的写入速度很轻松就能达到20w/s，但是可能因为资源不足，kudu的tablet Server容易挂掉，因为impala也是非常吃内存的组件，64G有点捉襟见肘。</p>
+<h4 id="kudu写入速度和表格大小的关系"><a href="#kudu写入速度和表格大小的关系" class="headerlink" title="kudu写入速度和表格大小的关系"></a>kudu写入速度和表格大小的关系</h4><p>kudu的这个写入速度和表格大小有直接关系。</p>
+<p>结论：</p>
+<p><strong>kudu导入小表的速度十分快，但是导入大表的时候性能会严重下降。</strong></p>
+<p>为了避免测试误差，在用tpcds生成不同大小的测试样本中取相同表格不同大小来测试，避免阻断等等误差，测试结果如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g47cbzp1cuj20d407vdfp.jpg"></p>
+<p>根据测试结果基本可以判断，我们测试集群环境下，小表的导入速度明显要比大表大很多。</p>
+<p>类似的，我们根据TPCDS生成的不同大小的数据样本，分析数据量大小对kudu的影响（这边的数据来源网易的报告，1T的因为测试集群环境原因没有测试）：</p>
+<p>100G:</p>
+<p><img src="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lubfzqyj20r80hzacf.jpg"></p>
+<p>1T:</p>
+<p><img src="http://wx3.sinaimg.cn/large/bec9bff2gy1g47lu7zq04j20qy0hbq3l.jpg"></p>
+<p>根据上面两张折线图可以看出，随着表的数据量变成巨大，kudu和parquet的之间的性能也被拉开了。</p>
+<p>10T:</p>
+<p><img src="http://wx2.sinaimg.cn/large/bec9bff2gy1g47m9zhf2dj20p20h6gm3.jpg"></p>
+<p>1T的和10T的相差不是特别大</p>
+<p>结论：<strong>kudu表目前看来不太适合大表，分区能否解决这个问题，还要靠实验</strong></p>
+<h4 id="资源使用情况"><a href="#资源使用情况" class="headerlink" title="资源使用情况"></a>资源使用情况</h4><p>Impala使用的资源整体上少于Spark，磁盘的读取少于Spark，这对于速度的提高至关重要，这与其语句的优化有关。Impala的CPU一直维持在较低的水平，说明其C++的实现比Java高效。</p>
+<h4 id="kudu写入速度"><a href="#kudu写入速度" class="headerlink" title="kudu写入速度"></a>kudu写入速度</h4><p>Spark的CPU占用较高，但是维持在50%的水平，可见CPU并没有成为其瓶颈，在使用Oozie多线程写入的时候可能遇到了kudu的瓶颈，Kudu的写入瓶颈是可以通过一些参数进行简单调整的。</p>
+<p>目前从集群的写入速度上来分析，初步判断硬盘的写入速度已经成为了瓶颈。</p>
+<p>下图以Master节点为例，列出的Kudu TS以6个小时为一个窗口使用磁盘的峰值和平均值：</p>
+<p><img src="https://arbgdq.by.files.1drv.com/y4mcprp_tVDZU3zFzgcmpoJtNJKwwr5PEVDcLXL_K-4D9X9ST4Vru8dYseDZ8sUPMTd7LwyKYe7MQI1fkaeXZGZG6ZyHTMGE1OvqLVCIJOBpK1NFAbatJZ6fmTTlvZjc6fFYT_8cCFOLjYhbWKeqbalRJ70sWjBHvRgqcnyyKKvhFltneMaGeQx4iunOQC-yk5_p-KmD3H_8tko7WCCj45ZDw?width=451&height=289&cropmode=none"></p>
+<p>MiB单位换算成Mbit/s是Mbit/s = MiB/s * 0.1192，图中所示峰值几乎达到了机械硬盘写入极限。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Kudu/" rel="tag"># Kudu</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/12/SQL/" rel="prev" title="SQL积累">
+      <i class="fa fa-chevron-left"></i> SQL积累
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/27/ElasticSearch/" rel="next" title="ElasticSearch">
+      ElasticSearch <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试介绍"><span class="nav-number">1.</span> <span class="nav-text">测试介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能对比"><span class="nav-number">2.</span> <span class="nav-text">性能对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写入性能"><span class="nav-number">3.</span> <span class="nav-text">写入性能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kudu写入速度和表格大小的关系"><span class="nav-number">3.1.</span> <span class="nav-text">kudu写入速度和表格大小的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源使用情况"><span class="nav-number">3.2.</span> <span class="nav-text">资源使用情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kudu写入速度"><span class="nav-number">3.3.</span> <span class="nav-text">kudu写入速度</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fly Hugh"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/FlyMeToTheMars" title="GitHub → https://github.com/FlyMeToTheMars" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/flyhobo@live.com" title="E-Mail → flyhobo@live.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3200892914" title="Weibo → https://weibo.com/u/3200892914" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Fly__HoBo" title="Twitter → https://twitter.com/Fly__HoBo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
