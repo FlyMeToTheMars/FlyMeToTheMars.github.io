@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Pulsar与Kafka对比 Pulsar 是一个比较新的MQ，和MQ的王者Kafka进行对比。">
+<meta name="keywords" content="Pulsar与Kafka对比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pulsar与Kafka对比">
+<meta property="og:url" content="http://yoursite.com/2019/11/14/Pulsar与Kafka对比/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="Pulsar与Kafka对比 Pulsar 是一个比较新的MQ，和MQ的王者Kafka进行对比。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g9a1gg550rj20y107tq3l.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph5xgvnyj20m80epjx9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph3n5p4wj20m80j4gsu.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph4vwowhj20gz01pa9t.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph7te7d2j20m80epjx9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph8z7mslj20zk0f5jww.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph9lc46zj20m80ifgq8.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8pha2rmerj20m80lgtei.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8phagh11tj20m00m8agw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g8phbi9bo2j20m80bkjv1.jpg">
+<meta property="og:updated_time" content="2020-04-10T17:11:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pulsar与Kafka对比">
+<meta name="twitter:description" content="Pulsar与Kafka对比 Pulsar 是一个比较新的MQ，和MQ的王者Kafka进行对比。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g9a1gg550rj20y107tq3l.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2019/11/14/Pulsar与Kafka对比/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Pulsar与Kafka对比 | Mars</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/14/Pulsar与Kafka对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pulsar与Kafka对比
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-14 06:52:04" itemprop="dateCreated datePublished" datetime="2019-11-14T06:52:04+08:00">2019-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 01:11:03" itemprop="dateModified" datetime="2020-04-11T01:11:03+08:00">2020-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/" itemprop="url" rel="index"><span itemprop="name">Apache</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/Kafka/" itemprop="url" rel="index"><span itemprop="name">Kafka</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Pulsar与Kafka对比"><a href="#Pulsar与Kafka对比" class="headerlink" title="Pulsar与Kafka对比"></a>Pulsar与Kafka对比</h1><blockquote>
+<p>Pulsar 是一个比较新的MQ，和MQ的王者Kafka进行对比。</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g9a1gg550rj20y107tq3l.jpg" alt="TIM截图20191125094052.png"></p>
+<a id="more"></a> 
+
+<h2 id="Pulsar架构"><a href="#Pulsar架构" class="headerlink" title="Pulsar架构"></a>Pulsar架构</h2><p>Apache Pulsar 是一个企业级的分布式消息系统，最初由 Yahoo 开发，在 2016 年开源，并于2018年9月毕业成为 Apache 基金会的顶级项目。Pulsar 已经在 Yahoo 的生产环境使用了三年多，主要服务于Mail、Finance、Sports、 Flickr、 the Gemini Ads platform、 Sherpa (Yahoo 的 KV 存储)。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph5xgvnyj20m80epjx9.jpg" alt="undefined"></p>
+<h2 id="kafka队列优先级模型"><a href="#kafka队列优先级模型" class="headerlink" title="kafka队列优先级模型"></a>kafka队列优先级模型</h2><p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph3n5p4wj20m80j4gsu.jpg" alt="undefined"></p>
+<p>在该方案中，个推将优先级统一设定为高、中、低三个级别。具体操作方案如下：</p>
+<ol>
+<li>对某个优先级根据 task (单次推送任务)维度，存入不同的 Topic，一个 task 只写入一个 Topic，一个 Topic 可存多个 task；</li>
+<li>消费模块根据优先级配额(如 6:3:1)，获取不同优先级的消息数，同一优先级轮询获取消息；这样既保证了高优先级用户可以更快地发送消息，又避免了低优先级用户出现没有下发的情况。</li>
+</ol>
+<h2 id="Kafka方案遇到的问题"><a href="#Kafka方案遇到的问题" class="headerlink" title="Kafka方案遇到的问题"></a>Kafka方案遇到的问题</h2><p>随着个推业务的不断发展，接入的 APP 数量逐渐增多，第一版的优先级方案也逐渐暴露出一些问题：</p>
+<ol>
+<li>当相同优先级的 APP 在同一时刻推送任务越来越多时，后面进入的 task 消息会因为前面 task 消息还存在队列情况而出现延迟。如下图所示, 当 task1 消息量过大时，在task1 消费结束前，taskN 将一直处于等待状态。</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph4vwowhj20gz01pa9t.jpg" alt="undefined"></p>
+<ol>
+<li>Kafka 在 Topic 数量由 64 增长到 256 时，吞吐量下降严重，Kafka 的每个 Topic、每个分区都会对应一个物理文件。当 Topic 数量增加时，消息分散的落盘策略会导致磁盘 IO 竞争激烈，因此我们不能仅通过增加 Topic 数量来缓解第一点中的问题。</li>
+</ol>
+<p>基于上述问题，需要可以创建大量的 Topic, 同时吞吐性能不能比 Kafka 逊色。经过一段时间的调研，Apache Pulsar 引起了我们的关注。</p>
+<h2 id="Topic数量"><a href="#Topic数量" class="headerlink" title="Topic数量"></a>Topic数量</h2><p>Pulsar 可以支持百万级别 Topic 数量的扩展，同时还能一直保持良好的性能。Topic 的伸缩性取决于它的内部组织和存储方式。Pulsar 的数据保存在 bookie (BookKeeper 服务器)上，处于写状态的不同 Topic 的消息，在内存中排序，最终聚合保存到大文件中，在 Bookie 中需要更少的文件句柄。另一方面 Bookie 的 IO 更少依赖于文件系统的 Pagecache，Pulsar 也因此能够支持大量的主题。</p>
+<h2 id="消费模型"><a href="#消费模型" class="headerlink" title="消费模型"></a>消费模型</h2><p>Pulsar 支持三种消费模型：Exclusive、Shared 和Failover。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph7te7d2j20m80epjx9.jpg" alt="undefined"></p>
+<p>**Exclusive (独享)**：一个 Topic 只能被一个消费者消费。Pulsar 默认使用这种模式。</p>
+<p>**Shared(共享)**：共享模式，多个消费者可以连接到同一个 Topic，消息依次分发给消费者。当一个消费者宕机或者主动断开连接时，那么分发给这个消费者的未确认(ack)的消息会得到重新调度，分发给其他消费者。</p>
+<p>**Failover (灾备)**：一个订阅同时只有一个消费者，可以有多个备份消费者。一旦主消费者故障，则备份消费者接管。不会出现同时有两个活跃的消费者。</p>
+<p>Exclusive和Failover订阅，仅允许一个消费者来使用和消费每个订阅的Topic。这两种模式都按 Topic 分区顺序使用消息。它们最适用于需要严格消息顺序的流(Stream)用例。</p>
+<p>Shared 允许每个主题分区有多个消费者。同一个订阅中的每个消费者仅接收Topic分区的一部分消息。Shared最适用于不需要保证消息顺序队列(Queue)的使用模式，并且可以按照需要任意扩展消费者的数量。</p>
+<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><p>Pulsar 引入了 Apache BookKeeper 作为存储层，BookKeeper 是一个专门为实时系统优化过的分布式存储系统，具有可扩展、高可用、低延迟等特性。具体介绍，请参考 <a href="https://github.com/apache/bookkeeper" target="_blank" rel="noopener">BookKeeper官网</a>。</p>
+<h3 id="Segment"><a href="#Segment" class="headerlink" title="Segment"></a>Segment</h3><p>BookKeeper以 Segment (在 BookKeeper 内部被称作 ledger) 作为存储的基本单元。从 Segment 到消息粒度，都会均匀分散到 BookKeeper 的集群中。这种机制保证了数据和服务均匀分散在 BookKeeper 集群中。</p>
+<p>Pulsar 和 Kafka 都是基于 partition 的逻辑概念来做 Topic 存储的。最根本的不同是，Kafka 的物理存储是以 partition 为单位的，每个 partition 必须作为一个整体(一个目录)存储在某个 broker 上。 而 Pulsar 的 partition 是以 segment 作为物理存储的单位，每个 partition 会再被打散并均匀分散到多个 bookie 节点中。</p>
+<p>这样的直接影响是，Kafka 的 partition 的大小，受制于单台 broker 的存储；而 Pulsar 的 partition 则可以利用整个集群的存储容量。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph8z7mslj20zk0f5jww.jpg" alt="undefined"></p>
+<h3 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h3><p>当 partition 的容量达到上限后，需要扩容的时候，如果现有的单台机器不能满足，Kafka 可能需要添加新的存储节点，并将 partition 的数据在节点之间搬移达到 rebalance 的状态。</p>
+<p>而 Pulsar 只需添加新的 Bookie 存储节点即可。新加入的节点由于剩余空间大，会被优先使用，接收更多的新数据；整个扩容过程不涉及任何已有数据的拷贝和搬移。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8ph9lc46zj20m80ifgq8.jpg" alt="undefined"></p>
+<h2 id="Broker故障"><a href="#Broker故障" class="headerlink" title="Broker故障"></a>Broker故障</h2><p>Pulsar 在单个节点失败时也会体现同样的优势。如果 Pulsar 的某个服务节点 broker 失效，由于 broker 是无状态的，其他的 broker 可以很快接管 Topic，不会涉及 Topic 数据的拷贝；如果存储节点 Bookie 失效，在集群后台中，其他的 Bookie 会从多个 Bookie 节点中并发读取数据，并对失效节点的数据自动进行恢复，对前端服务不会造成影响。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8pha2rmerj20m80lgtei.jpg" alt="undefined"></p>
+<h2 id="Bookie故障"><a href="#Bookie故障" class="headerlink" title="Bookie故障"></a>Bookie故障</h2><p>Apache BookKeeper 中的副本修复是 Segment (甚至是 Entry)级别的多对多快速修复。这种方式只会复制必须的数据，这比重新复制整个主题分区要精细。如下图所示，当错误发生时， Apache BookKeeper 可以从 bookie 3 和 bookie 4 中读取 Segment 4 中的消息，并在 bookie 1 处修复 Segment 4。所有的副本修复都在后台进行，对 Broker 和应用透明。</p>
+<p>当某个 Bookie 节点出错时，BookKeeper会自动添加可用的新 Bookie 来替换失败的 Bookie，出错的 Bookie 中的数据在后台恢复，所有 Broker 的写入不会被打断，而且不会牺牲主题分区的可用性。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8phagh11tj20m00m8agw.jpg" alt="undefined"></p>
+<h2 id="基于-Pulsar-的优先级队列方案"><a href="#基于-Pulsar-的优先级队列方案" class="headerlink" title="基于 Pulsar 的优先级队列方案"></a>基于 Pulsar 的优先级队列方案</h2><p>在设计思路上，Pulsar 方案和 Kafka 方案并没有多大区别。但在新方案中，个推技术团队借助 Pulsar 的特性，解决了 Kafka 方案中存在的问题。</p>
+<ol>
+<li>根据 task 动态生成 Topic，保证了后进入的 task 不会因为其他 task 消息堆积而造成等待情况。</li>
+<li>中高优先级 task 都独享一个 Topic，低优先级 task 共享 n 个 Topic。</li>
+<li>相同优先级内，各个 task 轮询读取消息，配额满后流转至下一个优先级。</li>
+<li>相同优先级内, 各个 task 可动态调整 quota， 在相同机会内，可读取更多消息。</li>
+<li>利用 Shared 模式, 可以动态添加删除 consumer，且不会触发 Rebalance 情况。</li>
+<li>利用 BookKeeper 特性，可以更灵活的添加存储资源。</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g8phbi9bo2j20m80bkjv1.jpg" alt="undefined"></p>
+<h2 id="Pulsar实践范例"><a href="#Pulsar实践范例" class="headerlink" title="Pulsar实践范例"></a>Pulsar实践范例</h2><ol>
+<li>不同 subscription 之间相对独立，如果想要重复消费某个 Topic 的消息，需要使用不同的 subscriptionName 订阅；但是一直增加新的 subscriptionName，backlog 会不断累积。</li>
+<li>如果 Topic 无人订阅，发给它的消息默认会被删除。因此如果 producer 先发送，consumer 后接收，一定要确保 producer 发送之前，Topic 有 subscription 存在(哪怕 subscribe 之后 close 掉)，否则这段时间发送的消息会导致无人处理。</li>
+<li>如果既没有人发送消息，又没有人订阅消息，一段时间后 Topic 会自动删除。</li>
+<li>Pulsar 的 TTL 等设置，是针对整个 namespace 起效的，无法针对单个 Topic。</li>
+<li>Pulsar 的键都建立在 zookeeper 的根目录上，在初始化时建议增加总节点名。</li>
+<li>目前 Pulsar 的 java api 设计，消息默认需要显式确认，这一点跟 Kafka 不一样。</li>
+<li>Pulsar dashboard 上的 storage size 和 prometheus 上的 storage size (包含副本大小)概念不一样。</li>
+<li>把<code>dbStorage_rocksDB_blockCacheSize</code> 设置的足够大；当消息体量大，出现backlog 大量堆积时, 使用默认大小(256M)会出现读耗时过大情况，导致消费变慢。</li>
+<li>使用多 partition，提高吞吐。</li>
+<li>在系统出现异常时，主动抓取 stats 和 stats-internal，里面有很多有用数据。</li>
+<li>如果业务中会出现单 Topic 体量过大的情况，建议把 <code>backlogQuotaDefaultLimitGB</code> 设置的足够大(默认10G), 避免因为默认使用<code>producer_request_hold</code> 模式出现 block producer 的情况；当然可以根据实际业务选择合适的 <code>backlogQuotaDefaultRetentionPolicy</code>。</li>
+<li>根据实际业务场景主动选择 backlog quota。</li>
+<li>prometheus 内如果发现读耗时为空情况，可能是因为直接读取了缓存数据；Pulsar 在读取消息时会先读取 write cache, 然后读取 read cache；如果都没有命中, 则会在 RocksDB 中读取条目位子后，再从日志文件中读取该条目。</li>
+<li>写入消息时, Pulsar 会同步写入 journal 和 write cache；write cache 再异步写入日志文件和 RocksDB； 所以有资源的话，建议 journal 盘使用SSD。</li>
+</ol>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><p>Bossie Awards中对 Pulsar 点评如下：“<strong>Pulsar 旨在取代 Apache Kafka 多年的主宰地位。</strong>Pulsar在很多情况下提供了比 Kafka 更快的吞吐量和更低的延迟，并为开发人员提供了一组兼容的 API，让他们可以很轻松地从 Kafka 切换到 Pulsar。Pulsar 的最大优点在于它提供了比 Apache Kafka 更简单明了、更健壮的一系列操作功能，特别在解决可观察性、地域复制和多租户方面的问题。在运行大型 Kafka 集群方面感觉有困难的企业可以考虑转向使用 Pulsar。”</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pulsar与Kafka对比/" rel="tag"># Pulsar与Kafka对比</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/14/大数据实时计算引擎 Flink 实战与性能优化/" rel="prev" title="大数据实时计算引擎 Flink 实战与性能优化">
+      <i class="fa fa-chevron-left"></i> 大数据实时计算引擎 Flink 实战与性能优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/14/Phoenix/" rel="next" title="Phoenix测试">
+      Phoenix测试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pulsar与Kafka对比"><span class="nav-number">1.</span> <span class="nav-text">Pulsar与Kafka对比</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pulsar架构"><span class="nav-number">1.1.</span> <span class="nav-text">Pulsar架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka队列优先级模型"><span class="nav-number">1.2.</span> <span class="nav-text">kafka队列优先级模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka方案遇到的问题"><span class="nav-number">1.3.</span> <span class="nav-text">Kafka方案遇到的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Topic数量"><span class="nav-number">1.4.</span> <span class="nav-text">Topic数量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消费模型"><span class="nav-number">1.5.</span> <span class="nav-text">消费模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储"><span class="nav-number">1.6.</span> <span class="nav-text">存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Segment"><span class="nav-number">1.6.1.</span> <span class="nav-text">Segment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩容"><span class="nav-number">1.6.2.</span> <span class="nav-text">扩容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Broker故障"><span class="nav-number">1.7.</span> <span class="nav-text">Broker故障</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bookie故障"><span class="nav-number">1.8.</span> <span class="nav-text">Bookie故障</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于-Pulsar-的优先级队列方案"><span class="nav-number">1.9.</span> <span class="nav-text">基于 Pulsar 的优先级队列方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pulsar实践范例"><span class="nav-number">1.10.</span> <span class="nav-text">Pulsar实践范例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一句话总结"><span class="nav-number">1.11.</span> <span class="nav-text">一句话总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fly Hugh"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/FlyMeToTheMars" title="GitHub → https://github.com/FlyMeToTheMars" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/flyhobo@live.com" title="E-Mail → flyhobo@live.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3200892914" title="Weibo → https://weibo.com/u/3200892914" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Fly__HoBo" title="Twitter → https://twitter.com/Fly__HoBo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

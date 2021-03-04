@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/xingqiushangcheng.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/xingqiushangcheng.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29 第二次更新：2019-5-10">
+<meta name="keywords" content="Kerberos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kerberos For CDH">
+<meta property="og:url" content="http://yoursite.com/2019/11/14/Kerberos For CDH/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29 第二次更新：2019-5-10">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2fvwiwb03g20rs0fvaa2.gif">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5k45t4jj20et03u3yg.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5rgh6faj20o702ut8o.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0ar5zj20pe0o43zp.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0a7vuj20n00pmt9i.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v08hypj20k005dgll.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0a1fxj20hz05d0ss.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0ayqyj20mx0oamxv.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0e6e7j20oc0q1wfz.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2w01fhhuuj20wo05bjrg.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v66w9mt3j212m0hw75j.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v697svjwj21a40zc771.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6aqpeh0j212i0gumxq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6d08i8dj20xk0cewga.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6dxwvacj21380pqwg3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6fxvq1xj220o0d0juw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6i16k8hj21140ccgmj.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6jctl01j20pa0bw76t.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6jsf7r8j20z2154qk7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6kt9fnvj212g0h2t9a.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6m4az4cj224a0tawhe.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6mjf0tvj20ws0wuq6q.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6oip712j21v80y2wlc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6pmygs4j21440ri7d2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6qjmveyj21s60len2w.jpg">
+<meta property="og:updated_time" content="2020-04-10T17:08:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kerberos For CDH">
+<meta name="twitter:description" content="从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。 第一次更新：2019-4-29 第二次更新：2019-5-10">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2ly1g2fvwiwb03g20rs0fvaa2.gif">
+
+<link rel="canonical" href="http://yoursite.com/2019/11/14/Kerberos For CDH/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Kerberos For CDH | Mars</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/14/Kerberos For CDH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kerberos For CDH
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-14 04:40:50" itemprop="dateCreated datePublished" datetime="2019-11-14T04:40:50+08:00">2019-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 01:08:59" itemprop="dateModified" datetime="2020-04-11T01:08:59+08:00">2020-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CDH/" itemprop="url" rel="index"><span itemprop="name">CDH</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CDH/Security/" itemprop="url" rel="index"><span itemprop="name">Security</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>从18年底开始，公司的服务器经常受到各种挖矿脚本病毒的公司，Java后端Redis漏洞层出不穷，Hadoop这边MR的提交权限BUG也被利用了，于是决定调研Kerberos，发现Kerberos是一个巨大的坑，在此记录下笔记，作为我的Github Pages第一篇文档，希望后来人少走弯路。此文可能分为几次更新。</p>
+<p>第一次更新：2019-4-29</p>
+<p>第二次更新：2019-5-10</p>
+<a id="more"></a> 
+
+<h3 id="1-Kerberos-入门"><a href="#1-Kerberos-入门" class="headerlink" title="1.Kerberos 入门"></a>1.Kerberos 入门</h3><p>Kerberos是一种计算机网络授权协议，用来在非安全网络中，对个人通信以安全的手段进行身份认证。Hadoop集群中涉及的Kerberos一般是指MIT基于Kerberos协议开发的一套软件。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2fvwiwb03g20rs0fvaa2.gif" alt="ALT Kerberos"></p>
+<p>Kerberos在希腊神话中是Hades的一条凶猛的三头保卫神犬。这三个头在Kerberos代表了Client、Server和KDC。</p>
+<p><em>Kerberos的特点</em>：并不要求通信双方所在的网络环境安全，即使通信过程中数据被截取或者篡改，依然不会影响整套机制的正常工作。时间戳是Kerberos用来保证通信安全的重要手段。</p>
+<p><em>Kerberos的基本思路</em>：基于对称加密，利用集中的认证服务器，实现用户和服务器之间的双向认证。(提供一种不能伪造、不能重放、已经鉴别的票据对象)。</p>
+<hr>
+<h3 id="2-Kerberos涉及名词"><a href="#2-Kerberos涉及名词" class="headerlink" title="2.Kerberos涉及名词"></a>2.Kerberos涉及名词</h3><p><strong>Principal</strong>：认证的主体，简单来说也就是 用户名</p>
+<p><strong>Kinit</strong>：Kerberos认证(登录)命令，可以使用密码或者KEYTAB</p>
+<p><strong>realm</strong>：有点类似namespace，一个principle只有在某个realm下才有意义</p>
+<p><strong>Password</strong>：某个用户的密码，对应于Kerberos中的master key。password可以存在一个KEYTAB文件中。所以Kerberos中需要使用密码的场景都可以用一个KEYTAB作为输入</p>
+<p><strong>credential</strong>：credential是“证明某个人确定是他自己/某一种行为的确可以发生”的凭据。在不同的使用场景下， credential的具体含义也略有不同：</p>
+<ul>
+<li><p>对于某个principal个体而言，他的credential就是他的password</p>
+</li>
+<li><p>在Kerberos认证的环节中，credential就意味着各种各样的ticket</p>
+</li>
+</ul>
+<p><strong>TGT</strong>：Ticket Granting Ticket，要获得key还需要一个资格认证，获得这个资格认证的证明，叫做TGT</p>
+<p><strong>Long-term Key/Master Key</strong>：在Security的领域中，有的Key可能长期内保持不变，比如你在密码，可能几年都不曾改变，这样的Key、以及由此派生的Key被称为Long-term Key。对于Long-term Key的使用有这样的原则：被Long-term Key加密的数据不应该在网络上传输。原因很简单，一旦这些被Long-term Key加密的数据包被恶意的网络监听者截获，在原则上，只要有充足的时间，他是可以通过计算获得你用于加密的Long-term Key的——任何加密算法都不可能做到绝对保密。</p>
+<p><strong>Short-term Key/Session Key</strong>：由于被Long-term Key加密的数据包不能用于网络传送，所以我们使用另一种Short-term<br>Key来加密需要进行网络传输的数据。由于这种Key只在一段时间内有效，即使被加密的数据包被黑客截获，等他把Key计算出来的时候，这个Key早就已经过期了。</p>
+<hr>
+<h3 id="3-Kerberos原理"><a href="#3-Kerberos原理" class="headerlink" title="3.Kerberos原理"></a>3.Kerberos原理</h3><p>最简单的对称加密的思路：A发送信息给B，信息分为两段，一段是明文，一段是加密之后的密文，这个密钥只有A和B两个人知道，B收到信息后，用两个人都知道的密钥破解了这段密文，如果破解之后的内容和明文内容一致就说明 A的身份没有问题。</p>
+<p><strong>Kerberos就是基于此基础之上的一套复杂的认证机制。</strong></p>
+<p>下面对整个认证过程进行一个细致的分析，对于安装部署过程中纠错来说（尤其CDH集群集成的<code>Kerberos</code>有一些问题），这个过程是非常有必要的：</p>
+<p>通过第二节介绍的两种Key，让被认证的一方提供一个仅限于他和认证方知晓的Key来鉴定对方的真实身份。而被这个<code>Key</code>加密的数据包需要在<code>Client</code>和<code>Server</code>之间传送，所以这个<code>Key</code>不能是一个<code>Long-term Key</code>，而只可能是<code>hort-term Key</code>，这个可以仅仅在<code>Client</code>和<code>Server</code>的一个<code>Session</code>中有效，所以我们称这个<code>Key</code>为<code>Client</code>和<code>Server</code>之间的<code>Session Key（Sserver-Client）</code>。</p>
+<p>这个<code>Sserver-Client</code> 需要引入<code>Kerberos</code>中的一个十分重要的觉得：<code>Kerberos Distribution Center-KDC</code>。<code>KDC</code>在整个<code>Kerberos</code>认证流程中作为<code>Client</code>和<code>Server</code>共同信任的第三方起着重要的作用，而<code>Kerberos</code>的认证过程就是通过这三方协作完成。<code>KDC</code>中维护着一个存储着该<code>Domain</code>中所有账户的<code>Account Database</code>（一个轻量级的数据库），这个数据库汇中存储着每个<code>Account</code>的名称和派生于该<code>Account Password</code>的<code>Master Key</code>，派生手段一般来说是类似Hash这种，不可逆的，然后可以一一对应的方法。</p>
+<p>稍微扩展一下上面的<code>key</code>的分发过程：</p>
+<p>首先是<code>Client</code>向<code>KDC</code>发送一个对<code>SServer-Client</code>的申请。这个申请的内容可以简单概括为“我是某个<code>Client</code>，我需要一个<code>Session Key</code>用于访问某个<code>Server</code> ”。<code>KDC</code>在接受了这个请求以后，生成一个<code>Session </code>Key，为了保证这个<code>Session Key</code>仅仅限于发送请求的<code>Client</code>和他希望访问的<code>Server</code>知晓，<code>KDC</code>会为这个<code>Session Key</code>生成两个<code>Copy</code>，分别被<code>Client</code>和<code>Server</code>使用。然后从<code>Account database</code>中提取<code>Client</code>和<code>Server</code>的<code>Master Key</code>分别对这两个<code>Copy</code>进行对称加密。对于后者，和<code>Session Key</code>一起被加密的还包含关于<code>Client</code>的一些信息。（这里的<code>Client</code>可以理解为发送连接请求的节点，<code>Server</code>可以理解为<code>Client</code>发送请求的接受节点）。</p>
+<p>现在KDC有了两个分别被<code>Master</code>和<code>Server</code>的<code>Master key</code>加密过的<code>Session Key</code>，下面介绍这两个<code>Session Key</code>的处理方式。</p>
+<p>Kerberos 并不会直接把两个加密包分别发送给<code>Client</code>和<code>Server</code>，原因主要有两个：</p>
+<p>第一：由于一个<code>Server</code>会面对若干不同的<code>Client</code>, 而每个<code>Client</code>都具有一个不同的<code>Session Key</code>。那么<code>Server</code>就会为所有的<code>Client</code>维护这样一个<code>Session Key</code>的列表，这样对于<code>Server</code>来说是比较麻烦而低效的。</p>
+<p>第二：由于网络传输的不确定性，可能出现这样一种情况：<code>Client</code>很快获得<code>Session Key</code>，并将这个<code>Session Key</code>作为<code>Credential</code>随同访问请求发送到<code>Server</code>，但是用于<code>Server</code>的<code>Session Key</code>确还没有收到，并且很有可能承载这个<code>Session Key</code>的永远也到不了<code>Server</code>端，<code>Client</code>将永远得不到认证。</p>
+<p>为了解决这个问题，<code>Kerberos</code>的做法是：<strong>将这两个被加密的<code>Copy</code>一并发送给<code>Client</code>，属于<code>Server</code>的那份由<code>Client</code>发送给<code>Server</code>。</strong></p>
+<p><code>Client</code>实际上获得了两组信息：一个通过自己<code>Master Key</code>加密的<code>Session Key</code>，另一个被<code>Server</code>的<code>Master Key</code>加密的数据包，包含<code>Session Key</code>和关于自己的一些确认信息。通过一个双方知晓的<code>Key</code>就可以对对方进行有效的认证，但是在一个网络的环境中，这种简单的做法是具有安全漏洞，为此,<code>Client</code>需要提供更多的证明信息，我们把这种证明信息称为<code>Authenticator</code>，在<code>Kerberos</code>的<code>Authenticator</code>实际上就是关于<code>Client</code>的一些信息和当前时间的一个<code>Timestamp</code>。</p>
+<p><code>Client</code>通过自己的<code>Master Key</code>对<code>KDC</code>加密的<code>Session Key</code>进行解密从而获得<code>Session Key</code>，随后创建**<code>Authenticator（Client Info + Timestamp）</code><strong>并用<code>Session Key</code>对其加密。最后连同从<code>KDC</code>获得的、被<code>Server</code>的<code>Master Key</code>加密过的数据包</strong><code>（Client Info + Session Key）</code>**一并发送到<code>Server</code>端。我们把通过<code>Server</code>的<code>Master Key</code>加密过的数据包称为<code>Session Ticket</code>。当<code>Server</code>接收到这两组数据后，先使用他自己的<code>Master Key</code>对<code>Session Ticket</code>进行解密，从而获得<code>Session Key</code>。随后使用该<code>Session Key</code>解密<code>Authenticator</code>，通过比较<code>Authenticator</code>中的<code>Client Info</code>和<code>Session Ticket</code>中的<code>Client Info</code>从而实现对Client的认证。</p>
+<p>这里涉及到了一个<code>Timestamp</code>，<code>Client</code>向<code>Server</code>发送的数据包如果被某个恶意网络监听者截获，该监听者随后将数据包作为自己的<code>Credential</code>冒充该<code>Client</code>对<code>Server</code>进行访问，在这种情况下，依然可以很顺利地获得<code>Server</code>的成功认证。为了解决这个问题，<code>Client</code>在<code>Authenticator</code>中会加入一个当前时间的<code>Timestamp</code>。</p>
+<p>在<code>Server</code>对<code>Authenticator</code>中的<code>Client Info</code>和<code>Session Ticket</code>中的<code>Client Info</code>进行比较之前，会先提取<code>Authenticator</code>中的<code>Timestamp</code>，并同当前的时间进行比较，如果他们之间的偏差超出一个可以<strong>接受的时间范围（一般是5mins）</strong>，<code>Server</code>会直接拒绝该<code>Client</code>的请求。在这里需要知道的是，<code>Server</code>维护着一个列表，这个列表记录着在这个可接受的时间范围内所有进行认证的Client和认证的时间。对于时间偏差在这个可接受的范围中的<code>Client</code>，<code>Server</code>会从这个列表中获得<strong>最近一个该<code>Client</code>的认证时间</strong>，只有当<code>Server</code>接收到<code>Authenticator</code>时，验证<code>Authenticator</code>中的<code>Timestamp</code>，确定传输时间小于接受范围后，<code>Server</code>才采用进行后续的认证流程。</p>
+<hr>
+<p><strong><code>Time Synchronization</code>的重要性</strong></p>
+<p>上述基于<code>Timestamp</code>的认证机制只有在<code>Client</code>和<code>Server</code>端的时间保持同步的情况才有意义。所以保持<code>Time</code> <code>Synchronization</code>在整个认证过程中显得尤为重要。在一个<code>Domain</code>中，一般通过访问同一个<code>Time Service</code>获得当前时间的方式来实现时间的同步。</p>
+<p><strong>双向认证（Mutual Authentication）</strong></p>
+<p><code>Kerberos</code>一个重要的优势在于它能够提供双向认证：不但<code>Server</code>可以对<code>Client</code> 进行认证，<code>Client</code>也能对<code>Server</code>进行认证。</p>
+<p>具体过程是这样的，如果<code>Client</code>需要对他访问的<code>Server</code>进行认证，会在它向<code>Server</code>发送的<code>Credential</code>中设置一个是否需要认证的<code>Flag</code>。<code>Server</code>在对<code>Client</code>认证成功之后，会把<code>Authenticator</code>中的<code>Timestamp</code>提出来，通过<code>Session Key</code>进行加密，当<code>Client</code>接收到并使用<code>Session Key</code>进行解密之后，如果确认<code>Timestamp</code>和原来的完全一致，那么他可以认定<code>Server</code>正试图访问的<code>Server</code>。</p>
+<p>那么为什么<code>Server</code>不直接把通过Session Key进行加密的<code>Authenticator</code>原样发送给<code>Client</code>，而要把<code>Timestamp</code>提取出来加密发送给<code>Client</code>呢？原因在于防止恶意的监听者通过获取的<code>Client</code>发送的<code>Authenticator</code>冒充<code>Server</code>获得<code>Client</code>的认证。</p>
+<p><strong>More</strong>：</p>
+<p>通过上面的介绍，我们发现<code>Kerberos</code>实际上一个基于<code>Ticket</code>的认证方式。<code>Client</code>想要获取<code>Server</code>端的资源，先得通过<code>Server</code>的认证；而认证的先决条件是<code>Client</code>向<code>Server</code>提供从<code>KDC</code>获得的一个有<code>Server</code>的<code>Master Key</code>进行加密的<code>Session Ticket</code>（<code>Session Key + Client Info</code>）。可以这么说，<code>Session Ticket</code>是<code>Client</code>进入<code>Server</code>领域的一张门票。而这张门票必须从一个合法的<code>Ticket</code>颁发机构获得，这个颁发机构就是<code>Client</code>和<code>Server</code>双方信任的<code>KDC</code>， 同时这张<code>Ticket</code>具有超强的防伪标识：<strong>它是被<code>Server</code>的<code>Master Key</code>加密的。对<code>Client</code>来说， 获得<code>Session</code> <code>Ticket</code>是整个认证过程中最为关键的部分。</strong></p>
+<hr>
+<p>我了解到这儿感觉已经差不多了，然而这还只是Kerbeos的梗概  T_T</p>
+<p><code>Client</code>要获得<code>Ticket</code>之前，还需要一个步骤，即获得<code>KDC</code>的权限确认，这个过程叫做<code>TGT：Ticket</code><br><code>Granting Ticket</code>。<code>TGT</code>的分发方仍然是<code>KDC</code>。首先<code>Client</code>向<code>KDC</code>发起对<code>TGT</code>的申请，申请的内容大致可以这样表示：“我需要一张<code>TGT</code>用以申请获取用以访问所有<code>Server</code>的<code>Ticket</code>”。<code>KDC</code>在收到该申请请求后，生成一个用于该<code>Client</code>和<code>KDC</code>进行安全通信的<code>Session Key（SKDC-Client）</code>。为了保证该<code>Session Key</code>仅供该<code>Client</code>和自己使用，<code>KDC</code>使用<code>Client</code>的<code>Master Key</code>和自己的<code>Master Key</code>对生成的<code>Session Key</code>进行加密，从而获得两个加密的<code>SKDC-Client</code>的<code>Copy</code>。对于后者，随<code>SKDC-Client</code>一起被加密的还包含以后用于鉴定<code>Client</code>身份的关于<code>Client</code>的一些信息。最后<code>KDC</code>将这两份<code>Copy</code>一起发送给<code>Client</code>。这里有一点需要注意的是：为了免去<code>KDC</code>对于基于不同<code>Client</code>的<code>Session Key</code>进行维护的麻烦，就像<code>Server</code>不会保存<code>Session Key（SServer-Client）</code>一样，<code>KDC</code>也不会去保存这个<code>Session Key（SKDC-Client）</code>，而选择完全靠<code>Client</code>自己提供的方式。</p>
+<p>当<code>Client</code>收到<code>KDC</code>的两个加密数据包之后，先使用自己的<code>Master Key</code>对第一个<code>Copy</code>进行解密，从而获得<code>KDC</code>和<code>Client</code>的<code>Session</code><br><code>Key（SKDC-Client）</code>，并把该<code>Session</code> 和<code>TGT</code>进行缓存。有了<code>Session Key</code>和<code>TGT</code>，<code>Client</code>自己的<code>Master</code><br><code>Key</code>将不再需要，因为此后<code>Client</code>可以使用<code>SKDC-Client</code>向<code>KDC</code>申请用以访问每个<code>Server</code>的<code>Ticket</code>。同时需要注意的是<code>SKDC-Client</code>是一个<code>Session Key</code>，他具有自己的生命周期，同时<code>TGT</code>和<code>Session</code>相互关联，当<code>Session Key</code>过期，<code>TGT</code>也就宣告失效，此后<code>Client</code>不得不重新向<code>KDC</code>申请新的<code>TGT</code>，<code>KDC</code>将会生成一个不同<code>Session Key</code>和与之关联的<code>TGT</code>。同时，由于<code>Client Log off</code>也导致<code>SKDC-Client</code>的失效，所以<code>SKDC-Client</code>又被称为<code>Logon Session Key</code>。**<code>TGT</code>和<code>Ticket</code>有个区别就是<code>Ticket</code>是基于某个具体的<code>Server</code>的，而<code>TGT</code>则是和具体的<code>Server</code>无关的。**</p>
+<p><code>Client</code>在获得自己和<code>KDC</code>的<code>Session Key（SKDC-Client）</code>之后，生成自己的<code>Authenticator</code>以及所要访问的<code>Server</code>名称的并使用<code>SKDC-Client</code>进行加密。随后连同<code>TGT</code>一起发送给<code>KDC</code>。<code>KDC</code>使用自己的<code>Master Key</code>对<code>TGT</code>进行解密，提取<code>Client Info</code>和<code>Session Key（SKDC-Client）</code>，然后使用这个<code>SKDC-Client</code>解密<code>Authenticator</code>获得<code>Client Info</code>，对两个<code>Client Info</code>进行比较进而验证对方的真实身份。验证成功，生成一份基于<code>Client</code>所要访问的<code>Server</code>的<code>Ticket</code>给<code>Client</code>，然后继续上面之说的过程。</p>
+<p>介绍了这么多，重新把整个过程理一遍：</p>
+<p>现在介绍的整个Authentication过程大概分为三个子过程</p>
+<ul>
+<li><p>Client向KDC申请TGT（Ticket Granting Ticket）。</p>
+</li>
+<li><p>Client通过获得TGT向DKC申请用于访问Server的Ticket。</p>
+</li>
+<li><p>Client最终向为了Server对自己的认证向其提交Ticket。</p>
+</li>
+</ul>
+<p>整个Kerberos Authentication认证过程通过3个sub-protocol来完成：</p>
+<ol>
+<li>Authentication Service Exchange</li>
+<li>Ticket Granting Service Exchange</li>
+<li>Client/Server Exchange</li>
+</ol>
+<p>下面内容来自官方文档的翻译：</p>
+<p>1.Authentication Service Exchange</p>
+<p><code>Client</code>向<code>KDC</code>的<code>Authentication Service</code>发送<code>Authentication Service Request</code>（<code>KRB_AS_REQ</code>）, 为了确保<code>KRB_AS_REQ</code>仅限于自己和<code>KDC</code>知道，<code>Client</code>使用自己的<code>Master Key</code>对<code>KRB_AS_REQ</code>的主体部分进行加密（<code>KDC</code>可以通过<code>Domain</code> 的<code>Account Database</code>获得该<code>Client</code>的<code>Master Key</code>）。<code>KRB_AS_REQ</code>的大体包含以下的内容：</p>
+<ul>
+<li><code>Pre-authentication data</code>：包含用以证明自己身份的信息。说白了，就是证明自己知道自己声称的那个<code>account</code>的<code>Password</code>。一般地，它的内容是一个被<code>Client</code>的<code>Master key</code>加密过的<code>Timestamp</code>。</li>
+<li><code>Client name</code> &amp; <code>realm</code>: 简单地说就是<code>Domain name\Client</code></li>
+<li><code>Server Name</code>：注意这里的<code>Server Name</code>并不是<code>Client</code>真正要访问的<code>Server</code>的名称，而我们也说了<code>TGT</code>是和<code>Server</code>无关的（<code>Client</code>只能使用<code>Ticket</code>，而不是<code>TGT</code>去访问<code>Server</code>）。这里的<code>Server Name</code>实际上是<code>KDC</code>的<code>Ticket Granting Service</code>的<code>Server Name</code>。</li>
+</ul>
+<p><code>AS（Authentication Service）</code>通过它接收到的<code>KRB_AS_REQ</code>验证发送方的是否是在<code>Client name</code> &amp; <code>realm</code>中声称的那个人，也就是说要验证发送方是否知道<code>Client</code>的<code>Password</code>。所以<code>AS</code>只需从<code>Account Database</code>中提取<code>Client</code>对应的<code>Master Key</code>对<code>Pre-authentication data</code>进行解密，如果是一个合法的<code>Timestamp</code>，则可以证明发送方提供的是正确无误的密码。验证通过之后，<code>AS</code>将一份<code>Authentication Service</code> <code>Response（KRB_AS_REP）</code>发送给<code>Client</code>。<code>KRB_AS_REQ</code>主要包含两个部分：本<code>Client</code>的<code>Master Key</code>加密过的<code>Session Key（SKDC-Client：Logon Session Key）</code>和被自己（<code>KDC</code>）加密的<code>TGT</code>。而<code>TGT</code>大体又包含以下的内容：</p>
+<ul>
+<li><p><code>Client name &amp; realm</code>: 简单地说就是<code>Domain name\Client</code></p>
+</li>
+<li><p><code>Client name &amp; realm</code>: 简单地说就是<code>Domain name\Client</code></p>
+</li>
+<li><p><code>End time</code>: <code>TGT</code>到期的时间</p>
+</li>
+</ul>
+<p>Client通过自己的Master Key对第一部分解密获得Session Key（SKDC-Client：Logon Session Key）之后，携带着TGT便可以进入下一步：TGS（Ticket Granting Service）Exchange。</p>
+<p>2.Ticket Granting Service Exchange</p>
+<p><code>TGS</code>（<code>Ticket Granting Service</code>）<code>Exchange</code>通过<code>Client</code>向<code>KDC</code>中的<code>TGS</code>（<code>Ticket Granting Service</code>）发送<code>Ticket Granting Service Request</code>（<code>KRB_TGS_REQ</code>）开始。<code>KRB_TGS_REQ</code>大体包含以下的内容：</p>
+<ul>
+<li><p>TGT：Client通过AS Exchange获得的Ticket Granting Ticket，TGT被KDC的Master Key进行加密。</p>
+</li>
+<li><p>Authenticator：用以证明当初TGT的拥有者是否就是自己，所以它必须以TGT的办法方和自己的Session Key（SKDC-Client：Logon Session Key）来进行加密。</p>
+</li>
+<li><p>Client name &amp; realm: 简单地说就是Domain name\Client。</p>
+</li>
+<li><p>Server name &amp; realm: 简单地说就是Domain name\Server，这回是Client试图访问的那个Server。</p>
+</li>
+</ul>
+<p><code>TGS</code>收到<code>KRB_TGS_REQ</code>在发给<code>Client</code>真正的<code>Ticket</code>之前，先得整个<code>Client</code>提供的那个<code>TGT</code>是否是<code>AS</code>颁发给它的。于是它不得不通过<code>Client</code>提供的<code>Authenticator</code>来证明。但是<code>Authentication</code>是通过<code>Logon Session Key（SKDC-Client）</code>进行加密的，而自己并没有保存这个<code>Session Key</code>。所以TGS先得通过自己的<code>Master Key</code>对<code>Client</code>提供的<code>TGT</code>进行解密，从而获得这个<code>Logon Session Key（SKDC-Client）</code>，再通过这个<code>Logon Session Key（SKDC-Client）</code>解密<code>Authenticator</code>进行验证。验证通过向对方发送<code>Ticket Granting</code><br><code>Service Response（KRB_TGS_REP）</code>。这个<code>KRB_TGS_REP</code>有两部分组成：使用<code>Logon Session Key（SKDC-Client）</code>加密过用于<code>Client</code>和<code>Server</code>的<code>Session Key（SServer-Client）</code>和使用<code>Server</code>的<code>Master Key</code>进行加密的<code>Ticket</code>。该<code>Ticket</code>大体包含以下一些内容：</p>
+<ul>
+<li><p>Client name &amp; realm: 简单地说就是Domain name\Client</p>
+</li>
+<li><p>Client name &amp; realm: 简单地说就是Domain name\Client</p>
+</li>
+<li><p>End time: Ticket的到期时间</p>
+</li>
+</ul>
+<p><code>Client</code>收到<code>KRB_TGS_REP</code>，使用<code>Logon Session Key（SKDC-Client）</code>解密第一部分后获得<code>Session Key（SServer-Client）</code>。有了<code>Session Key</code>和<code>Ticket，Client</code>就可以之间和<code>Server</code>进行交互，而无须在通过<code>KDC</code>作中间人了。所以我们说<code>Kerberos</code>是一种高效的认证方式，它可以直接通过<code>Client</code>和<code>Server</code>双方来完成，不像Windows NT 4下的<code>NTLM</code>认证方式，每次认证都要通过一个双方信任的第3方来完成。</p>
+<p>我们现在来看看 <code>Client</code>如果使用<code>Ticket</code>和<code>Server</code>怎样进行交互的，这个阶段通过我们的第3个<code>Sub-protocol</code>来完成：<code>CS（Client/Server ）Exchange</code>。</p>
+<ol start="3">
+<li>CS（Client/Server ）Exchange</li>
+</ol>
+<p>这个已经经介绍过。<code>Client</code>通过<code>TGS Exchange</code>获得<code>Client</code>和<code>Server</code>的<code>Session Key（SServer-Client）</code>，随后创建用于证明自己就是Ticket的真正所有者的<code>Authenticator</code>，并使用<code>Session Key（SServer-Client）</code>进行加密。最后将这个被加密过的<code>Authenticator</code>和<code>Ticket</code>作为<code>Application Service Request（KRB_AP_REQ）</code>发送给<code>Server</code>。除了上述两项内容之外，<code>KRB_AP_REQ</code>还包含一个<code>Flag</code>用于表示<code>Client</code>是否需要进行双向验证（<code>Mutual Authentication</code>）。</p>
+<p><code>Server</code>接收到<code>KRB_AP_REQ</code>之后，通过自己的<code>Master Key</code>解密<code>Ticket</code>，从而获得<code>Session Key（SServer-Client）</code>。通过<code>Session Key（SServer-Client）</code>解密<code>Authenticator</code>，进而验证对方的身份。验证成功，让<code>Client</code>访问需要访问的资源，否则直接拒绝对方的请求。</p>
+<p>对于需要进行双向验证，<code>Server</code>从<code>Authenticator</code>提取<code>Timestamp</code>，使用<code>Session Key（SServer-Client）</code>进行加密，并将其发送给<code>Client</code>用于<code>Client</code>验证<code>Server</code>的身份。</p>
+<hr>
+<p>以上是2000年的<code>Kerberos</code>技术，和今天我们使用的<code>Kerberos</code>是不太相同的，因为这样的一个认证过程有一个最大的隐患就是<strong>Long-term Key加密的数据在网络中传递</strong>。</p>
+<p>解决办法也很简单：就是采用一个<code>Short-term</code>的<code>Session Key</code>，而不是<code>Server Master Key</code>对<code>Ticket</code>进行加密。这就是<code>Kerberos</code>的第四个<code>Sub-protocol</code>：<code>User2User Protocol</code>。</p>
+<p>因为<code>KDC</code>是不是维护<code>Session Key</code>的，所以这个<code>Session key</code>只能靠申请<code>Ticket</code>的<code>Client</code>提供，所以在原先的第一步和第二步之间，<code>Client</code>还得对<code>Server</code>进行请求已获得<code>Server</code>和<code>KDC</code>之间的<code>Session Key</code>。而对于<code>Server</code>来说，他可以像<code>Client</code>一样通过<code>AS Exchange</code>获得他和<code>KDC</code>之间的<code>Session Key</code>（<code>SKDC-Server</code>）和一个封装了这个<code>Session Key</code>并被<code>KDC</code>的<code>Master Key</code>进行加密的<code>TGT</code>，一旦获得这个<code>TGT</code>，<code>Server</code>会缓存它，以待<code>Client</code>对它的请求。</p>
+<p>所以现在添加完这个User2User的认证过程，这个过程有4个步骤组成，四个步骤如下：</p>
+<ul>
+<li><p>AS Exchange：Client通过此过程获得了属于自己的TGT，有了此TGT，Client可凭此向KDC申请用于访问某个Server的Ticket。</p>
+</li>
+<li><p>User2User：这一步的主要任务是获得封装了Server和KDC的Session Key（SKDC-Server）的属于Server的TGT。如果该TGT存在于Server的缓存中，则Server会直接将其返回给Client。否则通过AS Exchange从KDC获取。</p>
+</li>
+<li><p>TGS Exchange：Client通过向KDC提供自己的TGT，Server的TGT以及Authenticator向KDC申请用于访问Server的Ticket。KDC使用先用自己的Master Key解密Client的TGT获得SKDC-Client，通过SKDC-Client解密Authenticator验证发送者是否是TGT的真正拥有者，验证通过再用自己的Master Key解密Server的TGT获得KDC和Server 的Session Key（SKDC-Server），并用该Session Key加密Ticket返回给Client。</p>
+</li>
+<li><p>C/S Exchange：Client携带者通过KDC和Server 的Session Key（SKDC-Server）进行加密的Ticket和通过Client和Server的Session Key（SServer-Client）的Authenticator访问Server，Server通过SKDC-Server解密Ticket获得SServer-Client，通过SServer-Client解密Authenticator实现对Client的验证。</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-Kerberos的安装和Apach原生HDFS的配置"><a href="#4-Kerberos的安装和Apach原生HDFS的配置" class="headerlink" title="4.Kerberos的安装和Apach原生HDFS的配置"></a>4.Kerberos的安装和Apach原生HDFS的配置</h3><p><strong>环境：</strong></p>
+<ul>
+<li>Linux版本：CentOS Linux release 7.2.1511 (Core)</li>
+<li>CDH版本：5.13.3</li>
+<li>JDK版本：jdk1.8.0_144</li>
+<li>运行用户：root</li>
+</ul>
+<p><strong>准备工作：</strong></p>
+<p>确认添加主机名解析到/etc/hosts 文件中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">172.16.0.3  master</span><br><span class="line">172.16.0.4  datanode0</span><br><span class="line">172.16.0.5  datanode1</span><br></pre></td></tr></table></figure>
+
+<p>hostname 请使用小写，要不然在集成Kerberos 时会出现一些错误。</p>
+<p><strong>安装Kerberos</strong>:</p>
+<p>在<code>master</code>上安装包 <code>krb5</code>、<code>krb5-server</code> 和<code>krb5-client</code>。</p>
+<p><code>yum install krb5-server -y</code></p>
+<p>在所有节点上安装<code>krb5-devel</code>、<code>krb5-workstation</code>：</p>
+<p><code>yum install krb5-devel krb5-workstation -y</code></p>
+<p>修改配置文件</p>
+<p>Kerberos的配置文件需要修改三个</p>
+<p><code>/etc/krb5.conf</code></p>
+<p><code>/var/kerberos/krb5kdc/kdc.conf</code></p>
+<p><code>/var/kerberos/krb5kdc/kadm5.acl</code></p>
+<p>配置Kerberos的krb5.conf</p>
+<p>官网样例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[libdefaults]</span><br><span class="line">    default_realm = ATHENA.MIT.EDU</span><br><span class="line">    dns_lookup_kdc = true</span><br><span class="line">    dns_lookup_realm = false</span><br><span class="line"></span><br><span class="line">[realms]</span><br><span class="line">    ATHENA.MIT.EDU = &#123;</span><br><span class="line">        kdc = kerberos.mit.edu</span><br><span class="line">        kdc = kerberos-1.mit.edu</span><br><span class="line">        kdc = kerberos-2.mit.edu</span><br><span class="line">        admin_server = kerberos.mit.edu</span><br><span class="line">        master_kdc = kerberos.mit.edu</span><br><span class="line">    &#125;</span><br><span class="line">    EXAMPLE.COM = &#123;</span><br><span class="line">        kdc = kerberos.example.com</span><br><span class="line">        kdc = kerberos-1.example.com</span><br><span class="line">        admin_server = kerberos.example.com</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">[domain_realm]</span><br><span class="line">    mit.edu = ATHENA.MIT.EDU</span><br><span class="line"></span><br><span class="line">[capaths]</span><br><span class="line">    ATHENA.MIT.EDU = &#123;</span><br><span class="line">           EXAMPLE.COM = .</span><br><span class="line">    &#125;</span><br><span class="line">    EXAMPLE.COM = &#123;</span><br><span class="line">           ATHENA.MIT.EDU = .</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：样例来自MIT官网，部分配置选项含义如下：</p>
+<p><code>[logging]</code>：表示 server 端的日志的打印位置</p>
+<p><code>[libdefaults]</code>：每种连接的默认配置，需要注意以下几个关键的小配置</p>
+<p><code>default_realm = EXAMPLE.COM</code>：设置 Kerberos 应用程序的默认领域。如果您有多个领域，只需向 [realms] 节添加其他的语句。</p>
+<p><code>ticket_lifetime</code>： 表明凭证生效的时限，一般为24小时。</p>
+<p><code>renew_lifetime</code>： 表明凭证最长可以被延期的时限，一般为一个礼拜。当凭证过期之后，对安全认证的服务的后续访问则会失败。</p>
+<p><code>clockskew</code>：时钟偏差是不完全符合主机系统时钟的票据时戳的容差，超过此容差将不接受此票据。通常，将时钟扭斜设置为 300 秒（5 分钟）。这意味着从服务器的角度看，票证的时间戳与它的偏差可以是在前后 5 分钟内。</p>
+<p><code>udp_preference_limit= 1</code>：禁止使用 udp 可以防止一个 Hadoop 中的错误</p>
+<p><code>[realms]</code>：列举使用的 realm。</p>
+<p><code>kdc</code>：代表要 kdc 的位置。格式是 机器:端口</p>
+<p><code>admin_server</code>：代表 admin 的位置。格式是 机器:端口</p>
+<p><code>default_domain</code>：代表默认的域名</p>
+<p><code>[appdefaults]</code>：可以设定一些针对特定应用的配置，覆盖默认配置。</p>
+<p>经过一段时间的对比实验，最终配置文件设置为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[logging]</span><br><span class="line">     default = FILE:/var/log/krb5libs.log</span><br><span class="line">     kdc = FILE:/var/log/krb5kdc.log</span><br><span class="line">     admin_server = FILE:/var/log/kadmind.log</span><br><span class="line"></span><br><span class="line">[libdefaults]</span><br><span class="line">     dns_lookup_realm = false</span><br><span class="line">     dns_lookup_kdc = false</span><br><span class="line">     ticket_lifetime = 24h</span><br><span class="line">     renew_lifetime = 7d</span><br><span class="line">     forwardable = true</span><br><span class="line">     renewable = true</span><br><span class="line">     udp_preference_limit = 1</span><br><span class="line">     rdns = false</span><br><span class="line">     pkinit_anchors = /etc/pki/tls/certs/ca-bundle.crt</span><br><span class="line">     default_realm = JIMI.COM</span><br><span class="line">     default_tgs_enctypes = arcfour-hmac</span><br><span class="line">     default_tkt_enctypes = arcfour-hmac</span><br><span class="line"></span><br><span class="line">[realms]</span><br><span class="line">    JIMI.COM = &#123;</span><br><span class="line">      kdc = master126</span><br><span class="line">      admin_server = master126</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">[domain_realm]</span><br><span class="line">     .jimi.com = JIMI.COM</span><br><span class="line">    jimi.com = JIMI.COM</span><br></pre></td></tr></table></figure>
+
+<p>接下来是第二个配置文件<code>/var/kerberos/krb5kdc/kdc.conf</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[kdcdefaults]</span><br><span class="line"> kdc_ports = 88</span><br><span class="line"> kdc_tcp_ports = 88</span><br><span class="line"></span><br><span class="line">[realms]</span><br><span class="line"> JIMI.COM = &#123;</span><br><span class="line">  #master_key_type = aes256-cts</span><br><span class="line">  max_renewable_life= 7d 0h 0m 0s</span><br><span class="line">  acl_file = /var/kerberos/krb5kdc/kadm5.acl</span><br><span class="line">  dict_file = /usr/share/dict/words</span><br><span class="line">  admin_keytab = /var/kerberos/krb5kdc/kadm5.keytab</span><br><span class="line">  supported_enctypes = aes256-cts:normal aes128-cts:normal des3-hmac-sha1:normal arcfour-hmac:normal camellia256-cts:normal camellia128-cts:normal des-hmac-sha1:normal des-cbc-md5:normal des-cbc-crc:normal</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这边直接放上配置文件，官方的配置文件相当冗余，加上版本问题，我删除了很多选项，只留下了小部分，剩下的应该会以默认值运行。</p>
+<p>贴上一点简单的选项说明：</p>
+<p><code>EXAMPLE.COM</code>： 是设定的 <code>realms</code>。名字随意。<code>Kerberos</code> 可以支持多个 <code>realms</code>，会增加复杂度。大小写敏感，一般为了识别使用全部大写。这个 <code>realms</code> 跟机器的 <code>host</code> 没有大关系。</p>
+<p><code>master_key_type</code>：和 <code>supported_enctypes</code> 默认使用 <code>aes256-cts</code>。JAVA 使用 <code>aes256-cts</code> 验证方式需要安装 JCE 包，见下面的说明。为了简便，你可以不使用 <code>aes256-cts</code> 算法，这样就不需要安装 <code>JCE</code> 。</p>
+<p><code>acl_file</code>：标注了 admin 的用户权限，需要用户自己创建。文件格式是：<code>Kerberos_principal permissions</code> [target_principal] [restrictions]</p>
+<p><code>supported_enctypes</code>：支持的校验方式。</p>
+<p>admin_keytab：KDC 进行校验的 keytab。</p>
+<p>这边要注意，如果系统是Centos5.6及以上系统，默认使用AES-256来加密，但是这个AES-256 JDK的安全包里默认不存在，所以要去<a href="https://www.oracle.com/technetwork/cn/java/javase/downloads/jce8-download-2133166-zhs.html" target="_blank" rel="noopener">Oracle</a>下载，但是这个密码增强包貌似对JDK过高的版本支持有BUG，但是暂时好像还没遇到，下载下来之后放到这个目录里：$JAVA_HOME/jre/lib/security</p>
+<p>还有一个文件<code>/var/kerberos/krb5kdc/kadm5.acl</code>：</p>
+<p>这个是权限控制文件，修改为</p>
+<p><code>*/admin@JIMI.COM        *</code></p>
+<p>这三个配置文件中只有krb5.conf需要拷贝到集群中其他服务器</p>
+<p>别的两个配置文件不需要分发到别的节点。</p>
+<p><strong>创建数据库</strong>：</p>
+<p>原理里面已经讲过了KDC里面有一个小型的数据库，下面是对这个数据库的操作。</p>
+<p>在master上运行初始化数据库命令，其中 -r 指定对应的realm</p>
+<p><code>kdb5_util create -r JIMI.COM -s</code></p>
+<p>出现 <code>loading random data</code> 的时候另开个终端执行点消耗CPU的命令如<code>cat /dev/sda &gt; /dev/urandom</code> 可以加快随机数采集。该命令会在<code>/var/kerberos/krb5kdc/</code> 目录下创建 <code>principal</code> 数据库。</p>
+<p>如果遇到数据库已经存在的提示，可以把 <code>/var/kerberos/krb5kdc/</code> 目录下的 principal 的相关文件都删除掉。默认的数据库名字都是 <code>principal</code>。可以使用 -d 指定数据库名字。</p>
+<p>这个数据库相当重要，后面还会介绍。</p>
+<p><strong>启动服务</strong>：</p>
+<p>在master节点上运行：</p>
+<p>centos 6：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chkconfig krb5kdc on </span><br><span class="line">chkconfig kadmin on </span><br><span class="line">service krb5kdc start </span><br><span class="line">service kadmin start</span><br></pre></td></tr></table></figure>
+
+<p>centos 7：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start krb5kdc </span><br><span class="line">systemctl start kadmin </span><br><span class="line">systemctl status krb5kdc </span><br><span class="line">systemctl status kadmin</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>创建Kerberos管理员</strong></p>
+<p>Kerberos的管理，有两个方式，分别是kadmin.local 或 kadmin，至于使用哪个，取决于账户和权限访问。</p>
+<ul>
+<li><p>如果有访问 kdc 服务器的 root 权限，但是没有 kerberos admin 账户，使用 kadmin.local</p>
+</li>
+<li><p>如果没有访问 kdc 服务器的 root 权限，但是用 kerberos admin 账户，使用 kadmin</p>
+</li>
+</ul>
+<p>在master上创建远程管理的程序员:</p>
+<p>#手动输入两次密码，这里密码为 root</p>
+<p><code>kadmin.local -q &quot;addprinc root/admin&quot;</code></p>
+<p>#也可以不用手动输入密码</p>
+<p><code>echo -e &quot;root\nroot&quot; | kadmin.local -q &quot;addprinc root/admin&quot;</code></p>
+<p>#或者运行下面命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kadmin.local &lt;&lt;eoj</span><br><span class="line">addprinc -pw root root/admin</span><br><span class="line">eoj</span><br></pre></td></tr></table></figure>
+
+<p>系统时提示输入密码，密码不能为空，而且需要妥善保管。</p>
+<p>测试Kerberos：</p>
+<p>查看当前认证用户</p>
+<p>#查看 principals</p>
+<p><code>kadmin: list_principals</code></p>
+<p>#添加一个新的principal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kadmin:  addprinc user1</span><br><span class="line">WARNING: no policy specified for user1@JIMI.COM; defaulting to no policy</span><br><span class="line">Enter password for principle</span><br><span class="line">Re-enter password for principal &quot;user1@JIMI.COM&quot;:</span><br><span class="line">Principal &quot;user1@JIMI.COM&quot; created.</span><br></pre></td></tr></table></figure>
+
+<p>#删除 principal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kadmin:  delprinc user1</span><br><span class="line">Are you sure you want to delete the principal &quot;user1@JIMI.COM&quot;? (yes/no): yes</span><br><span class="line">Principal &quot;user1@JIMI.COM&quot; deleted.</span><br><span class="line">Make sure that you have removed this principal from all ACLs before reusing.</span><br><span class="line">kadmin:exit</span><br></pre></td></tr></table></figure>
+
+<p>也可以直接通过下面的命令来执行</p>
+<p>#提示需要输入密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kadmin -p root/admin -q &quot;list_principals&quot;</span><br><span class="line">kadmin -p root/admin -q &quot;list_principals&quot;</span><br><span class="line">kadmin -p root/admin -q &quot;addprinc user2&quot;</span><br></pre></td></tr></table></figure>
+
+<p>#不用输入密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kadmin.local -q &quot;list_principals&quot;</span><br><span class="line">kadmin.local -q &quot;addprinc user2&quot;</span><br><span class="line">kadmin.local -q &quot;delprinc user2&quot;</span><br></pre></td></tr></table></figure>
+
+<p>#创建一个测试用户test，密码设置为test：</p>
+<p><code>echo -e &quot;test\ntest&quot; | kadmin.local -q &quot;addprinc test&quot;</code></p>
+<p>#获取test用户的ticket 通过用户名和密码登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">kinit test</span><br><span class="line">Password for test@JIMI.COM</span><br><span class="line">klist -e </span><br><span class="line">Ticket cache: FILE:/tmp/krb5cc_0</span><br><span class="line">Default principal: test@JIMI.COM</span><br><span class="line">Valid starting     	Expires            	Service principal</span><br><span class="line">11/07/14 15:29:02  	11/08/14 15:29:02  	krbtgt/JIMI.COM@JIMI.COM</span><br><span class="line">  renew until 11/17/14 15:29:02, Etype (skey, tkt): aes256-cts-hmac-sha1-96, aes256-cts-hmac-sha1-96</span><br><span class="line">Kerberos 4 ticket cache: /tmp/tkt0</span><br><span class="line">klist: You have no tickets cached</span><br></pre></td></tr></table></figure>
+
+<p>销毁test用户的ticket</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kdestroy</span><br><span class="line">klist</span><br><span class="line">klist: No credentials cache found (ticket cache FILE:/tmp/krb5cc_0)</span><br><span class="line">Kerberos 4 ticket cache: /tmp/tkt0</span><br><span class="line">klist: You have no tickets cached</span><br></pre></td></tr></table></figure>
+
+<p>更新ticket</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">kinit root/admin</span><br><span class="line">Password for root/admin@JIMI.COM</span><br><span class="line">klist</span><br><span class="line">Ticket cache: FILE:/tmp/krb5cc_0</span><br><span class="line">Default principal: root/admin@JIMI.COM</span><br><span class="line">Valid starting     	Expires            	Service principal</span><br><span class="line">11/07/14 15:33:57  	11/08/14 15:33:57  	krbtgt/JIMI.COM@JIMI.COM</span><br><span class="line">renew until 11/17/14 15:33:57</span><br><span class="line">Kerberos 4 ticket cache: /tmp/tkt0</span><br><span class="line">klist: You have no tickets cached</span><br><span class="line">kinit -R</span><br><span class="line">klist</span><br><span class="line">Ticket cache: FILE:/tmp/krb5cc_0</span><br><span class="line">Default principal: root/admin@JIMI.COM</span><br><span class="line">Valid starting     	Expires            Service principal</span><br><span class="line">11/07/14 15:34:05  	11/08/14 15:34:05  	krbtgt/JIMI.COM@JIMI.COM</span><br><span class="line">renew until 11/17/14 15:33:57</span><br><span class="line">Kerberos 4 ticket cache: /tmp/tkt0</span><br><span class="line">klist: You have no tickets cached</span><br></pre></td></tr></table></figure>
+
+<p>抽取密钥并将其储存在本地 keytab 文件 /etc/krb5.keytab 中。这个文件由超级用户拥有，所以您必须是 root 用户才能在 kadmin shell 中执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">kadmin.local -q &quot;ktadd kadmin/admin&quot;</span><br><span class="line">klist -k /etc/krb5.keytab</span><br><span class="line">Keytab name: FILE:/etc/krb5.keytab</span><br><span class="line">KVNO Principal</span><br><span class="line">---------------------------------------------------------</span><br><span class="line">     3 kadmin/admin@LASHOU-INC.COM</span><br><span class="line">     3 kadmin/admin@LASHOU-INC.COM</span><br><span class="line">     3 kadmin/admin@LASHOU-INC.COM</span><br><span class="line">     3 kadmin/admin@LASHOU-INC.COM</span><br><span class="line">     3 kadmin/admin@LASHOU-INC.COM</span><br></pre></td></tr></table></figure>
+
+<p>HDFS上配置kerberos</p>
+<p>创建认证规则</p>
+<p>在 <code>Kerberos</code> 安全机制里，一个 <code>principal</code> 就是 <code>realm</code> 里的一个对象，一个 <code>principal</code> 总是和一个密钥（<code>secret key</code>）成对出现的。</p>
+<p>这个 <code>principal</code> 的对应物可以是 <code>service</code>，可以是 <code>host</code>，也可以是 <code>user</code>，对于 <code>Kerberos</code> 来说，都没有区别。</p>
+<p><code>Kdc(Key distribute center)</code> 知道所有 <code>principal</code> 的 <code>secret key</code>，但每个 <code>principal</code> 对应的对象只知道自己的那个 <code>secret key</code> 。这也是“共享密钥“的由来。</p>
+<p>对于 <code>hadoop</code>，<code>principals</code> 的格式为</p>
+<p><code>username/fully.qualified.domain.name@YOUR-REALM.COM</code></p>
+<p>通过 <code>yum</code> 源安装的 <code>cdh</code> 集群中，NameNode和 DataNode 是通过 hdfs 启动的，故为集群中每个服务器节点添加两个<code>principals：hdfs</code>、HTTP。</p>
+<p>在 KCD server 上（这里是 cdh1）创建 hdfs principal：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kadmin.local -q "addprinc -randkey hdfs/datanode0@JIMI.COM"</span><br><span class="line">kadmin.local -q "addprinc -randkey hdfs/datanode1@JIMI.COM"</span><br><span class="line">kadmin.local -q "addprinc -randkey hdfs/master@JIMI.COM"</span><br></pre></td></tr></table></figure>
+
+<p>-randkey<br>标志没有为新 <code>principal</code> 设置密码，而是指示 <code>kadmin</code> 生成一个随机密钥。之所以在这里使用这个标志，是因为此 <code>principal</code> 不需要用户交互。它是计算机的一个服务器账户。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kadmin.local -q "addprinc -randkey HTTP/ datanode0@JIMI.COM "</span><br><span class="line">kadmin.local -q "addprinc -randkey HTTP/ datanode1@JIMI.COM "</span><br><span class="line">kadmin.local -q "addprinc -randkey HTTP/ master@JIMI.COM "</span><br></pre></td></tr></table></figure>
+
+<p>创建完成后，查看：</p>
+<p><code>kadmin.local -q &quot;listprincs&quot;</code></p>
+<p>手动创建keytab文件</p>
+<p><code>keytab</code>是包含 <code>principals</code> 和加密 <code>principal key</code> 的文件。<code>keytab</code> 文件对于每个 <code>host</code>是唯一的，因为 <code>key</code> 中包含 <code>hostname</code>。<code>keytab</code>文件用于不需要人工交互和保存纯文本密码，实现到 <code>kerberos</code> 上验证一个主机上的 <code>principal</code>。因为服务器上可以访问 <code>keytab</code> 文件即可以以 <code>principal</code> 的身份通过 <code>kerberos</code> 的认证，所以，<code>keytab</code> 文件应该被妥善保存，应该只有少数的用户可以访问。</p>
+<p>创建包含 hdfs principal 和 host principal 的 hdfs keytab：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xst -norandkey -k hdfs.keytab hdfs/fully.qualified.domain.name host/fully.qualified.domain.name</span><br></pre></td></tr></table></figure>
+
+<p>创建包含 mapred principal 和 host principal 的 mapred keytab：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xst -norandkey -k mapred.keytab mapred/fully.qualified.domain.name host/fully.qualified.domain.name</span><br></pre></td></tr></table></figure>
+
+<p>注意：上面的方法使用了xst的norandkey参数，有些kerberos不支持该参数。<br>当不支持该参数时有这样的提示：<code>Principal -norandkey does not exist</code>.，需要使用下面的方法来生成keytab文件:</p>
+<p>在master节点，即KDC server节点上执行下面的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /var/kerberos/krb5kdc/</span><br><span class="line">kadmin.local -q "xst  -k hdfs-unmerged.keytab  hdfs/datanode0@JIMI.COM"</span><br><span class="line">kadmin.local -q "xst  -k hdfs-unmerged.keytab  hdfs/datanode1@JIMI.COM"</span><br><span class="line">kadmin.local -q "xst  -k hdfs-unmerged.keytab  hdfs/master@JIMI.COM"</span><br><span class="line">----------------------------------------------------------------------------------</span><br><span class="line">kadmin.local -q "xst  -k HTTP.keytab  HTTP/ datanode0@JIMI.COM "</span><br><span class="line">kadmin.local -q "xst  -k HTTP.keytab  HTTP/ datanode1@JIMI.COM "</span><br><span class="line">kadmin.local -q "xst  -k HTTP.keytab  HTTP/ master@JIMI.COM "</span><br></pre></td></tr></table></figure>
+
+<p>这样，就会在 /var/kerberos/krb5kdc/ 目录下生成hdfs-unmerged.keytab 和 HTTP.keytab 两个文件，接下来使用 ktutil 合并者两个文件为 hdfs.keytab。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /var/kerberos/krb5kdc/</span><br><span class="line">ktutil</span><br><span class="line">ktutil: rkt hdfs-unmerged.keytab</span><br><span class="line">ktutil: rkt HTTP.keytab</span><br><span class="line">ktutil: wkt hdfs.keytab</span><br><span class="line">ktutil: exit</span><br></pre></td></tr></table></figure>
+
+<p>使用 klist 即可查看 hdfs.keytab 文件列表：（省略）</p>
+<p>验证是否正确合并了key，使用合并后的keytab，分别使用hdfs和host principals来获取证书。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kinit -k -t hdfs.keytab hdfs/master@JIMI.COM</span><br><span class="line">kinit -k -t hdfs.keytab HTTP/master@JIMI.COM</span><br></pre></td></tr></table></figure>
+
+<p>如果出现错误：<code>kinit: Key table entry not found while getting initial credentials</code>，则上面的合并有问题，重新执行前面的操作。</p>
+<p>部署kerberos keytab文件</p>
+<p>拷贝 hdfs.keytab 文件到其他节点的 /etc/hadoop/conf 目录</p>
+<p>并设置权限，分别在三个节点上运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown hdfs:hadoop /etc/hadoop/conf/hdfs.keytab</span><br><span class="line">chmod 400 /etc/hadoop/conf/hdfs.keytab</span><br></pre></td></tr></table></figure>
+
+<p>原因：</p>
+<p>由于 keytab 相当于有了永久凭证，不需要提供密码(如果修改<code>kdc</code>中的<code>principal</code>的密码，则该<code>keytab</code>就会失效)，所以其他用户如果对该文件有读权限，就可以冒充 <code>keytab</code> 中指定的用户身份访问 <code>hadoop</code>，所以 <code>keytab</code> 文件需要确保只对 <code>owner</code> 有读权限(0400)</p>
+<p>修改hdfs配置文件，先停止集群</p>
+<p>在集群总所有节点的<code>core-site.xml</code>文件中添加下面的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;hadoop.security.authentication&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;kerberos&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;hadoop.security.authorization&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在集群总所有节点的<code>hdfs-site.xml</code>文件中添加下面的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.block.access.token.enable&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;  </span><br><span class="line">  &lt;name&gt;dfs.datanode.data.dir.perm&lt;/name&gt;  </span><br><span class="line">  &lt;value&gt;700&lt;/value&gt;  </span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.namenode.keytab.file&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;/etc/hadoop/conf/hdfs.keytab&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.namenode.kerberos.principal&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;hdfs/_HOST@JAVACHEN.COM&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.namenode.kerberos.https.principal&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;HTTP/_HOST@JAVACHEN.COM&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.datanode.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;0.0.0.0:1004&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.datanode.http.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;0.0.0.0:1006&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.datanode.keytab.file&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;/etc/hadoop/conf/hdfs.keytab&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.datanode.kerberos.principal&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;hdfs/_HOST@JAVACHEN.COM&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.datanode.kerberos.https.principal&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;HTTP/_HOST@JAVACHEN.COM&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果想开启 SSL，请添加（本文不对这部分做说明）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.http.policy&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;HTTPS_ONLY&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果 HDFS 配置了 QJM HA，则需要添加（另外，你还要在 zookeeper 上配置 kerberos）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.journalnode.keytab.file&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;/etc/hadoop/conf/hdfs.keytab&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.journalnode.kerberos.principal&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;hdfs/_HOST@JAVACHEN.COM&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.journalnode.kerberos.internal.spnego.principal&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;HTTP/_HOST@JAVACHEN.COM&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果配置了WebHDFS，则添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.webhdfs.enabled&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.web.authentication.kerberos.principal&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;HTTP/_HOST@JAVACHEN.COM&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.web.authentication.kerberos.keytab&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;/etc/hadoop/conf/hdfs.keytab&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>配置中需要注意的点：</p>
+<p>1.<code>dfs.datanode.address</code>表示<code>data transceiver RPC server</code>所绑定的<code>hostname</code>或IP地址，如果开启 security，端口号必须小于 1024(privileged port)，否则的话启动 datanode 时候会报 <code>Cannot start secure cluster without privileged resources</code> 错误。</p>
+<p>2.<code>principal</code> 中的 <code>instance</code> 部分可以使用 _HOST 标记，系统会自动替换它为全称域名。</p>
+<p>3.如果开启了 <code>security, hadoop</code> 会对 <code>hdfs block data</code>(由 dfs.data.dir 指定)做 <code>permission check</code>，方式用户的代码不是调用<code>hdfs api</code>而是直接本地读<code>block data</code>，这样就绕过了<code>kerberos</code>和文件权限验证，管理员可以通过设置 <code>dfs.datanode.data.dir.perm</code> 来修改 <code>datanode</code> 文件权限，这里我们设置为700</p>
+<p>CDH的权限管理（<a href="https://www.cloudera.com/documentation/enterprise/6/latest/topics/cm_sg_s1_install_cm_cdh.html" target="_blank" rel="noopener">来自cloudera官网</a>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hdfs：NameNode, DataNodes, and Secondary NameNode</span><br><span class="line">mapred：JobTracker and TaskTrackers (MR1) and Job History Server (YARN)</span><br><span class="line">yarn：ResourceManager and NodeManagers (YARN)</span><br><span class="line">oozie：Oozie Server</span><br><span class="line">hue：Hue Server, Beeswax Server, Authorization Manager, and Job Designer</span><br></pre></td></tr></table></figure>
+
+<p>目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dfs.name.dir/ hdfs:hadoop</span><br><span class="line">dfs.data.dir/ hdfs:hadoop</span><br><span class="line">mapred.local.dir/ mapred:hadoop</span><br><span class="line">mapred.system.dir in HDFS/ mapred:hadoop</span><br><span class="line">yarn.nodemanager.local-dirs/ yarn:yarn</span><br><span class="line">yarn.nodemanager.log-dirs/ yarn:yarn</span><br><span class="line">oozie.service.StoreService.jdbc.url (if using Derby)/ oozie:oozie</span><br><span class="line">[[database]] name/ hue:hue</span><br><span class="line">javax.jdo.option.ConnectionURL/ hue:hue</span><br></pre></td></tr></table></figure>
+
+<p>启动NameNode</p>
+<p>启动之前必须确保JCE jar已经替换，首先检查JSVC</p>
+<p>首先master节点查看是否安装了JSVC</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls /usr/lib/bigtop-utils/</span><br><span class="line">bigtop-detect-classpath  bigtop-detect-javahome  bigtop-detect-javalibs  jsvc</span><br></pre></td></tr></table></figure>
+
+<p>然后编辑<code>/etc/default/hadoop-hdfs-datanode</code>，取消对下面注释并添加一行JSVC_HOME，修改如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_SECURE_DN_USER=hdfs</span><br><span class="line">export HADOOP_SECURE_DN_PID_DIR=/var/run/hadoop-hdfs</span><br><span class="line">export HADOOP_SECURE_DN_LOG_DIR=/var/log/hadoop-hdfs</span><br><span class="line">export JSVC_HOME=/usr/lib/bigtop-utils</span><br></pre></td></tr></table></figure>
+
+<p>hadoop-hdfs-datanode同步到其他节点</p>
+<p>随后分别在CDH2、CDH3获取ticket然后启动服务</p>
+<p>#root为root/admin密码</p>
+<p><code>kinit -k -t /etc/hadoop/conf/hdfs.keytab hdfs/master@JIMI.COM; service hadoop-hdfs-datanode start</code></p>
+<p>（这仅仅为master节点上的操作，别的节点类似）</p>
+<p>观察master上的Namenode日志，出现下面的日志表名Datanode启动成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">14/11/04 17:21:41 INFO security.UserGroupInformation:</span><br><span class="line">Login successful for user hdfs/cdh2@JAVACHEN.COM using keytab file /etc/hadoop/conf/hdfs.keytab</span><br></pre></td></tr></table></figure>
+
+<p>Tips:</p>
+<ul>
+<li><p>配置 hosts，hostname 请使用小写</p>
+</li>
+<li><p>确保 kerberos 客户端和服务端连通</p>
+</li>
+<li><p>替换 JRE 自带的 JCE jar 包</p>
+</li>
+<li><p>为 DataNode 设置运行用户并配置 JSVC_HOME</p>
+</li>
+<li><p>启动服务前，先获取 ticket 再运行相关命令</p>
+</li>
+</ul>
+<p>Quote:</p>
+<p><a href="https://www.cloudera.com/documentation/enterprise/5-12-x/topics/cdh_sg_kerberos_prin_keytab_deploy.html" target="_blank" rel="noopener">CDH官方文档对Kerberos的介绍1</a></p>
+<p><a href="https://blog.cloudera.com/blog/2015/03/how-to-quickly-configure-kerberos-for-your-apache-hadoop-cluster/" target="_blank" rel="noopener">CDH官方文档对Kerberos的介绍2</a></p>
+<p><a href="http://web.mit.edu/~kerberos/krb5-devel/doc/admin/conf_files/krb5_conf.html" target="_blank" rel="noopener">MIT官网的文档</a></p>
+<p><a href="https://docs.oracle.com/cd/E24847_01/html/819-7061/setup-9.html" target="_blank" rel="noopener">Oracle官网对Kerberos的介绍</a></p>
+<hr>
+<h3 id="5-Apach-原生Zookeeper的Kerberos配置及其验证"><a href="#5-Apach-原生Zookeeper的Kerberos配置及其验证" class="headerlink" title="5.Apach 原生Zookeeper的Kerberos配置及其验证"></a>5.Apach 原生Zookeeper的Kerberos配置及其验证</h3><p>Zookeeper的配置分为两个步骤，先配置<code>Server</code>的<code>keytab</code>，再配置<code>Client</code>的<code>keytab</code>,如果<code>zookeeper-client</code> 和 <code>zookeeper-server</code> 安装在同一个节点上，则 <code>java.env</code> 中的 <code>java.security.auth.login.config</code> 参数会被覆盖，这一点从<code>zookeeper-client</code> 命令启动日志可以看出来。</p>
+<p>首先是配置 <code>Zk Server</code></p>
+<p>因为KDC已经配置了，所以KDC不用再配</p>
+<p>第一步直接生成Keytab</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cd /var/kerberos/krb5kdc/</span><br><span class="line">kadmin.local -q "addprinc -randkey zookeeper/master@JIMI.COM "</span><br><span class="line">kadmin.local -q "addprinc -randkey zookeeper/datanode0@JIMI.COM "</span><br><span class="line">kadmin.local -q "addprinc -randkey zookeeper/datanode1@JIMI.COM "</span><br><span class="line">kadmin.local -q "xst  -k zookeeper.keytab  zookeeper/master@JIMI.COM "</span><br><span class="line">kadmin.local -q "xst  -k zookeeper.keytab  zookeeper/datanode0@JIMI.COM "</span><br><span class="line">kadmin.local -q "xst  -k zookeeper.keytab  zookeeper/datanode1@JIMI.COM "</span><br></pre></td></tr></table></figure>
+
+<p>将Keytab拷贝到目录<code>/etc/zookeeper/conf</code></p>
+<p>在三个节点上分别执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/zookeeper/conf/;chown zookeeper:hadoop zookeeper.keytab ;chmod 400 *.keytab</span><br></pre></td></tr></table></figure>
+
+<p>目的是为了控制权限。</p>
+<p>然后修改配置文件</p>
+<p>在三个节点上的zoo.cfg文件中添加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider jaasLoginRenew=3600000</span><br></pre></td></tr></table></figure>
+
+<p>然后创建JAAS配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Server &#123;</span><br><span class="line">  com.sun.security.auth.module.Krb5LoginModule required</span><br><span class="line">  useKeyTab=true</span><br><span class="line">  keyTab="/etc/zookeeper/conf/zookeeper.keytab"</span><br><span class="line">  storeKey=true</span><br><span class="line">  useTicketCache=false</span><br><span class="line">  principal="zookeeper/master@JIMI.COM";</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>三个节点都要有，每个节点里面的principal有点不同</p>
+<p>然后是配置<strong>Zookeeper Client</strong></p>
+<p>还是先生成<code>keytab</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cd /var/kerberos/krb5kdc/</span><br><span class="line">kadmin.local -q "addprinc -randkey zkcli/master@JIMI.COM "</span><br><span class="line">kadmin.local -q "addprinc -randkey zkcli/datanode0@JIMI.COM "</span><br><span class="line">kadmin.local -q "addprinc -randkey zkcli/datanode1@JIMI.COM "</span><br><span class="line">kadmin.local -q "xst  -k zkcli.keytab  zkcli/master@JIMI.COM "</span><br><span class="line">kadmin.local -q "xst  -k zkcli.keytab  zkcli/datanode0@JIMI.COM "</span><br><span class="line">kadmin.local -q "xst  -k zkcli.keytab  zkcli/datanode1@JIMI.COM "</span><br></pre></td></tr></table></figure>
+
+<p>拷贝 zkcli.keytab 文件到其他节点的 <code>/etc/zookeeper/conf</code> 目录，并设置权限，分别在master、datanode0、datanode1 上执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/zookeeper/conf/;</span><br><span class="line">chown zookeeper:</span><br><span class="line">hadoop zkcli.keytab ;chmod 400 *.keytab</span><br></pre></td></tr></table></figure>
+
+<p>由于 <code>keytab</code> 相当于有了永久凭证，不需要提供密码(如果修改 <code>kdc</code> 中的 <code>principal</code> 的密码，则该 <code>keytab</code> 就会失效)，所以其他用户如果对该文件有读权限，就可以冒充 <code>keytab</code> 中指定的用户身份访问 <code>hadoop</code>，所以 <code>keytab</code> 文件需要确保只对 <code>owner</code> 有读权限(0400)</p>
+<p>创建 JAAS 配置文件</p>
+<p>在<code>/etc/zookeeper/conf/</code>创建<code>client-jaas.conf</code>文件，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Client &#123;</span><br><span class="line">  com.sun.security.auth.module.Krb5LoginModule required</span><br><span class="line">  useKeyTab=true</span><br><span class="line">  keyTab=&quot;/etc/zookeeper/conf/zkcli.keytab&quot;</span><br><span class="line">  storeKey=true</span><br><span class="line">  useTicketCache=false</span><br><span class="line">  principal=&quot;zkcli@JIMI.COM&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>同步到其他节点，然后在<code>/etc/zookeeper/conf/</code>目录创建或者修改<code>java.env</code>，内容如下</p>
+<p><code>export CLIENT_JVMFLAGS=&quot;-Djava.security.auth.login.config=/etc/zookeeper/conf/client-jaas.conf&quot;</code></p>
+<p>并且同步到别的节点上</p>
+<p>接着是验证：</p>
+<p>启动客户端：<code>zookeeper-client -server master:2181</code></p>
+<p>创建一个<code>znode</code>节点：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: master:2181(CONNECTED) 0] create /znode1 sasl:zkcli@JIMI.COM:cdwra</span><br><span class="line">	Created /znode1</span><br></pre></td></tr></table></figure>
+
+<p>验证该节点是否创建以及其ACL：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zk: master:2181(CONNECTED) 1] getAcl /znode1</span><br><span class="line">    'world,'anyone</span><br><span class="line">    : cdrwa</span><br></pre></td></tr></table></figure>
+
+<p>只要能够在一个节点上创建<code>znode</code>，在别的节点上能够显示出来，就说明<code>Zookeeper</code>的<code>kerberos</code>已经配置成功。</p>
+<hr>
+<h3 id="6-Apach原生Kafka的Kerberos配置及其验证"><a href="#6-Apach原生Kafka的Kerberos配置及其验证" class="headerlink" title="6.Apach原生Kafka的Kerberos配置及其验证"></a>6.Apach原生Kafka的Kerberos配置及其验证</h3><p>因为之前的操作已经搭建完了<code>KDC</code>，所以省略了自建<code>Kerberos</code>的步骤</p>
+<p>首先还是为<code>broker</code>每台服务器在<code>Kerberos</code>服务器生成相应的<code>principal</code>和<code>Keytab</code>，将下列命令里生成的<code>kafka.keytab</code>文件分发到对应<code>broker</code>机器的统一位置，比如<code>/etc/kafka.keytab</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">addprinc -randkey kafka/kafkahost1@EXAMPLE.COM</span><br><span class="line">addprinc -randkey kafka/kafkahost2@EXAMPLE.COM</span><br><span class="line">addprinc -randkey kafka/kafkahost3@EXAMPLE.COM</span><br><span class="line">--------------------------------------------------------</span><br><span class="line">xst -norandkey -k /opt/kafkahost1/kafka.keytab kafka/kafkahost1@EXAMPLE.COM</span><br><span class="line">xst -norandkey -k /opt/kafkahost2/kafka.keytab kafka/kafkahost2@EXAMPLE.COM</span><br><span class="line">xst -norandkey -k /opt/kafkahost3/kafka.keytab kafka/kafkahost3@EXAMPLE.COM</span><br></pre></td></tr></table></figure>
+
+<p>配置kafka server文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">listeners=SASL_PLAINTEXT://:9092</span><br><span class="line">security.inter.broker.protocol=SASL_PLAINTEXT</span><br><span class="line">sasl.mechanism.inter.broker.protocol=GSSAPI</span><br><span class="line">sasl.enabled.mechanisms=GSSAPI</span><br><span class="line">sasl.kerberos.service.name=kafka</span><br><span class="line">super.users=User:kafka</span><br><span class="line">authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer</span><br></pre></td></tr></table></figure>
+
+<p>KafkaClient模块是为了bin目录下kafka-console-consumer.sh之类的脚本使用的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">KafkaServer &#123;</span><br><span class="line">            com.sun.security.auth.module.Krb5LoginModule required</span><br><span class="line">            useKeyTab=true</span><br><span class="line">            storeKey=true</span><br><span class="line">            keyTab="/etc/kafka.keytab"</span><br><span class="line">            principal="kafka/kafkahost1@EXAMPLE.COM";</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">KafkaClient &#123;</span><br><span class="line">        com.sun.security.auth.module.Krb5LoginModule required</span><br><span class="line">        useKeyTab=true</span><br><span class="line">        storeKey=true</span><br><span class="line">        keyTab="/etc/kafka.keytab"</span><br><span class="line">        principal="kafka/kafkahost1@EXAMPLE.COM"</span><br><span class="line">        useTicketCache=true;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>修改bin目录下kafka-run-class.sh，在  exec $JAVA 后面增加kerberos启动参数,然后就可以用正常的脚本启动服务了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Djava.security.krb5.conf=/etc/krb5.conf -Djava.security.auth.login.config=/opt/kafka/config/kafka_server_jaas.conf</span><br></pre></td></tr></table></figure>
+
+<p>或者用这个脚本启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">export KAFKA_HEAP_OPTS='-Xmx256M'</span><br><span class="line">export KAFKA_OPTS='-Djava.security.krb5.conf=/etc/krb5.conf -Djava.security.auth.login.confi</span><br><span class="line">g=/etc/kafka/zookeeper_jaas.conf'</span><br><span class="line">bin/zookeeper-server-start.sh config/zookeeper.properties &amp;</span><br><span class="line"></span><br><span class="line">sleep 5</span><br><span class="line"></span><br><span class="line">export KAFKA_OPTS='-Djava.security.krb5.conf=/etc/krb5.conf -Djava.security.auth.login.confi</span><br><span class="line">g=/etc/kafka/kafka_server_jaas.conf'</span><br><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
+
+<p>最终的目的都是一样</p>
+<p>客户端脚本使用</p>
+<p>启用kerberos后，部分kafka管理脚本需要增加额外的参数才能使用</p>
+<p>首先建立配置文件<code>client.properties</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">security.protocol=SASL_PLAINTEXT</span><br><span class="line">sasl.kerberos.service.name=kafka</span><br><span class="line">sasl.mechanism=GSSAPI</span><br></pre></td></tr></table></figure>
+
+<p>涉及到的zookeeper.properties</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider</span><br><span class="line">requireClientAuthScheme=sasl</span><br><span class="line">jaasLoginRenew=3600000</span><br></pre></td></tr></table></figure>
+
+<p>所以新命令的使用方式为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-consumer-groups.sh --bootstrap-server kafkahost1:9092 --list --command-config client.properties</span><br><span class="line">bin/kafka-console-producer.sh --broker-list kafkahost1:9092 --topic test --producer.config client.properties</span><br><span class="line">bin/kafka-console-consumer.sh --bootstrap-server kafkahost1:9092 --topic test --consumer.config client.properties</span><br></pre></td></tr></table></figure>
+
+<p>如果之前JCE的包没有安装好的话会报如下错误，需要把JCE包安装到位即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WARN [Controller-60-to-broker-60-send-thread], Controller 60's connection to broker kafka60:9092 (id: 60 rack: null) was unsuccessful (kafka.controller.RequestSendThread)</span><br><span class="line">java.io.IOException: Connection to kafka60:9092 (id: 60 rack: null) failed</span><br></pre></td></tr></table></figure>
+
+<p>能在命令行上运行成功命令行消费者和命令行生产者就说明ZK和Kafka的安装基本搞定，没有问题。</p>
+<p>用Java连接集群上的Kerberos组件篇幅较长，涉及代码，另外开一篇文章说明。</p>
+<hr>
+<h3 id="7-Cloudera’s-Distribution-Including-Apache-Hadoop-CDH-上Kerberos的安装"><a href="#7-Cloudera’s-Distribution-Including-Apache-Hadoop-CDH-上Kerberos的安装" class="headerlink" title="7.Cloudera’s Distribution Including Apache Hadoop(CDH)上Kerberos的安装"></a>7.Cloudera’s Distribution Including Apache Hadoop(<em>CDH</em>)上Kerberos的安装</h3><p>CDH上面的Kerberos安装其实已经被简化了，简化的好处是安装方便，坏处是一旦出现问题不知从何处下手。所以对前面单独组件的了解是有必要的。实际操作下来，官网和各技术博客都有些许问题。在此记录。</p>
+<p>首先配置KDC，和单独安装操作相同</p>
+<p>首先KDC还是要配置，在CM服务器上配置KDC</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install krb5-serverkrb5-libs krb5-auth-dialog krb5-workstation</span><br></pre></td></tr></table></figure>
+
+<p>修改<code>/etc/krb5.conf</code>、<code>/var/kerberos/krb5kdc/kadm5.acl</code>、<code>/var/kerberos/krb5kdc/kdc.conf</code>配置，配置内容相同，不再赘述。</p>
+<p>然后在所有节点上（包括CM）安装Kerberos客户端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install krb5-libs krb5-workstation</span><br></pre></td></tr></table></figure>
+
+<p>然后在CM节点上独立安装额外的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install openldap-clients</span><br></pre></td></tr></table></figure>
+
+<p>分发krb5.conf到另外两个节点</p>
+<p>JCE包还是要记得替换，替换位置：<code>/usr/share/java/jdk1.8.0_144/jre/lib/security</code></p>
+<p>KDC安装完成后，建立测试Kerberos的管理员账号。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5k45t4jj20et03u3yg.jpg" alt="alt admin"></p>
+<hr>
+<p>CM界面 -&gt;管理 -&gt; 安全</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5rgh6faj20o702ut8o.jpg" alt="CDH"></p>
+<p>点击启用</p>
+<hr>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0ar5zj20pe0o43zp.jpg" alt="CDH1"></p>
+<p>全部勾选即可</p>
+<hr>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0a7vuj20n00pmt9i.jpg"></p>
+<p>这边别的都好理解，都是和host上面对应的，然后这个加密类型是和krb5.conf对应相同的</p>
+<hr>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v08hypj20k005dgll.jpg"></p>
+<p>这上面有张图没截到，是选择是否要通过CM管理的，一般选择不通过</p>
+<p>这边管理账户输入之前创建的管理账户即可。</p>
+<hr>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0a1fxj20hz05d0ss.jpg"></p>
+<p>这边CDH会帮助验证密码</p>
+<hr>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0ayqyj20mx0oamxv.jpg"></p>
+<p>接下来的这个步骤我标红了一块，我在这边spark2的部分，服务范围设置的是spark2，默认是spark，我修改了一下，避免以后的keytab名字出现歧义</p>
+<hr>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2g5v0e6e7j20oc0q1wfz.jpg"></p>
+<p>随后，直接勾选重启选项即可</p>
+<p>初步的配置就完成了</p>
+<hr>
+<p><a href="https://docs.huihoo.com/solaris/10/simplified-chinese/html/819-7061/aadmin-3.html#setup-304" target="_blank" rel="noopener">Oracle系统管理指南：安全性服务文档</a></p>
+<p>（包括了备份和传播Kerberos、如何恢复Kerberos、如何在服务器升级后转换Kerberos数据库，如何重新配置主KDC服务器以使用增量传播，如何重新配置从KDC以使用增量传播，如何配置从 KDC 服务器以使用完全传播，如何验证KDC服务器已经同步，如何手动将Kerberos数据库传播到从KDC服务器，设计并行传播，设置并行传播的配置步骤，管理存储文件，如何删除存储文件等。）</p>
+<hr>
+<h3 id="8-对Kerberos的一点使用心得"><a href="#8-对Kerberos的一点使用心得" class="headerlink" title="8.对Kerberos的一点使用心得"></a>8.对Kerberos的一点使用心得</h3><p>CDH的Kerberos其实算是相对好管理的，最起码组件的principal都是CDH自动生成的。</p>
+<p>在KDC上创建完成管理员开启功能之后，我常用的操作有这些：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 登录，通过创建的BDB管理账号管理</span><br><span class="line">kadmin.local</span><br><span class="line"><span class="meta">#</span> 查看现有的账号列表</span><br><span class="line">kadmin.local: listprincs</span><br><span class="line"><span class="meta">#</span> 这边CDH的Principal都是自动生成的，可以直接使用，在服务器上的文件夹里找到对应Keytab就可以登录</span><br><span class="line"><span class="meta">#</span> 找到Principal之后，可以查看Keytab的加密方式 过期时间等等</span><br><span class="line">klist -kt /root/hdfs.keytab</span><br><span class="line">Keytab name: FILE:/root/hdfs.keytab</span><br><span class="line">KVNO Timestamp           Principal</span><br><span class="line">---- ------------------- ------------------------------------------------------</span><br><span class="line">  13 07/03/2018 10:08:10 hdfs/master126@JIMI.COM</span><br><span class="line">  13 07/03/2018 10:08:10 hdfs/master126@JIMI.COM</span><br><span class="line">  13 07/03/2018 10:08:10 hdfs/master126@JIMI.COM</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Keytab的作用就是获取KDC的ticket</span><br><span class="line">kinit -kt keytab/hdfs.keytab hdfs/master126@JIMI.COM</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 还可以使用klist -e查看现在服务器里缓存的是哪一个ticket</span><br><span class="line">klist -e</span><br><span class="line">Ticket cache: FILE:/tmp/krb5cc_0</span><br><span class="line">Default principal: hdfs/bigdata25@ZQYKJ.COM</span><br><span class="line"></span><br><span class="line">Valid starting       Expires              Service principal</span><br><span class="line">07/06/2018 11:24:46  07/07/2018 11:24:46  krbtgt/ZQYKJ.COM@ZQYKJ.COM</span><br><span class="line">	renew until 07/11/2018 11:24:46, Etype (skey, tkt): aes128-cts-hmac-sha1-96, aes128-cts-hmac-sha1-96 </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 退出</span><br><span class="line">kdestroy</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 这边还拓展一个很实用的功能 keytab维护工具 ktutil</span><br><span class="line">ktutil</span><br><span class="line"><span class="meta">#</span> 打开之后即进入工具，工具里面我常用的功能包括：rkt（read keytab）</span><br><span class="line"><span class="meta">#</span> 可以将keytab读进来之后然后，生成新的keytab（合并）</span><br><span class="line"><span class="meta">#</span> 然后上面提到的read完成之后，也可以列出 分析 加密方式等等</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.freebsd.org/cgi/man.cgi?query=ktutil" target="_blank" rel="noopener">更多ktutilAPI</a></p>
+<p><a href="https://www.ibm.com/support/knowledgecenter/zh/ssw_aix_71/com.ibm.aix.cmds3/klist.htm" target="_blank" rel="noopener">IBM对BDB数据库命令的介绍</a></p>
+<hr>
+<h3 id="9-如何验证Kerberos已经安装完成"><a href="#9-如何验证Kerberos已经安装完成" class="headerlink" title="9.如何验证Kerberos已经安装完成"></a>9.如何验证Kerberos已经安装完成</h3><p><strong>HDFS</strong><br>登录到某一个节点后，切换到hdfs用户，然后用kinit来获取credentials</p>
+<p>现在用<code>hadoop hdfs -ls /</code>应该能正常输出结果<br>用kdestroy销毁credentials后，再使用<code>hadoop hdfs -ls /</code>会发现报错</p>
+<p><strong>Kafka</strong></p>
+<p>用新的一套API，消费者能正常消费，生产者能正常生产不报错误就算ok</p>
+<p>注意：是新API，开启Kerberos之后老API无法再使用</p>
+<p><strong>Zookeeper</strong></p>
+<p>启动zookeeper：</p>
+<p>Zookeeper-client -server master:2181</p>
+<p>创建一个 znode 节点：</p>
+<p>create /znode1 sasl:<a href="mailto:&#x6d;&#x61;&#x73;&#116;&#101;&#114;&#64;&#74;&#x49;&#77;&#x49;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#x6d;&#x61;&#x73;&#116;&#101;&#114;&#64;&#74;&#x49;&#77;&#x49;&#x2e;&#99;&#111;&#109;</a>:cdwra</p>
+<p>在另外的节点上执行 </p>
+<p>getAcl /znode1</p>
+<p>如果能够获取在另外一个节点上输入的输入就证明没有问题</p>
+<hr>
+<h3 id="10-Kerberos遇到的坑"><a href="#10-Kerberos遇到的坑" class="headerlink" title="10.Kerberos遇到的坑"></a>10.Kerberos遇到的坑</h3><h4 id="Kerberos卸载BUG"><a href="#Kerberos卸载BUG" class="headerlink" title="Kerberos卸载BUG"></a>Kerberos卸载BUG</h4><p>Linux上的KDC存在严重的卸载BUG，使用<code>yum remove</code>卸载会出现严重的问题</p>
+<p>因为之前<code>principal</code>的认证因为人为操作出现了一些问题，所以用yum remove卸载重新安装了一下，yum remove之后出现了大问题，凡是新连接外部的命令都无法使用，包括并不限于：yum、ssh、wgt等命令，FTP工具也无法使用，这就导致了无法连接外部下载kdc安装包</p>
+<p>还好我卸载之前连接的SSH窗口没有关闭（新的连接无法建立， 但是已经建立的连接不会断开），用的XSHELL 6，我尝试用XFTP连接，失败，但是XSHELL 6 默认输入框里就有传输文件的功能，上传四个Kerberos文件之后重新安装之后才解决了问题。</p>
+<h4 id="Zookeeper报错"><a href="#Zookeeper报错" class="headerlink" title="Zookeeper报错"></a>Zookeeper报错</h4><p>Zk这个组件启动的时候在互相连接的装一下会报Error，这个Error曾今困扰了我挺久</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2019-02-26 18:37:15,898 WARN org.apache.zookeeper.server.NIOServerCnxn: caught end of stream exception</span><br><span class="line">EndOfStreamException: Unable to read additional data from client sessionid 0x269290a81950073, likely client has closed socket</span><br><span class="line">        at org.apache.zookeeper.server.NIOServerCnxn.doIO(NIOServerCnxn.java:231)</span><br><span class="line">        at org.apache.zookeeper.server.NIOServerCnxnFactory.run(NIOServerCnxnFactory.java:208)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:748)</span><br></pre></td></tr></table></figure>
+
+<p>其实只要Zk验证了没有问题就行了，这个报错不用纠结</p>
+<h4 id="Kafka启动-关闭Kerberos的坑"><a href="#Kafka启动-关闭Kerberos的坑" class="headerlink" title="Kafka启动/关闭Kerberos的坑"></a>Kafka启动/关闭Kerberos的坑</h4><p>CDH集群中为Kafka启用Kerberos需要些配置之外的操作，启用Kerberos的时候容易忽略这些细节，导致kafka开启不正确， 然后关闭的时候容易把这些操作忽略了，导致关闭不彻底，在有的环节仍然关闭了Kerberos。</p>
+<p>Kafka在CDH中的配置需要先登录CM进入kafka服务，修改<code>ssl.client.auth</code>为none，这届两个Kerberos相关的配置设为开启，接下来还要修改security.inter.broker.protocol配置为SASL_PLAINTEXT，保存以上修改的配置后，回到主页根据提示重启kafka Server,接下来就是在客户端上的配置，本身CDH就会为了Kafka生成配置文件jaas.conf，对于这个配置文件真实一言难尽，里面的配置文件会有 不起眼的错误（是关于KafkaClient和KafkaServer混淆的错误），这一个改正完毕，还有一个配置文件client.properties文件，两个文件设置完毕后，在<code>/etc/profile</code>里面设置环境变量<code>export KAFKA_OPTS=&quot;-Djava.security.krb5.conf=/etc/krb5.conf -Djava.security.auth.login.config=/opt/kafka/kafka_client.jaas&quot;</code>，配置完毕kafka这块，关闭的时候容易忘记，必须要记得从profile中删除才行。</p>
+<h4 id="Flume配置文件导致文件无限传输"><a href="#Flume配置文件导致文件无限传输" class="headerlink" title="Flume配置文件导致文件无限传输"></a>Flume配置文件导致文件无限传输</h4><p>Flume的配置文件出了错误，因为对Flume的KafkaChannel的不熟悉</p>
+<p>配置的时候把Channel的sink又连接到Source上导致了数据一致循环。。。</p>
+<p>排查之后发现了这个问题，附上Flume的配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">agent.sources = kafkaSource1</span><br><span class="line">agent.channels = kafkaChannel</span><br><span class="line">agent.sinks = hdfsSink</span><br><span class="line">agent.sources.kafkaSource1.channels = kafkaChannel</span><br><span class="line">agent.sinks.hdfsSink.channel = kafkaChannel</span><br><span class="line"></span><br><span class="line">agent.sources.kafkaSource1.type = org.apache.flume.source.kafka.KafkaSource</span><br><span class="line">agent.sources.kafkaSource1.zookeeperConnect = master126:2181</span><br><span class="line">agent.sources.kafkaSource1.topic = report.alarm,report.distance,report.track,report.acc,report.stop</span><br><span class="line">agent.sources.kafkaSource1.consumer.group.id = cloudera_mirrormaker</span><br><span class="line">agent.sources.kafkaSource1.kafka.consumer.timeout.ms = 100</span><br><span class="line">agent.sources.kafkaSource1.kafka.bootstrap.servers = master126:9092</span><br><span class="line">agent.sources.kafkaSource1.batchSize = 100</span><br><span class="line">agent.sources.kafkaSource1.batchDurationMillis = 1000</span><br><span class="line">agent.sources.kafkaSource1.kafka.consumer.security.protocol = SASL_PLAINTEXT</span><br><span class="line">agent.sources.kafkaSource1.kafka.consumer.sasl.mechanism = GSSAPI</span><br><span class="line">agent.sources.kafkaSource1.kafka.consumer.sasl.kerberos.service.name = kafka</span><br><span class="line"></span><br><span class="line">agent.channels.kafkaChannel.type = org.apache.flume.channel.kafka.KafkaChannel</span><br><span class="line">agent.channels.kafkaChannel.kafka.bootstrap.servers = master126:9092</span><br><span class="line">agent.channels.kafkaChannel.kafka.topic = source_from_kafka</span><br><span class="line">agent.channels.kafkaChannel.consumer.group.id = flume-consumer</span><br><span class="line">agent.channels.kafkaChannel.kafka.producer.timeout.ms = 2000</span><br><span class="line">agent.channels.kafkaChannel.kafka.producer.security.protocol = SASL_PLAINTEXT</span><br><span class="line">agent.channels.kafkaChannel.kafka.producer.sasl.mechanism = GSSAPI</span><br><span class="line">agent.channels.kafkaChannel.kafka.producer.sasl.kerberos.service.name = kafka</span><br><span class="line"></span><br><span class="line">agent.channels.kafkaChannel.kafka.consumer.timeout.ms = 2000</span><br><span class="line">agent.channels.kafkaChannel.kafka.consumer.security.protocol = SASL_PLAINTEXT</span><br><span class="line">agent.channels.kafkaChannel.kafka.consumer.sasl.mechanism = GSSAPI</span><br><span class="line">agent.channels.kafkaChannel.kafka.consumer.sasl.kerberos.service.name = kafka</span><br><span class="line"></span><br><span class="line">agent.sinks.hdfsSink.type = hdfs</span><br><span class="line">agent.sinks.hdfsSink.hdfs.kerberosKeytab= /hdfs-keytab/hdfs.keytab</span><br><span class="line">agent.sinks.hdfsSink.hdfs.kerberosPrincipal= hdfs@JIMI.COM</span><br><span class="line">agent.sinks.hdfsSink.hdfs.path = hdfs://master126:8020/test/data/flume/kafka/%Y%m%d</span><br><span class="line"><span class="meta">#</span>上传文件的前缀</span><br><span class="line">agent.sinks.hdfsSink.hdfs.filePrefix = %d_%&#123;topic&#125;</span><br><span class="line"><span class="meta">#</span>是否按照时间滚动文件夹</span><br><span class="line">agent.sinks.hdfsSink.hdfs.round = true</span><br><span class="line"><span class="meta">#</span>多少时间单位创建一个新的文件夹</span><br><span class="line">agent.sinks.hdfsSink.hdfs.roundValue = 24</span><br><span class="line"><span class="meta">#</span>重新定义时间单位</span><br><span class="line">agent.sinks.hdfsSink.hdfs.roundUnit = hour</span><br><span class="line"><span class="meta">#</span>是否使用本地时间戳</span><br><span class="line">agent.sinks.hdfsSink.hdfs.useLocalTimeStamp = true</span><br><span class="line"><span class="meta">#</span>积攒多少个Event才flush到HDFS一次</span><br><span class="line">agent.sinks.hdfsSink.hdfs.batchSize = 200</span><br><span class="line"><span class="meta">#</span>设置文件类型，可支持压缩</span><br><span class="line">agent.sinks.hdfsSink.hdfs.fileType = DataStream</span><br><span class="line"><span class="meta">#</span>多久生成一个新的文件</span><br><span class="line">agent.sinks.hdfsSink.hdfs.rollInterval = 7200</span><br><span class="line"><span class="meta">#</span>设置每个文件的滚动大小</span><br><span class="line">agent.sinks.hdfsSink.hdfs.rollSize = 1073741824</span><br><span class="line"><span class="meta">#</span>文件的滚动与Event数量无关</span><br><span class="line">agent.sinks.hdfsSink.hdfs.rollCount = 0</span><br><span class="line">agent.sinks.hdfsSink.hdfs.writeFormat = TEXT</span><br></pre></td></tr></table></figure>
+
+<p>例子中的配置文件的最终效果是从kafka的多个topic report.stop等等读取数据之后通过kafka channel，然后根据不同的topic生成不同的文件。</p>
+<h4 id="HUE中Oozie报错，时区错误"><a href="#HUE中Oozie报错，时区错误" class="headerlink" title="HUE中Oozie报错，时区错误"></a>HUE中Oozie报错，时区错误</h4><p>发现HUE的时间和实际时间有偏差，原因是HUE的时区默认是美国，要在配置里面修改，修改成东8区即可</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2w01fhhuuj20wo05bjrg.jpg"></p>
+<h4 id="系统自带的无法识别的配置文件"><a href="#系统自带的无法识别的配置文件" class="headerlink" title="系统自带的无法识别的配置文件"></a>系统自带的无法识别的配置文件</h4><p>值得一提的是这边有个错误我花了好久才发现，CDH因为是高度集成的，里面很多配置文件都是自己生成的，像Kafka的Keytab配置文件，文件里面的内容并不正确，里面指定的KafkaClient和Server根本无法识别，更改之后才可以识别。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">KafkaClient &#123;</span><br><span class="line">   com.sun.security.auth.module.Krb5LoginModule required</span><br><span class="line">   doNotPrompt=true</span><br><span class="line">   useKeyTab=true</span><br><span class="line">   storeKey=true</span><br><span class="line"> keyTab="D:\\kafkaproducer\\KafkaKerberosProducer\\src\\main\\resources\\kafka.keytab"</span><br><span class="line">   principal="kafka/master126@JIMI.COM";</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Client &#123;</span><br><span class="line">   com.sun.security.auth.module.Krb5LoginModule required</span><br><span class="line">   useKeyTab=true</span><br><span class="line">   storeKey=true</span><br><span class="line"> keyTab="D:\\kafkaproducer\\KafkaKerberosProducer\\src\\main\\resources\\kafka.keytab"</span><br><span class="line">   principal="kafka/master126@JIMI.COM";</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="11-Windows下访问Kerberos-CDH集群的WebUI界面"><a href="#11-Windows下访问Kerberos-CDH集群的WebUI界面" class="headerlink" title="11.Windows下访问Kerberos CDH集群的WebUI界面"></a>11.Windows下访问Kerberos CDH集群的WebUI界面</h3><p><a href="http://web.mit.edu/kerberos/dist/" target="_blank" rel="noopener">MIT Kerberos下载地址</a></p>
+<p>先安装windows下的Kerberos安装包，无脑安装就行了。</p>
+<p>接着配置krb5..ini文件，将krb5.conf的内容拷贝进来，切忌不要直接更改后缀名就使用</p>
+<p>接着启动MIT Kerberos软件</p>
+<p>使用我们在linux KDC上注册的管理员账号登录即可。我们登录不同的服务使用到的不用的账号，这个软件貌似会通过我们这个管理员账号自己搞定。</p>
+<p>还有一种方法，需要使用Keytab，还涉及到文件权限的问题，因为上面的方法我很轻易就成功访问了WebUI，所以第二种方法就没有尝试。</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI4OTY3MTUyNg==&mid=2247483853&idx=1&sn=442a8ba87c922857253a437affe42506&chksm=ec2ad1c4db5d58d2933ae5cde4ab1a7443c944e94aca85b51cbd8e9f4f3772162a39074da49d&scene=21#wechat_redirect" target="_blank" rel="noopener">更多内容访问阿里巨佬Fayson的公众号</a></p>
+<hr>
+<h3 id="12-禁用Kerberos需要调整的设置"><a href="#12-禁用Kerberos需要调整的设置" class="headerlink" title="12.禁用Kerberos需要调整的设置"></a>12.禁用Kerberos需要调整的设置</h3><p>说明：设置可能会随着版本变化有所变化</p>
+<p><strong>Zookeeper</strong></p>
+<ul>
+<li><code>enableSecurity (Enable Kerberos Authentication)</code> : false</li>
+<li><code>zoo.cfg</code> 的Server 高级配置代码段（安全阀）写入skipACL: yes</li>
+</ul>
+<p><strong>HDFS</strong></p>
+<ul>
+<li><code>hadoop.security.authentication</code> : Simple</li>
+<li><code>hadoop.security.authorization</code> : false</li>
+<li><code>dfs.datanode.address</code> : 1004 (for Kerberos) 改为 50010 (default)</li>
+<li><code>dfs.datanode.http.address</code> : 1006 (for Kerberos) 改为 50075 (default)</li>
+<li><code>dfs.datanode.data.dir.perm</code> : 700 改为 755</li>
+</ul>
+<p><strong>HBase</strong></p>
+<ul>
+<li><code>hbase.security.authentication</code> : Simple</li>
+<li><code>hbase.security.authorization</code> : false</li>
+<li><code>hbase.thrift.security.qop</code> : none</li>
+</ul>
+<p><strong>Hue</strong></p>
+<ul>
+<li><code>Kerberos Ticket Renewer</code>: 删除或停用角色</li>
+</ul>
+<p><strong>Kafka</strong></p>
+<ul>
+<li><code>kerberos.auth.enable</code>: false</li>
+</ul>
+<p><strong>SOLR</strong></p>
+<ul>
+<li><code>solr Secure Authentication</code> : Simple</li>
+</ul>
+<hr>
+<h3 id="13-集群同步脚本"><a href="#13-集群同步脚本" class="headerlink" title="13.集群同步脚本"></a>13.集群同步脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">    #1 获取输入参数个数，如果没有参数，直接退出</span><br><span class="line">    pcount=$#</span><br><span class="line">    if((pcount==0)); then</span><br><span class="line">    echo no args;</span><br><span class="line">    exit;</span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">    #2 获取文件名称</span><br><span class="line">    p1=$1</span><br><span class="line">    fname=`basename $p1`</span><br><span class="line">    echo fname=$fname</span><br><span class="line"></span><br><span class="line">    #3 获取上级目录到绝对路径</span><br><span class="line">    pdir=`cd -P $(dirname $p1); pwd`</span><br><span class="line">    echo pdir=$pdir</span><br><span class="line"></span><br><span class="line">    #4 获取当前用户名称</span><br><span class="line">    user=`whoami`</span><br><span class="line"></span><br><span class="line">    #5 循环</span><br><span class="line">    for((host=0; host&lt;2; host++)); do</span><br><span class="line">    echo ------------------- datanode$host --------------</span><br><span class="line">    rsync -rvl $pdir/$fname $user@datanode$host:$pdir</span><br><span class="line">    done</span><br></pre></td></tr></table></figure>
+
+<p>要先安装rsync</p>
+<p>yum install rsync</p>
+<p>安装成功之后才能用这个同步命令</p>
+<hr>
+<h3 id="14-Kerberos优化"><a href="#14-Kerberos优化" class="headerlink" title="14.Kerberos优化"></a>14.Kerberos优化</h3><h4 id="美团优化实战"><a href="#美团优化实战" class="headerlink" title="美团优化实战"></a>美团优化实战</h4><p><strong>为什么要优化：</strong></p>
+<p>线上单台KDC服务器最大承受QPS是多少？哪台KDC的服务即将出现压力过大的问题？为什么机器的资源非常空闲，KDC的压力却会过大？如何优化？优化后瓶颈在哪儿？如何保证监控指标的全面性、可靠性和准确性？这都是本文需要回答的问题。从本次优化工作达成的最终结果上来看，单台服务器每秒的处理性能提升16倍左右，另外通过共享内存的方式设计了一个获取KDC各项核心指标的接口，使得服务的可用性进一步提升。</p>
+<p>名词：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v66w9mt3j212m0hw75j.jpg"></p>
+<p>下图是美团的架构，整个KDC服务都部署在同一个IDC</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v697svjwj21a40zc771.jpg"></p>
+<p><strong>主要优化工作</strong></p>
+<p>通过对KDC原理的分析，很容易判断只有前两部分才可能直接给KDC服务带来压力，因此本文涉及到的工作都将围绕上一部分的前两个环节展开分析。本次优化工作采用Grinder这一开源压测工具，分别对AS、TGS两个请求过程，采用相同机型（保证硬件的一致性）在不同场景下进行了压力测试。</p>
+<p>优化之前，线上KDC服务启动的单进程；为最低风险的完成美团和点评数据的融合，KDC中keytab都开启了PREAUTH属性；承载KDC服务的部分服务器没有做RAID。KDC服务出现故障时，机器整体资源空闲，怀疑是单进程的处理能力达到上限；PREAUTH属性进一步保证提升了KDC服务的安全性，但可能带来一定的性能开销；如果线上服务器只加载了少量的keytab信息，那么没有被加载到内存的数据必然读取磁盘，从而带来一定的IO损耗。</p>
+<p>因此本文中，对以下三个条件进行变动，分别进行了测试：</p>
+<ol>
+<li>对承载KDC服务的物理机型是否做RAID10；</li>
+<li>请求的keytab在库中是否带有PRAUTH属性；</li>
+<li>KDC是否启动多进程（多进程设置数目和物理机核数一致）。（实际测试工作中进行了多次测试）</li>
+</ol>
+<p><strong>Client和AS交互过程的压测</strong></p>
+<p>下图为AS压测的一组平均水平的测试数据，使用的物理机有40核，因此多进程测试启动40个进程。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6aqpeh0j212i0gumxq.jpg"></p>
+<p>分析表中的数据，很容易提出如下问题从而需要进一步探索：</p>
+<ol>
+<li>比较表中第一行和第二行、第三行和第四行，主机做不做RAID为什么对结果几乎无影响？</li>
+</ol>
+<p>该四组（测试结果为49、53、100和104所在表2中的行）数据均在达到处理能力上限一段时间后产生认证失败，分析机器的性能数据，内存、网卡、磁盘资源均没有成为系统的瓶颈，CPU资源除了某个CPU偶尔被打满，其他均很空闲。分析客户端和服务端的认证日志，服务端未见明显异常，但是客户端发现大量的Socket Timeout错误（测试设置的Socket超时时间为30s）。由于测试过程中，客户端输出的压力始终大于KDC的最大处理能力，导致KDC端的AS始终处于满负荷状态，暂时处理不了的请求必然导致排队；当排队的请求等待时间超过设置的30s后便会开始超时从而认证出错，且伴随机器某一CPU被打满（如图3）。 显然KDC单进程服务的处理能力已经达到瓶颈且瓶颈存在单核CPU的处理能力，从而决定向多进程方向进行优化测试。</p>
+<p>单进程KDC打满某一CPU：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6d08i8dj20xk0cewga.jpg"></p>
+<p>下图为本次压力测试的一个通用模型，假设KDC单位时间内的最大处理能力是A，来自客户端的请求速率稳定为B且 B&gt;A ；图中黄色区域为排队的请求数，当某一请求排队超过30s，便会导致Socket Timedout错误。</p>
+<p>AS处理能力和Client压力模型：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6dxwvacj21380pqwg3.jpg"></p>
+<ol start="2">
+<li>比较上上一张表中第1和3行、第2和4行、第7和8行相比，为什么有PREAUTH属性的认证QPS大致是无该属性处理能力的一半？</li>
+</ol>
+<p>如果Client的keytab在KDC的库中不带有PREAUTH这一属性，Client发送请求，KDC的AS模块验证其合法性之后返回正确的结果；整个过程只需要两次建立链接进行交互便可完成。如果带有PREAUTH属性，意味着该keytab的认证启动了Kerberos 5协议中的 pre-authentication概念：当AS模块收到Client的请求信息后；故意给Client返回一个错误的请求包，Client会“领悟到”这是KDC的AS端需要进行提前认证；从而Client获取自己服务器的时间戳并用自己的密钥加密发送KDC，KDC解密后和自身所在服务器的时间进行对比，如果误差在能容忍的范围内；返回给Client正确的TGT响应包；过程如下图所示。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6fxvq1xj220o0d0juw.jpg"></p>
+<ol start="3">
+<li>根据对问题2的分析，CPU占用表中第5和7行的值的比例应该近似为1:2，为什么第5行的值只有115，结果和理论差距如此之大？</li>
+</ol>
+<p>KDC的库中对客户端的keytab开启PREAUTH属性，客户端每认证一次，KDC需要将该次认证的时间戳等信息写到本次磁盘的BDB数据库的Log中；而关闭PREAUTH属性后，每次认证只需要从库中读取数据，只要给BDB数据库分配的内存足够大，就可以最大程度的减少和本次磁盘的交互。KDC40进程且开启PRAUTH，其AS处理能力的QPS只有115，分析机器性能的相关指标，发现瓶颈果然是单盘的IO，如图6所示。使用BDB提供的工具，查看美团数据平台KDC服务的BDB缓存命中率为99%，如下图所示：</p>
+<p>无RAID多KDC进程服务器磁盘IO：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6i16k8hj21140ccgmj.jpg"></p>
+<p>美团KDC缓存命中率：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6jctl01j20pa0bw76t.jpg"></p>
+<ol start="4">
+<li>KDC AS处理能力在多进程做RAID条件下，有无preauth属性，KDC服务是否有瓶颈？如果有在哪里？</li>
+</ol>
+<p>经多次实验，KDC的AS处理能力受目前物理机CPU处理能力的限制，图8为有PREAUTH属性的CPU使用情况截图，无PREAUTH结果一致。</p>
+<p>40进程有PREAUTH，AS对CPU资源的使用情况：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6jsf7r8j20z2154qk7.jpg"></p>
+<p><strong>Client和TGS交互过程的压测：</strong></p>
+<p>下表为TGS压测的一组平均水平的测试数据：</p>
+<p>TGS压测：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6kt9fnvj212g0h2t9a.jpg"></p>
+<p>可以发现KDC对TGS请求的处理能力和主机是否做RAID无关,结合KDC中TGS的请求原理，就较容易理解在BDB缓存命中率足够高的条件下，TGS的请求不需要和本次磁盘交互；进一步做实验，也充分验证了这一点，机器的磁盘IO在整个测试过程中，没有大的变化，如图所示，操作系统本身偶尔产生的IO完全构不成KDC的服务瓶颈。KDC单进程多进程的对比，其处理瓶颈和AS一致，均受到CPU处理能力的限制（单进程打满某一CPU，多进程几乎占用整台机器的CPU资源）。从Kerberos的设计原理分析，很容易理解，无论KDC库中的keytab是否带有PREAUTH属性，对TGS的处理逻辑几乎没有影响，压测的数据结果从实际角度验证了这一点。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6m4az4cj224a0tawhe.jpg"></p>
+<p><strong>C：其它问题</strong></p>
+<p>Client和KDC的交互，支持TCP和UDP两种协议。在网络环境良好的情况下，两种协议的KDC的测试结果理论上和实际中几乎一致。但是在原生代码中，使用TCP协议，在客户端给KDC造成一定压力持续6s左右，客户端开始认证出错，在远未达到超时时限的情况下，Client出现了<code>socket reset</code>类的错误。KDC查看内核日志，发现大量<code>possible SYN flooding on port 8089(KDC的服务端口). Sending cookies</code>，且通过<code>netstat -s</code>发现机器的<code>xxxx times the listen queue of a socket overflowed</code>异常增高，种种现象表明可能是服务端的半连接队列、全连接队列中的一个或者全部被打满。主要原理如图10所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6mjf0tvj20ws0wuq6q.jpg"></p>
+<p>发现KDC服务所在服务器：半队列<code>/proc/sys/net/ipv4/tcp_max_syn_backlog为2048</code>。</p>
+<p>全队列：1）系统参数<code>/proc/sys/net/core/somaxconn＝65535</code>，查看代码<code>listen()</code>函数的传入值为5。</p>
+<p>故而判断TCP的瓶颈在于全队列，因此目标为将<code>listen</code>函数的第二个<code>backlog</code>参数变成可控可传入。</p>
+<p><strong>KDC可监控的设计和实现</strong></p>
+<p>开源社区对Kerberos实现的KDC完全没有对外暴露可监控的接口，最初线上的场景主要通过检索Log进行相关指标的监控，在统计服务QPS、各种错误的监控等方面，存在准确准确监控难的尴尬局面。为了实现对KDC准确、较全面的监控，对KDC进行了二次开发，设计一个获取监控指标的接口。对监控的设计，主要从以下三个方面进行了考虑和设计。</p>
+<p><strong>A.设计上的权衡</strong></p>
+<ol>
+<li><p>监控的设计无论在什么场景下，都应该尽可能的不去或者最小程度的影响线上的服务，本文最终采用建立一块共享内存的方式，记录各个KDC进程的打点信息，实现的架构如图11所示。每个KDC进程对应共享内存中的一块区域，通过n个数组来存储KDC n个进程的服务指标：当某个KDC进程处理一个请求后，该请求对监控指标的影响会直接打点更新到其对应的Slot 数组中。更新的过程不受锁等待更新的影响，KDC对监控打点的调用仅仅是内存块中的更新，对服务的影响几乎可以忽略不计。相比其他方式，在实现上也更加简单、易理解。</p>
+</li>
+<li><p>纪录每个KDC进程的服务情况，便于准确查看每个进程的对请求的处理情况，有助于定位问题多种情况下出现的异常，缩短故障的定位时间。例如：能够准确的反应出每个进程的请求分布是否均匀、请求处理出现异常能够定位到具体是某个进程出现异常还是整体均有异常。</p>
+<p>KDC监控设计的整体架构：</p>
+</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6oip712j21v80y2wlc.jpg"></p>
+<p><strong>B.程序的可拓展性</strong></p>
+<p>任何指标的采集都是随着需求进行变更的，如果程序设计上不具有良好的扩展性，会后续的指标扩展带来很大的困扰。第一版KDC监控指标的采集只区分请求的成功与失败两种类型，美团数据平台KDC库中所有的keytab都具有PREAUTH属性。根据上文可知，去掉PREAUTH属性后，AS请求的QPS能够提升一倍。后续随着服务规模的进一步增长，如果AS请求的处理能力逐步成为瓶颈，会考虑去掉PREAUTH属性。为了准确监控去掉PREAUTH属性这一过程是否有、有多少请求出现错误，需要扩展一个监控指标，因此有了KDC监控的第二版。整个过程只需要修改三个地方，完成两个功能的实现：</p>
+<ol>
+<li>添加指标 ；</li>
+<li>打点逻辑的添加。</li>
+</ol>
+<p>整个修改过程简单明了，因此，该KDC监控程序的设计具有非常好的扩展性。图12为监控指标的罗列和注释：</p>
+<p>KDC监控指标及含义：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6pmygs4j21440ri7d2.jpg"></p>
+<p><strong>C.接口工具kstat的设计</strong></p>
+<p>获取KDC监控指标的接口工具主要分为两种：</p>
+<ol>
+<li>获取当前每个KDC进程对各个指标的累积值，该功能是为了和新美大的监控平台Falcon结合，方便实现指标的上报实现累加值和分钟级别速率值的处理；</li>
+<li>获取制定次数在制定时间间隔内每个进程监控指标的瞬时速率，最小统计间隔可达秒级，方便运维人员登陆机器无延迟的查看当前KDC的服务情况，使其在公司监控系统不可用的情况下分析服务的当前问题。具体使用见下图。</li>
+</ol>
+<p>kstat的使用帮助和两种功能使用样例：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2ly1g2v6qjmveyj21s60len2w.jpg"></p>
+<p><strong>总结：</strong></p>
+<p>通过本次对KDC服务的压测实验和分析，总结出KDC最优性能的调整方案为：</p>
+<ol>
+<li>KDC服务本身需要开启多进程和以充分利用多核机器的CPU资源，同时确保BDB的内存资源足够，保证其缓存命中率达到一定比例（越高越好，否则查询库会带来大量的磁盘读IO）；</li>
+<li>选择的物理机要做RAID，否则在库中keytab带有PREAUTH属性的条件下，会带来大量的写，容易导致磁盘成为KDC的性能瓶颈。通过建立一块共享内存无锁的实现了KDC多进程指标的收集，加上其良好的扩展性和数据的精确性，极大的提高了KDC服务的可靠性。</li>
+</ol>
+<p>相比原来线上单进程的处理能力，目前单台服务器的处理性能提升10+倍以上。本次工作没有详细的论述TCP协议中半队列、全队列的相关参数应该如何设定才能达到最优，和服务本身结合到一起，每个参数的变更带来的影响具体是什么因为过于复杂，还没有介绍。</p>
+<hr>
+<p><a href="https://tech.meituan.com/2019/02/14/data-security-platform-construction-practice-jiangjunling.html" target="_blank" rel="noopener">美团数据安全平台建设实践</a>  介绍了权限模型和解决方案等</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Kerberos/" rel="tag"># Kerberos</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/14/LabelEnconder/" rel="prev" title="LabelEnconder 和 OneHotEncoder">
+      <i class="fa fa-chevron-left"></i> LabelEnconder 和 OneHotEncoder
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/14/HUE上Oozie和Spark2整合/" rel="next" title="在HUE中整合Oozie和Spark2并验证">
+      在HUE中整合Oozie和Spark2并验证 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk4NC8yMDUyMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Kerberos-入门"><span class="nav-number">1.</span> <span class="nav-text">1.Kerberos 入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Kerberos涉及名词"><span class="nav-number">2.</span> <span class="nav-text">2.Kerberos涉及名词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Kerberos原理"><span class="nav-number">3.</span> <span class="nav-text">3.Kerberos原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Kerberos的安装和Apach原生HDFS的配置"><span class="nav-number">4.</span> <span class="nav-text">4.Kerberos的安装和Apach原生HDFS的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Apach-原生Zookeeper的Kerberos配置及其验证"><span class="nav-number">5.</span> <span class="nav-text">5.Apach 原生Zookeeper的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Apach原生Kafka的Kerberos配置及其验证"><span class="nav-number">6.</span> <span class="nav-text">6.Apach原生Kafka的Kerberos配置及其验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Cloudera’s-Distribution-Including-Apache-Hadoop-CDH-上Kerberos的安装"><span class="nav-number">7.</span> <span class="nav-text">7.Cloudera’s Distribution Including Apache Hadoop(CDH)上Kerberos的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-对Kerberos的一点使用心得"><span class="nav-number">8.</span> <span class="nav-text">8.对Kerberos的一点使用心得</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-如何验证Kerberos已经安装完成"><span class="nav-number">9.</span> <span class="nav-text">9.如何验证Kerberos已经安装完成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Kerberos遇到的坑"><span class="nav-number">10.</span> <span class="nav-text">10.Kerberos遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kerberos卸载BUG"><span class="nav-number">10.1.</span> <span class="nav-text">Kerberos卸载BUG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zookeeper报错"><span class="nav-number">10.2.</span> <span class="nav-text">Zookeeper报错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka启动-关闭Kerberos的坑"><span class="nav-number">10.3.</span> <span class="nav-text">Kafka启动/关闭Kerberos的坑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flume配置文件导致文件无限传输"><span class="nav-number">10.4.</span> <span class="nav-text">Flume配置文件导致文件无限传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HUE中Oozie报错，时区错误"><span class="nav-number">10.5.</span> <span class="nav-text">HUE中Oozie报错，时区错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统自带的无法识别的配置文件"><span class="nav-number">10.6.</span> <span class="nav-text">系统自带的无法识别的配置文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Windows下访问Kerberos-CDH集群的WebUI界面"><span class="nav-number">11.</span> <span class="nav-text">11.Windows下访问Kerberos CDH集群的WebUI界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-禁用Kerberos需要调整的设置"><span class="nav-number">12.</span> <span class="nav-text">12.禁用Kerberos需要调整的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-集群同步脚本"><span class="nav-number">13.</span> <span class="nav-text">13.集群同步脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-Kerberos优化"><span class="nav-number">14.</span> <span class="nav-text">14.Kerberos优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#美团优化实战"><span class="nav-number">14.1.</span> <span class="nav-text">美团优化实战</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fly Hugh"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/FlyMeToTheMars" title="GitHub → https://github.com/FlyMeToTheMars" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/flyhobo@live.com" title="E-Mail → flyhobo@live.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3200892914" title="Weibo → https://weibo.com/u/3200892914" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Fly__HoBo" title="Twitter → https://twitter.com/Fly__HoBo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
