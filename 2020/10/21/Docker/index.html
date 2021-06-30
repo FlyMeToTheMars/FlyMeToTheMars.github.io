@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gjx7mchws6j20y10cv40y.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gjx8j6cq9sj20fe07ndg0.jpg">
-<meta property="og:updated_time" content="2020-10-22T03:34:05.000Z">
+<meta property="og:updated_time" content="2021-06-18T00:59:36.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker">
 <meta name="twitter:description" content="类比： 蓝色的大海： 宿主机系统（win mac linux） 鲸鱼：docker 集装箱：容器实例 from 我们的镜像模版">
@@ -197,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-22 11:34:05" itemprop="dateModified" datetime="2020-10-22T11:34:05+08:00">2020-10-22</time>
+                <time title="修改时间：2021-06-18 08:59:36" itemprop="dateModified" datetime="2021-06-18T08:59:36+08:00">2021-06-18</time>
               </span>
 
           
@@ -331,6 +331,18 @@
 </blockquote>
 <blockquote>
 <p>docker ps -a -q | xargs docker rm</p>
+</blockquote>
+<p>停止所有容器</p>
+<blockquote>
+<p>docker stop $(docker ps -aq)</p>
+</blockquote>
+<p>删除所有容器</p>
+<blockquote>
+<p>docker rm $(docker ps -aq)</p>
+</blockquote>
+<p>删除所有镜像</p>
+<blockquote>
+<p>docker rmi $(docker images -q)</p>
 </blockquote>
 <h3 id="重要容器命令"><a href="#重要容器命令" class="headerlink" title="重要容器命令"></a>重要容器命令</h3><p>启动守护式容器</p>
 <blockquote>
@@ -471,20 +483,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
