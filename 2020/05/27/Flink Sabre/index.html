@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Flink CEP在奇安信的拓展 此 Flink CEP 改版应用场景：安全检测和数据分析">
+<meta name="keywords" content="Flink CEP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flink Sabre">
+<meta property="og:url" content="http://yoursite.com/2020/05/27/Flink Sabre/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="Flink CEP在奇安信的拓展 此 Flink CEP 改版应用场景：安全检测和数据分析">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5tunz99ej20zk0igmyt.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5u75m23tj20zk0imgng.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5ud5rdx7j22bb1av7d4.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5uupr3mdj20zk0k0q5i.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5uynys4oj20zk0k0ju4.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5uyswqdej20zk0imdih.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5vypwqujj20zk0gct9s.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w0byssvj20zk0ipmys.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w2ch3b9j20zk0hywg9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w38hws1j20zk0ibdh9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w45t1kjj20zk0igmym.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w8doz5uj20zk0igtad.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5whemng3j20zk0igmym.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5wi109c0j20zk0ikabf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73cbq36rj20zk0ibgmm.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73cylk82j20zk0gnab5.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73e5qsfnj20zk0hlgmw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73eick1mj20zk0ieta4.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73euyybhj20zk0gwq46.jpg">
+<meta property="og:updated_time" content="2020-05-27T08:42:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flink Sabre">
+<meta name="twitter:description" content="Flink CEP在奇安信的拓展 此 Flink CEP 改版应用场景：安全检测和数据分析">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5tunz99ej20zk0igmyt.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/27/Flink Sabre/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Flink Sabre | Mars</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/27/Flink Sabre/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flink Sabre
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-27 19:20:36 / 修改时间：16:42:25" itemprop="dateCreated datePublished" datetime="2020-05-27T19:20:36+08:00">2020-05-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flink-CEP/" itemprop="url" rel="index"><span itemprop="name">Flink CEP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Flink CEP在奇安信的拓展</p>
+<p>此 Flink CEP 改版应用场景：安全检测和数据分析</p>
+</blockquote>
+<a id="more"></a> 
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自下而上分为四个业务处理流程，分别是数据的<strong>采集</strong>、<strong>解析</strong>、<strong>处理</strong>和<strong>展示</strong>结果，这其中<strong>最核心的是第三层数据处理</strong>。<strong>该产品的用户主要是安全规则团队</strong>，其可以<strong>使用规则编辑器来对安全规则进行添加、删除、编辑和查找操作</strong>，并可<strong>批量启动/停用多个规则</strong>，<strong>同时可以将处于启动状态的有效规则统一发送给产品</strong>。</p>
+<p>在数据规模方面，<strong>产品解决的不是一个或几个大型数据集群的问题</strong>，<strong>而是数以百计的中小型数据集群的运维问题</strong>。在 B2B 领域，<strong>由于产品是直接部署到客户方</strong>，很多客户使用的是内部隔离网，无法连接外网，且没有专门人员负责集群的运维，这种情况下哪怕一个小升级都会耗费大量时间。因此，<strong>产品更多关注该领域下数据集群可运维性问题的解决</strong>。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5tunz99ej20zk0igmyt.jpg" alt="undefined"></p>
+<h2 id="痛点"><a href="#痛点" class="headerlink" title="痛点"></a>痛点</h2><h3 id="1-不能进行语义优化、不便于动态更新规则。"><a href="#1-不能进行语义优化、不便于动态更新规则。" class="headerlink" title="1.不能进行语义优化、不便于动态更新规则。"></a>1.不能进行语义优化、不便于动态更新规则。</h3><p>网络安全事件井喷式发生的今天，安全需求迅速扩展。为了能够在有限时间内对特定语义的快速支持，关联引擎的整体架构必须异常灵活，才能适应未来安全分析场景的各种需求，而基于开源关联引擎实现的产品会在激烈的需求变化时遇到很多问题。</p>
+<h3 id="2-状态监控-amp-高可用支持不足。"><a href="#2-状态监控-amp-高可用支持不足。" class="headerlink" title="2.状态监控 &amp; 高可用支持不足。"></a>2.状态监控 &amp; 高可用支持不足。</h3><p>面向企业级的网络安全监测引擎具有一些特定需求，当前解决方案对此支持较差。</p>
+<ul>
+<li>比如，现实情况中客户对算子实例和 Taskmanager 概念较为模糊，真正关心的运行状态的基本单位是规则。Flink 监控页面显示的是算子实例及 Task manager 进程整体内存的运行状态，而在网络安全监控的业务场景中，对运行状态和资源的监控均需要细化到规则层面。</li>
+<li>其次，在算子层面，Flink 原生 Window 算子，没有较好的资源（CPU / 内存）保护机制，且存在大量重复告警，不符合网络安全监测领域的业务需求。</li>
+<li>再次，Flink 缺乏一些必要算子，例如不支持“不发生算子”。一个较为常见的应用场景，某条规则指定在较长时间内没收到某台服务器的系统日志，则认为此台服务器发生了异常，需要及时通知用户。</li>
+</ul>
+<h3 id="3-CEP-网络负载高、CPU-利用率低"><a href="#3-CEP-网络负载高、CPU-利用率低" class="headerlink" title="3.CEP 网络负载高、CPU 利用率低"></a>3.CEP 网络负载高、CPU 利用率低</h3><p>和互联网企业内部使用的大型集群相比，奇安信面向的企业级应用集群规模较小，硬件资源受限，且客户的定制需求较多，导致安全监测的规则要求更严格，引擎发布成本较高。但是，现有的 Flink 开源解决方案，或者需要根据业务需求进行改造，或者性能较差，均不能较好地解决上述问题。</p>
+<ul>
+<li>首先，原生 Flink 只提供了函数式编程模式，即需要手动编写复合特定业务需求的固定程序代码，由此导致开发测试周期较长，不便于动态更新规则，可复用性较弱，且不能从全局语义层面进行优化，性能较差。</li>
+<li>其次，Flink-CEP 仅是一个受限的序列算子，在运行时需要将所有数据传输到 CEP 算子，然后在 CEP 算子中串行执行各个条件语句。这种汇集到单点的运行模式，较多的冗余数据需要执行条件匹配，由此产生了不必要的网络负载，而且降低了 CPU 利用率。</li>
+<li>再次，还存在一些非官方开源的轻量级 CEP 引擎，比如 Flink-siddhi，功能简单，不是一个完整的解决方案。</li>
+</ul>
+<p>其他的痛点问题还包括不支持空值窗口出发、以及聚合不保存原始数据等。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5u75m23tj20zk0imgng.jpg" alt="undefined"></p>
+<h2 id="架构改动"><a href="#架构改动" class="headerlink" title="架构改动"></a>架构改动</h2><p>为了解决上述问题，奇安信在 Flink 的基础上推出了一种全新的 CEP 引擎， Sabre。其整体架构如下图所示，其中包含三大核心模块，左侧是<strong>配置端</strong>，中间是 <strong>Sabre-server</strong>，右侧是 <strong>Sabre 运行端</strong>。核心数据流存在两条主线，红线表示规则的<strong>提交</strong>、<strong>编译</strong>、<strong>发布</strong>和<strong>运行</strong>流程。绿线表示状态监控的<strong>生成</strong>、<strong>收集</strong>、<strong>统计</strong>和<strong>展示</strong>流程。如图所示，此架构与 Hive 极为相似，是一种通用的大数据 OLAP 系统架构。下面详细介绍三大核心模块和两大核心数据流。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5ud5rdx7j22bb1av7d4.jpg" alt="undefined"></p>
+<ul>
+<li>首先，通过规则配置端创建规则，采用性能保护配置端修改性能保护策略；</li>
+<li>然后，将任务所属的规则文件和性能保护策略文件一并推送到 Sabre-server 提供的 REST 接口，该接口会调用文件解析及优化方法构建规则有向无环图。</li>
+<li>接着，执行词法语法分析方法，将规则有向无环图中各个节点的 EPL 转换为与其对应的 AST（AbstractSyntax Tree，抽象语法树），再将 AST 翻译为任务 java 代码。</li>
+<li>最后，调用 maven 命令打包 java 代码为任务 jar 包，并将任务 jar 包及基础运行库一并提交到 Flink-on-YARN 集群。</li>
+</ul>
+<p><strong>Flink 有多种运行模式（例如 standalone Flink cluster、Flink cluster on YARN、Flink job on YARN 等）</strong>，Sabre 采用了“Flink job on YARN”模式，在奇安信 NGSOC 应用的特定场景下，采用 YARN 可统一维护硬件资源，并且使用 Flink job on YARN 可与 Hadoop 平台进行无缝对接，以此很好的实现了任务间资源隔离。</p>
+<p>在 Sabre 任务执行过程中，<strong>Kafka 数据源向引擎提供原始事件</strong>。引擎处理结果分为回注事件和告警事件两类。告警事件会输出到目的 Kafka，供下级应用消费。回注事件表示一条规则的处理结果可直接回注到下级规则，作为下级规则的数据源事件，由此可实现规则的相互引用。</p>
+<p>绿线流程表示任务执行过程中会定时输出节点的运行监控消息到 Sabre-server 的监控消息缓存器，然后监控消息统计器再汇总各个规则实例的运行监控消息，统计为整条规则的运行监控状态，最后通过 Sabre-server 提供的 REST 接口推送给规则监控端。</p>
+<h3 id="组件依赖与版本"><a href="#组件依赖与版本" class="headerlink" title="组件依赖与版本"></a>组件依赖与版本</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5uupr3mdj20zk0k0q5i.jpg" alt="undefined"></p>
+<ul>
+<li>大多数情况下，奇安信会以黑盒的方式发布产品，但是如果用户方已经部署大数据处理平台，则产品会以 APP 的方式提供使用。</li>
+<li>由于客户规模较大，项目种类较多，部署环境较为复杂，或者存在多种 Yarn 集群版本，或者 Sabre 需作为单一 Flink 应用发布到客户已部署的 Flink 集群。</li>
+<li>如何节省成本及提高实施效率，快速适配上述复杂的部署环境是个亟需解决的问题，为此 Sabre 的设计原则是仅采用 Flink 的分布式计算能力，业务代码尽可能减少对 API 层的依赖，以便于兼容多种 Flink 版本。</li>
+</ul>
+<p>如图所示，Deploy、Core、APIs、Libraries 四层是大家熟知的 Flink 基本的组件栈。Sabre 对 API 层的依赖降到了最低，只引用了 DataStream、KeyedStream 和 SplitStream 三种数据流 API。函数依赖只包括 DataStream 的 assignTimestamps、flatMap、union、keyBy、split、process、addSink 等函数，KeyedStream 最基础的 process 函数，以及 SplitStream 的 select 函数。由于依赖的 Flink API 较少，Sabre 可以很容易适配到各个 Flink 版本，从而具有良好的 Flink 版本兼容性。</p>
+<h3 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h3><p>在算子方面，Sabre 对 Flink 进行了一系列的重构，下图展示了这 Flink 和 Sabre 这二者之间的对比关系，其中主要包含三列，即 Flink 原生算子、Sabre 算子和两者之间的比较结果。比较结果主要有四种情况，相同（Same）、实现（Implement）、优化(优化)和新增（New）。Sabre 共有 13 种完全自研的核心算子，其中 Datasource、CustomKafkaSink 和 CustomDatabase 按照 Flink 接口要求做了具体实现，Filter、Key、Join 和 Aggregation 按照 Flink 原有算子的语义做了重新实现，CustomWindow 和 Sequence 在 Flink 原有算子语义的基础上做了优化实现。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5uynys4oj20zk0k0ju4.jpg" alt="undefined"></p>
+<p>下图展示了 Sabre 的规则与 EPL 设计。序列 Sequence、聚合 Aggregation、不发生 NotOccur、流式机器学习 StreamML 和连接 Join 均属于 Window 执行时间包含的计算性算子。蓝色虚线表示引用动态数据（Dynamic data），紫色虚线表示 Filter 无须经过 Window 可直连输出组件。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5uyswqdej20zk0imdih.jpg" alt="undefined"></p>
+<h3 id="windows算子"><a href="#windows算子" class="headerlink" title="windows算子"></a>windows算子</h3><p>众所周知，Join 和 Aggregation 的时间范围由 Window 限定，而 Flink 原有 Window 算子不适合网络安全监测需求，为此 Sabre 设计了一种“自定义 Window 算子”，且重新实现了与“自定义 Window 算子”相匹配的 Join 和 Aggregation 算子。全新的 Window 具有以下六个主要特点：</p>
+<ul>
+<li>实时触发、即刻匹配：其目的是为了满足自动化实时响应的需求，一旦告警发出，会及时触发响应；</li>
+<li>匹配不重复：重复告警对于规则引擎来讲是一个常见问题，大量重复告警会增加安全人员的工作量，而该算子会将整个窗口与告警相关的事件全部清空，以此减少重复告警的数量；</li>
+<li>纠正乱序：将 Window 窗口以特定单位为边界切成一个个的时间槽，一旦发现乱序情况，插入乱序事件时可直接定位时间槽，基于流式状态机进行局部计算，并且窗口事件超时，同步更新计算性算子的值，并入 count 算子，删除超时事件的同时，同步减少 count 值；</li>
+<li>实时资源和状态监控：由于 Window 对与内存和 CPU 的影响比较大，因此需要对该类资源进行特别监控以及保护；</li>
+<li>流量控制：主要是为了更好地保护下级应用。</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5vypwqujj20zk0gct9s.jpg" alt="undefined"></p>
+<h3 id="Sequence-序列算子"><a href="#Sequence-序列算子" class="headerlink" title="Sequence 序列算子"></a>Sequence 序列算子</h3><p>Sabre 用 EPL 对 Flink CEP 实现的序列算子进行了重新设计，左边是 Flink CEP 官方代码展示，采用程序代码的方式拼凑“NFA 自动机”。右边是 Sabre 中 Sequence 算子的实现方式，其中包含了三个不同的 filter,通过正则表达式的使用来提升其表达的能力，并且，Sabre 将 filter 前置，无效事件不会传输到 window 算子，从而较少了不必要的网络负载。并且，只有较少的有效数据需要执行正则匹配，降低了 CPU 利用率（filter 可以并行）。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w0byssvj20zk0ipmys.jpg" alt="undefined"></p>
+<h3 id="NotOccur-不发生算子"><a href="#NotOccur-不发生算子" class="headerlink" title="NotOccur 不发生算子"></a>NotOccur 不发生算子</h3><p>NotOccur 是 Sabre 在 Flink 基础上新增的一个算子，支持空事件触发。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w2ch3b9j20zk0hywg9.jpg" alt="undefined"></p>
+<h3 id="Trigger-全局算子"><a href="#Trigger-全局算子" class="headerlink" title="Trigger 全局算子"></a>Trigger 全局算子</h3><p>Sabre 还实现了一种针对窗口的全局触发器 Trigger，Trigger 能够将多个子计算性算子组合为复杂表达式，并实现了具有GroupBy/Distinct 功能的 Key 算子以适配此 Trigger 算子。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w38hws1j20zk0ibdh9.jpg" alt="undefined"></p>
+<h3 id="Dynamic-Data"><a href="#Dynamic-Data" class="headerlink" title="Dynamic Data"></a>Dynamic Data</h3><p>Dynamicdata 可以映射为数据库中的一个表，但是对这个表要进行特别的优化，具体来讲，如果一个事件的 IP 在威胁情报列表中，而这个威胁情报有可能比较长，比如十几万行甚至更长，这种情况下需要对该表数据结构进行优化以提升效率。Dynamic data 可以在其他算子中使用，如 Filter、Join 等。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w45t1kjj20zk0igmym.jpg" alt="undefined"></p>
+<h3 id="流式统计与机器学习-StreamML"><a href="#流式统计与机器学习-StreamML" class="headerlink" title="流式统计与机器学习 StreamML"></a>流式统计与机器学习 StreamML</h3><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5w8doz5uj20zk0igtad.jpg" alt="undefined"></p>
+<p>机器学习在网络异常检测上已经越来越重要，为适应实时检测的需求，Sabre 没有使用 Flink MachineLearning，而是引入了自研的流式机器学习算子 StreamML。</p>
+<p>Flink MachineLearning 是一种基于批模式 DataSetApi 实现的机器学习函数库，而 StreamML 是一种流式的机器学习算子，其目的是为了满足网络安全监测的特定需求。与阿里巴巴开源的 Alink 相比，StreamML 允许机器学习算法工程师通过配置规则的方式即可快速验证算法模型，无需编写任何程序代码。并且，流式机器学习算子 StreamML 实现了“模型训练/更新”与“模型使用”统一的理念。其核心功能是通过算法、技术及模型实现数据训练及对新数据检测。该流式机器学习算子 StreamML 引入的输入有三类，分别是：事件流、检测对象和对象属性；输出也包含三类，分别是：事件、告警和预警。</p>
+<p>流式机器学习算子 StreamML 的组件栈包含三部分，从下往上依次为：机器学习方法、应用场景和产品业务。通过基本的机器学习算法（比如：统计学习算法、序列分析算法、聚类分析算法），流式机器学习算子 StreamML 可满足具体特定的安全监测应用场景（比如：行为特征异常检测、时间序列异常检测、群组聚类分析），进而为用户提供可理解的产品业务（比如：基线、用户及实体行为分析 UEBA）。</p>
+<ul>
+<li>行为特征异常检测：根据采集的样本数据（长时间）对统计分析对象建立行为基线，并以此基线为准，检测发现偏离正常行为模式的行为。例如：该用户通常从哪里发起连接？哪个运营商？哪个国家？哪个地区？这个用户行为异常在组织内是否为常见异常？</li>
+<li>时间序列异常检测：根据某一个或多个统计属性，判断按时间顺序排列的数值序列是否异常，由此通过监测指标变化来发现安全事件。例如：监测某网站每小时的访问量以防止 DDOS 攻击；建模每个账号传输文件大小的平均值，检测出传输文件大小的平均值离群的账号。</li>
+<li>群组聚类分析：对数据的特征属性间潜在相关性进行挖掘，将具有类似特征值的数据进行分组聚类。例如：该用户是否拥有任何特殊特征？可执行权限/特权用户？基于执行的操作命令和可访问的实体，来识别IT管理员、DBA 和其它高权限用户。</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5whemng3j20zk0igmym.jpg" alt="undefined"></p>
+<p>因为采用了 Flink 作为底层运行组件，所以 Sabre 具有与 Flink 等同的执行性能。并且，针对网络安全监测领域的特定需求，Sabre 还在以下方面进行了性能优化：</p>
+<ul>
+<li>全局组件（数据源、动态表）引用优化。由于 Kafka 类型的数据源 topic 有限，而规则数量可动态扩展，导致多个规则会有极大概率共用同一个数据源，根据 EPL 语义等价原则合并相同的数据源，进而可以减少数据输入总量及线程总数。</li>
+<li>全新的匹配引擎。序列 Sequence 算子采用了新颖的流式状态机引擎，复用了状态机缓存的状态，提升了匹配速度。类似优化还包含大规模 IP 匹配引擎和大规模串匹配引擎。在流量、日志中存在大规模 IP 和字符串匹配需求，通过 IP 匹配引擎和大规模串匹配引擎进行优化以提高效率。</li>
+<li>表计算表达式优化。对于规则中引用的动态表，会根据表达式的具体特性构建其对应的最优计算数据结构，以避免扫描全表数据，进而确保了执行的时间复杂度为常量值。</li>
+<li>自定义流式 Window 算子。采用“时间槽”技术实现了乱序纠正功能，并具有可以实时输出无重复、无遗漏告警的特性。</li>
+<li>图上字段自动推导，优化事件结构。根据规则前后逻辑关系，推导出规则中标注使用的原始日志相关字段，无须输出所有字段，以此优化输出事件结构，减少了输出事件大小。</li>
+<li>图上数据分区自动推导，优化流拓扑。由于特定的功能需要，Window 往往会缓存大量数据，以致消耗较多内存。通过对全局窗口 Hash 优化，避免所有全局窗口都分配到同一个 Taskmanager 进程，由此提高了引擎整体内存的利用率。</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf5wi109c0j20zk0ikabf.jpg" alt="undefined"></p>
+<p>上图是 Sabre 流式状态机引擎的表示，其主要负责的功能是序列匹配。图中左边是标准的正则引擎，通常的流程可以从 Pattern 到语法树到 NFA 再到 DFA，也可以从 Paterrn 直接到 NFA；图左下侧是一个正则表达式的 NFA 表示，右侧是该正则表达式的 DFA 表示，使用该 DFA 的时候进行了改进（如图中绿色线）。其目的是为了在出现乱序的时候提升处理性能，在乱序发生在正则表达式后半段的时候，该改进对于性能提升的效果最好。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73cbq36rj20zk0ibgmm.jpg" alt="undefined"></p>
+<p>大规模正则引擎主要使用了两种互补的方法（图上半侧和下半侧）。在将 NFA 转向 DFA 的时候，很多情况下是不成功的，这种情况下往往会生成 DFA 的半成品，称为Unfinished-DFA，第一种方法属于混合状态自动机，包含 NFA 和 DFA，其适用于Pattern 量少于 1000 的情况。而第二种方法适用于 Pattern 量大于 1000 甚至上万的情况，该方法中首先需要寻找锚点，再做匹配，以降低整体的时间复杂度。这两种方法相结合能够较好地解决大规模正则匹配的问题。</p>
+<h3 id="产品运维"><a href="#产品运维" class="headerlink" title="产品运维"></a>产品运维</h3><h4 id="多级规则"><a href="#多级规则" class="headerlink" title="多级规则"></a>多级规则</h4><p>多级规则是产品运维的一个显著特点。如下图所示，为满足复杂场景需求，一种规则的输出可直接作为另一种规则的输入。通过这种规则拆分的方式，能分层构造较为复杂的“多级规则”。如：图中的“暴力探测”规则结果可以直接回注到下面的“登陆成功 ”规则，而无须额外的通信组件，由此实现更为复杂的“暴力破解”规则。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73cylk82j20zk0gnab5.jpg" alt="undefined"></p>
+<h4 id="服务化-多租户-资源监控"><a href="#服务化-多租户-资源监控" class="headerlink" title="服务化/多租户/资源监控"></a>服务化/多租户/资源监控</h4><p>产品采用微服务架构，使用多租户、多任务来满足多个规则引擎的使用场景，同时对资源进行了实时监控来保证系统的稳定运行。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73e5qsfnj20zk0hlgmw.jpg" alt="undefined"></p>
+<h4 id="规则级的状态-资源监控"><a href="#规则级的状态-资源监控" class="headerlink" title="规则级的状态/资源监控"></a>规则级的状态/资源监控</h4><p>规则级的状态和资源监控是非常重要的产品需求，产品采用分布式监控，提供三级分布式监控能力（用户、任务和规则），并支持吞吐量、EPS、CPU 和内存的监控。</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73eick1mj20zk0ieta4.jpg" alt="undefined"></p>
+<h4 id="整体系统保护"><a href="#整体系统保护" class="headerlink" title="整体系统保护"></a>整体系统保护</h4><p>整体系统保护主要涉及两方面，即流量控制和自我保护。</p>
+<ul>
+<li>流量控制：为了增强 Sabre 引擎的健壮性，避免因规则配置错误，导致生成大量无效告警，在输出端做了流量控制，以更好地保护下级应用。当下级抗压能力较弱时（例如数据库），整个系统会做输出降级。</li>
+<li>自我保护：跑在 JVM 上的程序，经常会遇到由于长时间 Full GC 导致 OOM 的错误，并且此时 CPU 占用率往往非常高，Flink 同样存在上述问题。自我保护功能采用了同时兼顾“Window隶属规则的优先级”及“Window引用规则数量”两个条件的加权算法，以此根据全局规则语义实现自动推导 Window 优先级，并根据此优先级确定各个 Window 的自我保护顺序。实时监控 CPU 及内存占用，当超过一定阈值时，智能优化事件分布，以防出现 CPU 长期过高或内存使用率过大而导致的 OOM 问题。</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gf73euyybhj20zk0gwq46.jpg" alt="undefined"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flink-CEP/" rel="tag"># Flink CEP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/23/EffectiveJava/" rel="prev" title="Effective Java">
+      <i class="fa fa-chevron-left"></i> Effective Java
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/27/Flink CEP文档/" rel="next" title="Flink CEP 文档">
+      Flink CEP 文档 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#痛点"><span class="nav-number">2.</span> <span class="nav-text">痛点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-不能进行语义优化、不便于动态更新规则。"><span class="nav-number">2.1.</span> <span class="nav-text">1.不能进行语义优化、不便于动态更新规则。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-状态监控-amp-高可用支持不足。"><span class="nav-number">2.2.</span> <span class="nav-text">2.状态监控 &amp; 高可用支持不足。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-CEP-网络负载高、CPU-利用率低"><span class="nav-number">2.3.</span> <span class="nav-text">3.CEP 网络负载高、CPU 利用率低</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构改动"><span class="nav-number">3.</span> <span class="nav-text">架构改动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件依赖与版本"><span class="nav-number">3.1.</span> <span class="nav-text">组件依赖与版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构"><span class="nav-number">3.2.</span> <span class="nav-text">重构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows算子"><span class="nav-number">3.3.</span> <span class="nav-text">windows算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sequence-序列算子"><span class="nav-number">3.4.</span> <span class="nav-text">Sequence 序列算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NotOccur-不发生算子"><span class="nav-number">3.5.</span> <span class="nav-text">NotOccur 不发生算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Trigger-全局算子"><span class="nav-number">3.6.</span> <span class="nav-text">Trigger 全局算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Data"><span class="nav-number">3.7.</span> <span class="nav-text">Dynamic Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流式统计与机器学习-StreamML"><span class="nav-number">3.8.</span> <span class="nav-text">流式统计与机器学习 StreamML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产品运维"><span class="nav-number">3.9.</span> <span class="nav-text">产品运维</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多级规则"><span class="nav-number">3.9.1.</span> <span class="nav-text">多级规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务化-多租户-资源监控"><span class="nav-number">3.9.2.</span> <span class="nav-text">服务化/多租户/资源监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则级的状态-资源监控"><span class="nav-number">3.9.3.</span> <span class="nav-text">规则级的状态/资源监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整体系统保护"><span class="nav-number">3.9.4.</span> <span class="nav-text">整体系统保护</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

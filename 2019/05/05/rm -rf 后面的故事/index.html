@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近两年老是听到有程序员跑路之前删库的笑话小公司对数据库的权限管理缺失不太严谨我在为CDH集群实现Kerberos的时候还是挺有感触的权限控制应该是属于运维的相对高级的内容 权限控制姑且按下不表，这边记录一下rm -rf 失误之后的数据恢复">
+<meta name="keywords" content="Picks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="删库跑路之前该做的事情">
+<meta property="og:url" content="http://yoursite.com/2019/05/05/rm -rf 后面的故事/index.html">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="最近两年老是听到有程序员跑路之前删库的笑话小公司对数据库的权限管理缺失不太严谨我在为CDH集群实现Kerberos的时候还是挺有感触的权限控制应该是属于运维的相对高级的内容 权限控制姑且按下不表，这边记录一下rm -rf 失误之后的数据恢复">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lvv55c9j20f105n0tp.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lw5avl2j20f6099ab3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lwga6olj20b303y0tu.jpg">
+<meta property="og:updated_time" content="2020-04-10T17:11:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="删库跑路之前该做的事情">
+<meta name="twitter:description" content="最近两年老是听到有程序员跑路之前删库的笑话小公司对数据库的权限管理缺失不太严谨我在为CDH集群实现Kerberos的时候还是挺有感触的权限控制应该是属于运维的相对高级的内容 权限控制姑且按下不表，这边记录一下rm -rf 失误之后的数据恢复">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lvv55c9j20f105n0tp.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/05/rm -rf 后面的故事/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>删库跑路之前该做的事情 | Mars</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Mars" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mars</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/rm -rf 后面的故事/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fly Hugh">
+      <meta itemprop="description" content="WE CHOOSE TO  GO TO THE MARS">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          删库跑路之前该做的事情
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-05 21:45:12" itemprop="dateCreated datePublished" datetime="2019-05-05T21:45:12+08:00">2019-05-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-11 01:11:17" itemprop="dateModified" datetime="2020-04-11T01:11:17+08:00">2020-04-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading-Note/" itemprop="url" rel="index"><span itemprop="name">Reading Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近两年老是听到有程序员跑路之前删库的笑话<br>小公司对数据库的权限管理缺失不太严谨<br>我在为CDH集群实现Kerberos的时候还是挺有感触的<br>权限控制应该是属于运维的相对高级的内容</p>
+<p>权限控制姑且按下不表，这边记录一下rm -rf 失误之后的数据恢复</p>
+<a id="more"></a> 
+
+
+
+<h3 id="1-救命稻草–ext3grep"><a href="#1-救命稻草–ext3grep" class="headerlink" title="1.救命稻草–ext3grep"></a>1.救命稻草–ext3grep</h3><p>下载ext3grep，安装（编译安装过程艰辛暂且不表）。</p>
+<p>先执行扫描文件名命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --dump-names</span><br></pre></td></tr></table></figure>
+
+<p>这款软件不能按目录恢复文件，只能执行恢复全部命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --restore-all</span><br></pre></td></tr></table></figure>
+
+<p>结果当前盘空间不足，没办法只能恢复文件，尝试了几个文件，居然部分成功部分失败</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --restore-file var/lib/mysql/aqsh/tb_b_attench.MYD</span><br></pre></td></tr></table></figure>
+
+<p>将所有文件名重定向到一个文件文件中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --dump-names &gt;/usr/allnames.txt</span><br></pre></td></tr></table></figure>
+
+<p>编写脚本恢复文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">while read LINE</span><br><span class="line">do</span><br><span class="line">    echo "begin to restore file " $LINE</span><br><span class="line">    ext3grep /dev/vgdata/LogVol00 --restore-file $LINE</span><br><span class="line">    if [ $? != 0 ]</span><br><span class="line">    then</span><br><span class="line">        echo "restore failed, exit"</span><br><span class="line">       # exit 1</span><br><span class="line">    fi</span><br><span class="line">done &lt; ./mysqltbname.txt</span><br></pre></td></tr></table></figure>
+
+<p><strong>数据没有被完全恢复！</strong></p>
+<h3 id="2-换一款软件试试-extundelete"><a href="#2-换一款软件试试-extundelete" class="headerlink" title="2.换一款软件试试  extundelete"></a>2.换一款软件试试  extundelete</h3><p>这款软甲您可以按照目录恢复</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extundelete /dev/vgdata/LogVol00 --restore-directory var/lib/mysql/aqsh</span><br></pre></td></tr></table></figure>
+
+<p>还是不行</p>
+<h3 id="3-换个思路-binlog"><a href="#3-换个思路-binlog" class="headerlink" title="3.换个思路 binlog"></a>3.换个思路 binlog</h3><p>服务器开启binlog的情况下，可以通过binlong恢复</p>
+<p>于是从dump出来的文件名里找到binlog的文件，一共三个，mysql-binlog0001,mysql-bin.000009,mysql-bin.000010，恢复一下0001</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ext3grep /dev/vgdata/LogVol00 --restore-file var/lib/mysql/mysql-bin.000001</span><br></pre></td></tr></table></figure>
+
+<p>恢复失败</p>
+<p>换一个文件</p>
+<p>mysql-bin.000010大概几百MB，应该靠谱一点，恢复成功！</p>
+<p>恢复命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog /usr/mysql-bin.000010 | mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
+<p>数据回来了</p>
+<p>恢复失败的两款软件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">本文所用到的工具链接：</span><br><span class="line"></span><br><span class="line">1.ext3grep:https://code.google.com/p/ext3grep/</span><br><span class="line"></span><br><span class="line">编译安装依赖包比较多，可以到网上搜索如何安装。可惜的是作者给出的howto被墙了，我FQ将how to 的pdf文档下载下来了，读完后你将会对linux的文件系统有进一步的认识。下载howto。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">这个工具有一个bug，出错后不会向下执行ext3grep: init_directories.cc:534: void init_directories(): Assertion `lost_plus_found_directory_iter != all_directories.end()' failed.，从而造成恢复失败，作者放出了一个补丁，下载地址：补丁下载。不明白为什么作者新版没有把这个补丁加进去。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2.extundelete：http://extundelete.sourceforge.net/</span><br><span class="line"></span><br><span class="line">功能跟ext3grep差不多，原理应该也差不多。只是号称可以还原目录，我这里没有试验成功。</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-如果数据库被rm命令删除了，主进程还没有退出的恢复办法"><a href="#4-如果数据库被rm命令删除了，主进程还没有退出的恢复办法" class="headerlink" title="4.如果数据库被rm命令删除了，主进程还没有退出的恢复办法"></a>4.如果数据库被rm命令删除了，主进程还没有退出的恢复办法</h3><p>1.模拟删库(包含数据文件，控制文件，联机日志文件)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">sys@GLOBAL&gt;</span>col NAME for a100;</span><br><span class="line"><span class="meta">sys@GLOBAL&gt;</span>select FILE#,NAME from v$datafile;</span><br><span class="line">     FILE# NAME</span><br><span class="line">---------- ----------------------------------------------------------------------------------------------------</span><br><span class="line">         1 /home/oracle/app/oradata/global/system01.dbf</span><br><span class="line">         2 /home/oracle/app/oradata/global/sysaux01.dbf</span><br><span class="line">         3 /home/oracle/app/oradata/global/undotbs01.dbf</span><br><span class="line">         4 /home/oracle/app/oradata/global/users01.dbf</span><br><span class="line">         5 /home/oracle/app/oradata/global/GLOBAL_ORDER01.dbf</span><br><span class="line">         6 /home/oracle/app/oradata/global/TS_DCIS_WMS01.dbf</span><br><span class="line">         7 /home/oracle/app/oradata/global/TS_DCIS_WMS02.dbf</span><br><span class="line">7 rows selected.</span><br><span class="line"><span class="meta">sys@GLOBAL&gt;</span>!rm -f /home/oracle/app/oradata/global/*</span><br><span class="line"><span class="meta">sys@GLOBAL&gt;</span>create table t tablespace users as select * from dual;</span><br><span class="line">create table t tablespace users as select * from dual</span><br><span class="line">                                                 *</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-01116: error in opening database file 4</span><br><span class="line">ORA-01110: data file 4: '/home/oracle/app/oradata/global/users01.dbf'</span><br><span class="line">ORA-27041: unable to open file</span><br><span class="line">Linux-x86_64 Error: 2: No such file or directory</span><br><span class="line">Additional information: 3</span><br></pre></td></tr></table></figure>
+
+<p>数据库文件和控制文件以及联机日志文件都已经被删了，尝试创建一个表时oracle报打不开数据文件异常。</p>
+<p>2.检查 lgwr 的进程 PID</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ol6-a ~]$ ps -ef | grep lgwr | grep -v grep</span><br><span class="line">oracle     3804      1  0 Dec02 ?        00:01:40 ora_lgwr_global</span><br></pre></td></tr></table></figure>
+
+<p>3.lgwr 会打开所有数据文件、联机日志文件、控制文件的句柄。在 proc 目录中可以查到，目录名是进程 PID，fd 表示文件描述符。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ol6-a ~]$ cd /proc/3804/fd</span><br><span class="line">[oracle@ol6-a fd]$ ls -l</span><br><span class="line">total 0</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 0 -&gt; /dev/null</span><br><span class="line">l-wx------. 1 oracle oinstall 64 Dec  7 03:49 1 -&gt; /dev/null</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 10 -&gt; /home/oracle/app/product/11.2.0/db_1/dbs/lkGLOBAL</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 13 -&gt; /home/oracle/app/product/11.2.0/db_1/rdbms/mesg/oraus.msb</span><br><span class="line">l-wx------. 1 oracle oinstall 64 Dec  7 03:49 2 -&gt; /dev/null</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 256 -&gt; /home/oracle/app/oradata/global/control01.ctl (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 257 -&gt; /home/oracle/app/fast_recovery_area/global/control02.ctl</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 258 -&gt; /home/oracle/app/oradata/global/redo01.log (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 259 -&gt; /home/oracle/app/oradata/global/redo02.log (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 260 -&gt; /home/oracle/app/oradata/global/redo03.log (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 261 -&gt; /home/oracle/app/oradata/global/system01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 262 -&gt; /home/oracle/app/oradata/global/sysaux01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 263 -&gt; /home/oracle/app/oradata/global/undotbs01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 264 -&gt; /home/oracle/app/oradata/global/users01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 265 -&gt; /home/oracle/app/oradata/global/GLOBAL_ORDER01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 266 -&gt; /home/oracle/app/oradata/global/TS_DCIS_WMS01.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 267 -&gt; /home/oracle/app/oradata/global/TS_DCIS_WMS02.dbf (deleted)</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 268 -&gt; /home/oracle/app/oradata/global/temp01.dbf (deleted)</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 3 -&gt; /dev/null</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 4 -&gt; /dev/null</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 5 -&gt; /dev/null</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 6 -&gt; /home/oracle/app/product/11.2.0/db_1/rdbms/mesg/oraus.msb</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 7 -&gt; /proc/3804/fd</span><br><span class="line">lr-x------. 1 oracle oinstall 64 Dec  7 03:49 8 -&gt; /dev/zero</span><br><span class="line">lrwx------. 1 oracle oinstall 64 Dec  7 03:49 9 -&gt; /home/oracle/app/product/11.2.0/db_1/dbs/hc_global.dat</span><br></pre></td></tr></table></figure>
+
+<p>4.直接 cp 这些句柄文件名回原位置。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ol6-a fd]$ cp 256 /home/oracle/app/oradata/global/control01.ctl</span><br><span class="line">[oracle@ol6-a fd]$ cp 258 /home/oracle/app/oradata/global/redo01.log</span><br><span class="line">[oracle@ol6-a fd]$ cp 259 /home/oracle/app/oradata/global/redo02.log</span><br><span class="line">[oracle@ol6-a fd]$ cp 260 /home/oracle/app/oradata/global/redo03.log</span><br><span class="line">[oracle@ol6-a fd]$ cp 261 /home/oracle/app/oradata/global/system01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 262 /home/oracle/app/oradata/global/sysaux01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 263 /home/oracle/app/oradata/global/undotbs01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 264 /home/oracle/app/oradata/global/users01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 265 /home/oracle/app/oradata/global/GLOBAL_ORDER01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 266 /home/oracle/app/oradata/global/TS_DCIS_WMS01.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 267 /home/oracle/app/oradata/global/TS_DCIS_WMS02.dbf</span><br><span class="line">[oracle@ol6-a fd]$ cp 268 /home/oracle/app/oradata/global/temp01.dbf</span><br></pre></td></tr></table></figure>
+
+<p>5.检查数据库是否可用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[oracle@ol6-a fd]$ sqlplus / as sysdba</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 11.2.0.4.0 Production on Wed Dec 7 03:47:39 2016</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2013, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, Oracle Label Security, OLAP, Data Mining</span><br><span class="line">and Real Application Testing options</span><br><span class="line"></span><br><span class="line"><span class="meta">sys@GLOBAL&gt;</span>create table t tablespace users as select * from dual;</span><br><span class="line"></span><br><span class="line">Table created.</span><br></pre></td></tr></table></figure>
+
+<p>完成数据文件恢复。</p>
+<p>6.如果数据库不可用，可能还会涉及到数据文件等的恢复过程，使用以下命令恢复数据文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter database datafile 1 offline;</span><br><span class="line">recover datafile 1;</span><br><span class="line">alter database datafile 1 online;</span><br></pre></td></tr></table></figure>
+
+<p>恢复的原理：在 Linux 操作系统中，如果文件从操作系统级别被rm掉，之前打开该文件的进程仍然持有相应的文件句柄，所指向的文件仍然可以读写，并且该文件的文件描述符可以从 /proc 目录中获得。但是要注意的是，此时如果关闭数据库，则此句柄会消失，那么除了扫描磁盘进行文件恢复之外就没有其它方法了，因此在数据库出现问题的时候，如果不确认情况的复杂程度，千万不要随便关闭数据库。重启数据库往往是没有意义的，甚至是致命的。</p>
+<p>如果不慎关闭数据库，句柄丢失，还可以通过恢复工具来恢复数据库文件（只要数据在磁盘上还没有被覆盖，且有足够的磁盘空间存放待恢复的文件）,可以使用的工具有testdisk和extundelete。</p>
+<p>以testdisk恢复文件为例，使用testdisk的Filesystem Utils工具将被误删的文件恢复到指定目录：</p>
+<p>1.选择误删文件所在介质</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lvv55c9j20f105n0tp.jpg"></p>
+<p>2.使用Filesystem Utils工具</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lw5avl2j20f6099ab3.jpg"></p>
+<p>3.选择需要恢复的文件并恢复到指定目录：</p>
+<p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1g30lwga6olj20b303y0tu.jpg"></p>
+<hr>
+<p>这边顺便记录一下今天遇到的Bayes问题,很奇怪的问题</p>
+<p>三个盒子，每个盒子两个球，一个全是红球，一个全是蓝球，一个里面混杂。</p>
+<p>问题就是在拿到一个红球的情况下，第二个球还是红球的几率是多大。</p>
+<p>答案是三分之二！</p>
+<p>延伸开来还可以涉及到一个大数定理。</p>
+<p>看完之后感觉自己学的概率论是不是白学了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Picks/" rel="tag"># Picks</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/29/Cluster Error Record1/" rel="prev" title="CDH集群代理状态问题">
+      <i class="fa fa-chevron-left"></i> CDH集群代理状态问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/14/新电脑配置Hexo/" rel="next" title="Github Hexo Blog PicGo Conf">
+      Github Hexo Blog PicGo Conf <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-救命稻草–ext3grep"><span class="nav-number">1.</span> <span class="nav-text">1.救命稻草–ext3grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-换一款软件试试-extundelete"><span class="nav-number">2.</span> <span class="nav-text">2.换一款软件试试  extundelete</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-换个思路-binlog"><span class="nav-number">3.</span> <span class="nav-text">3.换个思路 binlog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-如果数据库被rm命令删除了，主进程还没有退出的恢复办法"><span class="nav-number">4.</span> <span class="nav-text">4.如果数据库被rm命令删除了，主进程还没有退出的恢复办法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fly Hugh</p>
+  <div class="site-description" itemprop="description">WE CHOOSE TO  GO TO THE MARS</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fly Hugh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
