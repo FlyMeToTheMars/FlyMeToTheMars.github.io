@@ -371,7 +371,7 @@
 <p>再来看看我们testgit目录，添加了3个文件了。如下所示：</p>
 <h4 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h4><p> 在了解之前，先注册github账号，由于你的本地Git仓库和github仓库之间的传输是通过SSH加密的，所以需要一点设置：</p>
 <p>   第一步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果有的话，直接跳过此如下命令，如果没有的话，打开命令行，输入如下命令：</p>
-<p>ssh-keygen -t rsa –C “<a href="mailto:&#121;&#x6f;&#x75;&#114;&#101;&#x6d;&#97;&#x69;&#x6c;&#x40;&#101;&#120;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#121;&#x6f;&#x75;&#114;&#101;&#x6d;&#97;&#x69;&#x6c;&#x40;&#101;&#120;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#99;&#x6f;&#109;</a>”, 由于我本地此前运行过一次，所以本地有，如下所示：</p>
+<p>ssh-keygen -t rsa –C “<a href="mailto:&#121;&#x6f;&#117;&#x72;&#x65;&#x6d;&#97;&#x69;&#108;&#x40;&#101;&#x78;&#97;&#109;&#x70;&#x6c;&#x65;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#121;&#x6f;&#117;&#x72;&#x65;&#x6d;&#97;&#x69;&#108;&#x40;&#101;&#x78;&#97;&#109;&#x70;&#x6c;&#x65;&#46;&#99;&#x6f;&#109;</a>”, 由于我本地此前运行过一次，所以本地有，如下所示：</p>
 <p> <a href="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypq7esij20kx04pt9c.jpg" target="_blank" rel="noopener"><img src="http://ww2.sinaimg.cn/mw690/6941baebgw1eloypq7esij20kx04pt9c.jpg" alt="img"></a></p>
 <p>id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。</p>
 <p>第二步：登录github,打开” settings”中的SSH Keys页面，然后点击“Add SSH Key”,填上任意title，在Key文本框里黏贴id_rsa.pub文件的内容。</p>
@@ -533,36 +533,36 @@
 <li><p>Git基本常用命令如下</p>
 </li>
 <li><p>mkdir：     XX (创建一个空目录 XX指目录名)</p>
-<p>pwd：     显示当前目录的路径。</p>
-<p>git init     把当前的目录变成可以管理的git仓库，生成隐藏.git文件。</p>
-<p>git add XX    把xx文件添加到暂存区去。</p>
-<p>git commit –m “XX” 提交文件 –m 后面的是注释。</p>
-<p>git status    查看仓库状态</p>
-<p>git diff XX   查看XX文件修改了那些内容</p>
-<p>git log     查看历史记录</p>
-<p>git reset –hard HEAD^ 或者 git reset –hard HEAD~ 回退到上一个版本</p>
+<p>  pwd：     显示当前目录的路径。</p>
+<p>  git init     把当前的目录变成可以管理的git仓库，生成隐藏.git文件。</p>
+<p>  git add XX    把xx文件添加到暂存区去。</p>
+<p>  git commit –m “XX” 提交文件 –m 后面的是注释。</p>
+<p>  git status    查看仓库状态</p>
+<p>  git diff XX   查看XX文件修改了那些内容</p>
+<p>  git log     查看历史记录</p>
+<p>  git reset –hard HEAD^ 或者 git reset –hard HEAD~ 回退到上一个版本</p>
 <p>​            (如果想回退到100个版本，使用git reset –hard HEAD~100 )</p>
-<p>cat XX     查看XX文件内容</p>
-<p>git reflog    查看历史记录的版本号id</p>
-<p>git checkout — XX 把XX文件在工作区的修改全部撤销。</p>
-<p>git rm XX     删除XX文件</p>
-<p>git remote add origin <a href="https://github.com/ev-power/XiaoYong" target="_blank" rel="noopener">https://github.com/ev-power/XiaoYong</a> 关联一个远程库</p>
-<p>git push –u(第一次要用-u 以后不需要) origin master 把当前master分支推送到远程库</p>
-<p>git clone <a href="https://github.com/ev-power/XiaoYong" target="_blank" rel="noopener">https://github.com/ev-power/XiaoYong</a> 从远程库中克隆</p>
-<p>git checkout –b dev 创建dev分支 并切换到dev分支上</p>
-<p>git branch 查看当前所有的分支</p>
-<p>git checkout master 切换回master分支</p>
-<p>git merge dev  在当前的分支上合并dev分支</p>
-<p>git branch –d dev 删除dev分支</p>
-<p>git branch name 创建分支</p>
-<p>git stash 把当前的工作隐藏起来 等以后恢复现场后继续工作</p>
-<p>git stash list 查看所有被隐藏的文件列表</p>
-<p>git stash apply 恢复被隐藏的文件，但是内容不删除</p>
-<p>git stash drop 删除文件</p>
-<p>git stash pop 恢复文件的同时 也删除文件</p>
-<p>git remote 查看远程库的信息</p>
-<p>git remote –v 查看远程库的详细信息</p>
-<p>git push origin master Git会把master分支推送到远程库对应的远程分支上   </p>
+<p>  cat XX     查看XX文件内容</p>
+<p>  git reflog    查看历史记录的版本号id</p>
+<p>  git checkout — XX 把XX文件在工作区的修改全部撤销。</p>
+<p>  git rm XX     删除XX文件</p>
+<p>  git remote add origin <a href="https://github.com/ev-power/XiaoYong" target="_blank" rel="noopener">https://github.com/ev-power/XiaoYong</a> 关联一个远程库</p>
+<p>  git push –u(第一次要用-u 以后不需要) origin master 把当前master分支推送到远程库</p>
+<p>  git clone <a href="https://github.com/ev-power/XiaoYong" target="_blank" rel="noopener">https://github.com/ev-power/XiaoYong</a> 从远程库中克隆</p>
+<p>  git checkout –b dev 创建dev分支 并切换到dev分支上</p>
+<p>  git branch 查看当前所有的分支</p>
+<p>  git checkout master 切换回master分支</p>
+<p>  git merge dev  在当前的分支上合并dev分支</p>
+<p>  git branch –d dev 删除dev分支</p>
+<p>  git branch name 创建分支</p>
+<p>  git stash 把当前的工作隐藏起来 等以后恢复现场后继续工作</p>
+<p>  git stash list 查看所有被隐藏的文件列表</p>
+<p>  git stash apply 恢复被隐藏的文件，但是内容不删除</p>
+<p>  git stash drop 删除文件</p>
+<p>  git stash pop 恢复文件的同时 也删除文件</p>
+<p>  git remote 查看远程库的信息</p>
+<p>  git remote –v 查看远程库的详细信息</p>
+<p>  git push origin master Git会把master分支推送到远程库对应的远程分支上   </p>
 </li>
 <li><p>本文非原创博客，部分内容有所更改，原文出自：<a href="http://www.cnblogs.com/tugenhua0707/p/4050072.html" target="_blank" rel="noopener">http://www.cnblogs.com/tugenhua0707/p/4050072.html</a></p>
 </li>

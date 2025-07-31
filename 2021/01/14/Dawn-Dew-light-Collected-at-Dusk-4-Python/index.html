@@ -242,13 +242,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
 
 <p>重命名环境</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n [新环境名] --clone [旧环境名]</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create <span class="literal">-n</span> [新环境名] -<span class="literal">-clone</span> [旧环境名]</span><br></pre></td></tr></table></figure>
 
 <p>导出环境</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env export &gt; [文件名].yaml</span><br></pre></td></tr></table></figure>
 
 <p>使用导出的yaml创建环境</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env create -f [文件名].yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env create <span class="operator">-f</span> [文件名].yaml</span><br></pre></td></tr></table></figure>
 
 <h2 id="Jupyter-Notebook-命令行启动"><a href="#Jupyter-Notebook-命令行启动" class="headerlink" title="Jupyter Notebook 命令行启动"></a>Jupyter Notebook 命令行启动</h2><p>直接在anaconda里面进入环境之后，在命令行上输入<code>jupyter notebook</code></p>
 <p>Tips:  如果想在局域网里面访问jupyter notebook的话需要改一下配置文件</p>

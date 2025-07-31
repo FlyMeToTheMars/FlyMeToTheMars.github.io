@@ -206,11 +206,11 @@
 <h1 id="Scala-类型"><a href="#Scala-类型" class="headerlink" title="Scala 类型"></a>Scala 类型</h1><p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1gls6d1a89cj20of0gtta1.jpg" alt="1.png"></p>
 <p>Scala中，所有的值都是类对象，而所有的类，包括值类型，都最终继承自一个统一的根类型Any。统一类型，是Scala的又一大特点。更特别的是，Scala中还定义了几个底层类（Bottom Class），比如Null和Nothing。</p>
 <ol>
-<li><p>Null是所有引用类型的子类型，而Nothing是所有类型的子类型。Null类只有一个实例对象，null，类似于Java中的null引用。null可以赋值给任意引用类型，但是不能赋值给值类型。</p>
+<li><p> Null是所有引用类型的子类型，而Nothing是所有类型的子类型。Null类只有一个实例对象，null，类似于Java中的null引用。null可以赋值给任意引用类型，但是不能赋值给值类型。</p>
 </li>
-<li><p>Nothing，可以作为没有正常返回值的方法的返回类型，非常直观的告诉你这个方法不会正常返回，而且由于Nothing是其他任意类型的子类，他还能跟要求返回值的方法兼容。</p>
+<li><p> Nothing，可以作为没有正常返回值的方法的返回类型，非常直观的告诉你这个方法不会正常返回，而且由于Nothing是其他任意类型的子类，他还能跟要求返回值的方法兼容。</p>
 </li>
-<li><p>Unit类型用来标识过程，也就是没有明确返回值的函数。 由此可见，Unit类似于Java里的void。Unit只有一个实例，()，这个实例也没有实质的意义。</p>
+<li><p> Unit类型用来标识过程，也就是没有明确返回值的函数。 由此可见，Unit类似于Java里的void。Unit只有一个实例，()，这个实例也没有实质的意义。</p>
 </li>
 </ol>
 <h1 id="Option-Some-None"><a href="#Option-Some-None" class="headerlink" title="Option Some None"></a>Option Some None</h1><p><strong>设计目的</strong>：避免使用null</p>
@@ -347,9 +347,8 @@
 <h2 id="for表达式中的模式"><a href="#for表达式中的模式" class="headerlink" title="for表达式中的模式"></a>for表达式中的模式</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map = <span class="type">Map</span>(<span class="string">"A"</span> -&gt; <span class="number">1</span>, <span class="string">"B"</span> -&gt; <span class="number">0</span>, <span class="string">"C"</span> -&gt; <span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> ((k, v) &lt;- map) &#123;</span><br><span class="line">  println(k + <span class="string">" -&gt; "</span> + v) <span class="comment">// 出来三个 key-value ("A"-&gt;1), ("B"-&gt;0), ("C"-&gt;3)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//说明 : 只遍历出 value =0 的 key-value ,其它的过滤掉</span></span><br><span class="line">println(<span class="string">"--------------(k, 0) &lt;- map-------------------"</span>)</span><br><span class="line"><span class="keyword">for</span> ((k, <span class="number">0</span>) &lt;- map) &#123;</span><br><span class="line">  println(k + <span class="string">" --&gt; "</span> + <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//说明, 这个就是上面代码的另外写法, 只是下面的用法灵活和强大</span></span><br><span class="line">println(<span class="string">"--------------(k, v) &lt;- map if v == 0-------------------"</span>)</span><br><span class="line"><span class="keyword">for</span> ((k, v) &lt;- map <span class="keyword">if</span> v &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">  println(k + <span class="string">" ---&gt; "</span> + v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="样例类"><a href="#样例类" class="headerlink" title="样例类"></a>样例类</h2><ol>
-<li>样例类仍然是类 </li>
-</ol>
-<ol start="2">
+<li><p>样例类仍然是类 </p>
+</li>
 <li><p>样例类用 case 关键字进行声明。 </p>
 </li>
 <li><p>样例类是为 模式匹配而优化的类 </p>

@@ -301,7 +301,7 @@
 
 <p>Kudu中的upsert是update和insert的结合体，有更新就更新，没有该条数据就插入。</p>
 <p>这边联想到mongo中的upsert，MongoDB 的update 方法的三个参数是upsert，这个参数是个布尔类型，默认是false。当它为true的时候，update方法会首先查找与第一个参数匹配的记录，在用第二个参数更新之。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.post.update(&#123;count:100&#125;,&#123;"$inc":&#123;count:10&#125;&#125;,true);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.post.update(&#123;<span class="keyword">count</span>:<span class="number">100</span>&#125;,&#123;<span class="string">"$inc"</span>:&#123;<span class="keyword">count</span>:<span class="number">10</span>&#125;&#125;,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
 
 <p>在找不到count=100这条记录的时候，自动插入一条count=100，然后再加10，最后得到一条 count=110的记录。</p>
 <h4 id="Kudu-Impala整合特征"><a href="#Kudu-Impala整合特征" class="headerlink" title="Kudu-Impala整合特征"></a>Kudu-Impala整合特征</h4><p>CREATE/ALTER/DROP TABLE</p>
@@ -523,12 +523,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/04/22/大数据在小米的实践/" rel="prev" title="广告大数据在小米的实践">
-      <i class="fa fa-chevron-left"></i> 广告大数据在小米的实践
+    <a href="/2019/04/29/Cluster Error Record1/" rel="prev" title="CDH集群代理状态问题">
+      <i class="fa fa-chevron-left"></i> CDH集群代理状态问题
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/04/29/Cluster Error Record1/" rel="next" title="CDH集群代理状态问题">
-      CDH集群代理状态问题 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/05/05/rm -rf 后面的故事/" rel="next" title="删库跑路之前该做的事情">
+      删库跑路之前该做的事情 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

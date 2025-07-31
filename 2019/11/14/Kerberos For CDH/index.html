@@ -303,9 +303,15 @@
 </ul>
 <p>整个Kerberos Authentication认证过程通过3个sub-protocol来完成：</p>
 <ol>
-<li>Authentication Service Exchange</li>
-<li>Ticket Granting Service Exchange</li>
-<li>Client/Server Exchange</li>
+<li><pre><code>Authentication Service Exchange
+</code></pre>
+</li>
+<li><pre><code>Ticket Granting Service Exchange
+</code></pre>
+</li>
+<li><pre><code>Client/Server Exchange
+</code></pre>
+</li>
 </ol>
 <p>下面内容来自官方文档的翻译：</p>
 <p>1.Authentication Service Exchange</p>
@@ -328,7 +334,7 @@
 <p>2.Ticket Granting Service Exchange</p>
 <p><code>TGS</code>（<code>Ticket Granting Service</code>）<code>Exchange</code>通过<code>Client</code>向<code>KDC</code>中的<code>TGS</code>（<code>Ticket Granting Service</code>）发送<code>Ticket Granting Service Request</code>（<code>KRB_TGS_REQ</code>）开始。<code>KRB_TGS_REQ</code>大体包含以下的内容：</p>
 <ul>
-<li><p>TGT：Client通过AS Exchange获得的Ticket Granting Ticket，TGT被KDC的Master Key进行加密。</p>
+<li><p> TGT：Client通过AS Exchange获得的Ticket Granting Ticket，TGT被KDC的Master Key进行加密。</p>
 </li>
 <li><p>Authenticator：用以证明当初TGT的拥有者是否就是自己，所以它必须以TGT的办法方和自己的Session Key（SKDC-Client：Logon Session Key）来进行加密。</p>
 </li>
@@ -364,9 +370,9 @@
 </li>
 <li><p>User2User：这一步的主要任务是获得封装了Server和KDC的Session Key（SKDC-Server）的属于Server的TGT。如果该TGT存在于Server的缓存中，则Server会直接将其返回给Client。否则通过AS Exchange从KDC获取。</p>
 </li>
-<li><p>TGS Exchange：Client通过向KDC提供自己的TGT，Server的TGT以及Authenticator向KDC申请用于访问Server的Ticket。KDC使用先用自己的Master Key解密Client的TGT获得SKDC-Client，通过SKDC-Client解密Authenticator验证发送者是否是TGT的真正拥有者，验证通过再用自己的Master Key解密Server的TGT获得KDC和Server 的Session Key（SKDC-Server），并用该Session Key加密Ticket返回给Client。</p>
+<li><p> TGS Exchange：Client通过向KDC提供自己的TGT，Server的TGT以及Authenticator向KDC申请用于访问Server的Ticket。KDC使用先用自己的Master Key解密Client的TGT获得SKDC-Client，通过SKDC-Client解密Authenticator验证发送者是否是TGT的真正拥有者，验证通过再用自己的Master Key解密Server的TGT获得KDC和Server 的Session Key（SKDC-Server），并用该Session Key加密Ticket返回给Client。</p>
 </li>
-<li><p>C/S Exchange：Client携带者通过KDC和Server 的Session Key（SKDC-Server）进行加密的Ticket和通过Client和Server的Session Key（SServer-Client）的Authenticator访问Server，Server通过SKDC-Server解密Ticket获得SServer-Client，通过SServer-Client解密Authenticator实现对Client的验证。</p>
+<li><p> C/S Exchange：Client携带者通过KDC和Server 的Session Key（SKDC-Server）进行加密的Ticket和通过Client和Server的Session Key（SServer-Client）的Authenticator访问Server，Server通过SKDC-Server解密Ticket获得SServer-Client，通过SServer-Client解密Authenticator实现对Client的验证。</p>
 </li>
 </ul>
 <hr>
@@ -734,7 +740,7 @@
 <p>启动zookeeper：</p>
 <p>Zookeeper-client -server master:2181</p>
 <p>创建一个 znode 节点：</p>
-<p>create /znode1 sasl:<a href="mailto:&#109;&#x61;&#115;&#116;&#x65;&#114;&#x40;&#x4a;&#73;&#x4d;&#x49;&#x2e;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#109;&#x61;&#115;&#116;&#x65;&#114;&#x40;&#x4a;&#73;&#x4d;&#x49;&#x2e;&#x63;&#111;&#109;</a>:cdwra</p>
+<p>create /znode1 sasl:<a href="mailto:&#x6d;&#97;&#x73;&#116;&#x65;&#114;&#64;&#74;&#73;&#77;&#x49;&#46;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x6d;&#97;&#x73;&#116;&#x65;&#114;&#64;&#74;&#73;&#77;&#x49;&#46;&#99;&#x6f;&#x6d;</a>:cdwra</p>
 <p>在另外的节点上执行 </p>
 <p>getAcl /znode1</p>
 <p>如果能够获取在另外一个节点上输入的输入就证明没有问题</p>

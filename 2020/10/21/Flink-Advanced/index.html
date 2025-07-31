@@ -743,7 +743,8 @@
 <p>​        NetWork: count: xxxxx</p>
 <h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h3><p>设容器内存总大小是x</p>
 <p>详细看create方法：</p>
-<pre><code>1.  cutoff：容器超过3g, 简单可以记成 0.25x. flink为了防止内存溢出，计算的时候先切了一块内存下来不参与后续计算，这块就是cutoff</code></pre>
+<pre><code>1.  cutoff：容器超过3g, 简单可以记成 0.25x. flink为了防止内存溢出，计算的时候先切了一块内存下来不参与后续计算，这块就是cutoff
+</code></pre>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cutoff = Math.max(containerized.heap-cutoff-min, taskmanager.heap.size * containerized.heap-cutoff-ratio)</span><br></pre></td></tr></table></figure>
 
 <p>默认值是600和0.25，所以6g的时候=Math.max(600, 6144*0.25) = 1536m</p>
@@ -973,7 +974,7 @@
 <p>4 不可以union 2个类型不同的流或union 2个类型不同的数据集</p>
 <p><img src="http://ww1.sinaimg.cn/large/bec9bff2gy1glyqex8e4cj20fe06g0sz.jpg" alt="undefined"></p>
 <p><a href="https://blog.csdn.net/u010002184/article/details/106800819" target="_blank" rel="noopener">更多细节</a></p>
-<h1 id="Flink-TimerService-Timers"><a href="#Flink-TimerService-Timers" class="headerlink" title="Flink TimerService Timers"></a>Flink TimerService Timers</h1><h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p><strong><code>currentProcessingTime()</code></strong>: Long 返回当前处理时间<br>**<code>currentWatermark()</code><strong>: Long 返回当前 watermark 的时间戳<br>**<code>registerProcessingTimeTimer(timestamp: Long)</code></strong>: Unit 会注册当前 key 的processing time 的定时器。当 processing time 到达定时时间时，触发 timer。<br>**<code>registerEventTimeTimer(timestamp: Long)</code><strong>: Unit 会注册当前 key 的 event time 定时器。当 水位线大于等于定时器注册的时间时，触发定时器执行回调函数。<br>**<code>deleteProcessingTimeTimer(timestamp: Long)</code></strong>: Unit 删除之前注册处理时间定时器。如果没有这个时间戳的定时器，则不执行。<br>**<code>deleteEventTimeTimer(timestamp: Long)</code>**: Unit 删除之前注册的事件时间定时器，如果没有此时间戳的定时器，则不执行。</p>
+<h1 id="Flink-TimerService-Timers"><a href="#Flink-TimerService-Timers" class="headerlink" title="Flink TimerService Timers"></a>Flink TimerService Timers</h1><h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p><strong><code>currentProcessingTime()</code></strong>: Long 返回当前处理时间<br><strong><code>currentWatermark()</code></strong>: Long 返回当前 watermark 的时间戳<br><strong><code>registerProcessingTimeTimer(timestamp: Long)</code></strong>: Unit 会注册当前 key 的processing time 的定时器。当 processing time 到达定时时间时，触发 timer。<br><strong><code>registerEventTimeTimer(timestamp: Long)</code></strong>: Unit 会注册当前 key 的 event time 定时器。当 水位线大于等于定时器注册的时间时，触发定时器执行回调函数。<br><strong><code>deleteProcessingTimeTimer(timestamp: Long)</code></strong>: Unit 删除之前注册处理时间定时器。如果没有这个时间戳的定时器，则不执行。<br><strong><code>deleteEventTimeTimer(timestamp: Long)</code></strong>: Unit 删除之前注册的事件时间定时器，如果没有此时间戳的定时器，则不执行。</p>
 
     </div>
 

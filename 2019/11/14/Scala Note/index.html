@@ -304,7 +304,7 @@
 <h3 id="常用类型结构图"><a href="#常用类型结构图" class="headerlink" title="常用类型结构图"></a>常用类型结构图</h3><p>Scala中，所有的值都是类对象，而所有的类，包括值类型，都最终继承自一个统一的根类型<code>Any</code>。统一类型，是Scala的又一大特点。更特别的是，Scala中还定义了几个底层类<code>Bottom Class</code>，比如<code>Null</code>和<code>Nothing</code>。</p>
 <ol>
 <li><code>Null</code>是所有引用类型的子类型，而<code>Nothing</code>是所有类型的子类型。<code>Null</code>类只有一个实例对象，<code>null</code>，类似于Java中的<code>null</code>引用。<code>null</code>可以赋值给任意引用类型，但是不能赋值给值类型。</li>
-<li><code>Nothing</code>，可以作为没有正常返回值的方法的返回类型，非常直观的告诉你这个方法不会正常返回，而且由于<code>Nothing</code>是其他任意类型的子类，他还能跟要求返回值的方法兼容。</li>
+<li> <code>Nothing</code>，可以作为没有正常返回值的方法的返回类型，非常直观的告诉你这个方法不会正常返回，而且由于<code>Nothing</code>是其他任意类型的子类，他还能跟要求返回值的方法兼容。</li>
 <li><code>Unit</code>类型用来标识过程，也就是没有明确返回值的函数。 由此可见，<code>Unit</code>类似于<code>Java</code>里的<code>void</code>。<code>Unit</code>只有一个实例，()，这个实例也没有实质的意义。</li>
 </ol>
 <p>关系图：</p>
